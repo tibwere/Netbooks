@@ -1,6 +1,6 @@
 package logic.dao;
 
-import logic.enumeration.UserType;
+import logic.util.enumeration.UserType;
 
 /**
  * Versione singleton del DAO per l'interazione

@@ -4,10 +4,11 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import logic.boundary.LoginGC;
-import logic.control.LoginController;
+import logic.controller.LoginController;
+import logic.util.ImageFactory;
+import logic.util.enumeration.ImageSet;
+import logic.view.LoginGC;
 
 /**
  * Entry point dell'applicazione stand-alone 
@@ -19,7 +20,7 @@ public class DesktopLauncher extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		
-		FXMLLoader loader = new FXMLLoader(DesktopLauncher.class.getResource("resources/fxml/login.fxml"));
+		FXMLLoader loader = new FXMLLoader(DesktopLauncher.class.getResource("view/resources/fxml/login.fxml"));
 		
 		LoginController controller = new LoginController();
 		LoginGC gc = new LoginGC(controller);
@@ -28,13 +29,17 @@ public class DesktopLauncher extends Application {
 		
 		Scene scene = new Scene(root);
 		
-		primaryStage.setTitle("Netbooks v1.0");
-		primaryStage.setResizable(false);		
-		primaryStage.setScene(scene);
-		primaryStage.centerOnScreen();
-		primaryStage.getIcons().add(new Image(DesktopLauncher.class.getResourceAsStream("resources/images/icon.png")));
-		primaryStage.show();
+		setupStage(primaryStage, scene);
+		primaryStage.show();	
+	}
+	
+	private void setupStage(Stage stage, Scene scene) {
 		
+		stage.setTitle("Netbooks v1.0");
+		stage.setResizable(false);		
+		stage.setScene(scene);
+		stage.centerOnScreen();
+		stage.getIcons().add(ImageFactory.getImage(ImageSet.ICON));
 	}
 
 	public static void main(String[] args) {

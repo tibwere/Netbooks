@@ -1,0 +1,21 @@
+.loginbg {
+    -fx-background-image:url('../images/wallpaper.jpg');
+    -fx-background-size: 1024 820; /* dimensioni leggermenti piu grandi delle effettive per una copertura completa*/
+    -fx-background-position: center;
+}
+
+.loginpanel {
+	-fx-background-color: #e3b584;
+	-fx-background-radius: 50px;
+}
+
+.success {
+	-fx-text-font-size: 24px;
+	-fx-text-fill: #228B22;
+}
+
+.error {
+	-fx-text-font-size: 24px;
+	-fx-text-fill: #dc143c;
+}
+
