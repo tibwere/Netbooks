@@ -7,6 +7,8 @@ public class ImageFactory {
 	private static final String PATH = "../view/resources/images/";
 	
 	public static final String AMAZON_BTN = "amazonbtn";
+	public static final String BOOK1 = "dante";
+	public static final String BOOK2 = "gatsby";
 	public static final String BOOK_TEST_THUMBNAIL = "book_test_thumbnail";
 	public static final String BOOK_TEST = "book_test";
 	public static final String BUY = "buy";

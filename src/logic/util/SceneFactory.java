@@ -26,6 +26,8 @@ public class SceneFactory {
 			return new FXMLLoader(SceneFactory.class.getResource(PATH + "home.fxml"));
 		case BUY_BOOK: 
 			return new FXMLLoader(SceneFactory.class.getResource(PATH + "buy_book.fxml"));
+		case EXCHANGE_BOOK:
+			return new FXMLLoader(SceneFactory.class.getResource(PATH + "exchangeBook.fxml"));
 		case TRAY_NAVBAR:
 			return new FXMLLoader(SceneFactory.class.getResource(PATH + "tray_navbar.fxml"));
 		case MAIN_NAVBAR:

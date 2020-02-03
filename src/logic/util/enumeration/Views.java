@@ -5,5 +5,6 @@ public enum Views {
 	HOME,
 	BUY_BOOK, 
 	MAIN_NAVBAR, 
-	TRAY_NAVBAR
+	TRAY_NAVBAR,
+	EXCHANGE_BOOK
 }
