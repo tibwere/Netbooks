@@ -1,5 +1,5 @@
-.loginbg {
-    -fx-background-image:url('../images/wallpaper.jpg');
+.bg {
+    -fx-background-image:url('../images/wallpaper.png');
     -fx-background-size: 1024 820; /* dimensioni leggermenti piu grandi delle effettive per una copertura completa*/
     -fx-background-position: center;
 }
@@ -19,3 +19,22 @@
 	-fx-text-fill: #dc143c;
 }
 
+.buybook-panel {
+	-fx-background-color: rgba(201,161,117, 0.5);
+}
+
+.buy-home-btn {
+	-fx-background-color: #7FFF00 
+}
+
+.exchange-home-btn {
+	-fx-background-color: #00FFFF;
+}
+
+.rate-home-btn {
+	-fx-background-color: #FF8C00;
+}
+
+.list-item {
+	-fx-background-color: rgba(163,130,95, 0.8);
+}

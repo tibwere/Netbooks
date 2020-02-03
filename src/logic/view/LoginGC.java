@@ -1,5 +1,6 @@
 package logic.view;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -9,9 +10,14 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import logic.bean.AbstractUserBean;
 import logic.controller.LoginController;
 import logic.exception.WrongSyntaxException;
+import logic.util.SceneFactory;
+import logic.util.Session;
 import logic.util.enumeration.UserType;
 
 /**
@@ -33,14 +39,23 @@ public class LoginGC implements Initializable{
 	@FXML
 	private Label resultLbl;
 	
+	@FXML
+	private ImageView logo;
+	
+	@FXML
+	private AnchorPane pane;
+	
+	private Stage stage;
+	
 	private LoginController controller;
 	
-	public LoginGC(LoginController controller) {
-		this.controller = controller;
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		controller = new LoginController();
 	}
 	
 	@FXML
-	public void tryLogin() {
+	public void tryLogin() throws IOException {
 		
 		try {
 			String username = usernameTxt.getText();
@@ -51,11 +66,10 @@ public class LoginGC implements Initializable{
 			
 			switch (type) {
 			case READER:
-				resultLbl.getStyleClass().clear();
-				resultLbl.getStyleClass().add("success");
-				resultLbl.setText("SUCCESFULLY LOGGED [READER]");	
+				stage = (Stage) pane.getScene().getWindow();
+				stage.setScene(SceneFactory.switchTo(Session.getSession().getCurrView()));
 				break;
-			
+				
 			case RETAILER: 		
 				resultLbl.getStyleClass().clear();
 				resultLbl.getStyleClass().add("success");
@@ -71,12 +85,6 @@ public class LoginGC implements Initializable{
 		catch(WrongSyntaxException e) {
 			resultLbl.getStyleClass().add("error");
 			resultLbl.setText(e.getMessage().toUpperCase());	
-		}
-	}
-
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		/*nothing to do here */
-		
+		} 
 	}
 }

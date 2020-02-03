@@ -18,9 +18,9 @@ public class AbstractUserDao {
 	
 	public static AbstractUserDao getInstance() {
 		if (instance == null)
-			return new AbstractUserDao();
-		else
-			return instance;
+			instance = new AbstractUserDao();
+		
+		return instance;
 	}
 	
 	public UserType findUserByUsernameAndPassword(String user, String passwd) {

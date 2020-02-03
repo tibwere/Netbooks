@@ -2,7 +2,9 @@ package logic.controller;
 
 import logic.bean.AbstractUserBean;
 import logic.dao.AbstractUserDao;
+import logic.util.Session;
 import logic.util.enumeration.UserType;
+import logic.util.enumeration.Views;
 
 /**
  * Controller del caso d'uso "Login"
@@ -14,8 +16,23 @@ public class LoginController {
 	public UserType loginUser(AbstractUserBean bean) {
 		String user = bean.getUsername();
 		String passwd = bean.getPassword();
+		
+		UserType type = AbstractUserDao.getInstance().findUserByUsernameAndPassword(user, passwd);
+		
+		switch(type) {
+		case READER: 
+			Session.getSession().setCurrView(Views.HOME);
+			Session.getSession().setCurrUser(user);
+			break;
+		case RETAILER:
+			/* da definire la gestione della sessione */
+			break;
+		
+		case INVALID_USER:
+			break;
+		}
 
-		return AbstractUserDao.getInstance().findUserByUsernameAndPassword(user, passwd);	
+		return type;
 	}
 
 }
