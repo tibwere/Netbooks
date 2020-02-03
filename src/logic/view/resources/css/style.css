@@ -38,3 +38,11 @@
 .list-item {
 	-fx-background-color: rgba(163,130,95, 0.8);
 }
+
+.btn {
+	-fx-background-color: #634f3a;
+}
+
+.scrollbg {
+	-fx-background-color: rgb(163, 130,95, 0.75)
+}

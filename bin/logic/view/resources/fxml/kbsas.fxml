@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" styleClass="bg" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="logic.view.KbsasGC">
+   <right>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #e3b584;" styleClass="btn" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fitHeight="171.0" fitWidth="180.0" layoutX="15.0" layoutY="111.0">
+               <image>
+                  <Image url="@../images/logo.jpg" />
+               </image>
+            </ImageView>
+            <Label layoutX="33.0" layoutY="314.0" prefHeight="17.0" prefWidth="145.0" text="RATAILER-AREA" textFill="#fcf8f8">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <Button fx:id="buttonVBS" layoutX="29.0" layoutY="458.0" mnemonicParsing="false" onAction="#prova" prefHeight="34.0" prefWidth="141.0" style="-fx-background-color: #634f3a;" text="VIEW BEST-SELLERS" textFill="#f8f8f8" />
+            <Slider fx:id="slider" layoutX="30.0" layoutY="398.0" max="50.0" showTickLabels="true" showTickMarks="true" value="10.0" />
+         </children>
+      </AnchorPane>
+   </right>
+   <center>
+      <Pane prefHeight="200.0" prefWidth="200.0" styleClass="scrollbg" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="buttonVS" layoutX="553.0" layoutY="157.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="141.0" style="-fx-background-color: #634f3a;" text="VIEW STATS" textFill="#f8f8f8" visible="false" />
+            <Line fx:id="line" endX="261.0" layoutX="443.0" layoutY="210.0" startX="-379.0" stroke="WHITE" />
+            <Label fx:id="labelRes" layoutX="314.0" layoutY="150.0" prefHeight="49.0" prefWidth="140.0" text="RESULTS" textFill="#fcf8f8" visible="false">
+               <font>
+                  <Font name="System Bold" size="32.0" />
+               </font>
+            </Label>
+            <VBox layoutX="41.0" layoutY="231.0" prefHeight="538.0" prefWidth="718.0">
+               <children>
+                  <Label fx:id="label1" prefHeight="54.0" prefWidth="303.0" text="1. &quot;BELLOMIO&quot; n°copie = 20" visible="false">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="label2" prefHeight="54.0" prefWidth="303.0" text="2. &quot;BELLOTUO&quot; n°copie = 17" visible="false">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+         </children>
+      </Pane>
+   </center>
+</BorderPane>
