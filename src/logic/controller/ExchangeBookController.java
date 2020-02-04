@@ -1,8 +1,9 @@
 package logic.controller;
 
-import java.util.ArrayList;
+import java.util.List;
+
 import javafx.scene.image.Image;
-import logic.dao.AbstractBookDao;
+import logic.dao.BookDao;
 
 /**
  * Controller del caso d'uso "Exchange Book"
@@ -12,10 +13,7 @@ import logic.dao.AbstractBookDao;
 
 public class ExchangeBookController {
 
-	public ArrayList<Image> getExchangeableBooks() {
-		
-		ArrayList<Image> books = AbstractBookDao.getInstance().getExchangeableBooks();
-		
-		return books;
+	public List<Image> getExchangeableBooks() {	
+		return BookDao.getInstance().getExchangeableBooks();
 	}
 }

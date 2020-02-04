@@ -1,7 +1,7 @@
 package logic.view;
 
 import java.net.URL;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
@@ -37,7 +37,7 @@ public class ExchangeBookGC implements Initializable {
 	
 	private ExchangeBookController controller;
 	
-	private ArrayList<Image> books;
+	private List<Image> books;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {

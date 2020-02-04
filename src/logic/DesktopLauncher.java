@@ -3,9 +3,9 @@ package logic;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import logic.util.ImageFactory;
-import logic.util.SceneFactory;
-import logic.util.Session;
+import logic.controller.Session;
+import logic.util.ImageDispenser;
+import logic.util.Scenes;
 
 /**
  * Entry point dell'applicazione stand-alone 
@@ -15,9 +15,9 @@ import logic.util.Session;
 public class DesktopLauncher extends Application {
 	
 	@Override
-	public void start(Stage stage) throws Exception {
+	public void start(Stage stage) {
 			
-		Scene scene = SceneFactory.switchTo(Session.getSession().getCurrView());
+		Scene scene = Scenes.switchTo(Session.getSession().getCurrView());
 		
  		initStage(stage, scene);
 		stage.show();	
@@ -31,7 +31,7 @@ public class DesktopLauncher extends Application {
 		stage.setHeight(800);
 		stage.setResizable(false);		
 		stage.centerOnScreen();
-		stage.getIcons().add(ImageFactory.getImage(ImageFactory.ICON));
+		stage.getIcons().add(ImageDispenser.getImage(ImageDispenser.ICON));
 		stage.setScene(scene);
 	}
 

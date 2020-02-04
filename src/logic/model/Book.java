@@ -2,22 +2,27 @@ package logic.model;
 
 import javafx.scene.image.Image;
 
+/**
+ * Entità del dominio di interesse: Libro
+ * @author Simone Tiberi (M. 0252795)
+ *
+ */
 public class Book {
 	
-	private String ISBN;
+	private String isbn;
 	private String title;
 	private String author;
 	private Image image;
 	
-	public Book(String ISBN, String title, String author, Image image) {
-		this.ISBN = ISBN;
+	public Book(String isbn, String title, String author, Image image) {
+		this.isbn = isbn;
 		this.title = title;
 		this.author = author;
 		this.image = image;
 	}
 
 	public String getISBN() {
-		return ISBN;
+		return isbn;
 	}
 
 	public String getTitle() {

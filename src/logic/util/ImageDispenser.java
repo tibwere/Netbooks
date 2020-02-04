@@ -2,7 +2,15 @@ package logic.util;
 
 import javafx.scene.image.Image;
 
-public class ImageFactory {
+/**
+ * Classe di ingegnerizzazione del sistema che permette
+ * di istanziare {@link Image} a partire da un path che è esprimibile
+ * mediante costanti pubbliche (non vengono utilizzati quindi in altri punti
+ * del codice i riferimenti ai file effettivi)
+ * @author Simone Tiberi (M. 0252795)
+ *
+ */
+public class ImageDispenser {
 	
 	private static final String PATH = "../view/resources/images/";
 	
@@ -26,10 +34,10 @@ public class ImageFactory {
 	public static final String EXCHANGE = "transfer";
 	public static final String WALLPAPER = "wallpaper";
 		
-	private ImageFactory() {/*nothing to do here*/}
+	private ImageDispenser() {/*nothing to do here*/}
 	
 	public static Image getImage(String name) {
-		return new Image(ImageFactory.class.getResourceAsStream(PATH + name + ".png"));
+		return new Image(ImageDispenser.class.getResourceAsStream(PATH + name + ".png"));
 	}	
 	
 }

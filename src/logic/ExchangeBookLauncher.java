@@ -3,15 +3,15 @@ package logic;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import logic.util.ImageFactory;
-import logic.util.SceneFactory;
+import logic.util.ImageDispenser;
+import logic.util.Scenes;
 import logic.util.enumeration.Views;
 public class ExchangeBookLauncher extends Application {
 
 	@Override
 	public void start(Stage stage) throws Exception {
 		
-		Scene scene = SceneFactory.switchTo(Views.EXCHANGE_BOOK);
+		Scene scene = Scenes.switchTo(Views.EXCHANGE_BOOK);
 							
 		initStage(stage, scene);
 		stage.show();	
@@ -24,7 +24,7 @@ public class ExchangeBookLauncher extends Application {
 		stage.setHeight(800);
 		stage.setResizable(false);		
 		stage.centerOnScreen();
-		stage.getIcons().add(ImageFactory.getImage(ImageFactory.ICON));
+		stage.getIcons().add(ImageDispenser.getImage(ImageDispenser.ICON));
 		stage.setScene(scene);
 	}
 

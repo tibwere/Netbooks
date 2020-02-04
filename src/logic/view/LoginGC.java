@@ -15,9 +15,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import logic.bean.AbstractUserBean;
 import logic.controller.LoginController;
+import logic.controller.Session;
 import logic.exception.WrongSyntaxException;
-import logic.util.SceneFactory;
-import logic.util.Session;
+import logic.util.Scenes;
 import logic.util.enumeration.UserType;
 
 /**
@@ -45,8 +45,6 @@ public class LoginGC implements Initializable{
 	@FXML
 	private AnchorPane pane;
 	
-	private Stage stage;
-	
 	private LoginController controller;
 	
 	@Override
@@ -58,6 +56,7 @@ public class LoginGC implements Initializable{
 	public void tryLogin() throws IOException {
 		
 		try {
+			Stage stage;
 			String username = usernameTxt.getText();
 			String password = passwordTxt.getText();
 			AbstractUserBean bean = new AbstractUserBean(username, password);
@@ -67,7 +66,7 @@ public class LoginGC implements Initializable{
 			switch (type) {
 			case READER:
 				stage = (Stage) pane.getScene().getWindow();
-				stage.setScene(SceneFactory.switchTo(Session.getSession().getCurrView()));
+				stage.setScene(Scenes.switchTo(Session.getSession().getCurrView()));
 				break;
 				
 			case RETAILER: 		

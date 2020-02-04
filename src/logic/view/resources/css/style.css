@@ -24,15 +24,11 @@
 }
 
 .buy-home-btn {
-	-fx-background-color: #7FFF00 
-}
-
-.exchange-home-btn {
-	-fx-background-color: #00FFFF;
+	-fx-background-color: #00ff00; 
 }
 
 .rate-home-btn {
-	-fx-background-color: #FF8C00;
+	-fx-background-color: #ffff00;
 }
 
 .list-item {
@@ -57,4 +53,8 @@
 
 .exBookVerticalP {
 	-fx-background-color: #c9a175;
+}
+
+.main-color {
+	-fx-background-color: #e3b584;
 }

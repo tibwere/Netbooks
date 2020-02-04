@@ -2,7 +2,6 @@ package logic.controller;
 
 import logic.bean.AbstractUserBean;
 import logic.dao.AbstractUserDao;
-import logic.util.Session;
 import logic.util.enumeration.UserType;
 import logic.util.enumeration.Views;
 
@@ -28,7 +27,7 @@ public class LoginController {
 			/* da definire la gestione della sessione */
 			break;
 		
-		case INVALID_USER:
+		default:
 			break;
 		}
 

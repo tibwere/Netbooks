@@ -5,7 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import logic.util.ImageFactory;
+import logic.util.ImageDispenser;
 
 
 
@@ -36,7 +36,7 @@ public class TestKbsas extends Application {
 		stage.setResizable(false);		
 		stage.setScene(scene);
 		stage.centerOnScreen();
-		stage.getIcons().add(ImageFactory.getImage(ImageFactory.ICON));
+		stage.getIcons().add(ImageDispenser.getImage(ImageDispenser.ICON));
 	}
 
 	public static void main(String[] args) {
