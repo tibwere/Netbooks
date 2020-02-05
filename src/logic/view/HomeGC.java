@@ -8,17 +8,15 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import logic.bean.BookBean;
 import logic.controller.BuyBookController;
 import logic.controller.ViewBookByCategoryController;
-import logic.util.ImageDispenser;
-import logic.view.bookpreview.BookPreviewGC;
+import logic.util.GraphicalElements;
+import logic.util.enumeration.FXMLElements;
 
 public class HomeGC implements Initializable {
 	
@@ -32,20 +30,12 @@ public class HomeGC implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		try {
 			BuyBookController buyBookController = new BuyBookController(new ViewBookByCategoryController());
-			fillPanel(buyBookController.getVbbcController().getBooks());
+			fillPanel(buyBookController.getVbbcController().getBooksForHome());
 		} catch (Exception e) {
-			Alert alert = new Alert(AlertType.ERROR);
+			e.printStackTrace();
 			
-			Stage alertStage = (Stage) alert.getDialogPane().getScene().getWindow();
-			alertStage.getIcons().add(ImageDispenser.getImage(ImageDispenser.ICON));
-			
-			alert.setTitle("Netbooks v1.0");
-			alert.setHeaderText("Ops something went wrong");
-			alert.setContentText("Error loading book list items");
-			alert.showAndWait();
-			
-			/* rimane da gestire in maniera più efficace la chiusura */
-			System.exit(0); 
+			GraphicalElements.showDialog(AlertType.ERROR, "Ops, something went wrong ...", "Unable to load book list elements");
+			System.exit(0);
 		}
 	}
 	
@@ -54,7 +44,7 @@ public class HomeGC implements Initializable {
 
 		for (BookBean b : books) {
 			BookPreviewGC gc = new BookPreviewGC(b);
-			FXMLLoader loader = new FXMLLoader(HomeGC.class.getResource("resources/fxml/hp_book_preview.fxml"));
+			FXMLLoader loader = GraphicalElements.loadFXML(FXMLElements.HP_BOOK_PREVIEW);
 			loader.setController(gc);
 			HBox bookItem = loader.load();
 			

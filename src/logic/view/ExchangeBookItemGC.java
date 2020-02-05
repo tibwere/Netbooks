@@ -38,7 +38,7 @@ public class ExchangeBookItemGC implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		
 		label.setText(bean.getTitle());
-		imageView.setImage(bean.getImage());
+		//imageView.setImage(bean.getImage());
 				
 	}
 	

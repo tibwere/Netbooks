@@ -24,7 +24,6 @@ import javafx.stage.Stage;
 import logic.bean.BookBean;
 import logic.controller.KbsasController;
 import logic.util.ImageDispenser;
-import logic.view.bookinchart.BookInChartGC;
 
 
 /**

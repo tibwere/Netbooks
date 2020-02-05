@@ -1,6 +1,10 @@
 package logic.model;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javafx.scene.image.Image;
+import logic.util.enumeration.ImageSize;
 
 /**
  * Entità del dominio di interesse: Libro
@@ -12,40 +16,83 @@ public class Book {
 	private String isbn;
 	private String title;
 	private String author;
-	private Image smallImage;
-	private Image mediumImage;
-	private Image largeImage;
+	private int yearOfPublication;
+	private String publisher;
+	private String language;
 	
-	public Book(String isbn, String title, String author, Image smallImg, Image mediumImg, Image largeImg) {
+	private Map<ImageSize, Image> images;
+	
+	public Book(String isbn, String title, String author) {
+		images = new HashMap<>();
 		this.isbn = isbn;
 		this.title = title;
 		this.author = author;
-		this.smallImage = smallImg;
-		this.mediumImage = mediumImg;
-		this.largeImage = largeImg;
 	}
-
-	public String getISBN() {
+	
+	public String getIsbn() {
 		return isbn;
-	}
-
-	public String getTitle() {
-		return title;
 	}
 
 	public String getAuthor() {
 		return author;
 	}
 
+	public String getTitle() {
+		return title;
+	}
+
+	public int getYearOfPublication() {
+		return yearOfPublication;
+	}
+
+	public void setYearOfPublication(int yearOfPublication) {
+		this.yearOfPublication = yearOfPublication;
+	}
+
+	public String getPublisher() {
+		return publisher;
+	}
+
+	public void setPublisher(String publisher) {
+		this.publisher = publisher;
+	}
+
+	public String getLanguage() {
+		return language;
+	}
+
+	public void setLanguage(String language) {
+		this.language = language;
+	}
+
 	public Image getSmallImage() {
-		return smallImage;
+		return images.get(ImageSize.SMALL);
 	}
-	
+
+	public void setSmallImage(Image smallImage) {
+		this.images.put(ImageSize.SMALL, smallImage);
+	}
+
 	public Image getMediumImage() {
-		return mediumImage;
+		return images.get(ImageSize.MEDIUM);
+	}
+
+	public void setMediumImage(Image mediumImage) {
+		this.images.put(ImageSize.MEDIUM, mediumImage);
+	}
+
+	public Image getLargeImage() {
+		return images.get(ImageSize.LARGE);
+	}
+
+	public void setLargeImage(Image largeImage) {
+		this.images.put(ImageSize.LARGE, largeImage);
 	}
 	
-	public Image getLargeImage() {
-		return largeImage;
+	@Override
+	public String toString() {
+		return "[" + isbn + " " + title + " "+ author + " " + yearOfPublication + " " + publisher + " " + language + "]"; 
 	}
+
+
 }

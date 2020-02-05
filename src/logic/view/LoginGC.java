@@ -17,7 +17,7 @@ import logic.bean.AbstractUserBean;
 import logic.controller.LoginController;
 import logic.controller.Session;
 import logic.exception.WrongSyntaxException;
-import logic.util.Scenes;
+import logic.util.GraphicalElements;
 import logic.util.enumeration.UserType;
 
 /**
@@ -69,7 +69,7 @@ public class LoginGC implements Initializable{
 			}
 			else {
 				stage = (Stage) pane.getScene().getWindow();
-				stage.setScene(Scenes.switchTo(Session.getSession().getCurrView()));	
+				stage.setScene(GraphicalElements.switchTo(Session.getSession().getCurrView(), null));	
 			}
 		}
 		catch(WrongSyntaxException e) {

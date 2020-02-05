@@ -1,10 +1,11 @@
 package logic.util.enumeration;
 
-public enum Views {
+public enum FXMLElements {
 	LOGIN,
 	HOME,
 	BUY_BOOK, 
 	NAVBAR,
 	EXCHANGE_BOOK,
-	KBSAS
+	KBSAS, 
+	HP_BOOK_PREVIEW
 }

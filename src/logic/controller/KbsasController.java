@@ -25,10 +25,10 @@ public class KbsasController {
 		List<Book> books = ret.getBookFromPosition();
 		
 		List<BookBean> bean = new ArrayList<>();
-		
+		/*
 		for (Book b : books) 
 			bean.add(new BookBean(b.getTitle(), b.getAuthor(), b.getMediumImage()));
-		
+		*/
 		return bean;	
 	}
 

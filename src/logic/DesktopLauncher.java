@@ -5,7 +5,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import logic.controller.Session;
 import logic.util.ImageDispenser;
-import logic.util.Scenes;
+import logic.util.GraphicalElements;
 
 /**
  * Entry point dell'applicazione stand-alone 
@@ -17,7 +17,7 @@ public class DesktopLauncher extends Application {
 	@Override
 	public void start(Stage stage) {
 			
-		Scene scene = Scenes.switchTo(Session.getSession().getCurrView());
+		Scene scene = GraphicalElements.switchTo(Session.getSession().getCurrView(), null);
 		
  		initStage(stage, scene);
 		stage.show();	

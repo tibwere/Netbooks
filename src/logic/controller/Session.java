@@ -1,6 +1,6 @@
 package logic.controller;
 
-import logic.util.enumeration.Views;
+import logic.util.enumeration.FXMLElements;
 
 /**
  * Astrazione del concetto di Sessione applicativa.
@@ -15,10 +15,10 @@ public class Session {
 	private static Session instance = null;
 
 	private String currUserID;
-	private Views currView;
+	private FXMLElements currView;
 	
 	private Session() {
-		currView = Views.LOGIN;
+		currView = FXMLElements.LOGIN;
 		currUserID = null;
 	}
 	
@@ -33,7 +33,7 @@ public class Session {
 		return currUserID;
 	}
 
-	public Views getCurrView() {
+	public FXMLElements getCurrView() {
 		return currView;
 	}
 	
@@ -41,7 +41,7 @@ public class Session {
 		this.currUserID = currUser;
 	}
 
-	void setCurrView(Views currView) {
+	void setCurrView(FXMLElements currView) {
 		this.currView = currView;
 	}
 

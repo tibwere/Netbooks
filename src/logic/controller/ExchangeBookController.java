@@ -22,9 +22,10 @@ public class ExchangeBookController {
 		for (Book book : books) {
 			
 			BookBean bean = new BookBean();
-			
+			/*
 			bean.setTitle(book.getTitle());
 			bean.setImage(book.getMediumImage());
+			*/
 			beans.add(bean);
 		}
 		

@@ -6,7 +6,7 @@ import java.util.List;
 import logic.bean.BookBean;
 import logic.dao.BookDao;
 import logic.model.Book;
-import logic.util.enumeration.Views;
+import logic.util.enumeration.FXMLElements;
 
 /**
  * Controller del caso d'uso "View book by category"
@@ -15,14 +15,21 @@ import logic.util.enumeration.Views;
  */
 public class ViewBookByCategoryController {
 
-	public List<BookBean> getBooks() {
+	public List<BookBean> getBooksForHome() {
 		List<Book> books = BookDao.getInstance().findBooksForHomepage();
-		ArrayList<BookBean> bean = new ArrayList<>();
+		ArrayList<BookBean> beans = new ArrayList<>();
 		
-		for (Book b : books) 
-			bean.add(new BookBean(b.getTitle(), b.getAuthor(), b.getSmallImage()));
-		
-		return bean;	
+		for (Book b : books) {
+			BookBean bean = new BookBean(b.getTitle(), b.getAuthor());
+			bean.setSmallImage(b.getSmallImage());
+			bean.setLargeImage(b.getLargeImage());
+			bean.setIsbn(b.getIsbn());
+			bean.setYearOfPublication(b.getYearOfPublication());
+			bean.setPublisher(b.getPublisher());
+			bean.setLanguage(b.getLanguage());
+			beans.add(bean);		
+		}
+		return beans;	
 	}	
 	
 	/**
@@ -31,12 +38,12 @@ public class ViewBookByCategoryController {
 	 * � il controller applicativo in cui pi� volte risulta necessario invocare tale operazione 
 	 * @param view Nuova view da settare
 	 */
-	public static void prepareToUpdateView(Views view) {
+	public static void prepareToUpdateView(FXMLElements view) {
 		Session.getSession().setCurrView(view);
 	}
 
 	public static void logoutUser() {
 		Session.getSession().setCurrUser("");
-		Session.getSession().setCurrView(Views.LOGIN);
+		Session.getSession().setCurrView(FXMLElements.LOGIN);
 	}
 }

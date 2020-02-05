@@ -1,4 +1,4 @@
-package logic.view.bookpreview;
+package logic.view;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -12,8 +12,8 @@ import javafx.stage.Stage;
 import logic.bean.BookBean;
 import logic.controller.Session;
 import logic.controller.ViewBookByCategoryController;
-import logic.util.Scenes;
-import logic.util.enumeration.Views;
+import logic.util.GraphicalElements;
+import logic.util.enumeration.FXMLElements;
 
 public class BookPreviewGC implements Initializable{
 	
@@ -30,23 +30,24 @@ public class BookPreviewGC implements Initializable{
 	private HBox pane;
 	
 	private BookBean bean;
-
+	
 	public BookPreviewGC(BookBean bean) {
 		this.bean = bean;
 	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		thumbnail.setImage(bean.getImage());
+		thumbnail.setImage(bean.getSmallImage());
 		titleLbl.setText(bean.getTitle());
 		authorLbl.setText(bean.getAuthor());
 	}
 	
 	@FXML
 	public void goToBuyBook() {
-		ViewBookByCategoryController.prepareToUpdateView(Views.BUY_BOOK);
+		ViewBookByCategoryController.prepareToUpdateView(FXMLElements.BUY_BOOK);
+		BuyBookGC gc = new BuyBookGC(bean);
 		Stage stage = (Stage) pane.getScene().getWindow();
-		stage.setScene(Scenes.switchTo(Session.getSession().getCurrView()));
+		stage.setScene(GraphicalElements.switchTo(Session.getSession().getCurrView(), gc));
 	}	
 
 

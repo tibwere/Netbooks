@@ -2,6 +2,7 @@ package logic.dao;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import logic.model.Book;
 import logic.util.ImageDispenser;
 import logic.util.enumeration.BookGenre;
@@ -30,24 +31,39 @@ public class BookDao {
 	
 	public List<Book> findBooksForHomepage() {
 		ArrayList<Book> books = new ArrayList<>();
-		books.add(new Book("001122", "Simone 2", "Bello Mio", ImageDispenser.getImage(ImageDispenser.BOOK_TEST_THUMBNAIL), null, null));
-		
+		Book tmp = new Book("001122", "Simone 2", "Bello Mio");
+		tmp.setSmallImage(ImageDispenser.getImage(ImageDispenser.BOOK_TEST_THUMBNAIL));
+		tmp.setLargeImage(ImageDispenser.getImage(ImageDispenser.BOOK_TEST));
+		tmp.setYearOfPublication(1998);
+		tmp.setPublisher("Mondadori");
+		tmp.setLanguage("Italiano");
+		books.add(tmp);
+
 		return books;
 	}
 	
 	public List<Book> findExchangeableBooks() {
 		List<Book> books = new ArrayList<>();
-		books.add(new Book("001122", "La Divina Commedia", "Dante", null, ImageDispenser.getImage(ImageDispenser.BOOK1), null));
-		books.add(new Book("001122", "The Great Gatsby", "F. Fitzgerhald", null, ImageDispenser.getImage(ImageDispenser.BOOK2), null));
+		Book tmp1 = new Book("112233", "La Divina Commedia", "Dante");
+		tmp1.setMediumImage(ImageDispenser.getImage(ImageDispenser.BOOK1));
+		books.add(tmp1);
 		
+		Book tmp2 = new Book("001122", "The Great Gatsby", "F. Fitzgerhald");
+		tmp2.setMediumImage(ImageDispenser.getImage(ImageDispenser.BOOK2));
+		books.add(tmp2);	
 		
 		return books;
 	}
 	
 	public List<Book> findPersonalBooks (String username) {
 		List<Book> books = new ArrayList<>();
-		books.add(new Book("001122", "La Divina Commedia", "Dante", null, ImageDispenser.getImage(ImageDispenser.BOOK1), null));
-		books.add(new Book("001122", "The Great Gatsby", "F. Fitzgerhald", null, ImageDispenser.getImage(ImageDispenser.BOOK2), null));
+		Book tmp1 = new Book("112233", "La Divina Commedia", "Dante");
+		tmp1.setMediumImage(ImageDispenser.getImage(ImageDispenser.BOOK1));
+		books.add(tmp1);
+		
+		Book tmp2 = new Book("001122", "The Great Gatsby", "F. Fitzgerhald");
+		tmp2.setMediumImage(ImageDispenser.getImage(ImageDispenser.BOOK2));
+		books.add(tmp2);	
 		
 		return books;
 	}
@@ -62,12 +78,16 @@ public class BookDao {
 	
 //	 fare per posizione con cordinate del reader
 	public List<Book> findBookForChart(int position) {
-			
-			List<Book> books = new ArrayList<>();
-			books.add(new Book("323233" , "Ale" , "La vita", null, ImageDispenser.getImage(ImageDispenser.BOOK1), null)); //versione senza DB
-			books.add(new Book("343434" , "Fra" , "è bella ",null, ImageDispenser.getImage(ImageDispenser.BOOK2), null));
-		return books; 
+		List<Book> books = new ArrayList<>();
+		Book tmp1 = new Book("323233" , "Ale" , "La vita");
+		tmp1.setMediumImage(ImageDispenser.getImage(ImageDispenser.BOOK1));
+		books.add(tmp1);
 		
+		Book tmp2 = new Book("343434" , "Fra" , "è bella ");
+		tmp2.setMediumImage(ImageDispenser.getImage(ImageDispenser.BOOK2));
+		books.add(tmp2);	
+		
+		return books;		
 	}
 
 }

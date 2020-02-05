@@ -1,4 +1,4 @@
-package logic.view.bookinchart;
+package logic.view;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -44,7 +44,7 @@ public class BookInChartGC implements Initializable {
     @Override
 	public void initialize(URL location, ResourceBundle resources) {
     	
-    	image.setImage(bean.getImage());
+    	//image.setImage(bean.getImage());
     	lblBookAuthor.setText(bean.getAuthor());
     	lblBookName.setText(bean.getTitle());
     	

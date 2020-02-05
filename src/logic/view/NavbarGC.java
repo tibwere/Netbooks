@@ -1,4 +1,4 @@
-package logic.view.navbar;
+package logic.view;
 
 import java.net.URL;
 import java.util.Optional;
@@ -6,7 +6,6 @@ import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -14,9 +13,8 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import logic.controller.Session;
 import logic.controller.ViewBookByCategoryController;
-import logic.util.ImageDispenser;
-import logic.util.Scenes;
-import logic.util.enumeration.Views;
+import logic.util.GraphicalElements;
+import logic.util.enumeration.FXMLElements;
 
 public class NavbarGC implements Initializable{
 	
@@ -46,35 +44,27 @@ public class NavbarGC implements Initializable{
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		if (Session.getSession().getCurrView().equals(Views.HOME))
+		if (Session.getSession().getCurrView().equals(FXMLElements.HOME))
 			homeBtn.setDisable(true);
 	}	
 	
 	@FXML
 	public void goToHome() {		
-		ViewBookByCategoryController.prepareToUpdateView(Views.HOME);
+		ViewBookByCategoryController.prepareToUpdateView(FXMLElements.HOME);
 		contextSwitch();
 
 	}
 	
 	@FXML
 	public void goToExchangeBook() {		
-		ViewBookByCategoryController.prepareToUpdateView(Views.EXCHANGE_BOOK);
+		ViewBookByCategoryController.prepareToUpdateView(FXMLElements.EXCHANGE_BOOK);
 		contextSwitch();
 
 	}
 	
 	public void doLogout() {
-		Alert alert = new Alert(AlertType.CONFIRMATION);
-		
-		Stage alertStage = (Stage) alert.getDialogPane().getScene().getWindow();
-		alertStage.getIcons().add(ImageDispenser.getImage(ImageDispenser.ICON));
-		
-		alert.setTitle("Netbooks v1.0");
-		alert.setHeaderText("Netbooks asks ...");
-		alert.setContentText("Are you sure do you want to exit?");
-				
-		Optional<ButtonType> result = alert.showAndWait();
+						
+		Optional<ButtonType> result = GraphicalElements.showDialog(AlertType.CONFIRMATION, "Netbooks asks ...", "Are you sure do you want to exit?");
 		
 		if (result.get().equals(ButtonType.OK)) {
 			ViewBookByCategoryController.logoutUser();
@@ -84,7 +74,7 @@ public class NavbarGC implements Initializable{
 	
 	private void contextSwitch() {
 		Stage stage = (Stage) main.getScene().getWindow();
-		stage.setScene(Scenes.switchTo(Session.getSession().getCurrView()));
+		stage.setScene(GraphicalElements.switchTo(Session.getSession().getCurrView(), null));
 	}
 
 }
