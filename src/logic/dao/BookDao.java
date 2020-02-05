@@ -59,5 +59,15 @@ public class BookDao {
 			return BookGenre.ROMANCE;
 		else return BookGenre.UNDEFINED;
 	}
+	
+//	 fare per posizione con cordinate del reader
+	public List<Book> findBookForChart(int position) {
+			
+			List<Book> books = new ArrayList<>();
+			books.add(new Book("323233" , "Ale" , "La vita", null, ImageDispenser.getImage(ImageDispenser.BOOK1), null)); //versione senza DB
+			books.add(new Book("343434" , "Fra" , "è bella ",null, ImageDispenser.getImage(ImageDispenser.BOOK2), null));
+		return books; 
+		
+	}
 
 }

@@ -1,38 +1,38 @@
 package logic;
 
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import logic.util.ImageDispenser;
+import logic.util.Scenes;
+import logic.util.enumeration.Views;
 
-
+/**
+ * Launcher del controller grafico KbsasGC
+ * @author Alessandro Calomino (M. 0258841)
+ *
+ */
 
 public class TestKbsas extends Application {
 
 	@Override
-	public void start(Stage primaryStage) throws Exception {
+	public void start(Stage stage) throws Exception {
 		
-		FXMLLoader loader = new FXMLLoader(TestKbsas.class.getResource("view/resources/fxml/kbsas.fxml"));
-		
-		BorderPane borderPane = loader.load();
+		Scene scene = Scenes.switchTo(Views.KBSAS);
 		
 		
+		//		da aggiungere navbar
 		
-		
-//		da aggiungere navbar
-		
-		
-		Scene scene = new Scene(borderPane);
-
-		setupStage(primaryStage, scene);
-		primaryStage.show();	
+	
+		initStage(stage, scene);
+//		setupStage(primaryStage, scene);
+		stage.show();	
 	}
 	
-	private void setupStage(Stage stage, Scene scene) {
+	private void initStage(Stage stage, Scene scene) {
 		
-		stage.setTitle("Netbooks v1.0");
+		stage.setWidth(1000);
+		stage.setHeight(800);
 		stage.setResizable(false);		
 		stage.setScene(scene);
 		stage.centerOnScreen();
@@ -44,4 +44,3 @@ public class TestKbsas extends Application {
 	}
 
 }
-

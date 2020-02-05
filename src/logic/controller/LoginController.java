@@ -24,7 +24,8 @@ public class LoginController {
 			Session.getSession().setCurrUser(user);
 			break;
 		case RETAILER:
-			/* da definire la gestione della sessione */
+			Session.getSession().setCurrView(Views.KBSAS);
+			Session.getSession().setCurrUser(user);
 			break;
 		
 		default:

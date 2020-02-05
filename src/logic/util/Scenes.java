@@ -29,6 +29,8 @@ public class Scenes {
 			return new FXMLLoader(Scenes.class.getResource(PATH + "exchange_book.fxml"));
 		case NAVBAR:
 			return new FXMLLoader(Scenes.class.getResource(PATH + "navbar.fxml"));
+		case KBSAS:
+			return new FXMLLoader(Scenes.class.getResource(PATH + "kbsas.fxml"));
 		default: /* case HOME */
 			return new FXMLLoader(Scenes.class.getResource(PATH + "home.fxml"));
 		}

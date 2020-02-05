@@ -63,22 +63,13 @@ public class LoginGC implements Initializable{
 
 			UserType type = controller.loginUser(bean);
 			
-			switch (type) {
-			case READER:
-				stage = (Stage) pane.getScene().getWindow();
-				stage.setScene(Scenes.switchTo(Session.getSession().getCurrView()));
-				break;
-				
-			case RETAILER: 		
-				resultLbl.getStyleClass().clear();
-				resultLbl.getStyleClass().add("success");
-				resultLbl.setText("SUCCESFULLY LOGGED [RETAILER]");	
-				break;
-				
-			default:
+			if(type.equals(UserType.INVALID_USER)) {
 				resultLbl.getStyleClass().add("error");
 				resultLbl.setText("LOGIN FAILED");
-				break;
+			}
+			else {
+				stage = (Stage) pane.getScene().getWindow();
+				stage.setScene(Scenes.switchTo(Session.getSession().getCurrView()));	
 			}
 		}
 		catch(WrongSyntaxException e) {
