@@ -1,33 +1,33 @@
 package logic.view;
 
+import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
+import logic.bean.BookBean;
 import logic.controller.ExchangeBookController;
 
 /**
- * Controller grafico collegato al file "exchangeBook.fxml" 
+ * Controller grafico collegato al file "exchange_book.fxml" 
  * @author Cristiano Cuffaro (M. 0258093)
  *
  */
 
 public class ExchangeBookGC implements Initializable {
 	
-	@FXML BorderPane borderPane;
+	@FXML 
+	private BorderPane borderPane;
 	
 	@FXML
-	private Button manageProposalesBtn;
+	private Button manageProposalsBtn;
 	
 	@FXML
 	private Button exchangeableListBtn;
@@ -35,38 +35,41 @@ public class ExchangeBookGC implements Initializable {
 	@FXML
 	private GridPane gridPane;
 	
-	private ExchangeBookController controller;
-	
-	private List<Image> books;
-	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		
-		controller = new ExchangeBookController();
+		try {
 		
-		books = controller.getExchangeableBooks();
+			ExchangeBookController controller = new ExchangeBookController();
 		
-		int i, j;	
+			List<BookBean> beans = new ArrayList<>();
 		
-		for (i = 0; i < 1; i ++) {
+			beans = controller.getExchangeableBooks();
+		
+			int i;
+			int j;
+		
+			for (i = 0; i < 1; i ++) {
 			
-			for (j = 0; j < 2; j ++) {
+				for (j = 0; j < 2; j ++) {
+							
+					ExchangeBookItemGC gc = new ExchangeBookItemGC(beans.get(i*6 + j));
 				
-				VBox vbx = new VBox();
+					FXMLLoader loader = new FXMLLoader(ExchangeBookGC.class.getResource("resources/fxml/exchange_book_item.fxml"));
+			
+					loader.setController(gc);
 				
-				Label label = new Label("LIBRO");
-				
-				label.setTextFill(Color.WHITE);
-				
-				ImageView imv = new ImageView(books.get(i*6 + j));
-				
-				vbx.setSpacing(5.0);
-				
-				vbx.getChildren().addAll(imv, label);
-				
-				gridPane.add(vbx, j, i);
-
+					VBox bookItem = loader.load();
+					
+					gridPane.add(bookItem, j, i);
+				}
 			}
 		}
+					
+		catch (IOException e) {
+			
+			e.printStackTrace();
+		}
+		
 	}
 }

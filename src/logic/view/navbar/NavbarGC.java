@@ -33,6 +33,9 @@ public class NavbarGC implements Initializable{
 	private Button forumBtn;
 	
 	@FXML
+	private Button exchangeBtn;
+	
+	@FXML
 	private Button helpBtn;
 	
 	@FXML
@@ -50,6 +53,13 @@ public class NavbarGC implements Initializable{
 	@FXML
 	public void goToHome() {		
 		ViewBookByCategoryController.prepareToUpdateView(Views.HOME);
+		contextSwitch();
+
+	}
+	
+	@FXML
+	public void goToExchangeBook() {		
+		ViewBookByCategoryController.prepareToUpdateView(Views.EXCHANGE_BOOK);
 		contextSwitch();
 
 	}

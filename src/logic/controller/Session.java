@@ -5,7 +5,7 @@ import logic.util.enumeration.Views;
 /**
  * Astrazione del concetto di Sessione applicativa.
  * E' stato scelto di porre tale classe nel package {@link logic.controller}
- * poichË i metodi setters degli attributi hanno visibilit‡ di package e quindi
+ * poich√© i metodi setters degli attributi hanno visibilit√† di package e quindi
  * possono essere invocati soltanto dai controller e non dalla view
  * @author Simone Tiberi (M. 0252795)
  *

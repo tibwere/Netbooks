@@ -2,8 +2,6 @@ package logic.dao;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import javafx.scene.image.Image;
 import logic.model.Book;
 import logic.util.ImageDispenser;
 import logic.util.enumeration.BookGenre;
@@ -32,15 +30,24 @@ public class BookDao {
 	
 	public List<Book> findBooksForHomepage() {
 		ArrayList<Book> books = new ArrayList<>();
-		books.add(new Book("001122", "Simone 2", "Bello Mio", ImageDispenser.getImage(ImageDispenser.BOOK_TEST_THUMBNAIL)));
+		books.add(new Book("001122", "Simone 2", "Bello Mio", ImageDispenser.getImage(ImageDispenser.BOOK_TEST_THUMBNAIL), null, null));
 		
 		return books;
 	}
 	
-	public List<Image> getExchangeableBooks() {
-		ArrayList<Image> books = new ArrayList<>();
-		books.add(ImageDispenser.getImage(ImageDispenser.BOOK1));
-		books.add(ImageDispenser.getImage(ImageDispenser.BOOK2));
+	public List<Book> findExchangeableBooks() {
+		List<Book> books = new ArrayList<>();
+		books.add(new Book("001122", "La Divina Commedia", "Dante", null, ImageDispenser.getImage(ImageDispenser.BOOK1), null));
+		books.add(new Book("001122", "The Great Gatsby", "F. Fitzgerhald", null, ImageDispenser.getImage(ImageDispenser.BOOK2), null));
+		
+		
+		return books;
+	}
+	
+	public List<Book> findPersonalBooks (String username) {
+		List<Book> books = new ArrayList<>();
+		books.add(new Book("001122", "La Divina Commedia", "Dante", null, ImageDispenser.getImage(ImageDispenser.BOOK1), null));
+		books.add(new Book("001122", "The Great Gatsby", "F. Fitzgerhald", null, ImageDispenser.getImage(ImageDispenser.BOOK2), null));
 		
 		return books;
 	}

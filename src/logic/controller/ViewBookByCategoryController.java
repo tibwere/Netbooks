@@ -20,15 +20,15 @@ public class ViewBookByCategoryController {
 		ArrayList<BookBean> bean = new ArrayList<>();
 		
 		for (Book b : books) 
-			bean.add(new BookBean(b.getTitle(), b.getAuthor(), b.getImage()));
+			bean.add(new BookBean(b.getTitle(), b.getAuthor(), b.getSmallImage()));
 		
 		return bean;	
 	}	
 	
 	/**
 	 * Metodo di classe per l'aggiornamento della {@link Session} applicativa
-	 * E' stato scelto tale controller come responsabile di tale operazione poichè
-	 * è il controller applicativo in cui più volte risulta necessario invocare tale operazione 
+	 * E' stato scelto tale controller come responsabile di tale operazione poichï¿½
+	 * ï¿½ il controller applicativo in cui piï¿½ volte risulta necessario invocare tale operazione 
 	 * @param view Nuova view da settare
 	 */
 	public static void prepareToUpdateView(Views view) {

@@ -3,22 +3,26 @@ package logic.model;
 import javafx.scene.image.Image;
 
 /**
- * Entit‡ del dominio di interesse: Libro
+ * Entit√† del dominio di interesse: Libro
  * @author Simone Tiberi (M. 0252795)
- *
+ * @author Cristiano Cuffaro (M. 0258093)
  */
 public class Book {
 	
 	private String isbn;
 	private String title;
 	private String author;
-	private Image image;
+	private Image smallImage;
+	private Image mediumImage;
+	private Image largeImage;
 	
-	public Book(String isbn, String title, String author, Image image) {
+	public Book(String isbn, String title, String author, Image smallImg, Image mediumImg, Image largeImg) {
 		this.isbn = isbn;
 		this.title = title;
 		this.author = author;
-		this.image = image;
+		this.smallImage = smallImg;
+		this.mediumImage = mediumImg;
+		this.largeImage = largeImg;
 	}
 
 	public String getISBN() {
@@ -33,7 +37,15 @@ public class Book {
 		return author;
 	}
 
-	public Image getImage() {
-		return image;
+	public Image getSmallImage() {
+		return smallImage;
+	}
+	
+	public Image getMediumImage() {
+		return mediumImage;
+	}
+	
+	public Image getLargeImage() {
+		return largeImage;
 	}
 }

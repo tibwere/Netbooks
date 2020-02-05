@@ -26,7 +26,7 @@ public class Scenes {
 		case BUY_BOOK: 
 			return new FXMLLoader(Scenes.class.getResource(PATH + "buy_book.fxml"));
 		case EXCHANGE_BOOK:
-			return new FXMLLoader(Scenes.class.getResource(PATH + "exchangeBook.fxml"));
+			return new FXMLLoader(Scenes.class.getResource(PATH + "exchange_book.fxml"));
 		case NAVBAR:
 			return new FXMLLoader(Scenes.class.getResource(PATH + "navbar.fxml"));
 		default: /* case HOME */

@@ -46,7 +46,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button mnemonicParsing="false" styleClass="transparent" text="EXCHANGE BOOKS">
+            <Button fx:id="exchangeBtn" mnemonicParsing="false" onAction="#goToExchangeBook" styleClass="transparent" text="EXCHANGE BOOKS">
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                      <image>
