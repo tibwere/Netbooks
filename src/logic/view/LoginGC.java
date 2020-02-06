@@ -11,14 +11,14 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import logic.bean.AbstractUserBean;
 import logic.controller.LoginController;
-import logic.controller.Session;
 import logic.exception.WrongSyntaxException;
 import logic.util.GraphicalElements;
 import logic.util.enumeration.UserType;
+import logic.util.enumeration.Views;
 
 /**
  * Controller grafico collegato al file "login.fxml" 
@@ -43,7 +43,7 @@ public class LoginGC implements Initializable{
 	private ImageView logo;
 	
 	@FXML
-	private AnchorPane pane;
+	private VBox pane;
 	
 	private LoginController controller;
 	
@@ -69,7 +69,7 @@ public class LoginGC implements Initializable{
 			}
 			else {
 				stage = (Stage) pane.getScene().getWindow();
-				stage.setScene(GraphicalElements.switchTo(Session.getSession().getCurrView(), null));	
+				stage.setScene(GraphicalElements.switchTo(Views.HOME, null));	
 			}
 		}
 		catch(WrongSyntaxException e) {

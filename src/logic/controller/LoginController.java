@@ -2,8 +2,8 @@ package logic.controller;
 
 import logic.bean.AbstractUserBean;
 import logic.dao.AbstractUserDao;
+import logic.util.Session;
 import logic.util.enumeration.UserType;
-import logic.util.enumeration.FXMLElements;
 
 /**
  * Controller del caso d'uso "Login"
@@ -18,19 +18,8 @@ public class LoginController {
 		
 		UserType type = AbstractUserDao.getInstance().findUserByUsernameAndPassword(user, passwd);
 		
-		switch(type) {
-		case READER: 
-			Session.getSession().setCurrView(FXMLElements.HOME);
+		if (type.equals(UserType.INVALID_USER))
 			Session.getSession().setCurrUser(user);
-			break;
-		case RETAILER:
-			Session.getSession().setCurrView(FXMLElements.KBSAS);
-			Session.getSession().setCurrUser(user);
-			break;
-		
-		default:
-			break;
-		}
 
 		return type;
 	}

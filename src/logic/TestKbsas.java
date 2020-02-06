@@ -3,22 +3,21 @@ package logic;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import logic.util.ImageDispenser;
 import logic.util.GraphicalElements;
-import logic.util.enumeration.FXMLElements;
+import logic.util.ImageDispenser;
+import logic.util.enumeration.Views;
 
 /**
  * Launcher del controller grafico KbsasGC
  * @author Alessandro Calomino (M. 0258841)
  *
  */
-
 public class TestKbsas extends Application {
 
 	@Override
 	public void start(Stage stage) throws Exception {
 		
-		Scene scene = GraphicalElements.switchTo(FXMLElements.KBSAS, null);
+		Scene scene = GraphicalElements.switchTo(Views.KBSAS, null);
 		
 		
 		//		da aggiungere navbar

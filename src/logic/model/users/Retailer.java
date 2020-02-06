@@ -7,11 +7,10 @@ import logic.dao.BookDao;
 import logic.model.Book;
 
 /**
- * Entità del dominio di interesse: Libro
+ * Entita' del dominio di interesse: Rivenditore
  * @author Alessandro Calomino (M. 0258841)
  *
  */
-
 public class Retailer extends User {
 
 	private String società;

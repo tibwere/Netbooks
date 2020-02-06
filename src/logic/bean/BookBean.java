@@ -33,13 +33,29 @@ public class BookBean {
 		this.title = title;
 		this.author = author;
 	}
-
-	public String getAuthor() {
-		return author;
+	
+	public BookBean(String title, String author, Image singleImage, ImageSize size) {
+		this.images = new HashMap<>();
+		this.setTitle(title);
+		this.setAuthor(author);
+		this.setSingleImage(singleImage, size);		
 	}
 
 	public String getTitle() {
 		return title;
+	}
+
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getAuthor() {
+		return author;
+	}
+	
+	public void setAuthor(String author) {
+		this.author = author;
 	}
 	
 	public String getIsbn() {
@@ -65,6 +81,14 @@ public class BookBean {
 	public void setPublisher(String publisher) {
 		this.publisher = publisher;
 	}
+	
+	public Map<ImageSize, Image> getAllImages() {
+		return this.images;
+	}
+	
+	public void setAllImages(Map<ImageSize, Image> images) {
+		this.images = images;
+	}
 
 	public String getLanguage() {
 		return language;
@@ -74,28 +98,12 @@ public class BookBean {
 		this.language = language;
 	}
 
-	public Image getSmallImage() {
-		return images.get(ImageSize.SMALL);
+	public Image getSingleImage(ImageSize size) {
+		return images.get(size);
 	}
-
-	public void setSmallImage(Image smallImage) {
-		this.images.put(ImageSize.SMALL, smallImage);
-	}
-
-	public Image getMediumImage() {
-		return images.get(ImageSize.MEDIUM);
-	}
-
-	public void setMediumImage(Image mediumImage) {
-		this.images.put(ImageSize.MEDIUM, mediumImage);
-	}
-
-	public Image getLargeImage() {
-		return images.get(ImageSize.LARGE);
-	}
-
-	public void setLargeImage(Image largeImage) {
-		this.images.put(ImageSize.LARGE, largeImage);
+	
+	public void setSingleImage(Image image, ImageSize size) {
+		this.images.put(size, image);
 	}
 
 	public String getOwner() {

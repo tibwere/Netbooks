@@ -1,6 +1,5 @@
 .bg {
-    -fx-background-image:url('../images/wallpaper.png');
-    -fx-background-size: 1024 820; /* dimensioni leggermenti piu grandi delle effettive per una copertura completa*/
+    -fx-background-image:url('../images/wallpaper.jpg');
     -fx-background-position: center;
 }
 
@@ -37,10 +36,6 @@
 
 .btn {
 	-fx-background-color: #634f3a;
-}
-
-.scrollbg {
-	-fx-background-color: rgb(163, 130,95, 0.75)
 }
 
 .exBookPanebg {

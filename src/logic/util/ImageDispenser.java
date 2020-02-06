@@ -4,7 +4,7 @@ import javafx.scene.image.Image;
 
 /**
  * Classe di ingegnerizzazione del sistema che permette
- * di istanziare {@link Image} a partire da un path che è esprimibile
+ * di istanziare {@link Image} a partire da un path che e' esprimibile
  * mediante costanti pubbliche (non vengono utilizzati quindi in altri punti
  * del codice i riferimenti ai file effettivi)
  * @author Simone Tiberi (M. 0252795)
@@ -21,7 +21,6 @@ public class ImageDispenser {
 	public static final String BOOK_TEST = "book_test";
 	public static final String BUY = "buy";
 	public static final String FIND_STORE = "find_store";
-	public static final String FORUM = "forum";
 	public static final String HELP = "help";
 	public static final String HOME = "home";
 	public static final String ICON = "icon";

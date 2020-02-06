@@ -6,9 +6,7 @@ package logic.util.enumeration;
  *
  */
 public enum UserType {
-	
 	READER,
 	RETAILER,
 	INVALID_USER
-
 }

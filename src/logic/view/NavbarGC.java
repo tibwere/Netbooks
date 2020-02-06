@@ -9,23 +9,21 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.stage.Stage;
-import logic.controller.Session;
-import logic.controller.ViewBookByCategoryController;
 import logic.util.GraphicalElements;
-import logic.util.enumeration.FXMLElements;
+import logic.util.Session;
+import logic.util.enumeration.Views;
 
 public class NavbarGC implements Initializable{
 	
 	@FXML
-	private HBox main;
+	private BorderPane main;
 
 	@FXML
 	private Button homeBtn;
-	
-	@FXML
-	private Button findBtn;
 	
 	@FXML
 	private Button forumBtn;
@@ -42,24 +40,33 @@ public class NavbarGC implements Initializable{
 	@FXML
 	private Button logoutBtn;
 	
+	@FXML
+	private HBox spacer;
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		if (Session.getSession().getCurrView().equals(FXMLElements.HOME))
+		HBox.setHgrow(spacer, Priority.SOMETIMES);
+
+		switch(Session.getSession().getCurrView()) {
+		case HOME:
 			homeBtn.setDisable(true);
+			break;
+		case EXCHANGE_BOOK:
+			homeBtn.setDisable(true);
+			break;
+		default:
+			break;
+		}	
 	}	
 	
 	@FXML
-	public void goToHome() {		
-		ViewBookByCategoryController.prepareToUpdateView(FXMLElements.HOME);
-		contextSwitch();
-
+	public void goToHome() {
+		contextSwitch(Views.HOME);
 	}
 	
 	@FXML
 	public void goToExchangeBook() {		
-		ViewBookByCategoryController.prepareToUpdateView(FXMLElements.EXCHANGE_BOOK);
-		contextSwitch();
-
+		contextSwitch(Views.EXCHANGE_BOOK);
 	}
 	
 	public void doLogout() {
@@ -67,14 +74,13 @@ public class NavbarGC implements Initializable{
 		Optional<ButtonType> result = GraphicalElements.showDialog(AlertType.CONFIRMATION, "Netbooks asks ...", "Are you sure do you want to exit?");
 		
 		if (result.get().equals(ButtonType.OK)) {
-			ViewBookByCategoryController.logoutUser();
-			contextSwitch();
+			contextSwitch(Views.LOGIN);
 		}
 	}
 	
-	private void contextSwitch() {
+	private void contextSwitch(Views nextView) {
 		Stage stage = (Stage) main.getScene().getWindow();
-		stage.setScene(GraphicalElements.switchTo(Session.getSession().getCurrView(), null));
+		stage.setScene(GraphicalElements.switchTo(nextView, null));
 	}
 
 }

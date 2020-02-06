@@ -10,7 +10,6 @@ import logic.model.Book;
  * @author Cristiano Cuffaro
  *
  */
-
 public class Reader extends User {
 	
 	public Reader (String username, String email) {
