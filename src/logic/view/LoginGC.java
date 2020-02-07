@@ -69,7 +69,10 @@ public class LoginGC implements Initializable{
 			}
 			else {
 				stage = (Stage) pane.getScene().getWindow();
-				stage.setScene(GraphicalElements.switchTo(Views.HOME, null));	
+				if (type.equals(UserType.READER))
+					stage.setScene(GraphicalElements.switchTo(Views.HOME, null));
+				else
+					stage.setScene(GraphicalElements.switchTo(Views.KBSAS, null));
 			}
 		}
 		catch(WrongSyntaxException e) {

@@ -6,4 +6,5 @@ public enum Views {
 	BUY_BOOK,	
 	EXCHANGE_BOOK,
 	KBSAS,
+	MAKE_PROPOSAL
 }

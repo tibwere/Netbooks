@@ -16,6 +16,9 @@ import logic.util.enumeration.BookGenre;
  */
 public class BookDao {
 	
+	private Book book1 = new Book("000001", "La Divina Commedia", "Dante");
+	private Book book2 = new Book("000002", "The Great Gatsby", "F. Fitzgerhald");
+	
 	private static BookDao instance;
 	
 	private BookDao() {
@@ -42,28 +45,18 @@ public class BookDao {
 		return books;
 	}
 	
-	public List<Book> findExchangeableBooks() {
+	public List<Book> findExchangeableBooks(String username) {
 		List<Book> books = new ArrayList<>();
-		Book tmp1 = new Book("112233", "La Divina Commedia", "Dante");
-		tmp1.setMediumImage(ImageDispenser.getImage(ImageDispenser.BOOK1));
-		books.add(tmp1);
 		
-		Book tmp2 = new Book("001122", "The Great Gatsby", "F. Fitzgerhald");
-		tmp2.setMediumImage(ImageDispenser.getImage(ImageDispenser.BOOK2));
-		books.add(tmp2);	
-		
-		return books;
-	}
-	
-	public List<Book> findPersonalBooks (String username) {
-		List<Book> books = new ArrayList<>();
-		Book tmp1 = new Book("112233", "La Divina Commedia", "Dante");
-		tmp1.setMediumImage(ImageDispenser.getImage(ImageDispenser.BOOK1));
-		books.add(tmp1);
-		
-		Book tmp2 = new Book("001122", "The Great Gatsby", "F. Fitzgerhald");
-		tmp2.setMediumImage(ImageDispenser.getImage(ImageDispenser.BOOK2));
-		books.add(tmp2);	
+		if (username.equals("")) {
+			for (int i = 0; i < 9; i ++) {
+				book1.setMediumImage(ImageDispenser.getImage(ImageDispenser.BOOK1));
+				book1.setLargeImage(ImageDispenser.getImage(ImageDispenser.BOOK_TEST));
+				books.add(book1);
+				book2.setMediumImage(ImageDispenser.getImage(ImageDispenser.BOOK2));
+				books.add(book2);
+			}
+		}
 		
 		return books;
 	}
@@ -83,7 +76,7 @@ public class BookDao {
 		tmp1.setMediumImage(ImageDispenser.getImage(ImageDispenser.BOOK1));
 		books.add(tmp1);
 		
-		Book tmp2 = new Book("343434" , "Fra" , "è bella ");
+		Book tmp2 = new Book("343434" , "Fra" , "ï¿½ bella ");
 		tmp2.setMediumImage(ImageDispenser.getImage(ImageDispenser.BOOK2));
 		books.add(tmp2);	
 		

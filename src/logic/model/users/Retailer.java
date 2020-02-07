@@ -13,18 +13,18 @@ import logic.model.Book;
  */
 public class Retailer extends User {
 
-	private String società;
+	private String societa;
 	private int posizione; //per ora int-->fare con cordinate
 	
-	public Retailer(String username, String email, String società) {
+	public Retailer(String username, String email, String societa) {
 		
 		super(username, email);
-		this.società = società;		
+		this.societa = societa;		
 	}
 	
 	
-	public String getsocietà() {
-		return società;
+	public String getsocieta() {
+		return societa;
 	}
 	
 	public int getPosizione() {

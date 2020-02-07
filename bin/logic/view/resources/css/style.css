@@ -57,3 +57,17 @@
 .book-details-label {
 	-fx-text-fill: white;
 }
+
+.exBookVBoxInfo {
+	-fx-background-color: rgb(240, 191, 139, 1.0);
+    -fx-border-color: black;
+    -fx-border-width: 1.5;
+}
+
+.exchangeableBookDetails {
+	-fx-background-color: rgb(227,181,132, 0.8);
+	-fx-background-radius: 20px;
+	-fx-border-color: black;
+	-fx-border-radius: 20px;
+    -fx-border-width: 0.9;
+}

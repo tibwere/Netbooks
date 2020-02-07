@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane fx:id="main" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <center>
+      <HBox alignment="CENTER" prefHeight="800.0" prefWidth="1000.0" styleClass="bg" stylesheets="@../css/style.css">
+         <children>
+            <VBox alignment="CENTER" prefHeight="800.0" prefWidth="500.0" spacing="50.0">
+               <children>
+                  <ImageView fx:id="imv" fitHeight="450.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true" />
+                  <HBox alignment="CENTER_LEFT" maxHeight="150.0" maxWidth="300.0" prefHeight="150.0" prefWidth="300.0" styleClass="exchangeableBookDetails">
+                     <children>
+                        <Pane maxHeight="150.0" maxWidth="10.0" prefHeight="150.0" prefWidth="10.0" visible="false" />
+                        <VBox alignment="CENTER_LEFT" maxHeight="150.0" maxWidth="300.0" prefHeight="150.0" prefWidth="300.0" styleClass="transparent">
+                           <children>
+                              <Text lineSpacing="1.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Details:" underline="true">
+                                 <font>
+                                    <Font name="System Bold" size="16.0" />
+                                 </font>
+                              </Text>
+                              <HBox maxHeight="25.0" maxWidth="300.0" prefHeight="25.0" prefWidth="300.0" visible="false" />
+                              <HBox alignment="CENTER_LEFT" maxHeight="25.0" maxWidth="300.0" prefHeight="25.0" prefWidth="300.0" spacing="36.0">
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Title:">
+                                       <font>
+                                          <Font name="System Bold" size="13.0" />
+                                       </font>
+                                    </Text>
+                                    <Label fx:id="title" maxHeight="25.0" maxWidth="226.0" prefHeight="25.0" prefWidth="226.0" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" maxHeight="25.0" maxWidth="300.0" prefHeight="25.0" prefWidth="300.0" spacing="19.0">
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Author:">
+                                       <font>
+                                          <Font name="System Bold" size="13.0" />
+                                       </font>
+                                    </Text>
+                                    <Label fx:id="author" maxHeight="25.0" maxWidth="226.0" prefHeight="25.0" prefWidth="226.0" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" maxHeight="25.0" maxWidth="300.0" prefHeight="25.0" prefWidth="300.0" spacing="9.0">
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="OwnerId:">
+                                       <font>
+                                          <Font name="System Bold" size="13.0" />
+                                       </font>
+                                    </Text>
+                                    <Label fx:id="owner" maxHeight="25.0" maxWidth="226.0" prefHeight="25.0" prefWidth="226.0" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <VBox prefHeight="800.0" prefWidth="500.0" styleClass="exBookPanebg" />
+         </children>
+      </HBox>
+   </center>
+</BorderPane>

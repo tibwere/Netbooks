@@ -37,6 +37,8 @@ public class GraphicalElements {
 			return new FXMLLoader(GraphicalElements.class.getResource(PATH + "buy_book.fxml"));
 		case EXCHANGE_BOOK:
 			return new FXMLLoader(GraphicalElements.class.getResource(PATH + "exchange_book.fxml"));
+		case MAKE_PROPOSAL:
+			return new FXMLLoader(GraphicalElements.class.getResource(PATH + "make_proposal.fxml"));
 		case KBSAS:
 			return new FXMLLoader(GraphicalElements.class.getResource(PATH + "kbsas.fxml"));
 		default: /* case HOME */
@@ -47,14 +49,14 @@ public class GraphicalElements {
 	public static FXMLLoader loadFXML(DynamicElements element) {
 		
 		switch(element) {
-		case NAVBAR:
-			return new FXMLLoader(GraphicalElements.class.getResource(PATH + "navbar.fxml"));
 		case HP_BOOK_PREVIEW:
 			return new FXMLLoader(GraphicalElements.class.getResource(PATH + "hp_book_preview.fxml"));
 		case MORE_INFO_PANE:
 			return new FXMLLoader(GraphicalElements.class.getResource(PATH + "test.fxml"));
-		default: /* case HOME */
-			return new FXMLLoader(GraphicalElements.class.getResource(PATH + "home.fxml"));
+		case EXCHANGE_BOOK_ITEM:
+			return new FXMLLoader(GraphicalElements.class.getResource(PATH + "exchange_book_item.fxml"));
+		default: /* case NAVBAR */
+			return new FXMLLoader(GraphicalElements.class.getResource(PATH + "navbar.fxml"));
 		}
 	}
 	
@@ -63,23 +65,22 @@ public class GraphicalElements {
 		Session.getSession().setCurrView(nextView);
 		
 		try {
-			BorderPane pane;
 			
-			switch(nextView) {
-			case LOGIN:
+			if (nextView.equals(Views.LOGIN)) {
 				Session.getSession().setCurrUser("");
 				return new Scene(loadFXML(nextView).load());
-			case BUY_BOOK:
+			}
+			else {
 				FXMLLoader loader = loadFXML(nextView);
-				loader.setController(controller);
-				pane = loader.load();
-				pane.setTop(loadFXML(DynamicElements.NAVBAR).load());
-				return new Scene(pane);
-			default:
-				pane = loadFXML(nextView).load();
-				pane.setTop(loadFXML(DynamicElements.NAVBAR).load());
+				if (controller != null)
+					loader.setController(controller);
+				BorderPane pane = loader.load();
+				if (!nextView.equals(Views.KBSAS))
+					pane.setTop(loadFXML(DynamicElements.NAVBAR).load());
+				
 				return new Scene(pane);
 			}
+
 		}
 		catch(IOException e) {
 			e.printStackTrace();

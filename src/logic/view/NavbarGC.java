@@ -50,9 +50,11 @@ public class NavbarGC implements Initializable{
 		switch(Session.getSession().getCurrView()) {
 		case HOME:
 			homeBtn.setDisable(true);
+			exchangeBtn.setDisable(false);
 			break;
 		case EXCHANGE_BOOK:
-			homeBtn.setDisable(true);
+			exchangeBtn.setDisable(true);
+			homeBtn.setDisable(false);
 			break;
 		default:
 			break;

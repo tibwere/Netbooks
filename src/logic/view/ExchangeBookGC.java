@@ -2,7 +2,6 @@ package logic.view;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -14,6 +13,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import logic.bean.BookBean;
 import logic.controller.ExchangeBookController;
+import logic.util.GraphicalElements;
+import logic.util.enumeration.DynamicElements;
 
 /**
  * Controller grafico collegato al file "exchange_book.fxml" 
@@ -42,20 +43,18 @@ public class ExchangeBookGC implements Initializable {
 		
 			ExchangeBookController controller = new ExchangeBookController();
 		
-			List<BookBean> beans = new ArrayList<>();
-		
-			beans = controller.getExchangeableBooks();
+			List<BookBean> beans = controller.getExchangeableBooks();
 		
 			int i;
 			int j;
-		
-			for (i = 0; i < 1; i ++) {
+
+			for (i = 0; i < 3; i ++) {
 			
-				for (j = 0; j < 2; j ++) {
+				for (j = 0; j < 6; j ++) {
 							
 					ExchangeBookItemGC gc = new ExchangeBookItemGC(beans.get(i*6 + j));
 				
-					FXMLLoader loader = new FXMLLoader(ExchangeBookGC.class.getResource("resources/fxml/exchange_book_item.fxml"));
+					FXMLLoader loader = GraphicalElements.loadFXML(DynamicElements.EXCHANGE_BOOK_ITEM);
 			
 					loader.setController(gc);
 				
@@ -69,6 +68,7 @@ public class ExchangeBookGC implements Initializable {
 		catch (IOException e) {
 			
 			e.printStackTrace();
+			
 		}
 		
 	}
