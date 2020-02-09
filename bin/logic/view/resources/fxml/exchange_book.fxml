@@ -94,7 +94,7 @@
                   </Text>
                </children>
             </VBox>
-            <GridPane id="gridPane" fx:id="gridPane" alignment="TOP_CENTER" hgap="17.1428571" layoutX="40.0" layoutY="40.0" prefHeight="720.0" prefWidth="720.0" styleClass="transparent" vgap="40.0">
+            <GridPane id="gridPane" fx:id="gridPane" alignment="TOP_CENTER" hgap="17.1428571" layoutX="40.0" layoutY="40.0" prefHeight="720.0" prefWidth="720.0" styleClass="transparent">
               <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="100.0" prefWidth="100.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="100.0" prefWidth="100.0" />

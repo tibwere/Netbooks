@@ -51,8 +51,6 @@ public class GraphicalElements {
 		switch(element) {
 		case HP_BOOK_PREVIEW:
 			return new FXMLLoader(GraphicalElements.class.getResource(PATH + "hp_book_preview.fxml"));
-		case MORE_INFO_PANE:
-			return new FXMLLoader(GraphicalElements.class.getResource(PATH + "test.fxml"));
 		case EXCHANGE_BOOK_ITEM:
 			return new FXMLLoader(GraphicalElements.class.getResource(PATH + "exchange_book_item.fxml"));
 		default: /* case NAVBAR */
@@ -83,7 +81,6 @@ public class GraphicalElements {
 
 		}
 		catch(IOException e) {
-			e.printStackTrace();
 			return new Scene(create404Page(nextView.toString().toLowerCase()));			
 		}
 	}

@@ -8,7 +8,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
 import javafx.stage.Stage;
 import logic.bean.BookBean;
 import logic.util.GraphicalElements;
@@ -29,9 +28,6 @@ public class BookPreviewGC implements Initializable{
 	@FXML
 	private HBox pane;
 	
-	@FXML
-	private HBox infoBox;
-	
 	private BookBean bean;
 	
 	public BookPreviewGC(BookBean bean) {
@@ -40,7 +36,6 @@ public class BookPreviewGC implements Initializable{
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		HBox.setHgrow(infoBox, Priority.SOMETIMES);
 		thumbnail.setImage(bean.getSingleImage(ImageSize.SMALL));
 		titleLbl.setText(bean.getTitle());
 		authorLbl.setText(bean.getAuthor());

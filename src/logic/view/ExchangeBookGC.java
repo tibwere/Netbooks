@@ -52,7 +52,7 @@ public class ExchangeBookGC implements Initializable {
 			
 				for (j = 0; j < 6; j ++) {
 							
-					ExchangeBookItemGC gc = new ExchangeBookItemGC(beans.get(i*6 + j));
+					ExchangeBookItemGC gc = new ExchangeBookItemGC(beans.get(i*6 + j), this);
 				
 					FXMLLoader loader = GraphicalElements.loadFXML(DynamicElements.EXCHANGE_BOOK_ITEM);
 			
@@ -71,5 +71,9 @@ public class ExchangeBookGC implements Initializable {
 			
 		}
 		
+	}
+	
+	public void bringToFront(VBox obj)  {
+		obj.toFront();
 	}
 }

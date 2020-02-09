@@ -42,8 +42,10 @@ public class ExchangeBookItemGC implements Initializable {
 	
 	private BookBean bean;
 	
-	public ExchangeBookItemGC(BookBean bean) {
-		
+	private ExchangeBookGC mainGC;
+	
+	public ExchangeBookItemGC(BookBean bean, ExchangeBookGC mainGC) {
+		this.mainGC = mainGC;
 		this.bean = bean;
 		
 	}
@@ -61,6 +63,7 @@ public class ExchangeBookItemGC implements Initializable {
 	
 	@FXML
 	private void extendLabel() {
+		mainGC.bringToFront(bookItem);
 		vBoxInfo.setVisible(true);
 	}
 	

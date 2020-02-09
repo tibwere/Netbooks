@@ -14,6 +14,12 @@ import logic.util.enumeration.ImageSize;
  *
  */
 public class BuyBookController {
+	
+	private ManageRatingsController rrController;
+
+	public BuyBookController(ManageRatingsController secondaryController) {
+		this.rrController = secondaryController;
+	}
 
 	public List<BookBean> getBooksForHomepage() {
 		List<Book> books = BookDao.getInstance().findBooksForHomepage();
@@ -31,5 +37,9 @@ public class BuyBookController {
 		}
 		
 		return beans;	
-	}	
+	}
+	
+	public ManageRatingsController getRRController() {
+		return rrController;
+	}
 }

@@ -10,8 +10,6 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
 import javafx.stage.Stage;
 import logic.util.GraphicalElements;
 import logic.util.Session;
@@ -40,12 +38,8 @@ public class NavbarGC implements Initializable{
 	@FXML
 	private Button logoutBtn;
 	
-	@FXML
-	private HBox spacer;
-	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		HBox.setHgrow(spacer, Priority.SOMETIMES);
 
 		switch(Session.getSession().getCurrView()) {
 		case HOME:
@@ -58,7 +52,7 @@ public class NavbarGC implements Initializable{
 			break;
 		default:
 			break;
-		}	
+		}
 	}	
 	
 	@FXML

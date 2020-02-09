@@ -16,6 +16,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import logic.bean.BookBean;
 import logic.controller.BuyBookController;
+import logic.controller.ManageRatingsController;
 import logic.util.GraphicalElements;
 import logic.util.enumeration.DynamicElements;
 
@@ -30,11 +31,10 @@ public class HomeGC implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		try {
-			BuyBookController buyBookController = new BuyBookController();
+			BuyBookController buyBookController = new BuyBookController(new ManageRatingsController());
 			fillPanel(buyBookController.getBooksForHomepage());
 		} catch (IllegalStateException | IOException e) {	
 			GraphicalElements.showDialog(AlertType.ERROR, "Ops, something went wrong ...", "Unable to load book list elements");
-			e.printStackTrace();
 			Platform.exit();
 		}
 	}

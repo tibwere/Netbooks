@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -12,38 +14,31 @@
 
 <BorderPane prefHeight="800.0" prefWidth="1000.0" styleClass="bg" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <center>
-      <VBox fx:id="mainPanel" alignment="CENTER" prefWidth="630.0" spacing="10.0">
+      <VBox fx:id="mainPanel" alignment="CENTER_LEFT" prefWidth="630.0" spacing="10.0">
          <children>
             <HBox alignment="CENTER" spacing="30.0">
                <children>
                   <ImageView fx:id="bookImg" pickOnBounds="true" preserveRatio="true" />
-                  <VBox alignment="CENTER" spacing="20.0">
+                  <VBox fx:id="moreInfoBox" alignment="CENTER" maxHeight="300.0" prefHeight="200.0" spacing="15.0" styleClass="checkboxes-panel">
                      <children>
-                        <Button fx:id="reviewsBtn" mnemonicParsing="false" onAction="#viewReviews" text="VIEW IN-APP REVIEWS">
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                           <graphic>
-                              <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../images/rate.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </Button>
-                        <Button mnemonicParsing="false" text="VIEW ONLINE REVIEWS">
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                           <graphic>
-                              <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../images/internet.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </Button>
+                        <Label text="MORE INFO">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <VBox spacing="5.0">
+                           <children>
+                              <CheckBox fx:id="inAppRatingsChk" mnemonicParsing="false" text="IN-APP RATINGS" />
+                              <CheckBox fx:id="inAppReviewsChk" mnemonicParsing="false" text="IN-APP REVIEWS" />
+                              <CheckBox fx:id="googleRatingsChk" mnemonicParsing="false" text="GOOGLE RATINGS" />
+                           </children>
+                        </VBox>
+                        <Label onMouseClicked="#resetCheckBoxes" text="Reset" textFill="BLUE" underline="true" />
+                        <Button fx:id="showBtn" mnemonicParsing="false" onAction="#showResults" text="SHOW" />
                      </children>
+                     <padding>
+                        <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+                     </padding>
                   </VBox>
                </children>
             </HBox>

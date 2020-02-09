@@ -3,9 +3,29 @@
     -fx-background-position: center;
 }
 
+.bg-secondary {
+	-fx-background-color: rgb(99,79,58, 0.8);
+}
+
 .loginpanel {
 	-fx-background-color: rgb(227,181,132, 0.8);
 	-fx-background-radius: 50px;
+}
+
+.moreinfopanel {
+	-fx-background-color: rgb(227,181,132);
+	-fx-background-radius: 20px;	
+}
+
+.scrollpanebg {
+	-fx-background-color: #f0b884;
+}
+
+.checkboxes-panel {
+	-fx-background-color: rgb(227,181,132, 0.8);
+	-fx-background-radius: 25px;
+	
+	
 }
 
 .success {
@@ -70,4 +90,8 @@
 	-fx-border-color: black;
 	-fx-border-radius: 20px;
     -fx-border-width: 0.9;
+}
+
+.progress-bar {
+	-fx-accent: #e5be01;
 }
