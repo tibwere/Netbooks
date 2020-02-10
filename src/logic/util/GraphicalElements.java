@@ -39,6 +39,8 @@ public class GraphicalElements {
 			return new FXMLLoader(GraphicalElements.class.getResource(PATH + "exchange_book.fxml"));
 		case MAKE_PROPOSAL:
 			return new FXMLLoader(GraphicalElements.class.getResource(PATH + "make_proposal.fxml"));
+		case MANAGE_PROPOSALS:
+			return new FXMLLoader(GraphicalElements.class.getResource(PATH + "manage_proposals.fxml"));
 		case KBSAS:
 			return new FXMLLoader(GraphicalElements.class.getResource(PATH + "kbsas.fxml"));
 		default: /* case HOME */
@@ -53,6 +55,8 @@ public class GraphicalElements {
 			return new FXMLLoader(GraphicalElements.class.getResource(PATH + "hp_book_preview.fxml"));
 		case EXCHANGE_BOOK_ITEM:
 			return new FXMLLoader(GraphicalElements.class.getResource(PATH + "exchange_book_item.fxml"));
+		case NOTIFICATION_ITEM:
+			return new FXMLLoader(GraphicalElements.class.getResource(PATH + "notification_item.fxml"));
 		default: /* case NAVBAR */
 			return new FXMLLoader(GraphicalElements.class.getResource(PATH + "navbar.fxml"));
 		}

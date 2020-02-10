@@ -9,10 +9,12 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import logic.bean.BookBean;
+import logic.controller.ExchangeBookController;
 import logic.util.enumeration.ImageSize;
 
 public class MakeProposalGC implements Initializable{
@@ -26,9 +28,20 @@ public class MakeProposalGC implements Initializable{
 	@FXML
 	private Label title;
 	
-	@FXML Label author;
+	@FXML 
+	private Label author;
 	
-	@FXML Label owner;
+	@FXML 
+	private Label ownerDetail;
+	
+	@FXML
+	private Label ownerLabel;
+	
+	@FXML
+	private Label successLabel;
+	
+	@FXML
+	private Button sendBtn;
 	
 	private BookBean bean;
 	
@@ -38,11 +51,20 @@ public class MakeProposalGC implements Initializable{
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		this.imv.setImage(bean.getSingleImage(ImageSize.LARGE));
-		this.title.setText(bean.getTitle());
-		this.author.setText(bean.getAuthor());
-		this.owner.setText(bean.getOwner());
+		imv.setImage(bean.getSingleImage(ImageSize.LARGE));
+		title.setText(bean.getTitle());
+		author.setText(bean.getAuthor());
+		String own = bean.getOwner();
+		ownerDetail.setText(own);
+		ownerLabel.setText(own);
 	}
 
+	@FXML
+	private void clickOnSendProposal() {
+		sendBtn.setDisable(true);
+		ExchangeBookController controller = new ExchangeBookController();
+		controller.buildProposal(bean);
+		successLabel.setVisible(true);
+	}
 	
 }

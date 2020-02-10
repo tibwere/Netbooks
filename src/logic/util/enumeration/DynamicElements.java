@@ -9,5 +9,6 @@ package logic.util.enumeration;
 public enum DynamicElements {
 	NAVBAR,
 	HP_BOOK_PREVIEW,
-	EXCHANGE_BOOK_ITEM
+	EXCHANGE_BOOK_ITEM,
+	NOTIFICATION_ITEM
 }

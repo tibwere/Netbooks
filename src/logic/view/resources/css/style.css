@@ -95,3 +95,13 @@
 .progress-bar {
 	-fx-accent: #e5be01;
 }
+
+.exchangeBookActivities {
+	-fx-background-color: #f0bf8b;
+}
+
+.proposalItem {
+	-fx-background-color: rgb(99,79,58,0.8);
+	-fx-border-color: black;
+	-fx-border-width: 0.9;
+}

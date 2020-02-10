@@ -2,9 +2,16 @@ package logic.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+
 import logic.bean.BookBean;
+import logic.bean.NotificationBean;
 import logic.dao.BookDao;
 import logic.model.Book;
+import logic.model.proposal.Proposal;
+import logic.model.proposal.ProposalNotification;
+import logic.model.users.Reader;
+import logic.util.Session;
 import logic.util.enumeration.ImageSize;
 
 /**
@@ -29,6 +36,26 @@ public class ExchangeBookController {
 			bean.setOwner("Pippo");
 			beans.add(bean);
 		}
+		
+		return beans;
+	}
+	
+	public void buildProposal(BookBean bean) {
+		Random rand = new Random();
+		Book tgtBook = new Book(bean.getIsbn(), bean.getTitle(), bean.getAuthor());
+		Reader source = new Reader(Session.getSession().getCurrUser(), "source_email@hotmail.it", "M");
+		Reader target = new Reader(bean.getOwner(), "target_email@hotmail.it", "F");
+		Proposal proposal = new Proposal(source, target, tgtBook, Long.toString(rand.nextLong()));
+//		salvare la proposta in persistenza
+	}
+	
+	public List<NotificationBean> getCurrUserNotifications() {
+		
+		List<NotificationBean> beans = new ArrayList<>();
+		Reader currUser = new Reader(Session.getSession().getCurrUser(), "email@hotmail.it", "M");
+		
+		for (ProposalNotification n : currUser.getNotifications())
+			beans.add(new NotificationBean(n.getSrc().getUsername(), n.getDestBook().getTitle(), n.getMessage(), n.getProposalId()));
 		
 		return beans;
 	}

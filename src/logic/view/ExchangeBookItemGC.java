@@ -45,8 +45,9 @@ public class ExchangeBookItemGC implements Initializable {
 	private ExchangeBookGC mainGC;
 	
 	public ExchangeBookItemGC(BookBean bean, ExchangeBookGC mainGC) {
-		this.mainGC = mainGC;
+		
 		this.bean = bean;
+		this.mainGC = mainGC;
 		
 	}
 
@@ -77,6 +78,5 @@ public class ExchangeBookItemGC implements Initializable {
 		MakeProposalGC gc = new MakeProposalGC(bean);
 		Stage stage = (Stage) bookItem.getScene().getWindow();
 		stage.setScene(GraphicalElements.switchTo(Views.MAKE_PROPOSAL, gc));
-
 	}
 }

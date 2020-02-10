@@ -18,7 +18,7 @@ public class LoginController {
 		
 		UserType type = AbstractUserDao.getInstance().findUserByUsernameAndPassword(user, passwd);
 		
-		if (type.equals(UserType.INVALID_USER))
+		if (!type.equals(UserType.INVALID_USER))
 			Session.getSession().setCurrUser(user);
 
 		return type;
