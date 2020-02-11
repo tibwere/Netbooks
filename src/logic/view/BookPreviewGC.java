@@ -5,6 +5,7 @@ import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -13,6 +14,7 @@ import logic.bean.BookBean;
 import logic.util.GraphicalElements;
 import logic.util.enumeration.ImageSize;
 import logic.util.enumeration.Views;
+import logic.view.ratings.RatingModal;
 
 public class BookPreviewGC implements Initializable{
 	
@@ -47,6 +49,12 @@ public class BookPreviewGC implements Initializable{
 		Stage stage = (Stage) pane.getScene().getWindow();
 		stage.setScene(GraphicalElements.switchTo(Views.BUY_BOOK, gc));
 	}	
-
+	
+	@FXML
+	public void rateBook() {
+		Stage parent = (Stage) thumbnail.getScene().getWindow();
+		Stage modal = GraphicalElements.createModalWindow(new Scene(new RatingModal(bean)), parent);
+		modal.show();
+	}
 
 }

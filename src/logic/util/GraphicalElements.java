@@ -14,6 +14,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import logic.util.enumeration.DynamicElements;
 import logic.util.enumeration.Views;
@@ -57,6 +58,8 @@ public class GraphicalElements {
 			return new FXMLLoader(GraphicalElements.class.getResource(PATH + "exchange_book_item.fxml"));
 		case NOTIFICATION_ITEM:
 			return new FXMLLoader(GraphicalElements.class.getResource(PATH + "notification_item.fxml"));
+		case LOADING_MODAL:
+			return new FXMLLoader(GraphicalElements.class.getResource(PATH + "loading.fxml"));
 		default: /* case NAVBAR */
 			return new FXMLLoader(GraphicalElements.class.getResource(PATH + "navbar.fxml"));
 		}
@@ -85,6 +88,7 @@ public class GraphicalElements {
 
 		}
 		catch(IOException e) {
+			e.printStackTrace();
 			return new Scene(create404Page(nextView.toString().toLowerCase()));			
 		}
 	}
@@ -121,5 +125,16 @@ public class GraphicalElements {
 		alert.setHeaderText(header);
 		alert.setContentText(content);
 		return alert.showAndWait();
+	}
+	
+	public static Stage createModalWindow(Scene scene, Stage parent) {
+		Stage secondaryStage = new Stage();
+		secondaryStage.initOwner(parent);
+		secondaryStage.initModality(Modality.APPLICATION_MODAL);
+		secondaryStage.setTitle(AppProperties.getInstance().getProperty("title"));
+		secondaryStage.getIcons().add(ImageDispenser.getImage(ImageDispenser.ICON));
+		secondaryStage.setScene(scene);
+		
+		return secondaryStage;
 	}
 }

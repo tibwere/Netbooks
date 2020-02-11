@@ -8,7 +8,7 @@ import java.util.List;
 import javafx.application.Platform;
 import javafx.scene.control.Alert.AlertType;
 import logic.bean.BookBean;
-import logic.bean.ReviewBean;
+import logic.bean.RatingBean;
 import logic.util.GraphicalElements;
 
 /**
@@ -30,20 +30,28 @@ public class ManageRatingsController {
 		}
 	}
 	public double getAVGRate(BookBean bean) {
-		return rnd.nextDouble();
+		return rnd.nextDouble() * 5;
 	}
 
-	public List<ReviewBean> getBookReviews() {
-		List<ReviewBean> reviewBeans = new ArrayList<>();
+	public List<RatingBean> getBookReviews() {
+		List<RatingBean> reviewBeans = new ArrayList<>();
 		
 		for (int i = 0; i < 50; ++i) {
-			ReviewBean b = new ReviewBean();
+			RatingBean b = new RatingBean();
 			b.setTitle("Prova titolo " + (i + 1));
 			b.setBody("Prova corpo " + (i + 1));
 			reviewBeans.add(b);
 		}
 		
 		return reviewBeans;
+	}
+	
+	public boolean addNewEvaluation(RatingBean bean) {
+		return true;
+	}
+	
+	public RatingBean getPreviousReview(BookBean bookBean) {
+		return null;
 	}
 
 }

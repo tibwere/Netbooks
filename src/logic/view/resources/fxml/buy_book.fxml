@@ -34,7 +34,7 @@
                            </children>
                         </VBox>
                         <Label onMouseClicked="#resetCheckBoxes" text="Reset" textFill="BLUE" underline="true" />
-                        <Button fx:id="showBtn" mnemonicParsing="false" onAction="#showResults" text="SHOW" />
+                        <Button fx:id="showBtn" mnemonicParsing="false" onAction="#showPopupDialogForRatings" text="SHOW" />
                      </children>
                      <padding>
                         <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />

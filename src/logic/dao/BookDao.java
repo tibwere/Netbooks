@@ -34,13 +34,21 @@ public class BookDao {
 	
 	public List<Book> findBooksForHomepage() {
 		ArrayList<Book> books = new ArrayList<>();
-		Book tmp = new Book("001122", "Simone 2", "Bello Mio");
+		Book tmp = new Book("112233", "Another Test", "Boh Boh");
 		tmp.setSmallImage(ImageDispenser.getImage(ImageDispenser.BOOK_TEST_THUMBNAIL));
 		tmp.setLargeImage(ImageDispenser.getImage(ImageDispenser.BOOK_TEST));
 		tmp.setYearOfPublication(1998);
-		tmp.setPublisher("Mondadori");
-		tmp.setLanguage("Italiano");
+		tmp.setPublisher("Feltrinelli");
+		tmp.setLanguage("Aramaico");
 		books.add(tmp);
+		
+		Book tmp2 = new Book("001122", "Simone 2", "Bello Mio");
+		tmp2.setSmallImage(ImageDispenser.getImage(ImageDispenser.BOOK_TEST_THUMBNAIL));
+		tmp2.setLargeImage(ImageDispenser.getImage(ImageDispenser.BOOK_TEST));
+		tmp2.setYearOfPublication(1998);
+		tmp2.setPublisher("Mondadori");
+		tmp2.setLanguage("Italiano");
+		books.add(tmp2);
 
 		return books;
 	}

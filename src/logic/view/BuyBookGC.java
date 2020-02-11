@@ -1,37 +1,43 @@
 package logic.view;
 
+import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.concurrent.ExecutionException;
 
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.concurrent.Task;
+import javafx.concurrent.WorkerStateEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.TextAlignment;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import logic.bean.BookBean;
-import logic.util.AppProperties;
 import logic.util.GraphicalElements;
-import logic.util.ImageDispenser;
+import logic.util.ShowPanelTask;
+import logic.util.enumeration.DynamicElements;
 import logic.util.enumeration.ImageSize;
 import logic.view.ratings.EmptyBox;
 import logic.view.ratings.InAppRatingsBox;
 import logic.view.ratings.InAppReviewsBox;
+import logic.view.ratings.OnlineRatingsBox;
 import logic.view.ratings.Showable;
 
 public class BuyBookGC implements Initializable{
@@ -85,21 +91,22 @@ public class BuyBookGC implements Initializable{
     private VBox moreInfoBox;
     
     private Label errLbl;
-
     private BookBean bookToLoad;
-    
+    private Showable element;
+
+        
     public BuyBookGC(BookBean bookBean) {
     	this.bookToLoad = bookBean;
     }
     
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		
+	
 		errLbl = new Label("SELECT AT LEAST\nONE ELEMENT");
 		errLbl.setTextAlignment(TextAlignment.CENTER);
 		errLbl.setTextFill(Color.RED);
 		errLbl.setFont(Font.font("System", FontWeight.BOLD, 12));
-		
+				
 		bookImg.setImage(bookToLoad.getSingleImage(ImageSize.LARGE));
 		isbn10Lbl.setText(bookToLoad.getIsbn());
 		isbn13Lbl.setText("978-" + bookToLoad.getIsbn());
@@ -123,11 +130,10 @@ public class BuyBookGC implements Initializable{
 		googleRatingsChk.selectedProperty().addListener(hideErr);
 		
 	}
-	
+
 	@FXML
-	public void showResults() {
-		
-		Showable element = new EmptyBox();
+	public void showPopupDialogForRatings() {		
+		element = new EmptyBox();
 		
 		if (!(inAppRatingsChk.isSelected() || inAppReviewsChk.isSelected() || googleRatingsChk.isSelected())) {	
 			if (!moreInfoBox.getChildren().contains(errLbl))
@@ -140,21 +146,55 @@ public class BuyBookGC implements Initializable{
 				element = new InAppRatingsBox(element);
 			if (inAppReviewsChk.isSelected())
 				element = new InAppReviewsBox(element);
+			if (googleRatingsChk.isSelected())
+				element = new OnlineRatingsBox(element);
 			
-			VBox body = element.show(bookToLoad);
-		
-			Stage secondaryStage = new Stage();
-			secondaryStage.initModality(Modality.APPLICATION_MODAL);
-			secondaryStage.setTitle(AppProperties.getInstance().getProperty("title"));
-			secondaryStage.getIcons().add(ImageDispenser.getImage(ImageDispenser.ICON));
-			secondaryStage.setScene(new Scene(body));
-			secondaryStage.show();	
-		}
+			ShowPanelTask task = new ShowPanelTask(element, bookToLoad);
+			try {
+				Scene loadingScene = new Scene(GraphicalElements.loadFXML(DynamicElements.LOADING_MODAL).load());
+				Stage parent = (Stage) showBtn.getScene().getWindow();
+				Stage loadingStage = GraphicalElements.createModalWindow(loadingScene, parent);
+				loadingStage.initStyle(StageStyle.TRANSPARENT);
+				loadingScene.setFill(Color.TRANSPARENT);
+				
+				task.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+					
+					@Override
+					public void handle(WorkerStateEvent event) {
+						try { 
+							VBox box = task.get();
+							Stage secondaryStage = GraphicalElements.createModalWindow(new Scene(box), parent);
+							loadingStage.hide();
+							secondaryStage.show();
+						} 
+						catch (InterruptedException | ExecutionException e1) {
+							GraphicalElements.showDialog(AlertType.ERROR, "ops something went wrong ...", "Unable to load google reviews ...");
+						}					
+					}
+				});
+				
+				executeTask(task);
+				loadingStage.show();
+			}
+			catch (IllegalStateException | IOException e) {	
+				GraphicalElements.showDialog(AlertType.ERROR, "Ops, something went wrong ...", "Unable to load modal window");
+				Platform.exit();
+			}			
 
+		}
 	}
+	
+    private void executeTask(Task<?> task) {
+        Thread t = new Thread(task, "create-new-window");
+        t.setDaemon(true);
+        t.start();
+    }
 	
 	
 	public void resetCheckBoxes()  {
+		
+		if (moreInfoBox.getChildren().contains(errLbl))
+			moreInfoBox.getChildren().remove(errLbl);
 		
 		try {
 			Field [] fields = BuyBookGC.class.getDeclaredFields();

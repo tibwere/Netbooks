@@ -6,11 +6,18 @@ package logic.bean;
  * @author Simone Tiberi (M. 0252795)
  *
  */
-public class ReviewBean {
+public class RatingBean {
 	
 	private String title;
 	private String body;
+	private double rate;
 	
+	public double getRate() {
+		return rate;
+	}
+	public void setRate(double rate) {
+		this.rate = rate;
+	}
 	public String getTitle() {
 		return title;
 	}

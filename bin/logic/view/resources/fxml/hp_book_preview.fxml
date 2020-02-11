@@ -44,7 +44,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" styleClass="rate-home-btn">
+            <Button mnemonicParsing="false" onAction="#rateBook" prefHeight="50.0" prefWidth="50.0" styleClass="rate-home-btn">
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                      <image>

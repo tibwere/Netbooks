@@ -11,7 +11,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import logic.bean.BookBean;
-import logic.bean.ReviewBean;
+import logic.bean.RatingBean;
 import logic.controller.BuyBookController;
 import logic.controller.ManageRatingsController;
 
@@ -79,9 +79,9 @@ public class InAppReviewsBox extends BoxDecorator {
 		
 		/* Poi quando aggiorno il model devo aggiungere il tipo Reviews */
 		BuyBookController controller = new BuyBookController(new ManageRatingsController());
-		List<ReviewBean> reviews = controller.getRRController().getBookReviews();
+		List<RatingBean> reviews = controller.getRRController().getBookReviews();
 		
-		for (ReviewBean r : reviews) {
+		for (RatingBean r : reviews) {
 			VBox box = createReviewElement(r.getTitle(), r.getBody());
 			reviewsContainer.getChildren().add(box);
 		}
