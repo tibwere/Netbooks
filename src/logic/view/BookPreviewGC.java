@@ -14,7 +14,6 @@ import logic.bean.BookBean;
 import logic.util.GraphicalElements;
 import logic.util.enumeration.ImageSize;
 import logic.util.enumeration.Views;
-import logic.view.ratings.RatingModal;
 
 public class BookPreviewGC implements Initializable{
 	

@@ -12,30 +12,19 @@ import logic.model.Book;
  */
 
 public class Retailer extends User {
-
-	private String company;
-	private int companyPosition; //per ora int-->fare con cordinate
 	
 	public Retailer(String username, String email, String company) {
-		
-		super(username, email);
-		this.company =company;		
+		super(username, email);		
 	}
 	
-	
-	public String getCompany() {
-		 return company;
-	}
-	
-	public int getPosizione() {
-		return companyPosition;
-	}
-	
+	public Retailer(String username) {
+		super(username);
+	}	
 	
 	//metodo che interroga la BookDao
 	public List<Book> getBookFromPosition() {
 		
-		List<Book> books = BookDao.getInstance().findBookForChart(companyPosition);
+		List<Book> books = BookDao.getInstance().findBookForChart(latitude, longitude);
 		
 		return books;
 		

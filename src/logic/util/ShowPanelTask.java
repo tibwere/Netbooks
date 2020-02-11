@@ -3,7 +3,7 @@ package logic.util;
 import javafx.concurrent.Task;
 import javafx.scene.layout.VBox;
 import logic.bean.BookBean;
-import logic.view.ratings.Showable;
+import logic.view.evaluationdecorator.Showable;
 
 public class ShowPanelTask extends Task<VBox> {
 

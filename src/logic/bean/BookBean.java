@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javafx.scene.image.Image;
 import logic.util.enumeration.ImageSize;
+import logic.util.enumeration.Vendors;
 
 /**
  * Bean per la migrazione dei dati relativi ai libri
@@ -20,31 +21,51 @@ public class BookBean {
 	private int yearOfPublication;
 	private String publisher;
 	private String language;
+	
+	/* ATTENZIONE: NON UTILIZZARE VA ELIMINATO */
 	private String owner;
 
+	public String getOwner() {
+		return owner;
+	}
+
+	public void setOwner(String owner) {
+		this.owner = owner;
+	}
+	/* FINE ZONA DA ELIMINARE */
+
 	private Map<ImageSize, Image> images;
+	private Map<Vendors, String> links;
 	
 	public BookBean() {
 		this.images = new HashMap<>();
+		this.links = new HashMap<Vendors, String>();
 	}
 	
 	public BookBean(String title, String author) {
-		this.images = new HashMap<>();
+		this();
 		this.title = title;
 		this.author = author;
 	}
 	
 	public BookBean(String title, String author, Image singleImage, ImageSize size) {
-		this.images = new HashMap<>();
+		this();
 		this.setTitle(title);
 		this.setAuthor(author);
 		this.setSingleImage(singleImage, size);		
+	}
+	
+	public Map<Vendors, String> getLinks() {
+		return links;
+	}
+
+	public void setLinks(Map<Vendors, String> links) {
+		this.links = links;
 	}
 
 	public String getTitle() {
 		return title;
 	}
-
 
 	public void setTitle(String title) {
 		this.title = title;
@@ -104,18 +125,5 @@ public class BookBean {
 	
 	public void setSingleImage(Image image, ImageSize size) {
 		this.images.put(size, image);
-	}
-
-	public String getOwner() {
-		return owner;
-	}
-
-	public void setOwner(String owner) {
-		this.owner = owner;
-	}
-	
-	@Override
-	public String toString() {
-		return "[" + isbn + " " + title + " "+ author + " " + yearOfPublication + " " + publisher + " " + language + "]"; 
 	}
 }

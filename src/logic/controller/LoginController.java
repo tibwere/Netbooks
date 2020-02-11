@@ -1,6 +1,6 @@
 package logic.controller;
 
-import logic.bean.AbstractUserBean;
+import logic.bean.UserBean;
 import logic.dao.AbstractUserDao;
 import logic.util.Session;
 import logic.util.enumeration.UserType;
@@ -12,7 +12,7 @@ import logic.util.enumeration.UserType;
  */
 public class LoginController {
 
-	public UserType loginUser(AbstractUserBean bean) {
+	public UserType loginUser(UserBean bean) {
 		String user = bean.getUsername();
 		String passwd = bean.getPassword();
 		

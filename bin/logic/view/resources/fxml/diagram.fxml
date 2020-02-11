@@ -13,7 +13,7 @@
          <graphic>
             <ImageView id="backBtn" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../../../Desktop/Netbooks/trunk/src/logic/view/resources/images/left-arrow.png" />
+                  <Image url="@../images/left-arrow.png" />
                </image>
             </ImageView>
          </graphic>

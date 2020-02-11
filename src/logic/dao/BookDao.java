@@ -78,7 +78,7 @@ public class BookDao {
 	}
 	
 //	 fare per posizione con cordinate del reader if(companyPositio<= valoreSlider)
-	public List<Book> findBookForChart(int companyPosition) {
+	public List<Book> findBookForChart(double latitude, double longitude) {
 		ArrayList<Book> books = new ArrayList<>();
 		Book tmp1 = new Book("001122" , "La vita" , "Ale");
 		tmp1.setSmallImage(ImageDispenser.getImage(ImageDispenser.BOOK1));

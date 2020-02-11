@@ -34,11 +34,11 @@ import logic.util.GraphicalElements;
 import logic.util.ShowPanelTask;
 import logic.util.enumeration.DynamicElements;
 import logic.util.enumeration.ImageSize;
-import logic.view.ratings.EmptyBox;
-import logic.view.ratings.InAppRatingsBox;
-import logic.view.ratings.InAppReviewsBox;
-import logic.view.ratings.OnlineRatingsBox;
-import logic.view.ratings.Showable;
+import logic.view.evaluationdecorator.EmptyBox;
+import logic.view.evaluationdecorator.InAppRatingsBox;
+import logic.view.evaluationdecorator.InAppReviewsBox;
+import logic.view.evaluationdecorator.OnlineRatingsBox;
+import logic.view.evaluationdecorator.Showable;
 
 public class BuyBookGC implements Initializable{
 	

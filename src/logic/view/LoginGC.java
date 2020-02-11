@@ -15,7 +15,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import logic.bean.AbstractUserBean;
+import logic.bean.UserBean;
 import logic.controller.LoginController;
 import logic.exception.WrongSyntaxException;
 import logic.util.GraphicalElements;
@@ -71,7 +71,7 @@ public class LoginGC implements Initializable{
 			Stage stage;
 			String username = usernameTxt.getText();
 			String password = passwordTxt.getText();
-			AbstractUserBean bean = new AbstractUserBean(username, password);
+			UserBean bean = new UserBean(username, password);
 
 			UserType type = controller.loginUser(bean);
 			

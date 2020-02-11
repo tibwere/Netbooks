@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javafx.scene.image.Image;
 import logic.util.enumeration.ImageSize;
+import logic.util.enumeration.Vendors;
 
 /**
  * Entità del dominio di interesse: Libro
@@ -21,9 +22,11 @@ public class Book {
 	private String language;
 	
 	private Map<ImageSize, Image> images;
+	private Map<Vendors, String> links;
 	
 	public Book(String isbn, String title, String author) {
 		images = new HashMap<>();
+		links = new HashMap<>();
 		this.isbn = isbn;
 		this.title = title;
 		this.author = author;
@@ -89,10 +92,27 @@ public class Book {
 		this.images.put(ImageSize.LARGE, largeImage);
 	}
 	
-	@Override
-	public String toString() {
-		return "[" + isbn + " " + title + " "+ author + " " + yearOfPublication + " " + publisher + " " + language + "]"; 
+	public String getAmazonLink() {
+		return links.get(Vendors.AMAZON);
 	}
-
-
+	
+	public String getMondadoriLink() {
+		return links.get(Vendors.MONDADORI);
+	}
+	
+	public String getPlayLink() {
+		return links.get(Vendors.PLAY_BOOKS);
+	}
+	
+	public void setAmazonLink(String link) {
+		links.put(Vendors.AMAZON, link);
+	}
+	
+	public void setMondadoriLink(String link) {
+		links.put(Vendors.MONDADORI, link);
+	}
+	
+	public void setPlayLink(String link) {
+		links.put(Vendors.PLAY_BOOKS, link);
+	}
 }

@@ -3,9 +3,8 @@ package logic.model.users;
 import java.util.ArrayList;
 import java.util.List;
 
-import logic.dao.BookDao;
 import logic.model.Book;
-import logic.model.proposal.ProposalNotification;
+import logic.model.ProposalNotification;
 
 /**
  * 
@@ -15,31 +14,36 @@ import logic.model.proposal.ProposalNotification;
 
 public class Reader extends User {
 	
-	private String gender;
-	private List<ProposalNotification> noticeBoard;
+	private char gender;
+	private List<Book> ownedBooks;
 	
-	public Reader (String username, String email, String gender) {
+	public Reader (String username, String email, char gender) {
 		super(username, email);
 		this.gender = gender;
-		noticeBoard = new ArrayList<>();
 	}
-
+	
+	public Reader(String username) {
+		super(username);
+	}
+ 
 	public List<ProposalNotification> getNotifications() {
-		return noticeBoard;
+		return new ArrayList<>();
 	}
 
 	public void addNotification(ProposalNotification notification) {
-		noticeBoard.add(notification);
+		return;
 	}
 
-	public String getGender() {
+	public char getGender() {
 		return gender;
 	}
 	
-	public List<Book> getExchangeList() {
-		
-		return BookDao.getInstance().findExchangeableBooks(username);
-		
+	public List<Book> getOwnedBooks() {
+		return ownedBooks;
+	}
+
+	public void setOwnedBooks(List<Book> ownedBooks) {
+		this.ownedBooks = ownedBooks;
 	}
 }
 
