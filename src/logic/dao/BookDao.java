@@ -77,16 +77,16 @@ public class BookDao {
 		else return BookGenre.UNDEFINED;
 	}
 	
-//	 fare per posizione con cordinate del reader
-	public List<Book> findBookForChart(int position) {
-		List<Book> books = new ArrayList<>();
-		Book tmp1 = new Book("323233" , "Ale" , "La vita");
-		tmp1.setMediumImage(ImageDispenser.getImage(ImageDispenser.BOOK1));
+//	 fare per posizione con cordinate del reader if(companyPositio<= valoreSlider)
+	public List<Book> findBookForChart(int companyPosition) {
+		ArrayList<Book> books = new ArrayList<>();
+		Book tmp1 = new Book("001122" , "La vita" , "Ale");
+		tmp1.setSmallImage(ImageDispenser.getImage(ImageDispenser.BOOK1));
 		books.add(tmp1);
-		
-		Book tmp2 = new Book("343434" , "Fra" , "� bella ");
-		tmp2.setMediumImage(ImageDispenser.getImage(ImageDispenser.BOOK2));
-		books.add(tmp2);	
+			
+		Book tmp2 = new Book("001123" , "Il miracolo" , "Fra");
+		tmp2.setSmallImage(ImageDispenser.getImage(ImageDispenser.BOOK2));
+		books.add(tmp2);
 		
 		return books;		
 	}

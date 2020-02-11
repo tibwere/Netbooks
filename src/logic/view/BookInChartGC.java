@@ -10,6 +10,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import logic.bean.BookBean;
+import logic.util.enumeration.ImageSize;
 
 
 public class BookInChartGC implements Initializable {
@@ -44,7 +45,7 @@ public class BookInChartGC implements Initializable {
     @Override
 	public void initialize(URL location, ResourceBundle resources) {
     	
-    	//image.setImage(bean.getImage());
+    	image.setImage(bean.getSingleImage(ImageSize.SMALL));
     	lblBookAuthor.setText(bean.getAuthor());
     	lblBookName.setText(bean.getTitle());
     	

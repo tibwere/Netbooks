@@ -6,24 +6,48 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox fx:id="hBoxExternal" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="120.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<HBox fx:id="hBoxExternal" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="65.0" prefWidth="628.0" styleClass="buybook-panel" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <HBox fx:id="hBoxInteral" prefHeight="120.0" prefWidth="168.0">
+      <HBox fx:id="hBoxInteral" prefHeight="65.0" prefWidth="142.0">
          <children>
-            <Label fx:id="position" alignment="CENTER" prefHeight="120.0" prefWidth="82.0" text="POSITION" />
-            <ImageView fx:id="image" fitHeight="120.0" fitWidth="84.0" pickOnBounds="true" preserveRatio="true" />
+            <Label fx:id="position" alignment="CENTER" prefHeight="120.0" prefWidth="82.0" text="#POSITION">
+               <font>
+                  <Font name="Cooper Black" size="12.0" />
+               </font></Label>
+            <ImageView fx:id="image" fitHeight="60.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" />
          </children>
       </HBox>
-      <VBox fx:id="vBox" prefHeight="120.0" prefWidth="218.0">
+      <VBox prefHeight="65.0" prefWidth="89.0">
          <children>
-            <Label fx:id="lblBookName" alignment="BOTTOM_CENTER" prefHeight="64.0" prefWidth="212.0" text="NOME LIBRO">
+            <Label alignment="BOTTOM_CENTER" prefHeight="55.0" prefWidth="142.0" text="Titolo : ">
+               <font>
+                  <Font name="Cooper Black" size="12.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" prefHeight="55.0" prefWidth="142.0" text="Autore : " textAlignment="CENTER">
+               <font>
+                  <Font name="Cooper Black" size="12.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+      <VBox fx:id="vBox" prefHeight="65.0" prefWidth="124.0">
+         <children>
+            <Label fx:id="lblBookName" alignment="BOTTOM_LEFT" prefHeight="55.0" prefWidth="212.0" text="NOME LIBRO">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <Label fx:id="lblBookAuthor" alignment="TOP_CENTER" prefHeight="58.0" prefWidth="212.0" text="AUTORE" />
+            <Label fx:id="lblBookAuthor" prefHeight="55.0" prefWidth="212.0" text="AUTORE" />
          </children>
       </VBox>
-      <Label alignment="CENTER" prefHeight="126.0" prefWidth="232.0" text="NUMERO COPIE VENDUTE" />
+      <Label alignment="CENTER" prefHeight="65.0" prefWidth="184.0" text="NUMERO COPIE VENDUTE:">
+         <font>
+            <Font name="Cooper Black" size="12.0" />
+         </font></Label>
+      <VBox prefHeight="200.0" prefWidth="100.0">
+         <children>
+            <Label alignment="CENTER" prefHeight="65.0" prefWidth="99.0" text="N°copie" />
+         </children></VBox>
    </children>
 </HBox>

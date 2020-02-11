@@ -1,20 +1,19 @@
 package logic.view;
 
-
-
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ResourceBundle;
+import java.util.Optional;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
+import javafx.scene.chart.Chart;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -23,7 +22,11 @@ import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 import logic.bean.BookBean;
 import logic.controller.KbsasController;
-import logic.util.ImageDispenser;
+import logic.util.DiagramFactory;
+import logic.util.GraphicalElements;
+import logic.util.enumeration.DiagramType;
+import logic.util.enumeration.DynamicElements;
+import logic.util.enumeration.Views;;
 
 
 /**
@@ -32,98 +35,115 @@ import logic.util.ImageDispenser;
  *
  */
 
-	public class KbsasGC implements Initializable{
+public class KbsasGC {
 
-	    @FXML
-	    private Button buttonVBS;
+	@FXML
+    private Button buttonVBS;
 
-	    @FXML
-	    private Slider slider;
+    @FXML
+    private Slider slider;
 
-	    @FXML
-	    private MenuButton menuButton;
+    @FXML
+    private MenuButton menuButton;
 
-	    @FXML
-	    private Line line;
+    @FXML
+    private Line line;
 
-	    @FXML
-	    private Label labelRes;
-
-	    @FXML
-	    private Label label1;
-
-	    @FXML
-	    private Label label2;
-	    
-	    @FXML
-	    private BorderPane borderPane;
-	    
-	    @FXML
-	    private VBox vbox;
-	    
+    @FXML
+    private Label km;
+    
+    @FXML
+    private Label labelRes;
+    
+    @FXML
+    private Button logoutBtn;
+    
+    @FXML
+    private BorderPane borderPane;
+    
+    @FXML
+    private VBox vbox;
+    
+    @FXML
+    private MenuItem barChart;
+    
+    @FXML
+    private MenuItem pieChart;
+    
+    private Chart chart;
+	private List<BookBean> books;
+    
+	@FXML
+	public void showBestsellers() {
 		
-		@FXML
-		public void prova() {
-			
 		labelRes.setVisible(true);
-			menuButton.setVisible(true);
-			label1.setVisible(true);
-			label2.setVisible(true);
-			System.out.println(slider.getValue()); //valore dello slider da gestire per query
-		
-		
-		}
-
-		private KbsasController controller;
+		menuButton.setVisible(true);
+		line.setVisible(true);
 	
-		@Override
-		public void initialize(URL location, ResourceBundle resources) {
-		
-			try {
-				controller = new KbsasController();
-				fillPanel(controller.getBooks());
-			} catch (Exception e) {
-				
-				e.printStackTrace();
-				
-				Alert alert = new Alert(AlertType.ERROR);
-				
-				Stage alertStage = (Stage) alert.getDialogPane().getScene().getWindow();
-				alertStage.getIcons().add(ImageDispenser.getImage(ImageDispenser.ICON));
-				
-				alert.setTitle("Netbooks v1.0");
-				alert.setHeaderText("Ops something went wrong");
-				alert.setContentText("Error loading book list items");
-				alert.showAndWait();
-				
-				System.exit(0);
-			}
+		try {
+			KbsasController controller;
+			controller = new KbsasController();
+			books = controller.getBooksForRetailer();
+			appendBooksOnPane(books);
+		} catch (Exception e) {
+			GraphicalElements.showDialog(AlertType.ERROR, "Ops, something went wrong ...", "Unable to load chart");
+			Platform.exit();
 		}
+	}
+	
+	
+	@FXML
+	public void onSliderChanged() {
+	    int sliderValue = Math.round((int)slider.getValue());
+	    km.setText("Selected value : "+ sliderValue +"KM");
+	}
 
-		private void fillPanel(List<BookBean> books) throws Exception {
+	private void appendBooksOnPane(List<BookBean> books) throws Exception {
+		
+		List<HBox> list = new ArrayList<>();
+
+		for (BookBean b : books) {
+			BookInChartGC gc = new BookInChartGC(b);
+			FXMLLoader loader = GraphicalElements.loadFXML(DynamicElements.BOOK_IN_CHART);
+			loader.setController(gc);
+			HBox bookItem = loader.load();
 			
-			List<HBox> list = new ArrayList<>();
-
-			for (BookBean b : books) {
-				BookInChartGC gc = new BookInChartGC(b);
-				FXMLLoader loader = new FXMLLoader(KbsasGC.class.getResource("resources/fxml/book_in_chart.fxml"));
-				loader.setController(gc);
-				HBox bookItem = loader.load();
-				
-				list.add(bookItem);
-			}
-			
-			vbox.getChildren().addAll(list);
+			list.add(bookItem);
 		}
 		
-	
-	}	
-	
-
-
-
-
-	
+		vbox.getChildren().addAll(list);
+	}
 	
 
+	 @FXML
+	 public void barChartAction()  {
+		 DiagramFactory factory  = new DiagramFactory();
+		 chart = factory.createChart(DiagramType.BAR_CHART, books);
+		 chart.setTitle("Top 5 book (radius selected = " + Math.round((int)slider.getValue()) +"KM)");
+		 
+		 Stage stage = (Stage)borderPane.getScene().getWindow();
+		 DiagramGC gc = new DiagramGC(chart);
+		 stage.setScene(GraphicalElements.switchTo(Views.DIAGRAM, gc));
+	 }
+	    
+	 @FXML
+	 public void pieChartAction() {
+	    DiagramFactory factory  = new DiagramFactory();
+		chart = factory.createChart(DiagramType.PIE_CHART, books);
+		chart.setTitle("Top 5 book (radius selected = " + Math.round((int)slider.getValue()) +"KM)");
 
+		Stage stage = (Stage)borderPane.getScene().getWindow();
+		DiagramGC gc = new DiagramGC(chart);
+		stage.setScene(GraphicalElements.switchTo(Views.DIAGRAM, gc));
+	 }
+	 
+	 @FXML
+	 public void logout() {
+		 Optional<ButtonType> result = GraphicalElements.showDialog(AlertType.CONFIRMATION, "Netbooks asks ...", "Are you sure do you want to exit?");
+		 
+		 if (result.get().equals(ButtonType.OK)) {
+			 Stage stage = (Stage)borderPane.getScene().getWindow();
+			 stage.setScene(GraphicalElements.switchTo(Views.LOGIN, null));
+		 }
+	 }
+}

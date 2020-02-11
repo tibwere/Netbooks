@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
@@ -9,6 +10,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
@@ -16,57 +18,83 @@
 
 <BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" styleClass="bg" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="logic.view.KbsasGC">
    <right>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #e3b584;" styleClass="btn" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="buybook-panel" BorderPane.alignment="CENTER">
          <children>
-            <Label layoutX="33.0" layoutY="314.0" prefHeight="17.0" prefWidth="145.0" text="RATAILER-AREA" textFill="#fcf8f8">
+            <Label layoutX="22.0" layoutY="269.0" prefHeight="37.0" prefWidth="168.0" text="RETAILER-AREA" textFill="#fcf8f8">
                <font>
-                  <Font name="System Bold" size="18.0" />
+                  <Font name="System Bold" size="22.0" />
                </font>
             </Label>
-            <Button fx:id="buttonVBS" layoutX="29.0" layoutY="458.0" mnemonicParsing="false" onAction="#prova" prefHeight="34.0" prefWidth="141.0" style="-fx-background-color: #634f3a;" text="VIEW BEST-SELLERS" textFill="#f8f8f8">
+            <Button fx:id="buttonVBS" layoutX="11.0" layoutY="501.0" mnemonicParsing="false" onAction="#showBestsellers" prefHeight="34.0" prefWidth="177.0" style="-fx-background-color: #634f3a;" text="VIEW BEST-SELLERS" textFill="#f8f8f8">
                <font>
                   <Font name="System Bold" size="12.0" />
-               </font></Button>
-            <Slider fx:id="slider" layoutX="30.0" layoutY="398.0" max="50.0" showTickLabels="true" showTickMarks="true" value="10.0" />
-            <ImageView fitHeight="166.0" fitWidth="170.0" layoutX="23.0" layoutY="89.0">
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
+            <Slider fx:id="slider" layoutX="12.0" layoutY="416.0" majorTickUnit="10.0" max="50.0" minorTickCount="5" onKeyTyped="#onSliderChanged" onMouseReleased="#onSliderChanged" prefHeight="38.0" prefWidth="176.0" showTickLabels="true" showTickMarks="true" value="10.0">
+               <cursor>
+                  <Cursor fx:constant="OPEN_HAND" />
+               </cursor></Slider>
+            <ImageView fitHeight="175.0" fitWidth="175.0" layoutX="12.0" layoutY="94.0">
                <image>
-                  <Image url="@../../../../../../../Desktop/NetbooksCopyDesktop/NetbooksCopy/src/logic/view/resources/images/logo.jpg" />
+                  <Image url="@../../../../../../../Desktop/Netbooks/trunk/src/logic/view/resources/images/icon.png" />
                </image>
             </ImageView>
+            <Label fx:id="km" layoutX="14.0" layoutY="464.0" prefHeight="17.0" prefWidth="173.0" text="Selected value : 10KM" textFill="WHITE" />
+            <HBox layoutX="57.0" prefHeight="40.0" prefWidth="143.0">
+               <children>
+                  <Button fx:id="profileBtn" ellipsisString="" mnemonicParsing="false" prefHeight="40.0" prefWidth="41.0" styleClass="transparent" text="Button">
+                     <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../../../../../Desktop/Netbooks/trunk/src/logic/view/resources/images/profile.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Button fx:id="logoutBtn" ellipsisString="" mnemonicParsing="false" onAction="#logout" prefHeight="38.0" prefWidth="29.0" styleClass="transparent" text="Button">
+                     <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" styleClass="transparent">
+                           <image>
+                              <Image url="@../../../../../../../Desktop/Netbooks/trunk/src/logic/view/resources/images/logout.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+               </children>
+            </HBox>
+            <Label layoutX="13.0" layoutY="383.0" prefHeight="17.0" prefWidth="116.0" text="Select the radius : " textFill="WHITE" />
          </children>
       </AnchorPane>
    </right>
    <center>
-      <Pane prefHeight="200.0" prefWidth="200.0" styleClass="scrollbg" BorderPane.alignment="CENTER">
+      <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Line fx:id="line" endX="261.0" layoutX="443.0" layoutY="210.0" startX="-379.0" stroke="WHITE" />
-            <Label fx:id="labelRes" layoutX="314.0" layoutY="150.0" prefHeight="49.0" prefWidth="140.0" text="RESULTS" textFill="#fcf8f8" visible="false">
+            <Line fx:id="line" endX="261.0" layoutX="443.0" layoutY="116.0" startX="-379.0" stroke="WHITE" visible="false" />
+            <Label fx:id="labelRes" layoutX="301.0" layoutY="26.0" prefHeight="77.0" prefWidth="167.0" text="RESULTS" textFill="#fcf8f8" visible="false">
                <font>
-                  <Font name="System Bold" size="32.0" />
+                  <Font size="40.0" />
                </font>
             </Label>
-            <VBox fx:id="vbox" layoutX="41.0" layoutY="231.0" prefHeight="556.0" prefWidth="718.0">
-               <children>
-                  <Label fx:id="label1" prefHeight="54.0" prefWidth="303.0" text="1. &quot;BELLOMIO&quot; n°copie = 20" visible="false">
-                     <font>
-                        <Font name="System Bold" size="16.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="label2" prefHeight="54.0" prefWidth="303.0" text="2. &quot;BELLOTUO&quot; n°copie = 17" visible="false">
-                     <font>
-                        <Font name="System Bold" size="16.0" />
-                     </font>
-                  </Label>
-               </children>
-            </VBox>
-            <MenuButton fx:id="menuButton" layoutX="566.0" layoutY="152.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="139.0" styleClass="btn" text="VIEW STATS" textFill="#fffefe" visible="false">
+            <VBox fx:id="vbox" layoutX="84.0" layoutY="148.0" />
+            <MenuButton fx:id="menuButton" layoutX="566.0" layoutY="53.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="167.0" styleClass="btn" text="VIEW CHART OF TOP 5" textFill="#fffefe" visible="false">
               <items>
-                <MenuItem fx:id="pieChart" mnemonicParsing="false" text="PIECHART" />
-                <MenuItem fx:id="histogram" mnemonicParsing="false" text="HISTOGRAM" />
+                  <MenuItem fx:id="barChart" mnemonicParsing="false" onAction="#barChartAction" text="BAR CHART" />
+                  <MenuItem fx:id="pieChart" mnemonicParsing="false" onAction="#pieChartAction" text="PIE CHART" />
               </items>
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </MenuButton>
          </children>
       </Pane>

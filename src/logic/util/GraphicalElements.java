@@ -44,6 +44,8 @@ public class GraphicalElements {
 			return new FXMLLoader(GraphicalElements.class.getResource(PATH + "manage_proposals.fxml"));
 		case KBSAS:
 			return new FXMLLoader(GraphicalElements.class.getResource(PATH + "kbsas.fxml"));
+		case DIAGRAM:
+			return new FXMLLoader(GraphicalElements.class.getResource(PATH + "diagram.fxml"));
 		default: /* case HOME */
 			return new FXMLLoader(GraphicalElements.class.getResource(PATH + "home.fxml"));
 		}
@@ -60,6 +62,8 @@ public class GraphicalElements {
 			return new FXMLLoader(GraphicalElements.class.getResource(PATH + "notification_item.fxml"));
 		case LOADING_MODAL:
 			return new FXMLLoader(GraphicalElements.class.getResource(PATH + "loading.fxml"));
+		case BOOK_IN_CHART:
+			return new FXMLLoader(GraphicalElements.class.getResource(PATH + "book_in_chart.fxml"));			
 		default: /* case NAVBAR */
 			return new FXMLLoader(GraphicalElements.class.getResource(PATH + "navbar.fxml"));
 		}
@@ -80,7 +84,7 @@ public class GraphicalElements {
 				if (controller != null)
 					loader.setController(controller);
 				BorderPane pane = loader.load();
-				if (!nextView.equals(Views.KBSAS))
+				if (!nextView.equals(Views.KBSAS) && !nextView.equals(Views.DIAGRAM))
 					pane.setTop(loadFXML(DynamicElements.NAVBAR).load());
 				
 				return new Scene(pane);
