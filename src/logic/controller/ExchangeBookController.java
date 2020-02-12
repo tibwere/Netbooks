@@ -24,7 +24,7 @@ public class ExchangeBookController {
 
 	public List<BookBean> getExchangeableBooks() {
 		
-		List<Book> books = BookDao.getInstance().findExchangeableBooks("");
+		List<Book> books = BookDao.findExchangeableBooks("");
 		List<BookBean> beans = new ArrayList<>();
 		
 		for (Book book : books) {

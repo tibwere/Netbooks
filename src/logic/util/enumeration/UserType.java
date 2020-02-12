@@ -8,12 +8,12 @@ package logic.util.enumeration;
 public enum UserType {
 	
 	/**
-	 * Valore corrisponente nella base di dati: 0
+	 * Valore corrisponente nella base di dati: 1
 	 */
 	READER,
 	
 	/**
-	 * Valore corrispondente nella base di dati: 1
+	 * Valore corrispondente nella base di dati: 0
 	 */
 	RETAILER,
 }

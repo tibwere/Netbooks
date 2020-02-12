@@ -1,11 +1,19 @@
 package logic.dao;
 
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import logic.db.DBManager;
+import logic.db.DBOperation;
+import logic.db.Query;
 import logic.model.Book;
 import logic.util.ImageDispenser;
 import logic.util.enumeration.BookGenre;
+import logic.util.enumeration.ImageSize;
 
 /**
  * Versione singleton del DAO per l'interazione
@@ -16,44 +24,51 @@ import logic.util.enumeration.BookGenre;
  */
 public class BookDao {
 	
-	private Book book1 = new Book("000001", "La Divina Commedia", "Dante");
-	private Book book2 = new Book("000002", "The Great Gatsby", "F. Fitzgerhald");
-	
-	private static BookDao instance;
+	private static Book book1 = new Book("000001", "La Divina Commedia", "Dante");
+	private static Book book2 = new Book("000002", "The Great Gatsby", "F. Fitzgerhald");
 	
 	private BookDao() {
-		/* gestione connessione db */
+		/* non instanziabile */
 	}
 	
-	public static BookDao getInstance() {
-		if (instance == null)
-			instance = new BookDao();
+	private static Book buildBookFromResultSet(ResultSet res) throws SQLException {
+		String isbn = res.getString("isbn");
+		String title = res.getString("title");
+		String author = res.getString("author");
 		
-		return instance;
-	}
-	
-	public List<Book> findBooksForHomepage() {
-		ArrayList<Book> books = new ArrayList<>();
-		Book tmp = new Book("112233", "Another Test", "Boh Boh");
-		tmp.setSmallImage(ImageDispenser.getImage(ImageDispenser.BOOK_TEST_THUMBNAIL));
-		tmp.setLargeImage(ImageDispenser.getImage(ImageDispenser.BOOK_TEST));
-		tmp.setYearOfPublication(1998);
-		tmp.setPublisher("Feltrinelli");
-		tmp.setLanguage("Aramaico");
-		books.add(tmp);
+		Book book = new Book(isbn, title, author);
+		book.setAmazonLink(res.getString("link_amz"));
+		book.setLanguage(res.getString("language"));
+		book.setLargeImage(ImageDispenser.getCovers(book.getTitle(), ImageSize.LARGE));
+		book.setMediumImage(ImageDispenser.getCovers(book.getTitle(), ImageSize.MEDIUM));
+		book.setMondadoriLink(res.getString("link_mnd"));
+		book.setPlayLink(res.getString("link_play"));
+		book.setPublisher(res.getString("publisher"));
+		book.setSmallImage(ImageDispenser.getCovers(book.getTitle(), ImageSize.SMALL));
+		book.setYearOfPublication(res.getInt("year"));
 		
-		Book tmp2 = new Book("001122", "Simone 2", "Bello Mio");
-		tmp2.setSmallImage(ImageDispenser.getImage(ImageDispenser.BOOK_TEST_THUMBNAIL));
-		tmp2.setLargeImage(ImageDispenser.getImage(ImageDispenser.BOOK_TEST));
-		tmp2.setYearOfPublication(1998);
-		tmp2.setPublisher("Mondadori");
-		tmp2.setLanguage("Italiano");
-		books.add(tmp2);
-
-		return books;
+		return book;
+		
 	}
 	
-	public List<Book> findExchangeableBooks(String username) {
+	public static List<Book> findBooksForHomepage(String user) throws ClassNotFoundException, SQLException {
+		
+			List<Book> books = new ArrayList<>();
+			Connection conn = DBManager.getConnection();
+			CallableStatement stmt = conn.prepareCall(Query.GET_BOOKS_FOR_HP_SP);
+			ResultSet results = DBOperation.getBooksForHP(stmt, user);
+			
+			while (results.next()) {
+				Book tmp = BookDao.buildBookFromResultSet(results);
+				books.add(tmp);	
+			}
+			 
+			results.close();
+			stmt.close();
+			return books;
+	}
+	
+	public static List<Book> findExchangeableBooks(String username) {
 		List<Book> books = new ArrayList<>();
 		
 		if (username.equals("")) {
@@ -78,7 +93,7 @@ public class BookDao {
 	}
 	
 //	 fare per posizione con cordinate del reader if(companyPositio<= valoreSlider)
-	public List<Book> findBookForChart(double latitude, double longitude) {
+	public static List<Book> findBookForChart(double latitude, double longitude) {
 		ArrayList<Book> books = new ArrayList<>();
 		Book tmp1 = new Book("001122" , "La vita" , "Ale");
 		tmp1.setSmallImage(ImageDispenser.getImage(ImageDispenser.BOOK1));

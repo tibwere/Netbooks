@@ -1,5 +1,6 @@
 package logic.view.evaluationdecorator;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import javafx.geometry.Insets;
@@ -13,7 +14,7 @@ import javafx.scene.text.FontWeight;
 import logic.bean.BookBean;
 import logic.bean.BookEvaluationBean;
 import logic.controller.BuyBookController;
-import logic.controller.ManageRatingsController;
+import logic.controller.ManageEvaluationsController;
 
 /**
  * Classe <b>ConcreteDecorator</b> del pattern <i>Decorator</i> dei GoF.<br>
@@ -71,15 +72,15 @@ public class InAppReviewsBox extends BoxDecorator {
 	}
 	
 	@Override
-	public VBox show(BookBean bean) {
+	public VBox show(BookBean bean) throws ClassNotFoundException, SQLException {
 		VBox fromParent = super.show(bean);
 		
 		initComponents();
 		handleComponents();
 		
 		/* Poi quando aggiorno il model devo aggiungere il tipo Reviews */
-		BuyBookController controller = new BuyBookController(new ManageRatingsController());
-		List<BookEvaluationBean> reviews = controller.getRRController().getBookReviews();
+		BuyBookController controller = new BuyBookController(new ManageEvaluationsController());
+		List<BookEvaluationBean> reviews = controller.getManageEvaluationsController().getBookReviews();
 		
 		for (BookEvaluationBean r : reviews) {
 			VBox box = createReviewElement(r.getTitle(), r.getBody());

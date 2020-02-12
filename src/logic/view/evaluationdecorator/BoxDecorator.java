@@ -1,5 +1,7 @@
 package logic.view.evaluationdecorator;
 
+import java.sql.SQLException;
+
 import javafx.scene.layout.VBox;
 import logic.bean.BookBean;
 /**
@@ -18,7 +20,7 @@ public abstract class BoxDecorator implements Showable {
 	}
 	
 	@Override
-	public VBox show(BookBean bean) {
+	public VBox show(BookBean bean) throws ClassNotFoundException, SQLException {
 		return box.show(bean);
 	}
 }

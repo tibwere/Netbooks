@@ -92,7 +92,6 @@ public class GraphicalElements {
 
 		}
 		catch(IOException e) {
-			e.printStackTrace();
 			return new Scene(create404Page(nextView.toString().toLowerCase()));			
 		}
 	}

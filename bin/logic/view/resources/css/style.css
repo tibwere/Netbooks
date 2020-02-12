@@ -24,8 +24,6 @@
 .checkboxes-panel {
 	-fx-background-color: rgb(227,181,132, 0.8);
 	-fx-background-radius: 25px;
-	
-	
 }
 
 .success {
@@ -108,4 +106,9 @@
 
 .rating :disabled {
     -fx-opacity: 1;
+}
+
+.home-scroll {
+	-fx-background: transparent;
+	-fx-background-color: transparent;
 }

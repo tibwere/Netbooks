@@ -2,6 +2,7 @@ package logic.view;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -16,7 +17,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import logic.bean.BookBean;
 import logic.controller.BuyBookController;
-import logic.controller.ManageRatingsController;
+import logic.controller.ManageEvaluationsController;
 import logic.util.GraphicalElements;
 import logic.util.enumeration.DynamicElements;
 
@@ -37,12 +38,12 @@ public class HomeGC implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		try {
-			BuyBookController buyBookController = new BuyBookController(new ManageRatingsController());
+			BuyBookController buyBookController = new BuyBookController(new ManageEvaluationsController());
 			fillPanel(buyBookController.getBooksForHomepage());
-		} catch (IllegalStateException | IOException e) {	
+		} catch (IllegalStateException | IOException | ClassNotFoundException | SQLException e) {	
 			GraphicalElements.showDialog(AlertType.ERROR, "Ops, something went wrong ...", "Unable to load book list elements");
 			Platform.exit();
-		}
+		} 
 	}
 	
 	private void fillPanel(List<BookBean> books) throws IOException {

@@ -1,12 +1,14 @@
 package logic.view;
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
@@ -57,9 +59,15 @@ public class BookPreviewGC implements Initializable{
 	
 	@FXML
 	public void rateBook() {
-		Stage parent = (Stage) thumbnail.getScene().getWindow();
-		Stage modal = GraphicalElements.createModalWindow(new Scene(new RatingModal(bean)), parent);
-		modal.show();
+
+		try {
+			Stage parent = (Stage) thumbnail.getScene().getWindow();
+			Stage modal= GraphicalElements.createModalWindow(new Scene(new RatingModal(bean)), parent);
+			modal.show();
+		} catch (ClassNotFoundException | SQLException e) {
+			GraphicalElements.showDialog(AlertType.ERROR, "Ops, something went wrong ...", "Unable to connect to db");
+		}
+		
 	}
 
 }

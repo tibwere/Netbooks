@@ -24,7 +24,7 @@ public class Retailer extends User {
 	//metodo che interroga la BookDao
 	public List<Book> getBookFromPosition() {
 		
-		List<Book> books = BookDao.getInstance().findBookForChart(latitude, longitude);
+		List<Book> books = BookDao.findBookForChart(latitude, longitude);
 		
 		return books;
 		

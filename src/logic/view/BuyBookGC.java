@@ -178,6 +178,7 @@ public class BuyBookGC implements Initializable{
 					secondaryStage.show();
 				} catch (InterruptedException | ExecutionException e) {
 					GraphicalElements.showDialog(AlertType.ERROR, "ops something went wrong ...", "Unable to load google reviews ...");
+					Thread.currentThread().interrupt();
 				}					
 			}
 		});

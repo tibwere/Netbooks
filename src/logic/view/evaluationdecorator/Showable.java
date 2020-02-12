@@ -1,5 +1,7 @@
 package logic.view.evaluationdecorator;
 
+import java.sql.SQLException;
+
 import javafx.scene.layout.VBox;
 import logic.bean.BookBean;
 
@@ -13,6 +15,6 @@ import logic.bean.BookBean;
  */
 public interface Showable {
 
-	public VBox show(BookBean bean);
+	public VBox show(BookBean bean) throws ClassNotFoundException, SQLException;
 
 }

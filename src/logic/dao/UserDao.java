@@ -32,9 +32,10 @@ public class UserDao {
 			throw new NoUserFoundException("Selected user not exists");
 		
 		results.first();
-		if (results.getBoolean("type"))
-			return UserType.READER;
-		else
-			return UserType.RETAILER;
+		boolean isReader = results.getBoolean("type");
+		results.close();
+		results.close();
+		
+		return (isReader) ? UserType.READER : UserType.RETAILER;
 	}
 }

@@ -1,6 +1,7 @@
 package logic.view.evaluationdecorator;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -32,7 +33,7 @@ public class OnlineRatingsBox extends BoxDecorator {
 		glyph = new ImageView();
 	}
 	
-	private VBox prepareBox() {
+	private VBox prepareBox(BookBean bean) {
 		VBox box = new VBox(GAP);
 		
 		box.getStyleClass().add("moreinfopanel");
@@ -43,7 +44,7 @@ public class OnlineRatingsBox extends BoxDecorator {
 			preEvalLbl.setText("GOOGLE USERS AVERAGE EVALUATION FOR THIS TITLE: ");			
 			evalLbl.setFont(Font.font("System", FontWeight.BOLD, 18));
 			glyph.setImage(ImageDispenser.getImage(ImageDispenser.LIKE));
-			int percentage = HTMLParser.getAVGEvaluationFromGoogle("il bambino col pigiama a righe");
+			int percentage = HTMLParser.getAVGEvaluationFromGoogle(bean.getTitle());
 			evalLbl.setText(percentage + "%");
 			
 			if (percentage < 50)
@@ -64,11 +65,11 @@ public class OnlineRatingsBox extends BoxDecorator {
 	
 	
 	@Override
-	public VBox show(BookBean bean) {
+	public VBox show(BookBean bean) throws ClassNotFoundException, SQLException {
 		VBox fromParent = super.show(bean);	
 		
 		initComponents();
-		fromParent.getChildren().add(prepareBox());
+		fromParent.getChildren().add(prepareBox(bean));
 				
 		return fromParent;
 	}

@@ -10,12 +10,12 @@ public class BookEvaluationBean {
 	
 	private String title;
 	private String body;
-	private double rate;
+	private int rate;
 	
-	public double getRate() {
+	public int getRate() {
 		return rate;
 	}
-	public void setRate(double rate) {
+	public void setRate(int rate) {
 		this.rate = rate;
 	}
 	public String getTitle() {

@@ -131,6 +131,7 @@
                               </HBox>
                            </children>
                         </VBox>
+                        <Label alignment="CENTER" text="n.b. some details may change from vendor to vendor" />
                      </children>
                   </VBox>
                   <VBox alignment="CENTER" spacing="30.0">

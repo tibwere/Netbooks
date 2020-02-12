@@ -1,16 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 
 <BorderPane fx:id="pane" prefHeight="800.0" prefWidth="1000.0" styleClass="bg" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="logic.view.HomeGC">
    <center>
-      <VBox fx:id="bookListView" prefHeight="200.0" prefWidth="100.0" spacing="2.0" BorderPane.alignment="CENTER">
-         <padding>
-            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-         </padding>
-      </VBox>
+      <ScrollPane fitToHeight="true" fitToWidth="true" style="-fx-background: transparent;" styleClass="transparent" BorderPane.alignment="CENTER">
+         <content>
+            <VBox fx:id="bookListView" spacing="2.0" styleClass="transparent">
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </padding>
+            </VBox>
+         </content>
+      </ScrollPane>
    </center>
    <right>
       <VBox prefHeight="200.0" prefWidth="300.0" styleClass="buybook-panel" BorderPane.alignment="CENTER" />

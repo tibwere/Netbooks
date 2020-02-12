@@ -1,5 +1,7 @@
 package logic.view;
 
+import java.sql.SQLException;
+
 import org.controlsfx.control.Rating;
 
 import javafx.event.ActionEvent;
@@ -19,7 +21,7 @@ import javafx.stage.Stage;
 import logic.bean.BookBean;
 import logic.bean.BookEvaluationBean;
 import logic.controller.BuyBookController;
-import logic.controller.ManageRatingsController;
+import logic.controller.ManageEvaluationsController;
 import logic.util.GraphicalElements;
 
 /**
@@ -47,13 +49,13 @@ public class RatingModal extends VBox{
 	private Button submitBtn;
 	
 	private BookBean bookBean;
-	private BookEvaluationBean ratingBean; 
+	private BookEvaluationBean oldEvaluationBean; 
 	
 	private BuyBookController controller;
 	
-	public RatingModal (BookBean bean) {
+	public RatingModal (BookBean bean) throws ClassNotFoundException, SQLException {
 		this.bookBean = bean;
-		this.controller = new BuyBookController(new ManageRatingsController());
+		this.controller = new BuyBookController(new ManageEvaluationsController());
 		
 		this.getStylesheets().add(RatingModal.class.getResource("resources/css/style.css").toExternalForm());
 		this.getStyleClass().add("bg-secondary");
@@ -64,26 +66,28 @@ public class RatingModal extends VBox{
 		initComponents();
 		handleComponents();
 		
-		ratingBean = controller.getRRController().getPreviousReview(bookBean);
-		
-		if (ratingBean != null)
+		oldEvaluationBean = controller.getManageEvaluationsController().getPreviousEvaluation(bookBean);
+		if (oldEvaluationBean != null)
 			fillForm();
 		
 		submitBtn.setOnAction(new EventHandler<ActionEvent>() {
 			
 			@Override
 			public void handle(ActionEvent event) {
-				BookEvaluationBean bean = new BookEvaluationBean();
-				bean.setRate(rate.getRating());
-				bean.setTitle(reviewTitleTxt.getText());
-				bean.setBody(reviewBodyTxt.getText());
 				
-				if (controller.getRRController().addNewEvaluation(bean))
+				BookEvaluationBean evalBean = new BookEvaluationBean();
+				evalBean.setRate((int) rate.getRating());
+				evalBean.setTitle(reviewTitleTxt.getText());
+				evalBean.setBody(reviewBodyTxt.getText());
+				
+				try {
+					controller.getManageEvaluationsController().addNewEvaluation(evalBean, bookBean);
 					GraphicalElements.showDialog(AlertType.INFORMATION, "Netbooks says ...", "Your evaluation has been succesfully posted!");
-				else
-					GraphicalElements.showDialog(AlertType.ERROR, "Ops, something went wrong", "Unable to post your evaluation");
 
-					
+				} catch (ClassNotFoundException | SQLException e) {
+					e.printStackTrace();
+					GraphicalElements.showDialog(AlertType.ERROR, "Ops, something went wrong", "Unable to post your evaluation");
+				}
 				Stage currStage = (Stage) submitBtn.getScene().getWindow();
 				currStage.close();
 			}
@@ -91,9 +95,9 @@ public class RatingModal extends VBox{
 	}
 
 	private void fillForm() {
-		rate.setRating(ratingBean.getRate());
-		reviewTitleTxt.setText(ratingBean.getTitle());
-		reviewBodyTxt.setText(ratingBean.getBody());
+		rate.setRating(oldEvaluationBean.getRate());
+		reviewTitleTxt.setText(oldEvaluationBean.getTitle());
+		reviewBodyTxt.setText(oldEvaluationBean.getBody());
 	}
 
 	private void handleComponents() {
@@ -111,7 +115,6 @@ public class RatingModal extends VBox{
 		rate.setRating(0);
 		rate.setUpdateOnHover(true);
 		rate.setOrientation(Orientation.HORIZONTAL);
-		rate.setPartialRating(true);
 		
 		VBox ratingBox = new VBox(rate);
 		ratingBox.setAlignment(Pos.CENTER);

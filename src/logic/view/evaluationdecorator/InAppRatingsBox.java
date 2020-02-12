@@ -1,5 +1,6 @@
 package logic.view.evaluationdecorator;
 
+import java.sql.SQLException;
 import java.text.DecimalFormat;
 
 import org.controlsfx.control.Rating;
@@ -14,7 +15,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import logic.bean.BookBean;
 import logic.controller.BuyBookController;
-import logic.controller.ManageRatingsController;
+import logic.controller.ManageEvaluationsController;
 
 /**
  * Classe <b>ConcreteDecorator</b> del pattern <i>Decorator</i> dei GoF.<br>
@@ -67,17 +68,17 @@ public class InAppRatingsBox extends BoxDecorator {
 	}
 
 	@Override
-	public VBox show(BookBean bean) {
+	public VBox show(BookBean bean) throws ClassNotFoundException, SQLException {
 		VBox fromParent = super.show(bean);
 		
 		initComponents();
 		handleComponents();
 		
-		BuyBookController controller = new BuyBookController(new ManageRatingsController());
-		double avg = controller.getRRController().getAVGRate(bean);
+		BuyBookController controller = new BuyBookController(new ManageEvaluationsController());
+		double avg = controller.getManageEvaluationsController().getAVGRate(bean);
 		DecimalFormat fmt = new DecimalFormat("#.##");
 		ratingStars.setRating(avg);
-		rateLbl.setText(fmt.format(avg) + "%");
+		rateLbl.setText(fmt.format(avg) + "/5");
 		
 		fromParent.getChildren().add(ratingBox);
 		

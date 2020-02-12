@@ -1,6 +1,7 @@
 package logic.util;
 
 import javafx.scene.image.Image;
+import logic.util.enumeration.ImageSize;
 
 /**
  * Classe di ingegnerizzazione del sistema che permette
@@ -29,6 +30,20 @@ public class ImageDispenser {
 			return new Image(ImageDispenser.class.getResourceAsStream(PATH + "loading.gif"));
 		
 		return new Image(ImageDispenser.class.getResourceAsStream(PATH + name + ".png"));
-	}	
+	}
+	
+	public static Image getCovers(String name, ImageSize type) {
+		
+		StringBuilder path = new StringBuilder(AppProperties.getInstance().getProperty("coverspath"));
+		path.append(name.replace(' ', '_').toLowerCase());
+		
+		switch(type) {
+		case SMALL: path.append("/s.jpg"); break;
+		case MEDIUM: path.append("/m.jpg"); break;
+		default: path.append("/l.jpg"); break; /* LARGE */
+		}
+		
+		return new Image(path.toString());
+	}
 	
 }
