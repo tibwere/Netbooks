@@ -15,6 +15,12 @@ import logic.util.GraphicalElements;
 import logic.util.enumeration.ImageSize;
 import logic.util.enumeration.Views;
 
+/**
+ * Controller grafico relativo all'anteprima del libro mostrata nella homepage
+ * [file fxml associato: hp_book_preview.fxml]
+ * @author Simone Tiberi (M. 0252795)
+ *
+ */
 public class BookPreviewGC implements Initializable{
 	
 	@FXML

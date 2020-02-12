@@ -22,6 +22,13 @@ import logic.controller.BuyBookController;
 import logic.controller.ManageRatingsController;
 import logic.util.GraphicalElements;
 
+/**
+ * Interfaccia grafica del caso d'uso "Manage evaluations"
+ * Realizzata direttamente in Java e non in FXML per via della presenza
+ * di elementi non nativi javafx (Rating)
+ * @author Simone Tiberi (M. 0252795)
+ *
+ */
 public class RatingModal extends VBox{
 	
 	private static final int SPACING = 40;

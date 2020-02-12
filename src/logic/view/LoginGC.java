@@ -1,12 +1,17 @@
 package logic.view;
 
 import java.net.URL;
+import java.security.NoSuchAlgorithmException;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -17,13 +22,15 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import logic.bean.UserBean;
 import logic.controller.LoginController;
+import logic.exception.NoUserFoundException;
 import logic.exception.WrongSyntaxException;
 import logic.util.GraphicalElements;
 import logic.util.enumeration.UserType;
 import logic.util.enumeration.Views;
 
 /**
- * Controller grafico collegato al file "login.fxml" 
+ * Controller grafico relativo alla schermata di login
+ * [file fxml associato: login.fxml]
  * @author Simone Tiberi (M. 0252795)
  *
  */
@@ -47,10 +54,29 @@ public class LoginGC implements Initializable{
 	@FXML
 	private VBox pane;
 	
+	@FXML
+	private CheckBox showPswChk;
+	
+	@FXML
+	private VBox textFieldsBox;
+	
 	private LoginController controller;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		
+		TextField passwordVisibileTxt = new TextField();
+		passwordVisibileTxt.setVisible(false);
+		passwordVisibileTxt.setManaged(false);
+		textFieldsBox.getChildren().add(passwordVisibileTxt);
+
+	    passwordVisibileTxt.managedProperty().bind(showPswChk.selectedProperty());
+	    passwordVisibileTxt.visibleProperty().bind(showPswChk.selectedProperty());
+
+	    passwordTxt.managedProperty().bind(showPswChk.selectedProperty().not());
+	    passwordTxt.visibleProperty().bind(showPswChk.selectedProperty().not());
+
+	    passwordVisibileTxt.textProperty().bindBidirectional(passwordTxt.textProperty());
 		
 		pane.setOnKeyPressed(new EventHandler<KeyEvent>() {
 
@@ -61,6 +87,17 @@ public class LoginGC implements Initializable{
 			}
 		});
 		
+		showPswChk.selectedProperty().addListener(new ChangeListener<Boolean>() {
+
+			@Override
+			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+				if (Boolean.TRUE.equals(newValue)) 
+					showPswChk.setText("Hide Password");
+				else
+					showPswChk.setText("Show Password");
+			}
+		});
+		
 		controller = new LoginController();
 	}
 	
@@ -68,28 +105,23 @@ public class LoginGC implements Initializable{
 	public void tryLogin() {
 		
 		try {
-			Stage stage;
 			String username = usernameTxt.getText();
 			String password = passwordTxt.getText();
 			UserBean bean = new UserBean(username, password);
 
 			UserType type = controller.loginUser(bean);
 			
-			if(type.equals(UserType.INVALID_USER)) {
-				resultLbl.getStyleClass().add("error");
-				resultLbl.setText("LOGIN FAILED");
-			}
-			else {
-				stage = (Stage) pane.getScene().getWindow();
-				if (type.equals(UserType.READER))
-					stage.setScene(GraphicalElements.switchTo(Views.HOME, null));
-				else
-					stage.setScene(GraphicalElements.switchTo(Views.KBSAS, null));
-			}
+			Stage stage = (Stage) pane.getScene().getWindow();
+			if (type.equals(UserType.READER))
+				stage.setScene(GraphicalElements.switchTo(Views.HOME, null));
+			else
+				stage.setScene(GraphicalElements.switchTo(Views.KBSAS, null));
+		} catch(WrongSyntaxException | NoUserFoundException e) {
+			resultLbl.setText(e.getMessage().toUpperCase());
+		} catch (NoSuchAlgorithmException e) {
+			resultLbl.setText("UNABLE TO ENCRYPT YOUR PASSWORD");
+		} catch (ClassNotFoundException | SQLException e) {
+			resultLbl.setText("UNABLE TO CONNECT TO DB");
 		}
-		catch(WrongSyntaxException e) {
-			resultLbl.getStyleClass().add("error");
-			resultLbl.setText(e.getMessage().toUpperCase());	
-		} 
 	}
 }

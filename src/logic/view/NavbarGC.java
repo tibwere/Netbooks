@@ -15,6 +15,12 @@ import logic.util.GraphicalElements;
 import logic.util.Session;
 import logic.util.enumeration.Views;
 
+/**
+ * Controller grafico relativo alla navbar dell'applicazione (user: READER)
+ * [file fxml associato: navbar.fxml]
+ * @author Simone Tiberi (M. 0252795)
+ *
+ */
 public class NavbarGC implements Initializable{
 	
 	@FXML

@@ -39,7 +39,7 @@ public class BookBean {
 	
 	public BookBean() {
 		this.images = new HashMap<>();
-		this.links = new HashMap<Vendors, String>();
+		this.links = new HashMap<>();
 	}
 	
 	public BookBean(String title, String author) {

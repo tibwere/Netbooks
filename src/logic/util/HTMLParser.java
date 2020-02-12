@@ -6,7 +6,12 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
-
+/**
+ * Classe la cui responsabilità è quella di effettuare il parsing dell'HTML
+ * al fine di restituire dati di interesse per l'applicazione
+ * @author Simone Tiberi (M. 0252795)
+ *
+ */
 public class HTMLParser {
 	
 	private static final String GOOGLE_PREFIX = "https://www.google.com/search?q=";

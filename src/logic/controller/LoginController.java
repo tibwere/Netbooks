@@ -1,7 +1,10 @@
 package logic.controller;
 
+import java.sql.SQLException;
+
 import logic.bean.UserBean;
-import logic.dao.AbstractUserDao;
+import logic.dao.UserDao;
+import logic.exception.NoUserFoundException;
 import logic.util.Session;
 import logic.util.enumeration.UserType;
 
@@ -12,14 +15,12 @@ import logic.util.enumeration.UserType;
  */
 public class LoginController {
 
-	public UserType loginUser(UserBean bean) {
+	public UserType loginUser(UserBean bean) throws SQLException, NoUserFoundException, ClassNotFoundException {
 		String user = bean.getUsername();
 		String passwd = bean.getPassword();
 		
-		UserType type = AbstractUserDao.getInstance().findUserByUsernameAndPassword(user, passwd);
-		
-		if (!type.equals(UserType.INVALID_USER))
-			Session.getSession().setCurrUser(user);
+		UserType type = UserDao.findUserByUsernameAndPassword(user, passwd);
+		Session.getSession().setCurrUser(user);
 
 		return type;
 	}

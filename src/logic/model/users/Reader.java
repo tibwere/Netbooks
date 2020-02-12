@@ -14,7 +14,12 @@ import logic.model.ProposalNotification;
 
 public class Reader extends User {
 	
-	private char gender;
+	/**
+	 * Mapping con la base di dati:
+	 * 0 -> MALE
+	 * 1 -> FEMALE
+	 */
+	private char gender; 
 	private List<Book> ownedBooks;
 	
 	public Reader (String username, String email, char gender) {

@@ -40,6 +40,12 @@ import logic.view.evaluationdecorator.InAppReviewsBox;
 import logic.view.evaluationdecorator.OnlineRatingsBox;
 import logic.view.evaluationdecorator.Showable;
 
+/**
+ * Controller grafico relativo alla schermata di acquisto libro
+ * [file fxml associato: buy_book.fxml]
+ * @author Simone Tiberi (M. 0252795)
+ *
+ */
 public class BuyBookGC implements Initializable{
 	
 	@FXML
@@ -92,7 +98,6 @@ public class BuyBookGC implements Initializable{
     
     private Label errLbl;
     private BookBean bookToLoad;
-    private Showable element;
 
         
     public BuyBookGC(BookBean bookBean) {
@@ -132,15 +137,14 @@ public class BuyBookGC implements Initializable{
 	}
 
 	@FXML
-	public void showPopupDialogForRatings() {		
-		element = new EmptyBox();
+	public void showPopupDialogForRatings() {	
 		
-		if (!(inAppRatingsChk.isSelected() || inAppReviewsChk.isSelected() || googleRatingsChk.isSelected())) {	
+		if (!hasCheckedSomething()) {	
 			if (!moreInfoBox.getChildren().contains(errLbl))
 				moreInfoBox.getChildren().add(errLbl);
 		}
-		
 		else {
+			Showable element = new EmptyBox();
 		
 			if (inAppRatingsChk.isSelected()) 
 				element = new InAppRatingsBox(element);
@@ -149,39 +153,51 @@ public class BuyBookGC implements Initializable{
 			if (googleRatingsChk.isSelected())
 				element = new OnlineRatingsBox(element);
 			
-			ShowPanelTask task = new ShowPanelTask(element, bookToLoad);
 			try {
-				Scene loadingScene = new Scene(GraphicalElements.loadFXML(DynamicElements.LOADING_MODAL).load());
-				Stage parent = (Stage) showBtn.getScene().getWindow();
-				Stage loadingStage = GraphicalElements.createModalWindow(loadingScene, parent);
-				loadingStage.initStyle(StageStyle.TRANSPARENT);
-				loadingScene.setFill(Color.TRANSPARENT);
-				
-				task.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
-					
-					@Override
-					public void handle(WorkerStateEvent event) {
-						try { 
-							VBox box = task.get();
-							Stage secondaryStage = GraphicalElements.createModalWindow(new Scene(box), parent);
-							loadingStage.hide();
-							secondaryStage.show();
-						} 
-						catch (InterruptedException | ExecutionException e1) {
-							GraphicalElements.showDialog(AlertType.ERROR, "ops something went wrong ...", "Unable to load google reviews ...");
-						}					
-					}
-				});
-				
-				executeTask(task);
-				loadingStage.show();
-			}
-			catch (IllegalStateException | IOException e) {	
+				showPopupFrame(element);
+			} catch (IllegalStateException | IOException e) {	
 				GraphicalElements.showDialog(AlertType.ERROR, "Ops, something went wrong ...", "Unable to load modal window");
 				Platform.exit();
 			}			
-
 		}
+	}
+	
+	private void showPopupFrame(Showable element) throws IOException {
+		ShowPanelTask task = new ShowPanelTask(element, bookToLoad);
+		Stage parent = (Stage) showBtn.getScene().getWindow();
+		Stage loadingStage = createStage(parent);
+
+		task.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+			
+			@Override
+			public void handle(WorkerStateEvent event) {
+				try { 
+					VBox box = task.get();
+					Stage secondaryStage = GraphicalElements.createModalWindow(new Scene(box), parent);
+					loadingStage.hide();
+					secondaryStage.show();
+				} catch (InterruptedException | ExecutionException e) {
+					GraphicalElements.showDialog(AlertType.ERROR, "ops something went wrong ...", "Unable to load google reviews ...");
+				}					
+			}
+		});
+		
+		executeTask(task);
+		loadingStage.show();		
+	}
+	
+	private Stage createStage(Stage parent) throws IOException {
+		Scene loadingScene = new Scene(GraphicalElements.loadFXML(DynamicElements.LOADING_MODAL).load());
+		Stage loadingStage = GraphicalElements.createModalWindow(loadingScene, parent);
+		loadingStage.initStyle(StageStyle.TRANSPARENT);
+		loadingScene.setFill(Color.TRANSPARENT);
+		
+		return loadingStage;
+	}
+	
+
+	private boolean hasCheckedSomething() {
+		return (inAppRatingsChk.isSelected() || inAppReviewsChk.isSelected() || googleRatingsChk.isSelected());
 	}
 	
     private void executeTask(Task<?> task) {
@@ -189,7 +205,6 @@ public class BuyBookGC implements Initializable{
         t.setDaemon(true);
         t.start();
     }
-	
 	
 	public void resetCheckBoxes()  {
 		
@@ -207,8 +222,7 @@ public class BuyBookGC implements Initializable{
 					method.invoke(chk, false);
 				}
 			}
-		} 
-		catch (NoSuchMethodException | SecurityException | IllegalArgumentException | IllegalAccessException | InvocationTargetException e) {
+		} catch (NoSuchMethodException | SecurityException | IllegalArgumentException | IllegalAccessException | InvocationTargetException e) {
 			GraphicalElements.showDialog(AlertType.ERROR, "Ops, something went wrong", "Unable to reset checkboxes");
 			Platform.exit();
 		}

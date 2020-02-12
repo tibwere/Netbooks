@@ -8,5 +8,6 @@
 	<classpathentry excluding="logic/boundary/fxml/|resources/css/|resources/" kind="src" path="src"/>
 	<classpathentry kind="lib" path="lib/controlsfx-8.40.14.jar"/>
 	<classpathentry kind="lib" path="lib/jsoup-1.12.2.jar"/>
+	<classpathentry kind="lib" path="lib/mysql-connector-java-5.1.48.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

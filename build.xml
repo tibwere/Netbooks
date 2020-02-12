@@ -11,6 +11,9 @@
     <property name="source" value="1.8"/>
     <path id="Netbooks.classpath">
         <pathelement location="bin"/>
+        <pathelement location="lib/controlsfx-8.40.14.jar"/>
+        <pathelement location="lib/jsoup-1.12.2.jar"/>
+        <pathelement location="lib/mysql-connector-java-5.1.48.jar"/>
     </path>
     <target name="init">
         <mkdir dir="bin"/>
@@ -55,8 +58,28 @@
         <property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter"/>
         <antcall target="build"/>
     </target>
+    <target name="App">
+        <java classname="logic.App" failonerror="true" fork="yes">
+            <classpath refid="Netbooks.classpath"/>
+        </java>
+    </target>
     <target name="DesktopLauncher">
         <java classname="logic.DesktopLauncher" failonerror="true" fork="yes">
+            <classpath refid="Netbooks.classpath"/>
+        </java>
+    </target>
+    <target name="Test">
+        <java classname="logic.Test" failonerror="true" fork="yes">
+            <classpath refid="Netbooks.classpath"/>
+        </java>
+    </target>
+    <target name="TestBuyBook">
+        <java classname="logic.TestBuyBook" failonerror="true" fork="yes">
+            <classpath refid="Netbooks.classpath"/>
+        </java>
+    </target>
+    <target name="TestNavbar">
+        <java classname="logic.TestNavbar" failonerror="true" fork="yes">
             <classpath refid="Netbooks.classpath"/>
         </java>
     </target>

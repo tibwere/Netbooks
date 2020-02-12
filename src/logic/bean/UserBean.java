@@ -1,5 +1,9 @@
 package logic.bean;
 
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 import logic.exception.WrongSyntaxException;
 
 
@@ -12,16 +16,10 @@ public class UserBean {
 	
 	private String username;
 	private String password;
-	private boolean rememberMe;
 	
-	public UserBean(String username, String password, boolean rememberMe) throws WrongSyntaxException {
+	public UserBean(String username, String password) throws WrongSyntaxException, NoSuchAlgorithmException {
 		this.setUsername(username);
 		this.setPassword(password);
-		this.setRememberMe(rememberMe);
-	}
-	
-	public UserBean(String username, String password) throws WrongSyntaxException {
-		this(username, password, false);
 	}
 
 	public String getUsername() {
@@ -40,20 +38,24 @@ public class UserBean {
 		return password;
 	}
 
-	public void setPassword(String password) throws WrongSyntaxException {
+	public void setPassword(String password) throws WrongSyntaxException, NoSuchAlgorithmException {
 		if(!password.equals(""))
-			this.password = password;
+			this.password = md5hash(password);
 		else
 			throw new WrongSyntaxException("Password must be not empty !");
 	}
-
-	public boolean isRememberMe() {
-		return rememberMe;
-	}
-
-	public void setRememberMe(boolean rememberMe) {
-		this.rememberMe = rememberMe;
-	}
+	
+    private String md5hash(String input) throws NoSuchAlgorithmException { 
+		MessageDigest md = MessageDigest.getInstance("MD5");  
+        byte[] messageDigest = md.digest(input.getBytes());  
+        BigInteger no = new BigInteger(1, messageDigest);
+        
+        StringBuilder hashtext = new StringBuilder(no.toString(16)); 
+        while (hashtext.length() < 32) 
+        	hashtext.insert(0, '0');
+       
+        return hashtext.toString(); 
+    } 
 	
 	
 }

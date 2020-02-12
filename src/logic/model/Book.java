@@ -8,9 +8,10 @@ import logic.util.enumeration.ImageSize;
 import logic.util.enumeration.Vendors;
 
 /**
- * Entit√† del dominio di interesse: Libro
+ * Entita'† del dominio di interesse: Libro
  * @author Simone Tiberi (M. 0252795)
  * @author Cristiano Cuffaro (M. 0258093)
+ *
  */
 public class Book {
 	

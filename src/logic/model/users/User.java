@@ -1,5 +1,11 @@
 package logic.model.users;
 
+/**
+ * Entita'  del dominio di interesse: Utente
+ * @author Simone Tiberi (M. 0252795)
+ * @author Cristiano Cuffaro (M. 0258093)
+ *
+ */
 public abstract class User {
 	
 	protected String username;

@@ -5,6 +5,12 @@ import javafx.scene.layout.VBox;
 import logic.bean.BookBean;
 import logic.view.evaluationdecorator.Showable;
 
+/**
+ * Task che permette l'esecuzione parallela del caricamento del VBox decorator
+ * e la visualizzazione di una modale di caricamento.
+ * @author Simone Tiberi (M. 0252795)
+ *
+ */
 public class ShowPanelTask extends Task<VBox> {
 
 	private Showable element;

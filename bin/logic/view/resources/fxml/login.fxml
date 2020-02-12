@@ -38,14 +38,14 @@
                                           </Label>
                                        </children>
                                     </VBox>
-                                    <Label fx:id="resultLbl" alignment="CENTER">
+                                    <Label fx:id="resultLbl" alignment="CENTER" styleClass="errorLbl">
                                        <font>
                                           <Font name="System Bold" size="24.0" />
                                        </font>
                                     </Label>
                                  </children>
                               </VBox>
-                              <VBox spacing="20.0">
+                              <VBox fx:id="textFieldsBox" spacing="20.0">
                                  <children>
                                     <TextField fx:id="usernameTxt" promptText="Username" />
                                     <PasswordField fx:id="passwordTxt" prefWidth="300.0" promptText="Password" />
@@ -56,7 +56,7 @@
                               </VBox>
                            </children>
                         </VBox>
-                        <CheckBox alignment="CENTER" mnemonicParsing="false" text="Remember Me" textFill="WHITE" />
+                        <CheckBox fx:id="showPswChk" alignment="CENTER" mnemonicParsing="false" text="Show Password" textFill="WHITE" />
                      </children>
                   </VBox>
                   <Button fx:id="loginBtn" mnemonicParsing="false" onAction="#tryLogin" text="LOGIN">

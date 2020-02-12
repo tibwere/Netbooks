@@ -20,6 +20,12 @@ import logic.controller.ManageRatingsController;
 import logic.util.GraphicalElements;
 import logic.util.enumeration.DynamicElements;
 
+/**
+ * Controller grafico relativo alla homepage dell'applicazione
+ * [file fxml associato: home.fxml]
+ * @author Simone Tiberi (M. 0252795)
+ *
+ */
 public class HomeGC implements Initializable {
 	
 	@FXML
