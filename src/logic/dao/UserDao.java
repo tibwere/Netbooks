@@ -26,22 +26,31 @@ public class UserDao {
 	
 	public static UserTypes findUserByUsernameAndPassword(String user, String passwd) throws NoUserFoundException, PersistencyException {
 		CallableStatement stmt = null;
-		ResultSet results = null;
+		ResultSet readerResults = null;
+		ResultSet retailerResults = null;
 		try {
 			Connection conn = DBManager.getConnection();
-			stmt = conn.prepareCall(Query.LOGIN_SP);
-			results = DBOperation.bindParameters(stmt, user, passwd);
+			stmt = conn.prepareCall(Query.FIND_READER_SP);
+			readerResults = DBOperation.bindParameters(stmt, user, passwd);
 			
-			if (!results.first()) 
-				throw new NoUserFoundException("Selected user not exists");
+			if (!readerResults.first()) {
+				stmt = conn.prepareCall(Query.FIND_RETAILER_SP);
+				retailerResults = DBOperation.bindParameters(stmt, user, passwd);
+				
+				if (!retailerResults.first())
+					throw new NoUserFoundException("Selected user does not exists");
+				else 
+					return UserTypes.RETAILER;
+			}
 			
-			results.first();
-			return results.getBoolean("type") ? UserTypes.READER : UserTypes.RETAILER;
+			return UserTypes.READER;
 			
 		} catch (SQLException | ClassNotFoundException e) {
 			throw new PersistencyException("Comunication with DB has failed");
 		} finally {
-			DBManager.closeDBUtilities(results, stmt);
+			DBManager.closeRs(readerResults);
+			DBManager.closeRs(retailerResults);
+			DBManager.closeStmt(stmt);
 		}
 	}
 }

@@ -14,6 +14,9 @@ import logic.model.ProposalNotification;
 
 public class Reader extends User {
 	
+	private String firstName;
+	private String secondName;
+
 	/**
 	 * Mapping con la base di dati:
 	 * 0 -> MALE
@@ -49,6 +52,26 @@ public class Reader extends User {
 
 	public void setOwnedBooks(List<Book> ownedBooks) {
 		this.ownedBooks = ownedBooks;
+	}
+	
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getSecondName() {
+		return secondName;
+	}
+
+	public void setSecondName(String secondName) {
+		this.secondName = secondName;
+	}
+
+	public void setGender(char gender) {
+		this.gender = gender;
 	}
 }
 

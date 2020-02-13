@@ -8,7 +8,8 @@ package logic.db;
  */
 public class Query {
 	
-	public static final String LOGIN_SP = "call netbooks.login(?, ?)";
+	public static final String FIND_READER_SP = "call netbooks.find_reader(?, ?)";
+	public static final String FIND_RETAILER_SP = "call netbooks.find_retailer(?, ?)";
 	public static final String GET_BOOKS_FOR_HP_SP = "call netbooks.get_boook_for_hp(?)";
 	public static final String EVAL_BOOK_SP = "call netbooks.eval_book(?, ?, ?, ?, ?)";
 	public static final String GET_EVALUATION_SP ="call netbooks.get_evaluation(?, ?)";

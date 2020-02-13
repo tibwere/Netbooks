@@ -31,8 +31,7 @@ public class EvaluationDao {
 		} catch (SQLException | ClassNotFoundException e) {
 			throw new PersistencyException("Unable to save evaluation on DB");
 		} finally {
-			DBManager.closeDBUtilities(null, stmt);
-		}
+			DBManager.closeStmt(stmt);		}
 	}
 	
 	public static BookEvaluationBean getOldEvaluation(String user, String book) throws PersistencyException {
@@ -58,7 +57,8 @@ public class EvaluationDao {
 		} catch(SQLException | ClassNotFoundException e) {
 			throw new PersistencyException("Unable to retrive old evaluation from DB");
 		} finally {
-			DBManager.closeDBUtilities(results, stmt);
+			DBManager.closeRs(results);
+			DBManager.closeStmt(stmt);
 		}
 	}
 	
@@ -84,7 +84,8 @@ public class EvaluationDao {
 		} catch(SQLException | ClassNotFoundException e) {
 			throw new PersistencyException("Unable to retrive old evaluation from DB");
 		} finally {
-			DBManager.closeDBUtilities(results, stmt);
+			DBManager.closeRs(results);
+			DBManager.closeStmt(stmt);
 		}
 	}
 	
@@ -112,8 +113,8 @@ public class EvaluationDao {
 		} catch (ClassNotFoundException | SQLException e) {
 			throw new PersistencyException("Unable to retrive already inserted reviews from DB");
 		} finally {
-			DBManager.closeDBUtilities(results, stmt);
-		}
+			DBManager.closeRs(results);
+			DBManager.closeStmt(stmt);		}
 		
 	}
 

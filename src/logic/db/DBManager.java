@@ -43,14 +43,21 @@ public class DBManager {
 		}
 	}
 	
-	public static void closeDBUtilities(ResultSet rs, CallableStatement st) throws PersistencyException {
+	public static void closeRs(ResultSet rs) throws PersistencyException {
 		try {
 			if (rs != null)
 				rs.close();
-			if (st != null)
-				st.close();				
 		} catch (SQLException e) {
-			throw new PersistencyException("Unable to close ResultSet and/or Statement");
+			throw new PersistencyException("Unable to close ResultSet");
+		} 
+	}
+	
+	public static void closeStmt(CallableStatement st) throws PersistencyException {
+		try {
+			if (st != null)
+				st.close();
+		} catch (SQLException e) {
+			throw new PersistencyException("Unable to close Statement");
 		}
 	}
 }

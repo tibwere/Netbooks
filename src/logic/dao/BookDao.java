@@ -74,7 +74,8 @@ public class BookDao {
 			throw new PersistencyException("Unable to load books for homepage");
 		}
 		finally {
-			DBManager.closeDBUtilities(results, stmt);
+			DBManager.closeRs(results);
+			DBManager.closeStmt(stmt);
 		}
 	}
 	
