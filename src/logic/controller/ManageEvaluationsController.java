@@ -1,12 +1,16 @@
 package logic.controller;
 
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import logic.bean.BookBean;
 import logic.bean.BookEvaluationBean;
+import logic.bean.UserBean;
 import logic.dao.EvaluationDao;
+import logic.exception.PersistencyException;
+import logic.exception.WrongSyntaxException;
+import logic.model.BookEvaluation;
+import logic.model.users.Reader;
 import logic.util.Session;
 
 /**
@@ -16,29 +20,37 @@ import logic.util.Session;
  */
 public class ManageEvaluationsController {
 		
-	public double getAVGRate(BookBean bean) throws ClassNotFoundException, SQLException {
+	public double getAVGRate(BookBean bean) throws PersistencyException {
 		return EvaluationDao.getInAppAverageEvaluation(bean.getIsbn());
 	}
 
-	public List<BookEvaluationBean> getBookReviews() {
-		List<BookEvaluationBean> reviewBeans = new ArrayList<>();
+	public Map<UserBean, BookEvaluationBean> getBookReviews(BookBean bean) throws PersistencyException {
+		Map<Reader, BookEvaluation> reviews = EvaluationDao.getPreviousReviews(bean.getIsbn());
+		Map<UserBean, BookEvaluationBean> reviewsBean = new HashMap<>();
 		
-		for (int i = 0; i < 50; ++i) {
-			BookEvaluationBean b = new BookEvaluationBean();
-			b.setTitle("Prova titolo " + (i + 1));
-			b.setBody("Prova corpo " + (i + 1));
-			reviewBeans.add(b);
+		for (Reader reader : reviews.keySet()) {
+			UserBean usrBean = new UserBean();
+			BookEvaluationBean evalbean = new BookEvaluationBean();
+			try {
+				usrBean.setUsername(reader.getUsername());
+			} catch (WrongSyntaxException e) {
+				throw new IllegalStateException("Username from DB must respect constraints");
+			}
+			evalbean.setTitle(reviews.get(reader).getTitle());
+			evalbean.setBody(reviews.get(reader).getBody());
+			
+			reviewsBean.put(usrBean, evalbean);
 		}
 		
-		return reviewBeans;
+		return reviewsBean;
 	}
 	
-	public void addNewEvaluation(BookEvaluationBean ratingBean, BookBean bookBean) throws ClassNotFoundException, SQLException {
+	public void addNewEvaluation(BookEvaluationBean ratingBean, BookBean bookBean) throws PersistencyException {
 		EvaluationDao.insertNewEval(ratingBean.getRate(), ratingBean.getTitle(), ratingBean.getBody(), 
 				Session.getSession().getCurrUser(), bookBean.getIsbn());
 	}
 	
-	public BookEvaluationBean getPreviousEvaluation(BookBean bookBean) throws ClassNotFoundException, SQLException {
+	public BookEvaluationBean getPreviousEvaluation(BookBean bookBean) throws PersistencyException {
 		return EvaluationDao.getOldEvaluation(Session.getSession().getCurrUser(), bookBean.getIsbn());
 	}
 

@@ -3,7 +3,7 @@ package logic.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import logic.util.enumeration.ImageSize;
+import logic.util.enumeration.ImageSizes;
 import logic.bean.BookBean;
 import logic.model.Book;
 import logic.model.users.Retailer;
@@ -28,7 +28,7 @@ public class KbsasController {
 		
 		for (Book b : books) {
 			BookBean bean = new BookBean(b.getTitle(), b.getAuthor());
-			bean.setSingleImage(b.getSmallImage(), ImageSize.SMALL);
+			bean.setSingleImage(b.getSmallImage(), ImageSizes.SMALL);
 		
 			beans.add(bean);	
 		}

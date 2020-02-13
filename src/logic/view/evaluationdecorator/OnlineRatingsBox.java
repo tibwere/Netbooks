@@ -1,7 +1,6 @@
 package logic.view.evaluationdecorator;
 
 import java.io.IOException;
-import java.sql.SQLException;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -12,6 +11,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import logic.bean.BookBean;
+import logic.exception.PersistencyException;
 import logic.util.HTMLParser;
 import logic.util.ImageDispenser;
 
@@ -65,7 +65,7 @@ public class OnlineRatingsBox extends BoxDecorator {
 	
 	
 	@Override
-	public VBox show(BookBean bean) throws ClassNotFoundException, SQLException {
+	public VBox show(BookBean bean) throws PersistencyException {
 		VBox fromParent = super.show(bean);	
 		
 		initComponents();

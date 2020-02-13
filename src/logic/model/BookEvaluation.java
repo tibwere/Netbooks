@@ -16,6 +16,8 @@ public class BookEvaluation {
 	private User author;
 	private Book relatedBook;
 	
+	public BookEvaluation() {}
+	
 	public BookEvaluation(User author, Book relatedBook, int rating) {
 		this.author = author;
 		this.relatedBook = relatedBook;

@@ -1,6 +1,6 @@
 package logic.util.enumeration;
 
-public enum BookGenre {
+public enum BookGenres {
 
 	ACTION,
 	ADVENTURE,

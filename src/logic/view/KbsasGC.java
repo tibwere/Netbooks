@@ -24,7 +24,7 @@ import logic.bean.BookBean;
 import logic.controller.KbsasController;
 import logic.util.DiagramFactory;
 import logic.util.GraphicalElements;
-import logic.util.enumeration.DiagramType;
+import logic.util.enumeration.DiagramTypes;
 import logic.util.enumeration.DynamicElements;
 import logic.util.enumeration.Views;;
 
@@ -118,7 +118,7 @@ public class KbsasGC {
 	 @FXML
 	 public void barChartAction()  {
 		 DiagramFactory factory  = new DiagramFactory();
-		 chart = factory.createChart(DiagramType.BAR_CHART, books);
+		 chart = factory.createChart(DiagramTypes.BAR_CHART, books);
 		 chart.setTitle("Top 5 book (radius selected = " + Math.round((int)slider.getValue()) +"KM)");
 		 
 		 Stage stage = (Stage)borderPane.getScene().getWindow();
@@ -129,7 +129,7 @@ public class KbsasGC {
 	 @FXML
 	 public void pieChartAction() {
 	    DiagramFactory factory  = new DiagramFactory();
-		chart = factory.createChart(DiagramType.PIE_CHART, books);
+		chart = factory.createChart(DiagramTypes.PIE_CHART, books);
 		chart.setTitle("Top 5 book (radius selected = " + Math.round((int)slider.getValue()) +"KM)");
 
 		Stage stage = (Stage)borderPane.getScene().getWindow();

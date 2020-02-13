@@ -13,9 +13,9 @@ public class Query {
 	public static final String EVAL_BOOK_SP = "call netbooks.eval_book(?, ?, ?, ?, ?)";
 	public static final String GET_EVALUATION_SP ="call netbooks.get_evaluation(?, ?)";
 	public static final String GET_BOOK_AVG_STARS_SP = "call netbooks.get_book_avg_stars(?)";
+	public static final String GET_REVIEWS_SP = "call netbooks.get_reviews(?)";
 	
 	private Query() {
 		/* non instanziabile */
 	}
-
 }

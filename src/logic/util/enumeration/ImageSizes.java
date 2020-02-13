@@ -12,6 +12,6 @@ package logic.util.enumeration;
  * @author Simone Tiberi (M. 0252795)
  * 
  */
-public enum ImageSize {
+public enum ImageSizes {
 	SMALL, MEDIUM, LARGE
 }

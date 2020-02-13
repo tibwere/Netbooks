@@ -10,10 +10,11 @@ import java.util.List;
 import logic.db.DBManager;
 import logic.db.DBOperation;
 import logic.db.Query;
+import logic.exception.PersistencyException;
 import logic.model.Book;
 import logic.util.ImageDispenser;
-import logic.util.enumeration.BookGenre;
-import logic.util.enumeration.ImageSize;
+import logic.util.enumeration.BookGenres;
+import logic.util.enumeration.ImageSizes;
 
 /**
  * Versione singleton del DAO per l'interazione
@@ -39,33 +40,42 @@ public class BookDao {
 		Book book = new Book(isbn, title, author);
 		book.setAmazonLink(res.getString("link_amz"));
 		book.setLanguage(res.getString("language"));
-		book.setLargeImage(ImageDispenser.getCovers(book.getTitle(), ImageSize.LARGE));
-		book.setMediumImage(ImageDispenser.getCovers(book.getTitle(), ImageSize.MEDIUM));
+		book.setLargeImage(ImageDispenser.getCovers(book.getTitle(), ImageSizes.LARGE));
+		book.setMediumImage(ImageDispenser.getCovers(book.getTitle(), ImageSizes.MEDIUM));
 		book.setMondadoriLink(res.getString("link_mnd"));
 		book.setPlayLink(res.getString("link_play"));
 		book.setPublisher(res.getString("publisher"));
-		book.setSmallImage(ImageDispenser.getCovers(book.getTitle(), ImageSize.SMALL));
+		book.setSmallImage(ImageDispenser.getCovers(book.getTitle(), ImageSizes.SMALL));
 		book.setYearOfPublication(res.getInt("year"));
 		
 		return book;
 		
 	}
 	
-	public static List<Book> findBooksForHomepage(String user) throws ClassNotFoundException, SQLException {
+	public static List<Book> findBooksForHomepage(String user) throws PersistencyException  {
 		
+		CallableStatement stmt = null;
+		ResultSet results = null;
+		
+		try {
 			List<Book> books = new ArrayList<>();
 			Connection conn = DBManager.getConnection();
-			CallableStatement stmt = conn.prepareCall(Query.GET_BOOKS_FOR_HP_SP);
-			ResultSet results = DBOperation.getBooksForHP(stmt, user);
+			stmt = conn.prepareCall(Query.GET_BOOKS_FOR_HP_SP);
+			results = DBOperation.bindParameters(stmt, user);
 			
 			while (results.next()) {
 				Book tmp = BookDao.buildBookFromResultSet(results);
 				books.add(tmp);	
 			}
 			 
-			results.close();
-			stmt.close();
 			return books;
+			
+		} catch(ClassNotFoundException | SQLException e) {
+			throw new PersistencyException("Unable to load books for homepage");
+		}
+		finally {
+			DBManager.closeDBUtilities(results, stmt);
+		}
 	}
 	
 	public static List<Book> findExchangeableBooks(String username) {
@@ -84,12 +94,12 @@ public class BookDao {
 		return books;
 	}
 	
-	public BookGenre findBookByGenre(String genre) {
+	public BookGenres findBookByGenre(String genre) {
 		if (genre.equals("thr"))
-			return BookGenre.THRILLER;
+			return BookGenres.THRILLER;
 		else if (genre.equals("rom"))
-			return BookGenre.ROMANCE;
-		else return BookGenre.UNDEFINED;
+			return BookGenres.ROMANCE;
+		else return BookGenres.UNDEFINED;
 	}
 	
 //	 fare per posizione con cordinate del reader if(companyPositio<= valoreSlider)

@@ -1,7 +1,5 @@
 package logic.view;
 
-import java.sql.SQLException;
-
 import org.controlsfx.control.Rating;
 
 import javafx.event.ActionEvent;
@@ -22,6 +20,7 @@ import logic.bean.BookBean;
 import logic.bean.BookEvaluationBean;
 import logic.controller.BuyBookController;
 import logic.controller.ManageEvaluationsController;
+import logic.exception.PersistencyException;
 import logic.util.GraphicalElements;
 
 /**
@@ -53,7 +52,7 @@ public class RatingModal extends VBox{
 	
 	private BuyBookController controller;
 	
-	public RatingModal (BookBean bean) throws ClassNotFoundException, SQLException {
+	public RatingModal (BookBean bean) throws PersistencyException {
 		this.bookBean = bean;
 		this.controller = new BuyBookController(new ManageEvaluationsController());
 		
@@ -83,9 +82,7 @@ public class RatingModal extends VBox{
 				try {
 					controller.getManageEvaluationsController().addNewEvaluation(evalBean, bookBean);
 					GraphicalElements.showDialog(AlertType.INFORMATION, "Netbooks says ...", "Your evaluation has been succesfully posted!");
-
-				} catch (ClassNotFoundException | SQLException e) {
-					e.printStackTrace();
+				} catch (PersistencyException e) {
 					GraphicalElements.showDialog(AlertType.ERROR, "Ops, something went wrong", "Unable to post your evaluation");
 				}
 				Stage currStage = (Stage) submitBtn.getScene().getWindow();
@@ -131,6 +128,9 @@ public class RatingModal extends VBox{
 		
 		reviewBodyLbl.setText("REVIEW BODY (optional)");
 		reviewBodyLbl.setFont(Font.font(DEF_FONT_STYLE, FontWeight.BOLD, 15));
+		
+		reviewBodyTxt.setWrapText(true);
+		reviewBodyTxt.getStyleClass().add("review-txt-area");
 		
 		VBox revBodyBox = new VBox(reviewBodyLbl, reviewBodyTxt);
 		revBodyBox.setAlignment(Pos.CENTER);

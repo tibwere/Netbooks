@@ -1,6 +1,6 @@
 package logic.util.enumeration;
 
-public enum DiagramType {
+public enum DiagramTypes {
 	PIE_CHART,
 	BAR_CHART,
 	INVALID_CHART

@@ -1,14 +1,14 @@
 package logic.controller;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import logic.bean.BookBean;
 import logic.dao.BookDao;
+import logic.exception.PersistencyException;
 import logic.model.Book;
 import logic.util.Session;
-import logic.util.enumeration.ImageSize;
+import logic.util.enumeration.ImageSizes;
 
 /**
  * Controller del caso d'uso "Buy book"
@@ -23,14 +23,14 @@ public class BuyBookController {
 		this.manageEvaluationsController = secondaryController;
 	}
 
-	public List<BookBean> getBooksForHomepage() throws ClassNotFoundException, SQLException {
+	public List<BookBean> getBooksForHomepage() throws PersistencyException {
 		List<Book> books = BookDao.findBooksForHomepage(Session.getSession().getCurrUser());
 		ArrayList<BookBean> beans = new ArrayList<>();
 		
 		for (Book b : books) {
 			BookBean bean = new BookBean(b.getTitle(), b.getAuthor());
-			bean.setSingleImage(b.getSmallImage(), ImageSize.SMALL);
-			bean.setSingleImage(b.getLargeImage(), ImageSize.LARGE);
+			bean.setSingleImage(b.getSmallImage(), ImageSizes.SMALL);
+			bean.setSingleImage(b.getLargeImage(), ImageSizes.LARGE);
 			bean.setIsbn(b.getIsbn());
 			bean.setYearOfPublication(b.getYearOfPublication());
 			bean.setPublisher(b.getPublisher());

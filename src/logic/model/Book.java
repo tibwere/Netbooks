@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javafx.scene.image.Image;
-import logic.util.enumeration.ImageSize;
+import logic.util.enumeration.ImageSizes;
 import logic.util.enumeration.Vendors;
 
 /**
@@ -22,7 +22,7 @@ public class Book {
 	private String publisher;
 	private String language;
 	
-	private Map<ImageSize, Image> images;
+	private Map<ImageSizes, Image> images;
 	private Map<Vendors, String> links;
 	
 	public Book(String isbn, String title, String author) {
@@ -70,27 +70,27 @@ public class Book {
 	}
 
 	public Image getSmallImage() {
-		return images.get(ImageSize.SMALL);
+		return images.get(ImageSizes.SMALL);
 	}
 
 	public void setSmallImage(Image smallImage) {
-		this.images.put(ImageSize.SMALL, smallImage);
+		this.images.put(ImageSizes.SMALL, smallImage);
 	}
 
 	public Image getMediumImage() {
-		return images.get(ImageSize.MEDIUM);
+		return images.get(ImageSizes.MEDIUM);
 	}
 
 	public void setMediumImage(Image mediumImage) {
-		this.images.put(ImageSize.MEDIUM, mediumImage);
+		this.images.put(ImageSizes.MEDIUM, mediumImage);
 	}
 
 	public Image getLargeImage() {
-		return images.get(ImageSize.LARGE);
+		return images.get(ImageSizes.LARGE);
 	}
 
 	public void setLargeImage(Image largeImage) {
-		this.images.put(ImageSize.LARGE, largeImage);
+		this.images.put(ImageSizes.LARGE, largeImage);
 	}
 	
 	public String getAmazonLink() {

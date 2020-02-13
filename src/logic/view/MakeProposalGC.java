@@ -15,7 +15,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import logic.bean.BookBean;
 import logic.controller.ExchangeBookController;
-import logic.util.enumeration.ImageSize;
+import logic.util.enumeration.ImageSizes;
 
 public class MakeProposalGC implements Initializable{
 	
@@ -51,7 +51,7 @@ public class MakeProposalGC implements Initializable{
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		imv.setImage(bean.getSingleImage(ImageSize.LARGE));
+		imv.setImage(bean.getSingleImage(ImageSizes.LARGE));
 		title.setText(bean.getTitle());
 		author.setText(bean.getAuthor());
 		String own = bean.getOwner();

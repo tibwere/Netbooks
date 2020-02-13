@@ -33,7 +33,7 @@ import logic.bean.BookBean;
 import logic.util.GraphicalElements;
 import logic.util.ShowPanelTask;
 import logic.util.enumeration.DynamicElements;
-import logic.util.enumeration.ImageSize;
+import logic.util.enumeration.ImageSizes;
 import logic.view.evaluationdecorator.EmptyBox;
 import logic.view.evaluationdecorator.InAppRatingsBox;
 import logic.view.evaluationdecorator.InAppReviewsBox;
@@ -112,7 +112,7 @@ public class BuyBookGC implements Initializable{
 		errLbl.setTextFill(Color.RED);
 		errLbl.setFont(Font.font("System", FontWeight.BOLD, 12));
 				
-		bookImg.setImage(bookToLoad.getSingleImage(ImageSize.LARGE));
+		bookImg.setImage(bookToLoad.getSingleImage(ImageSizes.LARGE));
 		isbn10Lbl.setText(bookToLoad.getIsbn());
 		isbn13Lbl.setText("978-" + bookToLoad.getIsbn());
 		titleLbl.setText(bookToLoad.getTitle());

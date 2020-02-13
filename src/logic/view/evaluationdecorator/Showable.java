@@ -1,9 +1,8 @@
 package logic.view.evaluationdecorator;
 
-import java.sql.SQLException;
-
 import javafx.scene.layout.VBox;
 import logic.bean.BookBean;
+import logic.exception.PersistencyException;
 
 /**
  * Classe <b>Component</b> del pattern <i>Decorator</i> dei GoF.<br>
@@ -15,6 +14,6 @@ import logic.bean.BookBean;
  */
 public interface Showable {
 
-	public VBox show(BookBean bean) throws ClassNotFoundException, SQLException;
+	public VBox show(BookBean bean) throws PersistencyException;
 
 }

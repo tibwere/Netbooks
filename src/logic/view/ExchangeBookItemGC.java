@@ -17,7 +17,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import logic.bean.BookBean;
 import logic.util.GraphicalElements;
-import logic.util.enumeration.ImageSize;
+import logic.util.enumeration.ImageSizes;
 import logic.util.enumeration.Views;
 
 public class ExchangeBookItemGC implements Initializable {
@@ -56,7 +56,7 @@ public class ExchangeBookItemGC implements Initializable {
 		
 		label.setText(bean.getTitle());
 		label.setTextFill(Color.WHITE);
-		imageView.setImage(bean.getSingleImage(ImageSize.MEDIUM));
+		imageView.setImage(bean.getSingleImage(ImageSizes.MEDIUM));
 		titleOfBook.setText(bean.getTitle());
 		authorOfBook.setText(bean.getAuthor());
 				

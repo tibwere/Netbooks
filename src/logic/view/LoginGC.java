@@ -2,7 +2,6 @@ package logic.view;
 
 import java.net.URL;
 import java.security.NoSuchAlgorithmException;
-import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import javafx.beans.value.ChangeListener;
@@ -23,9 +22,10 @@ import javafx.stage.Stage;
 import logic.bean.UserBean;
 import logic.controller.LoginController;
 import logic.exception.NoUserFoundException;
+import logic.exception.PersistencyException;
 import logic.exception.WrongSyntaxException;
 import logic.util.GraphicalElements;
-import logic.util.enumeration.UserType;
+import logic.util.enumeration.UserTypes;
 import logic.util.enumeration.Views;
 
 /**
@@ -109,19 +109,17 @@ public class LoginGC implements Initializable{
 			String password = passwordTxt.getText();
 			UserBean bean = new UserBean(username, password);
 
-			UserType type = controller.loginUser(bean);
+			UserTypes type = controller.loginUser(bean);
 			
 			Stage stage = (Stage) pane.getScene().getWindow();
-			if (type.equals(UserType.READER))
+			if (type.equals(UserTypes.READER))
 				stage.setScene(GraphicalElements.switchTo(Views.HOME, null));
 			else
 				stage.setScene(GraphicalElements.switchTo(Views.KBSAS, null));
-		} catch(WrongSyntaxException | NoUserFoundException e) {
+		} catch(WrongSyntaxException | NoUserFoundException | PersistencyException e) {
 			resultLbl.setText(e.getMessage().toUpperCase());
 		} catch (NoSuchAlgorithmException e) {
 			resultLbl.setText("UNABLE TO ENCRYPT YOUR PASSWORD");
-		} catch (ClassNotFoundException | SQLException e) {
-			resultLbl.setText("UNABLE TO CONNECT TO DB");
-		}
+		} 
 	}
 }

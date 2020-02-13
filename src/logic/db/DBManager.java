@@ -1,9 +1,12 @@
 package logic.db;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import logic.exception.PersistencyException;
 import logic.util.AppProperties;
 
 /**
@@ -37,6 +40,17 @@ public class DBManager {
 		if (connection != null) {
 			connection.close();
 			connection = null;
+		}
+	}
+	
+	public static void closeDBUtilities(ResultSet rs, CallableStatement st) throws PersistencyException {
+		try {
+			if (rs != null)
+				rs.close();
+			if (st != null)
+				st.close();				
+		} catch (SQLException e) {
+			throw new PersistencyException("Unable to close ResultSet and/or Statement");
 		}
 	}
 }

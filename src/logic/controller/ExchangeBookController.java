@@ -12,7 +12,7 @@ import logic.model.Proposal;
 import logic.model.ProposalNotification;
 import logic.model.users.Reader;
 import logic.util.Session;
-import logic.util.enumeration.ImageSize;
+import logic.util.enumeration.ImageSizes;
 
 /**
  * Controller del caso d'uso "Exchange Book"
@@ -31,8 +31,8 @@ public class ExchangeBookController {
 			
 			BookBean bean = new BookBean(book.getTitle(), book.getAuthor());
 			
-			bean.setSingleImage(book.getMediumImage(), ImageSize.MEDIUM);
-			bean.setSingleImage(book.getLargeImage(), ImageSize.LARGE);
+			bean.setSingleImage(book.getMediumImage(), ImageSizes.MEDIUM);
+			bean.setSingleImage(book.getLargeImage(), ImageSizes.LARGE);
 			//bean.setOwner("Pippo");
 			beans.add(bean);
 		}

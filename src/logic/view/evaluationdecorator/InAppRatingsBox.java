@@ -1,6 +1,5 @@
 package logic.view.evaluationdecorator;
 
-import java.sql.SQLException;
 import java.text.DecimalFormat;
 
 import org.controlsfx.control.Rating;
@@ -16,6 +15,7 @@ import javafx.scene.text.FontWeight;
 import logic.bean.BookBean;
 import logic.controller.BuyBookController;
 import logic.controller.ManageEvaluationsController;
+import logic.exception.PersistencyException;
 
 /**
  * Classe <b>ConcreteDecorator</b> del pattern <i>Decorator</i> dei GoF.<br>
@@ -68,7 +68,7 @@ public class InAppRatingsBox extends BoxDecorator {
 	}
 
 	@Override
-	public VBox show(BookBean bean) throws ClassNotFoundException, SQLException {
+	public VBox show(BookBean bean) throws PersistencyException {
 		VBox fromParent = super.show(bean);
 		
 		initComponents();

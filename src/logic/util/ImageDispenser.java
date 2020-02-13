@@ -1,7 +1,7 @@
 package logic.util;
 
 import javafx.scene.image.Image;
-import logic.util.enumeration.ImageSize;
+import logic.util.enumeration.ImageSizes;
 
 /**
  * Classe di ingegnerizzazione del sistema che permette
@@ -32,7 +32,7 @@ public class ImageDispenser {
 		return new Image(ImageDispenser.class.getResourceAsStream(PATH + name + ".png"));
 	}
 	
-	public static Image getCovers(String name, ImageSize type) {
+	public static Image getCovers(String name, ImageSizes type) {
 		
 		StringBuilder path = new StringBuilder(AppProperties.getInstance().getProperty("coverspath"));
 		path.append(name.replace(' ', '_').toLowerCase());

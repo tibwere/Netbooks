@@ -4,11 +4,16 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 
 import logic.bean.BookEvaluationBean;
 import logic.db.DBManager;
 import logic.db.DBOperation;
 import logic.db.Query;
+import logic.exception.PersistencyException;
+import logic.model.BookEvaluation;
+import logic.model.users.Reader;
 
 public class EvaluationDao {
 	
@@ -16,50 +21,100 @@ public class EvaluationDao {
 		/* non instanziabile */
 	}
 	
-	public static void insertNewEval(int stars, String title, String body, String reader, String book) throws ClassNotFoundException, SQLException {
-		Connection conn = DBManager.getConnection();		
-		CallableStatement stmt = conn.prepareCall(Query.EVAL_BOOK_SP);
+	public static void insertNewEval(int stars, String title, String body, String reader, String book) throws PersistencyException  {
+		CallableStatement stmt = null;
 		
-		DBOperation.insertNewEvaluation(stmt, stars, title, body, reader, book);
-		
-		stmt.close();
+		try {
+			Connection conn = DBManager.getConnection();		
+			stmt = conn.prepareCall(Query.EVAL_BOOK_SP);
+			DBOperation.bindParameters(stmt, stars, title, body, reader, book);
+		} catch (SQLException | ClassNotFoundException e) {
+			throw new PersistencyException("Unable to save evaluation on DB");
+		} finally {
+			DBManager.closeDBUtilities(null, stmt);
+		}
 	}
 	
-	public static BookEvaluationBean getOldEvaluation(String user, String book) throws SQLException, ClassNotFoundException {
+	public static BookEvaluationBean getOldEvaluation(String user, String book) throws PersistencyException {
 		
-		BookEvaluationBean bean = new BookEvaluationBean();
-		Connection conn = DBManager.getConnection();
-		CallableStatement stmt = conn.prepareCall(Query.GET_EVALUATION_SP);
-		ResultSet results = DBOperation.retriveOldEvaluation(stmt, user, book);
+		CallableStatement stmt = null;
+		ResultSet results = null;
 		
-		if (!results.first()) 
-			return null;
-		
-		results.first();
-		bean.setRate(results.getInt("star"));
-		bean.setTitle(results.getString("title"));
-		bean.setBody(results.getString("body"));
-		
-		results.close();
-		stmt.close();
-		
-		return bean;
+		try {
+			BookEvaluationBean bean = new BookEvaluationBean();
+			Connection conn = DBManager.getConnection();
+			stmt = conn.prepareCall(Query.GET_EVALUATION_SP);
+			results = DBOperation.bindParameters(stmt, user, book);
+			
+			if (!results.first()) 
+				return null;
+			
+			results.first();
+			bean.setRate(results.getInt("star"));
+			bean.setTitle(results.getString("title"));
+			bean.setBody(results.getString("body"));
+			return bean;
+
+		} catch(SQLException | ClassNotFoundException e) {
+			throw new PersistencyException("Unable to retrive old evaluation from DB");
+		} finally {
+			DBManager.closeDBUtilities(results, stmt);
+		}
 	}
 	
-	public static double getInAppAverageEvaluation(String book) throws SQLException, ClassNotFoundException{
-		Connection conn = DBManager.getConnection();
-		CallableStatement stmt = conn.prepareCall(Query.GET_BOOK_AVG_STARS_SP);
-		ResultSet results = DBOperation.getAVGStars(stmt, book);
+	public static double getInAppAverageEvaluation(String book) throws PersistencyException {
 		
-		if (!results.first())
-			return 0;
+		CallableStatement stmt = null;
+		ResultSet results = null;
 		
-		results.first();
-		double avg = results.getDouble("average_eval");
-		results.close();
-		stmt.close();
+		try {
+			Connection conn = DBManager.getConnection();
+			stmt = conn.prepareCall(Query.GET_BOOK_AVG_STARS_SP);
+			results = DBOperation.bindParameters(stmt, book);
+			
+			if (!results.first())
+				return 0;
+			
+			results.first();
+			double avg = results.getDouble("average_eval");
+			results.close();
+			stmt.close();
+			
+			return avg;
+		} catch(SQLException | ClassNotFoundException e) {
+			throw new PersistencyException("Unable to retrive old evaluation from DB");
+		} finally {
+			DBManager.closeDBUtilities(results, stmt);
+		}
+	}
+	
+	public static Map<Reader, BookEvaluation> getPreviousReviews(String isbn) throws PersistencyException {
 		
-		return avg;
+		CallableStatement stmt = null;
+		ResultSet results = null;
+		
+		try {
+			Map<Reader, BookEvaluation> reviews = new HashMap<>();
+			Connection conn = DBManager.getConnection();
+			stmt = conn.prepareCall(Query.GET_REVIEWS_SP);
+			results = DBOperation.bindParameters(stmt, isbn);
+			
+			while (results.next()) {
+				BookEvaluation book = new BookEvaluation();
+				Reader reader = new Reader(results.getString("reader"));
+				book.setTitle(results.getString("title"));
+				book.setBody(results.getString("body"));
+				reviews.put(reader, book);
+			}
+			
+			return reviews;
+			
+		} catch (ClassNotFoundException | SQLException e) {
+			throw new PersistencyException("Unable to retrive already inserted reviews from DB");
+		} finally {
+			DBManager.closeDBUtilities(results, stmt);
+		}
+		
 	}
 
 }

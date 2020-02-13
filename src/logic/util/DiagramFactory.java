@@ -11,13 +11,13 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import logic.bean.BookBean;
-import logic.util.enumeration.DiagramType;
+import logic.util.enumeration.DiagramTypes;
 
 public class DiagramFactory{
 	   	 
-	public Chart createChart(DiagramType type , List<BookBean> books ){
+	public Chart createChart(DiagramTypes type , List<BookBean> books ){
 		
-		if (type.equals(DiagramType.PIE_CHART))
+		if (type.equals(DiagramTypes.PIE_CHART))
 			return createPieChart(books);
 		else
 			return createBarChart(books);		

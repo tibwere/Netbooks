@@ -19,6 +19,7 @@ public class EmptyBox implements Showable{
 
 	private static final int PADDING = 40;
 	private static final int SPACING = 25;
+	private static final int GAP = 10;
 
 	@Override
 	public VBox show(BookBean bean) {
@@ -30,6 +31,7 @@ public class EmptyBox implements Showable{
 		bookLbl.setFont(Font.font("System", FontWeight.BOLD, 24));
 		
 		VBox titleBox = new VBox(preLbl, bookLbl);
+		titleBox.setPadding(new Insets(GAP));
 		titleBox.setAlignment(Pos.CENTER);
 		titleBox.getStyleClass().add("moreinfopanel");
 		

@@ -9,7 +9,8 @@ import logic.db.DBManager;
 import logic.db.DBOperation;
 import logic.db.Query;
 import logic.exception.NoUserFoundException;
-import logic.util.enumeration.UserType;
+import logic.exception.PersistencyException;
+import logic.util.enumeration.UserTypes;
 
 /**
  * Versione singleton del DAO per l'interazione
@@ -23,19 +24,24 @@ public class UserDao {
 		/* non instanziabile */
 	}
 	
-	public static UserType findUserByUsernameAndPassword(String user, String passwd) throws SQLException, NoUserFoundException, ClassNotFoundException {
-		Connection conn = DBManager.getConnection();
-		CallableStatement stmt = conn.prepareCall(Query.LOGIN_SP);
-		ResultSet results = DBOperation.doLogin(stmt, user, passwd);
-		
-		if (!results.first()) 
-			throw new NoUserFoundException("Selected user not exists");
-		
-		results.first();
-		boolean isReader = results.getBoolean("type");
-		results.close();
-		results.close();
-		
-		return (isReader) ? UserType.READER : UserType.RETAILER;
+	public static UserTypes findUserByUsernameAndPassword(String user, String passwd) throws NoUserFoundException, PersistencyException {
+		CallableStatement stmt = null;
+		ResultSet results = null;
+		try {
+			Connection conn = DBManager.getConnection();
+			stmt = conn.prepareCall(Query.LOGIN_SP);
+			results = DBOperation.bindParameters(stmt, user, passwd);
+			
+			if (!results.first()) 
+				throw new NoUserFoundException("Selected user not exists");
+			
+			results.first();
+			return results.getBoolean("type") ? UserTypes.READER : UserTypes.RETAILER;
+			
+		} catch (SQLException | ClassNotFoundException e) {
+			throw new PersistencyException("Comunication with DB has failed");
+		} finally {
+			DBManager.closeDBUtilities(results, stmt);
+		}
 	}
 }

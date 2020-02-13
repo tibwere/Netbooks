@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javafx.scene.image.Image;
-import logic.util.enumeration.ImageSize;
+import logic.util.enumeration.ImageSizes;
 import logic.util.enumeration.Vendors;
 
 /**
@@ -34,7 +34,7 @@ public class BookBean {
 	}
 	/* FINE ZONA DA ELIMINARE */
 
-	private Map<ImageSize, Image> images;
+	private Map<ImageSizes, Image> images;
 	private Map<Vendors, String> links;
 	
 	public BookBean() {
@@ -48,7 +48,7 @@ public class BookBean {
 		this.author = author;
 	}
 	
-	public BookBean(String title, String author, Image singleImage, ImageSize size) {
+	public BookBean(String title, String author, Image singleImage, ImageSizes size) {
 		this();
 		this.setTitle(title);
 		this.setAuthor(author);
@@ -103,11 +103,11 @@ public class BookBean {
 		this.publisher = publisher;
 	}
 	
-	public Map<ImageSize, Image> getAllImages() {
+	public Map<ImageSizes, Image> getAllImages() {
 		return this.images;
 	}
 	
-	public void setAllImages(Map<ImageSize, Image> images) {
+	public void setAllImages(Map<ImageSizes, Image> images) {
 		this.images = images;
 	}
 
@@ -119,11 +119,11 @@ public class BookBean {
 		this.language = language;
 	}
 
-	public Image getSingleImage(ImageSize size) {
+	public Image getSingleImage(ImageSizes size) {
 		return images.get(size);
 	}
 	
-	public void setSingleImage(Image image, ImageSize size) {
+	public void setSingleImage(Image image, ImageSizes size) {
 		this.images.put(size, image);
 	}
 }

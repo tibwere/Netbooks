@@ -22,6 +22,8 @@ public class UserBean {
 		this.setPassword(password);
 	}
 
+	public UserBean() {}
+
 	public String getUsername() {
 		return username;
 	}

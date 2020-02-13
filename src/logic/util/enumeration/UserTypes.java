@@ -5,7 +5,7 @@ package logic.util.enumeration;
  * @author Simone Tiberi (M. 0252795)
  *
  */
-public enum UserType {
+public enum UserTypes {
 	
 	/**
 	 * Valore corrisponente nella base di dati: 1
