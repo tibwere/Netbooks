@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<HBox fx:id="mainHB" alignment="CENTER" onMouseClicked="#clickOnItem" prefHeight="60.0" styleClass="exBookVBoxInfo" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fx:id="imv" fitHeight="60.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" />
+      <VBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="300.0">
+         <children>
+            <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="40.0" maxHeight="20.0" maxWidth="300.0" minHeight="20.0" minWidth="300.0" prefHeight="20.0" prefWidth="300.0" spacing="21.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text=" ISBN:">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Text>
+                  <Label fx:id="isbn" maxHeight="20.0" minHeight="20.0" minWidth="231.0" prefHeight="20.0" prefWidth="231.0" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" maxHeight="20.0" maxWidth="300.0" minHeight="20.0" minWidth="300.0" prefHeight="20.0" prefWidth="300.0" spacing="18.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text=" Title: " wrappingWidth="47.0615234375">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Text>
+                  <Label fx:id="title" maxHeight="20.0" minHeight="20.0" minWidth="231.0" prefHeight="20.0" prefWidth="231.0" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" maxHeight="20.0" maxWidth="300.0" minHeight="20.0" minWidth="300.0" prefHeight="20.0" prefWidth="300.0" spacing="1.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text=" Author: ">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Text>
+                  <Label fx:id="author" maxHeight="20.0" minHeight="20.0" minWidth="231.0" prefHeight="20.0" prefWidth="231.0" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+   <cursor>
+      <Cursor fx:constant="HAND" />
+   </cursor>
+</HBox>

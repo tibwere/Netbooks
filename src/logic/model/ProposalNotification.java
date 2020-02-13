@@ -37,26 +37,28 @@ public class ProposalNotification {
 	public void setSrcBook(Book srcBook) {
 		this.srcBook = srcBook;
 	}
-
-	public String getMessage() {
-		switch (this.type) {
-		case INITIAL_PROPOSAL:
-			return "The user '" + src.getUsername() + "' would like to exchange your book '" + destBook.getTitle() + "'. You can choose one of his books in return, or reject the proposal.";
-		case INTERMEDIATE_PROPOSAL:
-			return "The user '" + src.getUsername() + "' would like to accept your proposal and exchange: '" + srcBook.getTitle() + "' for '" + destBook.getTitle() + "'. Do you want to end the exchange?";
-		case FINAL_PROPOSAL:
-			String pron;
-			if (src.getGender() == 'F')
-				pron = "her";
-			else
-				pron = "him";
-			return "The exchange with '" + src.getUsername() + "' was successful. Contact " + pron + " at the e-mail address: " + src.getEmail();
-		default:
-			return "The exchange with '" + src.getUsername() + "' was unsuccessful.";
-		}
+	
+	public NotificationTypes getType() {
+		return type;
 	}
 
 	public Proposal getProposal() {
 		return proposal;
+	}
+
+	public String getMessage() {
+		String pron;
+		switch (this.getType()) {
+		case INITIAL_PROPOSAL:
+			pron = src.getGender() == 'F' ? "her" : "his";
+			return "The user '" + src.getUsername() + "' would like to exchange your book '" + destBook.getTitle() + "'. You can choose one of " + pron + " books in return, or reject the proposal.";
+		case INTERMEDIATE_PROPOSAL:
+			return "The user '" + src.getUsername() + "' would like to accept your proposal and exchange: '" + srcBook.getTitle() + "' for '" + destBook.getTitle() + "'. Do you want to end the exchange?";
+		case FINAL_PROPOSAL:
+			pron = src.getGender() == 'F' ? "her" : "him";
+			return "The exchange with '" + src.getUsername() + "' was successful. Contact " + pron + " at the e-mail address: " + src.getEmail();
+		default:
+			return "The exchange with '" + src.getUsername() + "' was unsuccessful.";
+		}
 	}
 }

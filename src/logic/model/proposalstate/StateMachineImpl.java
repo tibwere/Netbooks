@@ -6,6 +6,7 @@ import logic.model.ProposalNotification;
 import logic.model.users.Reader;
 import logic.util.enumeration.NotificationTypes;
 import logic.util.enumeration.ProposalEvents;
+import logic.util.enumeration.ProposalStates;
 
 public class StateMachineImpl implements ProposalStateMachine {
 	
@@ -13,17 +14,22 @@ public class StateMachineImpl implements ProposalStateMachine {
 	private Reader target;
 	private Book sourceBook;
 	private Book targetBook;
-	private ProposalState current;
+	private AbstractState current;
 	private Proposal proposal;
 	
-	public StateMachineImpl(Reader src, Reader tgt, Book tgtBook, Proposal proposal) {
+	private StateMachineImpl(Reader src, Reader tgt, Book tgtBook, Book srcBook, Proposal proposal) {
 		this.source = src;
 		this.target = tgt;
 		this.targetBook = tgtBook;
+		this.sourceBook = srcBook;
 		this.proposal = proposal;
-		current = ProposalState.getInitialState(this);
 	}
 
+	public StateMachineImpl(Reader src, Reader tgt, Book tgtBook, Book srcBook, Proposal proposal, ProposalStates initialState) {
+		this(src, tgt, tgtBook, srcBook, proposal);
+		current = AbstractState.getInitialState(this, initialState);
+	}
+	
 	@Override
 	public void manageProposal(ProposalEvents e) {
 		if (e == ProposalEvents.PROPOSAL_ACCEPTED)
@@ -34,10 +40,23 @@ public class StateMachineImpl implements ProposalStateMachine {
 	
 	@Override
 	public void acquireBook(Book book) {
-		this.sourceBook = book;
+		current.acquire(this, book);
 	}
 	
-	public void changeToState(ProposalState state) {
+	@Override
+	public void getCurrentState() {
+		current.getState();		
+	}
+	
+	public Book getSourceBook() {
+		return sourceBook;
+	}
+	
+	public void setSourceBook(Book sourceBook) {
+		this.sourceBook = sourceBook;
+	}
+	
+	public void changeToState(AbstractState state) {
 		current = state;
 	}
 	

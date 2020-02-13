@@ -83,7 +83,7 @@ public class BookDao {
 		List<Book> books = new ArrayList<>();
 		
 		if (username.equals("")) {
-			for (int i = 0; i < 9; i ++) {
+			for (int i = 0; i < 18; i ++) {
 				book1.setMediumImage(ImageDispenser.getImage(ImageDispenser.BOOK1));
 				book1.setLargeImage(ImageDispenser.getImage(ImageDispenser.BOOK_TEST));
 				books.add(book1);
@@ -91,6 +91,17 @@ public class BookDao {
 				books.add(book2);
 			}
 		}
+		else
+			for (int i = 0; i < 3; i ++) {
+				book1.setSmallImage(ImageDispenser.getImage(ImageDispenser.BOOK_TEST_THUMBNAIL));
+				book1.setMediumImage(ImageDispenser.getImage(ImageDispenser.BOOK1));
+				book1.setLargeImage(ImageDispenser.getImage(ImageDispenser.BOOK_TEST));
+				books.add(book1);
+				book2.setSmallImage(ImageDispenser.getImage(ImageDispenser.BOOK_TEST_THUMBNAIL));
+				book2.setMediumImage(ImageDispenser.getImage(ImageDispenser.BOOK2));
+				book2.setLargeImage(ImageDispenser.getImage(ImageDispenser.BOOK_TEST));
+				books.add(book2);
+			}
 		
 		return books;
 	}

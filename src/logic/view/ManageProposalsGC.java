@@ -28,11 +28,10 @@ public class ManageProposalsGC implements Initializable {
 		try {
 			ExchangeBookController controller = new ExchangeBookController();
 			List<NotificationBean> beans = controller.getCurrUserNotifications();
-		
-			int i;
 			
-			int len = (beans.size()) % 5;
-		
+			int i;
+			int len = (beans.size()) % 6;
+			
 			for (i = 0; i < len; i ++) {
 				NotificationItemGC gc = new NotificationItemGC(beans.get(i));
 				FXMLLoader loader = GraphicalElements.loadFXML(DynamicElements.NOTIFICATION_ITEM);
@@ -42,7 +41,6 @@ public class ManageProposalsGC implements Initializable {
 			}
 		}
 		catch (IOException | IllegalStateException e) {
-			
 			GraphicalElements.showDialog(AlertType.ERROR, "Error!", "Unable to load exchangeable books.");
 			Platform.exit();
 		}

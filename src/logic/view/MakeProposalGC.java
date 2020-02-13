@@ -7,6 +7,7 @@ package logic.view;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -14,6 +15,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import logic.bean.BookBean;
+import logic.bean.UserBean;
 import logic.controller.ExchangeBookController;
 import logic.util.enumeration.ImageSizes;
 
@@ -24,6 +26,9 @@ public class MakeProposalGC implements Initializable{
 	
 	@FXML
 	private ImageView imv;
+	
+	@FXML
+	private Label isbn;
 	
 	@FXML
 	private Label title;
@@ -43,27 +48,33 @@ public class MakeProposalGC implements Initializable{
 	@FXML
 	private Button sendBtn;
 	
-	private BookBean bean;
+	private BookBean bookBean;
 	
-	public MakeProposalGC(BookBean bean) {
-		this.bean = bean;
+	private UserBean ownerBean;
+	
+	public MakeProposalGC(BookBean bookBean, UserBean ownerBean) {
+		this.bookBean = bookBean;
+		this.ownerBean = ownerBean;
 	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		imv.setImage(bean.getSingleImage(ImageSizes.LARGE));
-		title.setText(bean.getTitle());
-		author.setText(bean.getAuthor());
-		String own = bean.getOwner();
-		ownerDetail.setText(own);
-		ownerLabel.setText(own);
+		imv.setImage(bookBean.getSingleImage(ImageSizes.LARGE));
+		isbn.setText(bookBean.getIsbn());
+		title.setText(bookBean.getTitle());
+		author.setText(bookBean.getAuthor());
+		String owner = ownerBean.getUsername();
+		ownerDetail.setText(owner);
+		ownerLabel.setText(owner);
 	}
 
 	@FXML
 	private void clickOnSendProposal() {
-		sendBtn.setDisable(true);
 		ExchangeBookController controller = new ExchangeBookController();
-		controller.buildProposal(bean);
+		if (!controller.buildProposal(bookBean, ownerBean))
+			successLabel.setText("You already have an open proposal with this user.");
+		else
+			sendBtn.setDisable(true);
 		successLabel.setVisible(true);
 	}
 	

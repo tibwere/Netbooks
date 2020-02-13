@@ -7,4 +7,5 @@ public interface ProposalStateMachine {
 	
 	public void manageProposal(ProposalEvents e);
 	public void acquireBook(Book book);
+	public void getCurrentState();
 }

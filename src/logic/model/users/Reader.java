@@ -39,7 +39,7 @@ public class Reader extends User {
 	}
 
 	public void addNotification(ProposalNotification notification) {
-		return;
+		 /* la responsabilita resta all'utente perche le notifiche non vengono inviate solo al currUser*/
 	}
 
 	public char getGender() {

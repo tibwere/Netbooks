@@ -16,6 +16,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import logic.bean.BookBean;
+import logic.bean.UserBean;
 import logic.util.GraphicalElements;
 import logic.util.enumeration.ImageSizes;
 import logic.util.enumeration.Views;
@@ -38,15 +39,18 @@ public class ExchangeBookItemGC implements Initializable {
 	private Label titleOfBook;
 	
 	@FXML
-	private Label authorOfBook;
+	private Label ownerOfBook;
 	
-	private BookBean bean;
+	private BookBean bookBean;
+	
+	private UserBean ownerBean;
 	
 	private ExchangeBookGC mainGC;
 	
-	public ExchangeBookItemGC(BookBean bean, ExchangeBookGC mainGC) {
+	public ExchangeBookItemGC(BookBean bookBean, UserBean ownerBean, ExchangeBookGC mainGC) {
 		
-		this.bean = bean;
+		this.bookBean = bookBean;
+		this.ownerBean = ownerBean;
 		this.mainGC = mainGC;
 		
 	}
@@ -54,11 +58,13 @@ public class ExchangeBookItemGC implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		
-		label.setText(bean.getTitle());
+		label.setText(bookBean.getTitle());
 		label.setTextFill(Color.WHITE);
-		imageView.setImage(bean.getSingleImage(ImageSizes.MEDIUM));
-		titleOfBook.setText(bean.getTitle());
-		authorOfBook.setText(bean.getAuthor());
+		imageView.setImage(bookBean.getSingleImage(ImageSizes.MEDIUM));
+		titleOfBook.setText(bookBean.getTitle());
+		titleOfBook.setTextFill(Color.BLACK);
+		ownerOfBook.setText(ownerBean.getUsername());
+		ownerOfBook.setTextFill(Color.BLACK);
 				
 	}
 	
@@ -75,7 +81,7 @@ public class ExchangeBookItemGC implements Initializable {
 	
 	@FXML
 	public void selectedBook() {
-		MakeProposalGC gc = new MakeProposalGC(bean);
+		MakeProposalGC gc = new MakeProposalGC(bookBean, ownerBean);
 		Stage stage = (Stage) bookItem.getScene().getWindow();
 		stage.setScene(GraphicalElements.switchTo(Views.MAKE_PROPOSAL, gc));
 	}

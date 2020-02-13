@@ -1,9 +1,13 @@
 package logic.model.proposalstate;
 
-public class StateIntermediateProposal extends ProposalState {
+import logic.model.Book;
+import logic.util.enumeration.ProposalStates;
 
-	public StateIntermediateProposal(StateMachineImpl sm) {
-		sm.notifySourceToAnswer();
+public class StateIntermediateProposal extends AbstractState {
+
+	public StateIntermediateProposal(StateMachineImpl sm, ProposalStates state) {
+		if (state != ProposalStates.INTERMEDIATE_STATE)
+			sm.notifySourceToAnswer();
 	}
 	@Override
 	protected void toAccept(StateMachineImpl sm) {
@@ -13,6 +17,15 @@ public class StateIntermediateProposal extends ProposalState {
 	@Override
 	protected void toReject(StateMachineImpl sm) {
 		sm.notifyOfFailure();
+	}
+	@Override
+	protected void acquire(StateMachineImpl sm, Book book) {
+		
+	}
+	
+	@Override
+	public ProposalStates getState() {
+		return ProposalStates.INTERMEDIATE_STATE;
 	}
 
 }

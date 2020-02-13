@@ -60,6 +60,8 @@ public class GraphicalElements {
 			return new FXMLLoader(GraphicalElements.class.getResource(PATH + "exchange_book_item.fxml"));
 		case NOTIFICATION_ITEM:
 			return new FXMLLoader(GraphicalElements.class.getResource(PATH + "notification_item.fxml"));
+		case EXCHANGE_BOOK_POPUP_ITEM:
+			return new FXMLLoader(GraphicalElements.class.getResource(PATH + "exchange_book_popup_item.fxml"));
 		case LOADING_MODAL:
 			return new FXMLLoader(GraphicalElements.class.getResource(PATH + "loading.fxml"));
 		case BOOK_IN_CHART:
