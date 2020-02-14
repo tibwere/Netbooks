@@ -1,16 +1,17 @@
 package logic.view;
 
-import java.net.URL;
 import java.util.Optional;
-import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import logic.bean.UserBean;
+import logic.controller.BuyBookController;
+import logic.controller.ManageEvaluationsController;
+import logic.exception.PersistencyException;
 import logic.util.GraphicalElements;
 import logic.util.Session;
 import logic.util.enumeration.Views;
@@ -21,7 +22,7 @@ import logic.util.enumeration.Views;
  * @author Simone Tiberi (M. 0252795)
  *
  */
-public class NavbarGC implements Initializable{
+public class NavbarGC {
 	
 	@FXML
 	private BorderPane main;
@@ -44,9 +45,21 @@ public class NavbarGC implements Initializable{
 	@FXML
 	private Button logoutBtn;
 	
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
+	public void updateGenerality() {
+		try {
+			BuyBookController ctrl = new BuyBookController(new ManageEvaluationsController());
+			UserBean bean = ctrl.getUserGenerality();
+	
+			if (bean.getFirstName().length() + bean.getSecondName().length() < 20)
+				profileBtn.setText(bean.getFirstName() + " " + bean.getSecondName());
+			else
+				profileBtn.setText(bean.getFirstName().charAt(0) + ". " + bean.getSecondName());
+		} catch (PersistencyException e) {
+			profileBtn.setText("");
+		}
+	}
 
+	public void disableBtns() {
 		switch(Session.getSession().getCurrView()) {
 		case HOME:
 			homeBtn.setDisable(true);
@@ -59,7 +72,7 @@ public class NavbarGC implements Initializable{
 		default:
 			break;
 		}
-	}	
+	}
 	
 	@FXML
 	public void goToHome() {

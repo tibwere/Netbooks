@@ -13,7 +13,8 @@ public class Session {
 
 	private String currUsername;
 	private Views currView;
-	
+	private Views prevView;
+
 	private Session() {
 		currUsername = "";
 		currView = Views.LOGIN;
@@ -39,7 +40,12 @@ public class Session {
 	}
 
 	public void setCurrView(Views nextView) {
+		this.prevView = this.currView;
 		this.currView = nextView;
+	}
+	
+	public Views getPrevView() {
+		return prevView;
 	}
 
 }

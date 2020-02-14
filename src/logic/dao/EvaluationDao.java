@@ -27,11 +27,12 @@ public class EvaluationDao {
 		try {
 			Connection conn = DBManager.getConnection();		
 			stmt = conn.prepareCall(Query.EVAL_BOOK_SP);
-			DBOperation.bindParameters(stmt, stars, title, body, reader, book);
+			DBOperation.bindParametersAndExec(stmt, stars, title, body, reader, book);
 		} catch (SQLException | ClassNotFoundException e) {
 			throw new PersistencyException("Unable to save evaluation on DB");
 		} finally {
-			DBManager.closeStmt(stmt);		}
+			DBManager.closeStmt(stmt);		
+		}
 	}
 	
 	public static BookEvaluationBean getOldEvaluation(String user, String book) throws PersistencyException {
@@ -43,7 +44,7 @@ public class EvaluationDao {
 			BookEvaluationBean bean = new BookEvaluationBean();
 			Connection conn = DBManager.getConnection();
 			stmt = conn.prepareCall(Query.GET_EVALUATION_SP);
-			results = DBOperation.bindParameters(stmt, user, book);
+			results = DBOperation.bindParametersAndExec(stmt, user, book);
 			
 			if (!results.first()) 
 				return null;
@@ -70,7 +71,7 @@ public class EvaluationDao {
 		try {
 			Connection conn = DBManager.getConnection();
 			stmt = conn.prepareCall(Query.GET_BOOK_AVG_STARS_SP);
-			results = DBOperation.bindParameters(stmt, book);
+			results = DBOperation.bindParametersAndExec(stmt, book);
 			
 			if (!results.first())
 				return 0;
@@ -98,7 +99,7 @@ public class EvaluationDao {
 			Map<Reader, BookEvaluation> reviews = new HashMap<>();
 			Connection conn = DBManager.getConnection();
 			stmt = conn.prepareCall(Query.GET_REVIEWS_SP);
-			results = DBOperation.bindParameters(stmt, isbn);
+			results = DBOperation.bindParametersAndExec(stmt, isbn);
 			
 			while (results.next()) {
 				BookEvaluation book = new BookEvaluation();
@@ -114,7 +115,8 @@ public class EvaluationDao {
 			throw new PersistencyException("Unable to retrive already inserted reviews from DB");
 		} finally {
 			DBManager.closeRs(results);
-			DBManager.closeStmt(stmt);		}
+			DBManager.closeStmt(stmt);		
+		}
 		
 	}
 

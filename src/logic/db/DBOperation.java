@@ -16,14 +16,14 @@ public class DBOperation {
 		/* non instanziabile */
 	}
 	
-	public static ResultSet bindParameters(CallableStatement stmt, String ... stringParams) throws SQLException {
+	public static ResultSet bindParametersAndExec(CallableStatement stmt, String ... stringParams) throws SQLException {
 		for (int i = 0; i < stringParams.length; ++i) 
 			stmt.setString(i + 1, stringParams[i]);
 		
 		return executeStmt(stmt);
 	}
 	
-	public static ResultSet bindParameters(CallableStatement stmt, int integerParam, String ... stringParams) throws SQLException {
+	public static ResultSet bindParametersAndExec(CallableStatement stmt, int integerParam, String ... stringParams) throws SQLException {
 		stmt.setInt(1, integerParam);
 		for (int i = 0; i < stringParams.length; ++ i) 
 			stmt.setString(i + 2, stringParams[i]);

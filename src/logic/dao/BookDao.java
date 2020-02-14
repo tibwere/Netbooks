@@ -61,7 +61,7 @@ public class BookDao {
 			List<Book> books = new ArrayList<>();
 			Connection conn = DBManager.getConnection();
 			stmt = conn.prepareCall(Query.GET_BOOKS_FOR_HP_SP);
-			results = DBOperation.bindParameters(stmt, user);
+			results = DBOperation.bindParametersAndExec(stmt, user);
 			
 			while (results.next()) {
 				Book tmp = BookDao.buildBookFromResultSet(results);

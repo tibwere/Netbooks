@@ -16,6 +16,8 @@ public class UserBean {
 	
 	private String username;
 	private String password;
+	private String firstName;
+	private String secondName;
 	
 	public UserBean(String username, String password) throws WrongSyntaxException, NoSuchAlgorithmException {
 		this.setUsername(username);
@@ -47,7 +49,23 @@ public class UserBean {
 			throw new WrongSyntaxException("Password must be not empty !");
 	}
 	
-    private String md5hash(String input) throws NoSuchAlgorithmException { 
+    public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getSecondName() {
+		return secondName;
+	}
+
+	public void setSecondName(String secondName) {
+		this.secondName = secondName;
+	}
+
+	private String md5hash(String input) throws NoSuchAlgorithmException { 
 		MessageDigest md = MessageDigest.getInstance("MD5");  
         byte[] messageDigest = md.digest(input.getBytes());  
         BigInteger no = new BigInteger(1, messageDigest);

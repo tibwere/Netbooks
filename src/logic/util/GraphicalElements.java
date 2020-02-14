@@ -18,6 +18,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import logic.util.enumeration.DynamicElements;
 import logic.util.enumeration.Views;
+import logic.view.NavbarGC;
 
 /**
  * Classe che ha la responsabilita' della creazione degli elementi grafici dell'applicazione
@@ -28,7 +29,21 @@ public class GraphicalElements {
 	
 	private static final String PATH = "../view/resources/fxml/";
 	
+	private static NavbarGC navbarCtrl;
+	private static BorderPane navbar = null;
+	
 	private GraphicalElements() { /*nothing to do here*/ }
+	
+	private static BorderPane getNavbar() throws IOException {
+		if (navbar == null) {
+			FXMLLoader loader = loadFXML(DynamicElements.NAVBAR);
+			navbarCtrl = new NavbarGC();
+			loader.setController(navbarCtrl);
+			navbar = loader.load();
+		}
+		
+		return navbar;
+	}
 	
 	public static FXMLLoader loadFXML(Views view) {
 		switch(view) {
@@ -86,14 +101,22 @@ public class GraphicalElements {
 				if (controller != null)
 					loader.setController(controller);
 				BorderPane pane = loader.load();
-				if (!nextView.equals(Views.KBSAS) && !nextView.equals(Views.DIAGRAM))
-					pane.setTop(loadFXML(DynamicElements.NAVBAR).load());
+				if (!nextView.equals(Views.KBSAS) && !nextView.equals(Views.DIAGRAM)) {
+					pane.setTop(GraphicalElements.getNavbar());
+					
+					if (Session.getSession().getCurrView().equals(Views.HOME) &&
+							Session.getSession().getPrevView().equals(Views.LOGIN))
+						navbarCtrl.updateGenerality();
+					
+					navbarCtrl.disableBtns();
+				}
 				
 				return new Scene(pane);
 			}
 
 		}
 		catch(IOException e) {
+			e.printStackTrace();
 			return new Scene(create404Page(nextView.toString().toLowerCase()));			
 		}
 	}

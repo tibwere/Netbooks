@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 
-<BorderPane fx:id="main" prefHeight="40.0" prefWidth="200.0" styleClass="main-color" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="logic.view.NavbarGC">
+<BorderPane fx:id="main" prefHeight="40.0" prefWidth="200.0" styleClass="main-color" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <left>
       <HBox styleClass="transparent" BorderPane.alignment="CENTER">
          <children>
@@ -65,7 +65,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button fx:id="prorfileBtn" mnemonicParsing="false" styleClass="transparent">
+            <Button fx:id="profileBtn" mnemonicParsing="false" styleClass="transparent">
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                      <image>

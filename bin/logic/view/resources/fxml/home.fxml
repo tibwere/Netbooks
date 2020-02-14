@@ -1,23 +1,109 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <BorderPane fx:id="pane" prefHeight="800.0" prefWidth="1000.0" styleClass="bg" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="logic.view.HomeGC">
    <center>
-      <ScrollPane fitToHeight="true" fitToWidth="true" styleClass="scrollpane-transparent" BorderPane.alignment="CENTER">
-         <content>
-            <VBox fx:id="bookListView" spacing="2.0" styleClass="transparent">
-               <padding>
-                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-               </padding>
-            </VBox>
-         </content>
-      </ScrollPane>
+      <VBox alignment="TOP_CENTER" BorderPane.alignment="CENTER">
+         <children>
+            <Label text="SUGGESTED FOR YOU" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="36.0" />
+               </font>
+            </Label>
+            <ScrollPane fitToHeight="true" fitToWidth="true" styleClass="scrollpane-transparent">
+               <content>
+                  <VBox fx:id="bookListView" spacing="2.0" styleClass="transparent">
+                     <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                     </padding>
+                  </VBox>
+               </content>
+            </ScrollPane>
+         </children>
+         <padding>
+            <Insets top="40.0" />
+         </padding>
+      </VBox>
    </center>
    <right>
-      <VBox prefHeight="200.0" prefWidth="300.0" styleClass="buybook-panel" BorderPane.alignment="CENTER" />
+      <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="300.0" spacing="40.0" styleClass="buybook-panel" BorderPane.alignment="CENTER">
+         <padding>
+            <Insets left="20.0" right="20.0" top="80.0" />
+         </padding>
+         <children>
+            <TextField focusTraversable="false" promptText="Search ..." styleClass="search-txt" />
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="20.0" styleClass="filter-box">
+               <children>
+                  <Label text="SHOW">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" spacing="10.0" styleClass="checkboxes-filter-vbox">
+                     <children>
+                        <CheckBox mnemonicParsing="false" selected="true" text="Only not owned books" />
+                        <CheckBox mnemonicParsing="false" text="Best Sellers" />
+                        <CheckBox mnemonicParsing="false" text="Most Rated" />
+                     </children>
+                     <padding>
+                        <Insets left="30.0" />
+                     </padding>
+                  </VBox>
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </VBox>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="20.0" styleClass="filter-box">
+               <children>
+                  <Label text="FILTER BY">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <VBox alignment="CENTER" styleClass="checkboxes-filter-vbox">
+                     <children>
+                        <ScrollPane fitToWidth="true" styleClass="scrollpane-transparent">
+                           <content>
+                              <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0">
+                                 <children>
+                                    <CheckBox mnemonicParsing="false" selected="true" text="Action" />
+                                    <CheckBox mnemonicParsing="false" text="Adventure" />
+                                    <CheckBox mnemonicParsing="false" text="Biography" />
+                                    <CheckBox mnemonicParsing="false" text="History" />
+                                    <CheckBox mnemonicParsing="false" text="Children" />
+                                    <CheckBox mnemonicParsing="false" text="Comic" />
+                                    <CheckBox mnemonicParsing="false" text="Crime" />
+                                    <CheckBox mnemonicParsing="false" text="Drama" />
+                                    <CheckBox mnemonicParsing="false" text="Romance" />
+                                    <CheckBox mnemonicParsing="false" text="Science" />
+                                    <CheckBox mnemonicParsing="false" text="Thriller" />
+                                    <CheckBox mnemonicParsing="false" text="Adult" />
+                                 </children>
+                                 <padding>
+                                    <Insets left="30.0" top="20.0" />
+                                 </padding>
+                              </VBox>
+                           </content>
+                        </ScrollPane>
+                     </children>
+                     <padding>
+                        <Insets top="10.0" />
+                     </padding>
+                  </VBox>
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </VBox>
+         </children></VBox>
    </right>
 </BorderPane>

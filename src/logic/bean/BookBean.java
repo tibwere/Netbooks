@@ -21,18 +21,6 @@ public class BookBean {
 	private int yearOfPublication;
 	private String publisher;
 	private String language;
-	
-	/* ATTENZIONE: NON UTILIZZARE VA ELIMINATO */
-	private String owner;
-
-	public String getOwner() {
-		return owner;
-	}
-
-	public void setOwner(String owner) {
-		this.owner = owner;
-	}
-	/* FINE ZONA DA ELIMINARE */
 
 	private Map<ImageSizes, Image> images;
 	private Map<Vendors, String> links;

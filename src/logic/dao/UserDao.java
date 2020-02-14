@@ -8,8 +8,10 @@ import java.sql.SQLException;
 import logic.db.DBManager;
 import logic.db.DBOperation;
 import logic.db.Query;
+import logic.exception.AlreadyOwnedBookException;
 import logic.exception.NoUserFoundException;
 import logic.exception.PersistencyException;
+import logic.model.users.Reader;
 import logic.util.enumeration.UserTypes;
 
 /**
@@ -31,11 +33,11 @@ public class UserDao {
 		try {
 			Connection conn = DBManager.getConnection();
 			stmt = conn.prepareCall(Query.FIND_READER_SP);
-			readerResults = DBOperation.bindParameters(stmt, user, passwd);
+			readerResults = DBOperation.bindParametersAndExec(stmt, user, passwd);
 			
 			if (!readerResults.first()) {
 				stmt = conn.prepareCall(Query.FIND_RETAILER_SP);
-				retailerResults = DBOperation.bindParameters(stmt, user, passwd);
+				retailerResults = DBOperation.bindParametersAndExec(stmt, user, passwd);
 				
 				if (!retailerResults.first())
 					throw new NoUserFoundException("Selected user does not exists");
@@ -52,5 +54,47 @@ public class UserDao {
 			DBManager.closeRs(retailerResults);
 			DBManager.closeStmt(stmt);
 		}
+	}
+
+	public static Reader getNameAndSurname(String user) throws PersistencyException {
+		CallableStatement stmt = null;
+		ResultSet results = null;
+		try {
+			Connection conn = DBManager.getConnection();
+			stmt = conn.prepareCall(Query.GET_FIRST_AND_SECOND_NAME_SP);
+			results = DBOperation.bindParametersAndExec(stmt, user);
+			
+			if (!results.first())
+				throw new IllegalStateException("Session must be consistent");
+			
+			results.first();
+			Reader reader = new Reader(user);
+			reader.setFirstName(results.getString("first_name"));
+			reader.setSecondName(results.getString("second_name"));
+			
+			return reader;
+			
+		} catch (SQLException | ClassNotFoundException e) {
+			throw new PersistencyException("Comunication with DB has failed");
+		} finally {
+			DBManager.closeRs(results);
+			DBManager.closeStmt(stmt);
+		}
+	}
+
+	public static void insertNewBookInOwnedList(String isbn, String user) throws AlreadyOwnedBookException, PersistencyException {
+		CallableStatement stmt = null;
+		
+		try {
+			Connection conn = DBManager.getConnection();
+			stmt = conn.prepareCall(Query.INSERT_NEW_BOOK_TO_OWNEDLIST);
+			DBOperation.bindParametersAndExec(stmt, user, isbn);
+			
+		} catch (SQLException | ClassNotFoundException e) {
+			throw new AlreadyOwnedBookException("You already own this book. Nothing has changed");
+		} finally {
+			DBManager.closeStmt(stmt);
+		}
+		
 	}
 }

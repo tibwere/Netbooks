@@ -4,9 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import logic.bean.BookBean;
+import logic.bean.UserBean;
 import logic.dao.BookDao;
+import logic.dao.UserDao;
+import logic.exception.AlreadyOwnedBookException;
 import logic.exception.PersistencyException;
 import logic.model.Book;
+import logic.model.users.Reader;
 import logic.util.Session;
 import logic.util.enumeration.ImageSizes;
 
@@ -43,5 +47,18 @@ public class BuyBookController {
 	
 	public ManageEvaluationsController getManageEvaluationsController() {
 		return manageEvaluationsController;
+	}
+
+	public UserBean getUserGenerality() throws PersistencyException {
+		Reader reader = UserDao.getNameAndSurname(Session.getSession().getCurrUser());
+		UserBean bean = new UserBean();
+		bean.setFirstName(reader.getFirstName());
+		bean.setSecondName(reader.getSecondName());
+		
+		return bean;
+	}
+
+	public void addBookToOwnedList(BookBean bean) throws AlreadyOwnedBookException, PersistencyException {
+		UserDao.insertNewBookInOwnedList(bean.getIsbn(), Session.getSession().getCurrUser());
 	}
 }
