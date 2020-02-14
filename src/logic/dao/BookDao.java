@@ -17,8 +17,8 @@ import logic.util.enumeration.BookGenres;
 import logic.util.enumeration.ImageSizes;
 
 /**
- * Versione singleton del DAO per l'interazione
- * con lo strato di persistenza per l'entity {@link Book}
+ * DAO per l'interazione con lo strato di persistenza 
+ * dei dati realtivi all'entity {@link Book}
  * @author Simone Tiberi (M. 0252795)
  * @author Cristiano Cuffaro (M. 0252795)
  *
@@ -52,7 +52,7 @@ public class BookDao {
 		
 	}
 	
-	public static List<Book> findBooksForHomepage(String user) throws PersistencyException  {
+	public static List<Book> findNotOwnedBooks(String user) throws PersistencyException  {
 		
 		CallableStatement stmt = null;
 		ResultSet results = null;
@@ -72,6 +72,62 @@ public class BookDao {
 			
 		} catch(ClassNotFoundException | SQLException e) {
 			throw new PersistencyException("Unable to load books for homepage");
+		}
+		finally {
+			DBManager.closeRs(results);
+			DBManager.closeStmt(stmt);
+		}
+	}
+	
+	public static List<Book> findBookForTitle(String title) throws PersistencyException {
+		CallableStatement stmt = null;
+		ResultSet results = null;
+		
+		try {
+			List<Book> books = new ArrayList<>();
+			Connection conn = DBManager.getConnection();
+			stmt = conn.prepareCall(Query.GET_SEARCHED_BOOK_SP);
+			StringBuilder searchBuild = new StringBuilder("%");
+			searchBuild.append(title);
+			searchBuild.append("%");
+			results = DBOperation.bindParametersAndExec(stmt, searchBuild.toString());
+			
+			while (results.next()) {
+				Book tmp = BookDao.buildBookFromResultSet(results);
+				books.add(tmp);	
+			}
+			 
+			return books;
+			
+		} catch(ClassNotFoundException | SQLException e) {
+			throw new PersistencyException("Unable to search selected book");
+		}
+		finally {
+			DBManager.closeRs(results);
+			DBManager.closeStmt(stmt);
+		}
+	}
+	
+
+	public static List<Book> findAllBooks() throws PersistencyException {
+		CallableStatement stmt = null;
+		ResultSet results = null;
+		
+		try {
+			List<Book> books = new ArrayList<>();
+			Connection conn = DBManager.getConnection();
+			stmt = conn.prepareCall(Query.GET_ALL_BOOKS_SP);
+			results = DBOperation.bindParametersAndExec(stmt);
+			
+			while (results.next()) {
+				Book tmp = BookDao.buildBookFromResultSet(results);
+				books.add(tmp);	
+			}
+			 
+			return books;
+			
+		} catch(ClassNotFoundException | SQLException e) {
+			throw new PersistencyException("Unable to retrive all books from DB.");
 		}
 		finally {
 			DBManager.closeRs(results);

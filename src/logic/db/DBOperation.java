@@ -6,7 +6,8 @@ import java.sql.SQLException;
 
 /**
  * Classe di ingegnerizzazione del sistema che permette
- * l'esecuzione di stored procedure (ed eventualmente semplici interrogazioni al db) 
+ * l'esecuzione di stored procedure (ed eventualmente semplici interrogazioni al db)
+ * restituendone i result set. 
  * @author Simone Tiberi (M. 0252795)
  *
  */

@@ -10,7 +10,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import logic.bean.UserBean;
 import logic.controller.BuyBookController;
-import logic.controller.ManageEvaluationsController;
 import logic.exception.PersistencyException;
 import logic.util.GraphicalElements;
 import logic.util.Session;
@@ -37,9 +36,6 @@ public class NavbarGC {
 	private Button exchangeBtn;
 	
 	@FXML
-	private Button helpBtn;
-	
-	@FXML
 	private Button profileBtn;
 	
 	@FXML
@@ -47,7 +43,7 @@ public class NavbarGC {
 	
 	public void updateGenerality() {
 		try {
-			BuyBookController ctrl = new BuyBookController(new ManageEvaluationsController());
+			BuyBookController ctrl = new BuyBookController(null);
 			UserBean bean = ctrl.getUserGenerality();
 	
 			if (bean.getFirstName().length() + bean.getSecondName().length() < 20)
@@ -70,6 +66,8 @@ public class NavbarGC {
 			homeBtn.setDisable(false);
 			break;
 		default:
+			exchangeBtn.setDisable(false);
+			homeBtn.setDisable(false);
 			break;
 		}
 	}
@@ -82,6 +80,16 @@ public class NavbarGC {
 	@FXML
 	public void goToExchangeBook() {		
 		contextSwitch(Views.EXCHANGE_BOOK);
+	}
+	
+	@FXML
+	public void goToForum() {
+		GraphicalElements.showWorkInProgressDialog();
+	}
+	
+	@FXML
+	public void goToProfile() {
+		GraphicalElements.showWorkInProgressDialog();
 	}
 	
 	public void doLogout() {

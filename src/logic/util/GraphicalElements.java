@@ -80,7 +80,9 @@ public class GraphicalElements {
 		case LOADING_MODAL:
 			return new FXMLLoader(GraphicalElements.class.getResource(PATH + "loading.fxml"));
 		case BOOK_IN_CHART:
-			return new FXMLLoader(GraphicalElements.class.getResource(PATH + "book_in_chart.fxml"));			
+			return new FXMLLoader(GraphicalElements.class.getResource(PATH + "book_in_chart.fxml"));	
+		case WEBVIEW:
+			return new FXMLLoader(GraphicalElements.class.getResource(PATH + "web_view.fxml"));
 		default: /* case NAVBAR */
 			return new FXMLLoader(GraphicalElements.class.getResource(PATH + "navbar.fxml"));
 		}
@@ -164,5 +166,9 @@ public class GraphicalElements {
 		secondaryStage.setScene(scene);
 		
 		return secondaryStage;
+	}
+	
+	public static void showWorkInProgressDialog() {
+		showDialog(AlertType.WARNING, "We're sorry", "This functionality has not been implemented yet :(");
 	}
 }

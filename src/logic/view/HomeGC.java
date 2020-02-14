@@ -2,24 +2,23 @@ package logic.view;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import logic.bean.BookBean;
 import logic.controller.BuyBookController;
-import logic.controller.ManageEvaluationsController;
 import logic.exception.PersistencyException;
 import logic.util.GraphicalElements;
-import logic.util.enumeration.DynamicElements;
+import logic.view.bpobserver.impl.BookPreviewPanel;
+import logic.view.bpobserver.impl.ObservableBookList;
 
 /**
  * Controller grafico relativo alla homepage dell'applicazione
@@ -30,40 +29,92 @@ import logic.util.enumeration.DynamicElements;
 public class HomeGC implements Initializable {
 	
 	@FXML
-	private VBox bookListView;
+	private ScrollPane scrollPane;
 	
 	@FXML
 	private BorderPane pane;
-
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
+	
+	@FXML
+	private TextField searchTxt;
+	
+	@FXML
+	private CheckBox ownedBooksChk;
+	
+	private BookPreviewPanel bookPanel;
+	private ObservableBookList obs;
+	private BuyBookController ctrl;
+	
+	public HomeGC() {
 		try {
-			BuyBookController buyBookController = new BuyBookController(new ManageEvaluationsController());
-			fillPanel(buyBookController.getBooksForHomepage());
-		} catch (IllegalStateException | IOException e) {	
-			GraphicalElements.showDialog(AlertType.ERROR, "Ops, something went wrong ...", "Unable to load book list elements");
-			Platform.exit();
+			this.ctrl = new BuyBookController(null);
+			this.obs = new ObservableBookList(ctrl.getNotOwnedBooks());
+			this.bookPanel = new BookPreviewPanel(obs);
+			this.obs.attach(bookPanel);
 		} catch (PersistencyException e) {
 			GraphicalElements.showDialog(AlertType.ERROR, "Ops, something went wrong ...", e.getMessage());
 			Platform.exit();
 		} 
-	}
-	
-	private void fillPanel(List<BookBean> books) throws IOException {
-		List<HBox> list = new ArrayList<>();
 
-		for (BookBean b : books) {
-			BookPreviewGC gc = new BookPreviewGC(b);
-			FXMLLoader loader = GraphicalElements.loadFXML(DynamicElements.HP_BOOK_PREVIEW);
-			loader.setController(gc);
-			HBox bookItem = loader.load();
-			
-			list.add(bookItem);
+	}
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		try {
+			scrollPane.setContent(bookPanel);
+			obs.notifyObservers();
+		} catch (IOException e) {
+			GraphicalElements.showDialog(AlertType.ERROR, "Ops, something went wrong ...", "Unable to load book list elements");
+			Platform.exit();
 		}
 		
-		bookListView.getChildren().addAll(list);
+		handleChangeListeners();
+	}
+	
+	private void handleChangeListeners() {
+		ownedBooksChk.selectedProperty().addListener(new ChangeListener<Boolean>() {
+			
+			@Override
+			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+				try {
+					if (Boolean.TRUE.equals(newValue)) {
+							obs.setBooks(ctrl.getNotOwnedBooks());
+					} 
+					else {
+						obs.setBooks(ctrl.getAllBooks());
+					}
+				}catch (PersistencyException e) {
+					GraphicalElements.showDialog(AlertType.ERROR, "Ops, something went wrong ...", e.getMessage());
+					Platform.exit();
+				}
+			}
+		
+		});
 	}
 
-
+	@FXML
+	public void searchBook() {
+		try {
+			if (!searchTxt.getText().equals("")) {
+				this.obs.setBooks(ctrl.getSearchedBook(searchTxt.getText()));
+				this.obs.notifyObservers();
+			}	
+		} catch (PersistencyException e) {
+			GraphicalElements.showDialog(AlertType.ERROR, "Ops, something went wrong ...", e.getMessage());
+			Platform.exit();
+		} catch (IOException e) {
+			GraphicalElements.showDialog(AlertType.ERROR, "Ops, something went wrong ...", "Unable to load book list elements");
+			Platform.exit();
+		}	
+	}
+	
+	@FXML
+	public void reloadPage() {
+		try {
+			obs.notifyObservers();
+		} catch (IOException e) {
+			GraphicalElements.showDialog(AlertType.ERROR, "Ops, something went wrong ...", "Unable to load book list elements");
+			Platform.exit();
+		}
+	}
 
 }

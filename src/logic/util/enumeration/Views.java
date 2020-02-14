@@ -15,5 +15,5 @@ public enum Views {
 	KBSAS,
 	MAKE_PROPOSAL,
 	MANAGE_PROPOSALS,
-	DIAGRAM
+	DIAGRAM,
 }

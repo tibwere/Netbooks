@@ -16,7 +16,6 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import logic.bean.BookBean;
 import logic.controller.BuyBookController;
-import logic.controller.ManageEvaluationsController;
 import logic.exception.AlreadyOwnedBookException;
 import logic.exception.PersistencyException;
 import logic.util.GraphicalElements;
@@ -81,7 +80,7 @@ public class BookPreviewGC implements Initializable{
 		
 		if (result.get().equals(ButtonType.OK)) {
 			try {
-				BuyBookController ctrl = new BuyBookController(new ManageEvaluationsController());
+				BuyBookController ctrl = new BuyBookController(null);
 				ctrl.addBookToOwnedList(bean);
 				
 				GraphicalElements.showDialog(AlertType.INFORMATION, 

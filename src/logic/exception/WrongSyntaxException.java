@@ -1,8 +1,8 @@
 package logic.exception;
 
 /**
- * Ecceizone ad hoc realizzata per gestire errori 
- * dovuti a errori sintattici nell'immissione dei dati nei form
+ * Ecceizone ad hoc realizzata per gestire eccezioni 
+ * dovute a errori sintattici nell'immissione dei dati nei form
  * @author Simone Tiberi (M. 0252795)
  *
  */

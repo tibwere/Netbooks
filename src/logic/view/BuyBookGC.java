@@ -15,6 +15,7 @@ import javafx.concurrent.Task;
 import javafx.concurrent.WorkerStateEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert.AlertType;
@@ -34,6 +35,8 @@ import logic.util.GraphicalElements;
 import logic.util.ShowPanelTask;
 import logic.util.enumeration.DynamicElements;
 import logic.util.enumeration.ImageSizes;
+import logic.util.enumeration.Vendors;
+import logic.util.enumeration.Views;
 import logic.view.evaluationdecorator.EmptyBox;
 import logic.view.evaluationdecorator.InAppRatingsBox;
 import logic.view.evaluationdecorator.InAppReviewsBox;
@@ -74,12 +77,6 @@ public class BuyBookGC implements Initializable{
 
     @FXML
     private Label languageLbl;
-
-    @FXML
-    private ImageView mondadoriBtn;
-
-    @FXML
-    private ImageView playBtn;
 
     @FXML
     private CheckBox inAppRatingsChk;
@@ -134,6 +131,34 @@ public class BuyBookGC implements Initializable{
 		inAppReviewsChk.selectedProperty().addListener(hideErr);
 		googleRatingsChk.selectedProperty().addListener(hideErr);
 		
+	}
+	
+	private void buyBook(Vendors vendor) {
+		try {
+			FXMLLoader loader = GraphicalElements.loadFXML(DynamicElements.WEBVIEW);
+			loader.setController(new WebViewGC(bookToLoad, vendor, this));
+			Scene scene = new Scene(loader.load());
+			Stage secondStage = GraphicalElements.createModalWindow(scene, (Stage) inAppRatingsChk.getScene().getWindow());
+			secondStage.show();
+		} catch (IOException e) {
+			GraphicalElements.showDialog(AlertType.ERROR, "Ops, something went wrong ...", "Unable to load modal window");
+			Platform.exit();
+		}
+	}
+	
+	@FXML
+	public void buyOnAmazon() {
+		buyBook(Vendors.AMAZON);		
+	}
+	
+	@FXML
+	public void buyOnMondadori() {
+		buyBook(Vendors.MONDADORI);		
+	}
+	
+	@FXML
+	public void buyOnGooglePlay() {
+		buyBook(Vendors.PLAY_BOOKS);		
 	}
 
 	@FXML
@@ -227,6 +252,11 @@ public class BuyBookGC implements Initializable{
 			GraphicalElements.showDialog(AlertType.ERROR, "Ops, something went wrong", "Unable to reset checkboxes");
 			Platform.exit();
 		}
+	}
+	
+	public void getBackToHome() {
+		Stage stage = (Stage) authorLbl.getScene().getWindow();
+		stage.setScene(GraphicalElements.switchTo(Views.HOME, null));
 	}
 
 	

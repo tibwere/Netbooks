@@ -23,7 +23,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button fx:id="forumBtn" mnemonicParsing="false" styleClass="transparent" text="FORUM">
+            <Button fx:id="forumBtn" mnemonicParsing="false" onAction="#goToForum" styleClass="transparent" text="FORUM">
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -53,19 +53,7 @@
    <right>
       <HBox styleClass="transparent" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="helpBtn" mnemonicParsing="false" styleClass="transparent">
-               <graphic>
-                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/help.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Button>
-            <Button fx:id="profileBtn" mnemonicParsing="false" styleClass="transparent">
+            <Button fx:id="profileBtn" mnemonicParsing="false" onAction="#goToProfile" styleClass="transparent">
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                      <image>

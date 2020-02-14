@@ -60,8 +60,6 @@ public class LoginGC implements Initializable{
 	@FXML
 	private VBox textFieldsBox;
 	
-	private LoginController controller;
-	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		
@@ -97,8 +95,6 @@ public class LoginGC implements Initializable{
 					showPswChk.setText("Show Password");
 			}
 		});
-		
-		controller = new LoginController();
 	}
 	
 	@FXML
@@ -107,6 +103,7 @@ public class LoginGC implements Initializable{
 		try {
 			String username = usernameTxt.getText();
 			String password = passwordTxt.getText();
+			LoginController controller = new LoginController();
 			UserBean bean = new UserBean(username, password);
 
 			UserTypes type = controller.loginUser(bean);

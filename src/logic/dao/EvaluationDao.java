@@ -15,6 +15,12 @@ import logic.exception.PersistencyException;
 import logic.model.BookEvaluation;
 import logic.model.users.Reader;
 
+/**
+ * DAO per l'interazione con lo strato di persistenza 
+ * dei dati realtivi all'entity {@link BookEvaluation}
+ * @author Simone Tiberi (M. 0252795)
+ *
+ */
 public class EvaluationDao {
 	
 	private EvaluationDao() {

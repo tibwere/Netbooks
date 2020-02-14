@@ -14,7 +14,7 @@ import logic.model.users.Reader;
 import logic.util.Session;
 
 /**
- * Controller del caso d'uso "Manage Ratings & Reviews"
+ * Controller del caso d'uso "Manage Evaluations"
  * @author Simone Tiberi (M. 0252795)
  *
  */

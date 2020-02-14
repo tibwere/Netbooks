@@ -143,7 +143,7 @@
                         </Label>
                         <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="30.0">
                            <children>
-                              <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="150.0" fitWidth="200.0" onMouseClicked="#buyOnAmazon" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../images/amazonbtn.png" />
                                  </image>
@@ -151,7 +151,7 @@
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </ImageView>
-                              <ImageView fx:id="mondadoriBtn" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="150.0" fitWidth="200.0" onMouseClicked="#buyOnMondadori" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../images/mondadoribtn.png" />
                                  </image>
@@ -159,7 +159,7 @@
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </ImageView>
-                              <ImageView fx:id="playBtn" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="150.0" fitWidth="200.0" onMouseClicked="#buyOnGooglePlay" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../images/playbtn.png" />
                                  </image>
