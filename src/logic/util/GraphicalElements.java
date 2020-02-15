@@ -26,7 +26,7 @@ import logic.view.NavbarGC;
  *
  */
 public class GraphicalElements {
-	
+		
 	private static final String PATH = "../view/resources/fxml/";
 	
 	private static NavbarGC navbarCtrl;
@@ -83,6 +83,10 @@ public class GraphicalElements {
 			return new FXMLLoader(GraphicalElements.class.getResource(PATH + "book_in_chart.fxml"));	
 		case WEBVIEW:
 			return new FXMLLoader(GraphicalElements.class.getResource(PATH + "web_view.fxml"));
+		case SIGNUP_READER:
+			return new FXMLLoader(GraphicalElements.class.getResource(PATH + "signup_reader.fxml"));
+		case SIGNUP_RETAILER:
+			return new FXMLLoader(GraphicalElements.class.getResource(PATH + "signup_retailer.fxml"));
 		default: /* case NAVBAR */
 			return new FXMLLoader(GraphicalElements.class.getResource(PATH + "navbar.fxml"));
 		}
@@ -118,7 +122,6 @@ public class GraphicalElements {
 
 		}
 		catch(IOException e) {
-			e.printStackTrace();
 			return new Scene(create404Page(nextView.toString().toLowerCase()));			
 		}
 	}
@@ -145,14 +148,22 @@ public class GraphicalElements {
 		return box;
 	}
 	
-	public static Optional<ButtonType> showDialog(AlertType type, String header, String content) {
+	public static Optional<ButtonType> showDialog(AlertType type, String content) {
 		Alert alert = new Alert(type);
 		
 		Stage alertStage = (Stage) alert.getDialogPane().getScene().getWindow();
 		alertStage.getIcons().add(ImageDispenser.getImage(ImageDispenser.ICON));
 		
-		alert.setTitle("Netbooks v1.0");
-		alert.setHeaderText(header);
+		alert.setTitle("Netbooks v1.0 ");
+		
+		switch(type) {
+		case ERROR: alert.setHeaderText("Ops, something went wrong ..."); break;
+		case CONFIRMATION: alert.setHeaderText("Netbooks asks ..."); break;
+		case INFORMATION: alert.setHeaderText("Netbooks says ..."); break;
+		case WARNING: alert.setHeaderText("Pay attention!"); break;
+		default: alert.setHeaderText(""); break;
+		}
+		
 		alert.setContentText(content);
 		return alert.showAndWait();
 	}
@@ -169,6 +180,6 @@ public class GraphicalElements {
 	}
 	
 	public static void showWorkInProgressDialog() {
-		showDialog(AlertType.WARNING, "We're sorry", "This functionality has not been implemented yet :(");
+		showDialog(AlertType.INFORMATION, "We're sorry!\nThis functionality has not been implemented yet :(");
 	}
 }

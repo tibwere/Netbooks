@@ -81,9 +81,9 @@ public class RatingModal extends VBox{
 				
 				try {
 					controller.getManageEvaluationsController().addNewEvaluation(evalBean, bookBean);
-					GraphicalElements.showDialog(AlertType.INFORMATION, "Netbooks says ...", "Your evaluation has been succesfully posted!");
+					GraphicalElements.showDialog(AlertType.INFORMATION, "Your evaluation has been succesfully posted!");
 				} catch (PersistencyException e) {
-					GraphicalElements.showDialog(AlertType.ERROR, "Ops, something went wrong", "Unable to post your evaluation");
+					GraphicalElements.showDialog(AlertType.ERROR, "Unable to post your evaluation");
 				}
 				Stage currStage = (Stage) submitBtn.getScene().getWindow();
 				currStage.close();

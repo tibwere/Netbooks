@@ -51,7 +51,7 @@ public class HomeGC implements Initializable {
 			this.bookPanel = new BookPreviewPanel(obs);
 			this.obs.attach(bookPanel);
 		} catch (PersistencyException e) {
-			GraphicalElements.showDialog(AlertType.ERROR, "Ops, something went wrong ...", e.getMessage());
+			GraphicalElements.showDialog(AlertType.ERROR, e.getMessage());
 			Platform.exit();
 		} 
 
@@ -63,7 +63,7 @@ public class HomeGC implements Initializable {
 			scrollPane.setContent(bookPanel);
 			obs.notifyObservers();
 		} catch (IOException e) {
-			GraphicalElements.showDialog(AlertType.ERROR, "Ops, something went wrong ...", "Unable to load book list elements");
+			GraphicalElements.showDialog(AlertType.ERROR, "Unable to load book for homepaage");
 			Platform.exit();
 		}
 		
@@ -83,7 +83,7 @@ public class HomeGC implements Initializable {
 						obs.setBooks(ctrl.getAllBooks());
 					}
 				}catch (PersistencyException e) {
-					GraphicalElements.showDialog(AlertType.ERROR, "Ops, something went wrong ...", e.getMessage());
+					GraphicalElements.showDialog(AlertType.ERROR, e.getMessage());
 					Platform.exit();
 				}
 			}
@@ -99,10 +99,10 @@ public class HomeGC implements Initializable {
 				this.obs.notifyObservers();
 			}	
 		} catch (PersistencyException e) {
-			GraphicalElements.showDialog(AlertType.ERROR, "Ops, something went wrong ...", e.getMessage());
+			GraphicalElements.showDialog(AlertType.ERROR, e.getMessage());
 			Platform.exit();
 		} catch (IOException e) {
-			GraphicalElements.showDialog(AlertType.ERROR, "Ops, something went wrong ...", "Unable to load book list elements");
+			GraphicalElements.showDialog(AlertType.ERROR, "Unable to load results of search");
 			Platform.exit();
 		}	
 	}
@@ -112,7 +112,7 @@ public class HomeGC implements Initializable {
 		try {
 			obs.notifyObservers();
 		} catch (IOException e) {
-			GraphicalElements.showDialog(AlertType.ERROR, "Ops, something went wrong ...", "Unable to load book list elements");
+			GraphicalElements.showDialog(AlertType.ERROR, "Unable to reload homepage and apply selected filters");
 			Platform.exit();
 		}
 	}

@@ -55,22 +55,22 @@ public class WebViewGC implements Initializable {
 	@FXML
 	public void confirmPurchase() {
 		try {
-			Optional<ButtonType> results = GraphicalElements.showDialog(AlertType.CONFIRMATION, "Netbooks asks ...", "Do you wanna confim purchase?");
+			Optional<ButtonType> results = GraphicalElements.showDialog(AlertType.CONFIRMATION, "Do you wanna confim purchase?");
 			if (results.get().equals(ButtonType.OK)) {
 				BuyBookController ctrl = new BuyBookController(null);
 				ctrl.addBookToOwnedList(bean);
-				GraphicalElements.showDialog(AlertType.INFORMATION, "Congratulations ...", 
-						"\"" + bean.getTitle() + "\" has benn added to your list!");
+				GraphicalElements.showDialog(AlertType.INFORMATION, 
+						"Congratulations!\n\"" + bean.getTitle() + "\" has benn added to your list!");
 				
 				Stage currStage = (Stage) webView.getScene().getWindow();
 				currStage.close();
 				buyBookGC.getBackToHome();
 			}
 		} catch (PersistencyException e) {
-			GraphicalElements.showDialog(AlertType.ERROR, "Ops, something went wrong ...", e.getMessage());
+			GraphicalElements.showDialog(AlertType.ERROR, e.getMessage());
 			Platform.exit();
 		} catch (AlreadyOwnedBookException e) {
-			GraphicalElements.showDialog(AlertType.WARNING, "Netbooks says ...", e.getMessage());
+			GraphicalElements.showDialog(AlertType.WARNING, e.getMessage());
 			Stage currStage = (Stage) webView.getScene().getWindow();
 			currStage.close();
 			buyBookGC.getBackToHome();
@@ -79,11 +79,16 @@ public class WebViewGC implements Initializable {
 	
 	@FXML
 	public void closeStage() {
-		Optional<ButtonType> results = GraphicalElements.showDialog(AlertType.CONFIRMATION, "Netbooks asks ...", "Do you wanna exit right now?");
+		Optional<ButtonType> results = GraphicalElements.showDialog(AlertType.CONFIRMATION, "Do you wanna exit right now?");
 		if (results.get().equals(ButtonType.OK)) {		
 			Stage currStage = (Stage) webView.getScene().getWindow();
 			currStage.close();
 		}
+	}
+	
+	@FXML
+	public void reportLink() {
+		GraphicalElements.showWorkInProgressDialog();
 	}
 	
 

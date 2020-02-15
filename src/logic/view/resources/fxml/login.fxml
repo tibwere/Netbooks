@@ -59,11 +59,19 @@
                         <CheckBox fx:id="showPswChk" alignment="CENTER" mnemonicParsing="false" text="Show Password" textFill="WHITE" />
                      </children>
                   </VBox>
-                  <Button fx:id="loginBtn" mnemonicParsing="false" onAction="#tryLogin" text="LOGIN">
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Button>
+                  <VBox alignment="CENTER" spacing="15.0">
+                     <children>
+                        <Button fx:id="loginBtn" mnemonicParsing="false" onAction="#tryLogin" text="LOGIN">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <Label onMouseClicked="#openSignupModal" text="Not signed yet? Join us" textFill="#3109e1" underline="true">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor></Label>
+                     </children>
+                  </VBox>
                </children>
             </VBox>
          </children>

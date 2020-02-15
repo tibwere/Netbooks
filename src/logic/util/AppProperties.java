@@ -25,7 +25,7 @@ public class AppProperties {
 			prop.load(input);
 		}
 		catch(IOException e) {
-			GraphicalElements.showDialog(AlertType.ERROR, "Netbooks fails ...", "Unable to load config file");
+			GraphicalElements.showDialog(AlertType.ERROR, "Unable to load config file");
 		}
 	}
 	

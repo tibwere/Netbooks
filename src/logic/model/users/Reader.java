@@ -3,7 +3,8 @@ package logic.model.users;
 import java.util.ArrayList;
 import java.util.List;
 
-import logic.model.Book;
+import logic.dao.ReaderDao;
+import logic.exception.UserAlreadySignedException;
 import logic.model.ProposalNotification;
 
 /**
@@ -22,10 +23,9 @@ public class Reader extends User {
 	 * 0 -> MALE
 	 * 1 -> FEMALE
 	 */
-	private char gender; 
-	private List<Book> ownedBooks;
+	private boolean gender; 
 	
-	public Reader (String username, String email, char gender) {
+	public Reader (String username, String email, boolean gender) {
 		super(username, email);
 		this.gender = gender;
 	}
@@ -42,16 +42,8 @@ public class Reader extends User {
 		 /* la responsabilita resta all'utente perche le notifiche non vengono inviate solo al currUser*/
 	}
 
-	public char getGender() {
+	public boolean isFemale() {
 		return gender;
-	}
-	
-	public List<Book> getOwnedBooks() {
-		return ownedBooks;
-	}
-
-	public void setOwnedBooks(List<Book> ownedBooks) {
-		this.ownedBooks = ownedBooks;
 	}
 	
 	public String getFirstName() {
@@ -70,8 +62,13 @@ public class Reader extends User {
 		this.secondName = secondName;
 	}
 
-	public void setGender(char gender) {
+	public void setFemale(boolean gender) {
 		this.gender = gender;
+	}
+
+	@Override
+	public void store(String password) throws UserAlreadySignedException {
+		ReaderDao.saveReaderInDB(this, password);
 	}
 }
 

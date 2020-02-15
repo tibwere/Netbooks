@@ -6,11 +6,12 @@ import java.util.List;
 import java.util.Map;
 
 import logic.bean.BookBean;
-import logic.bean.UserBean;
+import logic.bean.ReaderBean;
 import logic.dao.BookDao;
-import logic.dao.UserDao;
+import logic.dao.ReaderDao;
 import logic.exception.AlreadyOwnedBookException;
 import logic.exception.PersistencyException;
+import logic.exception.WrongSyntaxException;
 import logic.model.Book;
 import logic.model.users.Reader;
 import logic.util.Session;
@@ -69,17 +70,22 @@ public class BuyBookController {
 		return getListOfBeans(books);
 	}
 
-	public UserBean getUserGenerality() throws PersistencyException {
-		Reader reader = UserDao.getNameAndSurname(Session.getSession().getCurrUser());
-		UserBean bean = new UserBean();
-		bean.setFirstName(reader.getFirstName());
-		bean.setSecondName(reader.getSecondName());
+	public ReaderBean getUserGenerality() throws PersistencyException {
+		Reader reader = ReaderDao.getNameAndSurname(Session.getSession().getCurrUser());
+		ReaderBean bean = new ReaderBean();
+		try {
+			bean.setFirstName(reader.getFirstName());
+			bean.setSecondName(reader.getSecondName());
+
+		} catch (WrongSyntaxException e) {
+			throw new IllegalStateException("DB must be consistent");
+		}
 		
 		return bean;
 	}
 
 	public void addBookToOwnedList(BookBean bean) throws AlreadyOwnedBookException, PersistencyException {
-		UserDao.insertNewBookInOwnedList(bean.getIsbn(), Session.getSession().getCurrUser());
+		ReaderDao.insertNewBookInOwnedList(bean.getIsbn(), Session.getSession().getCurrUser());
 	}
 
 	public List<BookBean> getSearchedBook(String text) throws PersistencyException {
@@ -90,5 +96,9 @@ public class BuyBookController {
 	public List<BookBean> getAllBooks() throws PersistencyException {
 		List<Book> selectedBooks = BookDao.findAllBooks();
 		return getListOfBeans(selectedBooks);
+	}
+
+	public boolean bookIsOwned(BookBean bean) throws PersistencyException {
+		return ReaderDao.checkIfCurrReaderOwnBook(Session.getSession().getCurrUser(), bean.getIsbn());
 	}
 }

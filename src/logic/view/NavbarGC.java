@@ -8,7 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import logic.bean.UserBean;
+import logic.bean.ReaderBean;
 import logic.controller.BuyBookController;
 import logic.exception.PersistencyException;
 import logic.util.GraphicalElements;
@@ -44,7 +44,7 @@ public class NavbarGC {
 	public void updateGenerality() {
 		try {
 			BuyBookController ctrl = new BuyBookController(null);
-			UserBean bean = ctrl.getUserGenerality();
+			ReaderBean bean = ctrl.getUserGenerality();
 	
 			if (bean.getFirstName().length() + bean.getSecondName().length() < 20)
 				profileBtn.setText(bean.getFirstName() + " " + bean.getSecondName());
@@ -94,7 +94,7 @@ public class NavbarGC {
 	
 	public void doLogout() {
 						
-		Optional<ButtonType> result = GraphicalElements.showDialog(AlertType.CONFIRMATION, "Netbooks asks ...", "Are you sure do you want to exit?");
+		Optional<ButtonType> result = GraphicalElements.showDialog(AlertType.CONFIRMATION, "Are you sure do you want to exit?");
 		
 		if (result.get().equals(ButtonType.OK)) {
 			contextSwitch(Views.LOGIN);

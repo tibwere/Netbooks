@@ -66,30 +66,35 @@ public class BookPreviewGC implements Initializable{
 	public void rateBook() {
 
 		try {
-			Stage parent = (Stage) thumbnail.getScene().getWindow();
-			Stage modal = GraphicalElements.createModalWindow(new Scene(new RatingModal(bean)), parent);
-			modal.show();
+			BuyBookController ctrl = new BuyBookController(null);
+			if (ctrl.bookIsOwned(bean)) {
+				Stage parent = (Stage) thumbnail.getScene().getWindow();
+				Stage modal = GraphicalElements.createModalWindow(new Scene(new RatingModal(bean)), parent);
+				modal.show();
+			} 
+			else {
+				GraphicalElements.showDialog(AlertType.WARNING, "You cannot leave a review for a book that you don't own yet");
+			}
 		} catch (PersistencyException e) {
-			GraphicalElements.showDialog(AlertType.ERROR, "Ops, something went wrong ...", e.getMessage());
+			GraphicalElements.showDialog(AlertType.ERROR, e.getMessage());
 		}
 	}
 	
 	@FXML
 	public void addBook() {
-		Optional<ButtonType> result = GraphicalElements.showDialog(AlertType.CONFIRMATION, "Netbooks asks ...", "Are you sure do you want to add this book to your owned list?");
+		Optional<ButtonType> result = GraphicalElements.showDialog(AlertType.CONFIRMATION, "Are you sure do you want to add this book to your owned list?");
 		
 		if (result.get().equals(ButtonType.OK)) {
 			try {
 				BuyBookController ctrl = new BuyBookController(null);
 				ctrl.addBookToOwnedList(bean);
 				
-				GraphicalElements.showDialog(AlertType.INFORMATION, 
-						"Netbooks says ...", "\"" + bean.getTitle() + "\" has succesfully added to your owned list!" );
+				GraphicalElements.showDialog(AlertType.INFORMATION, "\"" + bean.getTitle() + "\" has succesfully added to your owned list!" );
 			} catch (PersistencyException e) {
-				GraphicalElements.showDialog(AlertType.ERROR, "Ops, something went wrong", e.getMessage());
+				GraphicalElements.showDialog(AlertType.ERROR, e.getMessage());
 				Platform.exit();
 			} catch (AlreadyOwnedBookException e) {
-				GraphicalElements.showDialog(AlertType.WARNING, "Netbooks says ...", e.getMessage());
+				GraphicalElements.showDialog(AlertType.WARNING, e.getMessage());
 			}
 		}
 	}

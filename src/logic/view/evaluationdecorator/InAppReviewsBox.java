@@ -16,7 +16,7 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.TextAlignment;
 import logic.bean.BookBean;
 import logic.bean.BookEvaluationBean;
-import logic.bean.UserBean;
+import logic.bean.ReaderBean;
 import logic.controller.BuyBookController;
 import logic.controller.ManageEvaluationsController;
 import logic.exception.PersistencyException;
@@ -118,7 +118,7 @@ public class InAppReviewsBox extends BoxDecorator {
 		
 		/* Poi quando aggiorno il model devo aggiungere il tipo Reviews */
 		BuyBookController controller = new BuyBookController(new ManageEvaluationsController());
-		Map<UserBean, BookEvaluationBean> reviews = controller.getManageEvaluationsController().getBookReviews(bean);
+		Map<ReaderBean, BookEvaluationBean> reviews = controller.getManageEvaluationsController().getBookReviews(bean);
 		
 		if (reviews.isEmpty()) {
 			Label emptyLabel = new Label("There's no reviews for this title");
@@ -128,7 +128,7 @@ public class InAppReviewsBox extends BoxDecorator {
 		
 		boolean isFirst = true;
 		
-		for (UserBean reader : reviews.keySet()) {
+		for (ReaderBean reader : reviews.keySet()) {
 			if (!isFirst) {
 				Separator sep = new Separator();
 				sep.setOrientation(Orientation.HORIZONTAL);

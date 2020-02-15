@@ -91,7 +91,7 @@ public class NotificationItemGC implements Initializable{
 						popupStage.show();
 					}
 					catch (IOException | IllegalStateException e) {
-						GraphicalElements.showDialog(AlertType.ERROR, "Error!", "Unable to load exchangeable books.");
+						GraphicalElements.showDialog(AlertType.ERROR, "Unable to load exchangeable books.");
 						Platform.exit();
 					}
 				}

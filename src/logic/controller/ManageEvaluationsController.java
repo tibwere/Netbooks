@@ -5,7 +5,7 @@ import java.util.Map;
 
 import logic.bean.BookBean;
 import logic.bean.BookEvaluationBean;
-import logic.bean.UserBean;
+import logic.bean.ReaderBean;
 import logic.dao.EvaluationDao;
 import logic.exception.PersistencyException;
 import logic.exception.WrongSyntaxException;
@@ -24,35 +24,34 @@ public class ManageEvaluationsController {
 		return EvaluationDao.getInAppAverageEvaluation(bean.getIsbn());
 	}
 
-	public Map<UserBean, BookEvaluationBean> getBookReviews(BookBean bean) throws PersistencyException {
+	public Map<ReaderBean, BookEvaluationBean> getBookReviews(BookBean bean) throws PersistencyException {
 		Map<Reader, BookEvaluation> reviews = EvaluationDao.getPreviousReviews(bean.getIsbn());
-		Map<UserBean, BookEvaluationBean> reviewsBean = new HashMap<>();
+		Map<ReaderBean, BookEvaluationBean> reviewsBean = new HashMap<>();
 		
 		for (Reader reader : reviews.keySet()) {
-			UserBean usrBean = new UserBean();
+			ReaderBean readerBean = new ReaderBean();
 			BookEvaluationBean evalbean = new BookEvaluationBean();
 			try {
-				usrBean.setUsername(reader.getUsername());
+				readerBean.setUsername(reader.getUsername());
 			} catch (WrongSyntaxException e) {
 				throw new IllegalStateException("Username from DB must respect constraints");
 			}
 			evalbean.setTitle(reviews.get(reader).getTitle());
 			evalbean.setBody(reviews.get(reader).getBody());
 			
-			reviewsBean.put(usrBean, evalbean);
+			reviewsBean.put(readerBean, evalbean);
 		}
 		
 		return reviewsBean;
 	}
 	
-	public void addNewEvaluation(BookEvaluationBean ratingBean, BookBean bookBean) throws PersistencyException {
-		EvaluationDao.insertNewEval(ratingBean.getRate(), ratingBean.getTitle(), ratingBean.getBody(), 
+	public void addNewEvaluation(BookEvaluationBean evaluationBean, BookBean bookBean) throws PersistencyException {
+		EvaluationDao.insertNewEval(evaluationBean.getRate(), evaluationBean.getTitle(), evaluationBean.getBody(), 
 				Session.getSession().getCurrUser(), bookBean.getIsbn());
 	}
 	
 	public BookEvaluationBean getPreviousEvaluation(BookBean bookBean) throws PersistencyException {
 		return EvaluationDao.getOldEvaluation(Session.getSession().getCurrUser(), bookBean.getIsbn());
 	}
-
 }
 	

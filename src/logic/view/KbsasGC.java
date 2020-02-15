@@ -86,7 +86,7 @@ public class KbsasGC {
 			books = controller.getBooksForRetailer();
 			appendBooksOnPane(books);
 		} catch (Exception e) {
-			GraphicalElements.showDialog(AlertType.ERROR, "Ops, something went wrong ...", "Unable to load chart");
+			GraphicalElements.showDialog(AlertType.ERROR, "Unable to load chart");
 			Platform.exit();
 		}
 	}
@@ -139,7 +139,7 @@ public class KbsasGC {
 	 
 	 @FXML
 	 public void logout() {
-		 Optional<ButtonType> result = GraphicalElements.showDialog(AlertType.CONFIRMATION, "Netbooks asks ...", "Are you sure do you want to exit?");
+		 Optional<ButtonType> result = GraphicalElements.showDialog(AlertType.CONFIRMATION, "Are you sure do you want to exit?");
 		 
 		 if (result.get().equals(ButtonType.OK)) {
 			 Stage stage = (Stage)borderPane.getScene().getWindow();

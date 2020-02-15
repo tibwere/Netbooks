@@ -66,8 +66,8 @@ public class ExchangeBookController {
 	public Boolean buildProposal(BookBean bookBean, UserBean ownerBean) {
 		Random rand = new Random();
 		Book tgtBook = new Book(bookBean.getIsbn(), bookBean.getTitle(), bookBean.getAuthor());
-		Reader source = new Reader(Session.getSession().getCurrUser(), "source_email@hotmail.it", 'M');
-		Reader target = new Reader(ownerBean.getUsername(), "target_email@hotmail.it", 'F');
+		Reader source = new Reader(Session.getSession().getCurrUser(), "source_email@hotmail.it", false);
+		Reader target = new Reader(ownerBean.getUsername(), "target_email@hotmail.it", true);
 		Proposal proposal = new Proposal(source, target, tgtBook, null, Long.toString(rand.nextLong()), ProposalStates.DEFAULT);
 		proposal.selectBook(new Book("001123", "World War II", "Non lo so"));
 //		salvare la proposta in persistenza
@@ -79,7 +79,7 @@ public class ExchangeBookController {
 		List<NotificationBean> beans = new ArrayList<>();
 		List<ProposalNotification> notifications = new ArrayList<>();
 		/* START ELIMINAZIONE*/
-		Reader currUser = new Reader(Session.getSession().getCurrUser(), "email@hotmail.it", 'M');
+		Reader currUser = new Reader(Session.getSession().getCurrUser(), "email@hotmail.it", false);
 		Book bookSrc = new Book("585456453456", "The Centerville Phantom", "Ilenia Di Curzio");
 		Book bookTgt = new Book("585456453456", "Castelli di sabbia", "Ilenia Di Curzio");
 		ProposalNotification notif = new ProposalNotification(new Proposal(currUser, currUser, bookTgt, null, "436545", ProposalStates.DEFAULT), currUser, NotificationTypes.INITIAL_PROPOSAL);

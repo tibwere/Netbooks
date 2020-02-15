@@ -44,7 +44,7 @@ public class DesktopLauncher extends Application {
 		try {
 			DBManager.closeConnection();
 		} catch (SQLException e) {
-			GraphicalElements.showDialog(AlertType.ERROR, "Ops, something went wrong ..", "Unable to close connection to DB");
+			GraphicalElements.showDialog(AlertType.ERROR, "Unable to close connection to DB");
 		}
 	}
 

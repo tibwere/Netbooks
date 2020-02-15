@@ -12,7 +12,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import logic.bean.BookBean;
 import logic.exception.PersistencyException;
-import logic.util.HTMLParser;
+import logic.util.Parser;
 import logic.util.ImageDispenser;
 
 public class OnlineRatingsBox extends BoxDecorator {
@@ -44,7 +44,7 @@ public class OnlineRatingsBox extends BoxDecorator {
 			preEvalLbl.setText("GOOGLE USERS AVERAGE EVALUATION FOR THIS TITLE: ");			
 			evalLbl.setFont(Font.font("System", FontWeight.BOLD, 18));
 			glyph.setImage(ImageDispenser.getImage(ImageDispenser.LIKE));
-			int percentage = HTMLParser.getAVGEvaluationFromGoogle(bean.getTitle());
+			int percentage = Parser.getAVGEvaluationFromGoogle(bean.getTitle());
 			evalLbl.setText(percentage + "%");
 			
 			if (percentage < 50)

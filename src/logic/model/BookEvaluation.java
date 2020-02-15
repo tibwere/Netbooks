@@ -1,6 +1,6 @@
 package logic.model;
 
-import logic.model.users.User;
+import logic.model.users.Reader;
 
 /**
  * Entita'  del dominio di interesse: Valutazione
@@ -13,12 +13,12 @@ public class BookEvaluation {
 	private String title;
 	private String body;
 	
-	private User author;
+	private Reader author;
 	private Book relatedBook;
 	
 	public BookEvaluation() {}
 	
-	public BookEvaluation(User author, Book relatedBook, int rating) {
+	public BookEvaluation(Reader author, Book relatedBook, int rating) {
 		this.author = author;
 		this.relatedBook = relatedBook;
 		this.rating = rating;
@@ -32,7 +32,7 @@ public class BookEvaluation {
 		return relatedBook;
 	}
 
-	public User getAuthor() {
+	public Reader getAuthor() {
 		return author;
 	}
 
@@ -51,5 +51,4 @@ public class BookEvaluation {
 	public void setBody(String body) {
 		this.body = body;
 	}
-
 }

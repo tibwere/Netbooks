@@ -141,7 +141,7 @@ public class BuyBookGC implements Initializable{
 			Stage secondStage = GraphicalElements.createModalWindow(scene, (Stage) inAppRatingsChk.getScene().getWindow());
 			secondStage.show();
 		} catch (IOException e) {
-			GraphicalElements.showDialog(AlertType.ERROR, "Ops, something went wrong ...", "Unable to load modal window");
+			GraphicalElements.showDialog(AlertType.ERROR, "Unable to load modal window");
 			Platform.exit();
 		}
 	}
@@ -181,7 +181,7 @@ public class BuyBookGC implements Initializable{
 			try {
 				showPopupFrame(element);
 			} catch (IllegalStateException | IOException e) {	
-				GraphicalElements.showDialog(AlertType.ERROR, "Ops, something went wrong ...", "Unable to load modal window");
+				GraphicalElements.showDialog(AlertType.ERROR, "Unable to load modal window");
 				Platform.exit();
 			}			
 		}
@@ -202,7 +202,7 @@ public class BuyBookGC implements Initializable{
 					loadingStage.hide();
 					secondaryStage.show();
 				} catch (InterruptedException | ExecutionException e) {
-					GraphicalElements.showDialog(AlertType.ERROR, "ops something went wrong ...", "Unable to load google reviews ...");
+					GraphicalElements.showDialog(AlertType.ERROR, "Unable to load google reviews ...");
 					Thread.currentThread().interrupt();
 				}					
 			}
@@ -249,7 +249,7 @@ public class BuyBookGC implements Initializable{
 				}
 			}
 		} catch (NoSuchMethodException | SecurityException | IllegalArgumentException | IllegalAccessException | InvocationTargetException e) {
-			GraphicalElements.showDialog(AlertType.ERROR, "Ops, something went wrong", "Unable to reset checkboxes");
+			GraphicalElements.showDialog(AlertType.ERROR, "Unable to reset checkboxes");
 			Platform.exit();
 		}
 	}
