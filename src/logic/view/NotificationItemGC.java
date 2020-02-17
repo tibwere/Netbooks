@@ -11,6 +11,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -22,6 +23,8 @@ import javafx.stage.Stage;
 import logic.bean.BookBean;
 import logic.bean.NotificationBean;
 import logic.controller.ExchangeBookController;
+import logic.exception.NoStateTransitionException;
+import logic.exception.PersistencyException;
 import logic.util.GraphicalElements;
 import logic.util.NotificationButton;
 import logic.util.enumeration.DynamicElements;
@@ -72,6 +75,8 @@ public class NotificationItemGC implements Initializable{
 						
 						VBox vbox = new VBox();
 						vbox.setSpacing(10);
+						vbox.setMinHeight(400);
+						vbox.setAlignment(Pos.TOP_CENTER);
 						
 						List<BookBean> bookBeanList = ctrl.getUserBooks(bean.getSourceId());
 										
@@ -90,8 +95,11 @@ public class NotificationItemGC implements Initializable{
 						Stage popupStage = GraphicalElements.createModalWindow(popupScene, parent);
 						popupStage.show();
 					}
-					catch (IOException | IllegalStateException e) {
-						GraphicalElements.showDialog(AlertType.ERROR, "Unable to load exchangeable books.");
+					catch (PersistencyException e) {
+						GraphicalElements.showDialog(AlertType.ERROR, e.getMessage());
+						Platform.exit();
+					} catch (IOException | IllegalStateException e) {
+						GraphicalElements.showDialog(AlertType.ERROR, "Unable to load graphics for notification");
 						Platform.exit();
 					}
 				}
@@ -107,14 +115,19 @@ public class NotificationItemGC implements Initializable{
 
 				@Override
 				public void handle(ActionEvent event) {
-					if (!controller.acceptProposal(bean, null))
-						controller.failureNotification(bean);
-					
-					dynamicBtn.setDisable(true);
-					rejectBtn.setDisable(true);
-					rejectBtn.setVisible(false);
-					
-					controller.removeNotification(bean);
+					try {
+						if (!controller.acceptProposal(bean, null))
+							controller.failureNotification(bean);
+										
+						dynamicBtn.setDisable(true);
+						rejectBtn.setDisable(true);
+						rejectBtn.setVisible(false);
+						
+						controller.removeNotification(bean);
+					} catch (PersistencyException | NoStateTransitionException e) {
+						GraphicalElements.showDialog(AlertType.ERROR, e.getMessage());
+						Platform.exit();
+					}
 				}
 			});
 			hbox.getChildren().add(0, dynamicBtn);
@@ -125,22 +138,36 @@ public class NotificationItemGC implements Initializable{
 	}
 	
 	public void chooseBook (BookBean b) {
-		controller.acceptProposal(bean, b);
+		try {
+			controller.acceptProposal(bean, b);
 		
-		dynamicBtn.setDisable(true);
-		rejectBtn.setDisable(true);
-		rejectBtn.setVisible(false);
-	
-		controller.removeNotification(bean);
+			dynamicBtn.setDisable(true);
+			rejectBtn.setDisable(true);
+			rejectBtn.setVisible(false);
+		
+			controller.removeNotification(bean);
+		} catch (PersistencyException | NoStateTransitionException e) {
+			GraphicalElements.showDialog(AlertType.ERROR, e.getMessage());
+			Platform.exit();
+		}
 	}
 	
 	@FXML
 	private void clickOnReject() {
-		ExchangeBookController c = new ExchangeBookController();
-		c.failureNotification(bean);
-		rejectBtn.setDisable(true);
-		dynamicBtn.setDisable(true);
-		dynamicBtn.setVisible(false);
+		
+		try {
+			ExchangeBookController c = new ExchangeBookController();
+			c.failureNotification(bean);
+			
+			rejectBtn.setDisable(true);
+			dynamicBtn.setDisable(true);
+			dynamicBtn.setVisible(false);
+			
+			controller.removeNotification(bean);
+		} catch (PersistencyException | NoStateTransitionException e) {
+			GraphicalElements.showDialog(AlertType.ERROR, e.getMessage());
+			Platform.exit();
+		}
 	}
 
 }

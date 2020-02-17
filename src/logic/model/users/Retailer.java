@@ -1,11 +1,7 @@
 package logic.model.users;
 
-import java.util.List;
-
-import logic.dao.BookDao;
 import logic.dao.RetailerDao;
 import logic.exception.UserAlreadySignedException;
-import logic.model.Book;
 
 /**
  * 
@@ -45,10 +41,4 @@ public class Retailer extends User {
 	public void store(String password) throws UserAlreadySignedException {
 		RetailerDao.saveRetailerInDB(this, password);
 	}
-	
-	//metodo che interroga la BookDao
-	public List<Book> getBookFromPosition() {
-		List<Book> books = BookDao.findBookForChart(position.getLatitude(), position.getLongitude());
-		return books;
-	}	
 }

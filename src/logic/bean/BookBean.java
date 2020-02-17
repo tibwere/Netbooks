@@ -10,7 +10,7 @@ import logic.util.enumeration.Vendors;
  * Bean per la migrazione dei dati relativi ai libri
  * fra il layer di view ed il layer di controller
  * @author Simone Tiberi (M. 0252795)
- * @author Cristiano Cuffaro (M. 0258093)
+ * 
  */
 public class BookBean {
 	

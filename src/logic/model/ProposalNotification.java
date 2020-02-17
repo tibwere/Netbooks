@@ -8,8 +8,8 @@ public class ProposalNotification {
 	
 	private Reader src;
 	private NotificationTypes type;
-	private Book destBook;
-	private Book srcBook;
+	private Book destBook = null;
+	private Book srcBook = null;
 	private Proposal proposal;
 	
 	public ProposalNotification(Proposal proposal, Reader src, NotificationTypes type) {
@@ -54,7 +54,7 @@ public class ProposalNotification {
 			return "The user '" + src.getUsername() + "' would like to exchange your book '" + destBook.getTitle() + "'. You can choose one of " + pron + " books in return, or reject the proposal.";
 		case INTERMEDIATE_PROPOSAL:
 			return "The user '" + src.getUsername() + "' would like to accept your proposal and exchange: '" + srcBook.getTitle() + "' for '" + destBook.getTitle() + "'. Do you want to end the exchange?";
-		case FINAL_PROPOSAL:
+		case ENDED_PROPOSAL:
 			pron = src.isFemale() ? "her" : "him";
 			return "The exchange with '" + src.getUsername() + "' was successful. Contact " + pron + " at the e-mail address: " + src.getEmail();
 		default:

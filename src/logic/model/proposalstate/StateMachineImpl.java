@@ -1,9 +1,14 @@
 package logic.model.proposalstate;
 
+import javafx.scene.control.Alert.AlertType;
+import logic.controller.ExchangeBookController;
+import logic.exception.NoStateTransitionException;
+import logic.exception.PersistencyException;
 import logic.model.Book;
 import logic.model.Proposal;
 import logic.model.ProposalNotification;
 import logic.model.users.Reader;
+import logic.util.GraphicalElements;
 import logic.util.enumeration.NotificationTypes;
 import logic.util.enumeration.ProposalEvents;
 import logic.util.enumeration.ProposalStates;
@@ -16,22 +21,20 @@ public class StateMachineImpl implements ProposalStateMachine {
 	private Book targetBook;
 	private AbstractState current;
 	private Proposal proposal;
-	
-	private StateMachineImpl(Reader src, Reader tgt, Book tgtBook, Book srcBook, Proposal proposal) {
+	private ExchangeBookController controller;
+
+	public StateMachineImpl(Reader src, Reader tgt, Book tgtBook, Book srcBook, Proposal proposal, ProposalStates initialState) throws PersistencyException {
 		this.source = src;
 		this.target = tgt;
 		this.targetBook = tgtBook;
 		this.sourceBook = srcBook;
 		this.proposal = proposal;
-	}
-
-	public StateMachineImpl(Reader src, Reader tgt, Book tgtBook, Book srcBook, Proposal proposal, ProposalStates initialState) {
-		this(src, tgt, tgtBook, srcBook, proposal);
+		controller = new ExchangeBookController();
 		current = AbstractState.getInitialState(this, initialState);
 	}
 	
 	@Override
-	public void manageProposal(ProposalEvents e) {
+	public void manageProposal(ProposalEvents e) throws PersistencyException, NoStateTransitionException {
 		if (e == ProposalEvents.PROPOSAL_ACCEPTED)
 			current.toAccept(this);
 		else
@@ -40,12 +43,16 @@ public class StateMachineImpl implements ProposalStateMachine {
 	
 	@Override
 	public void acquireBook(Book book) {
-		current.acquire(this, book);
+		try {
+			current.acquire(this, book);
+		} catch (NoStateTransitionException e) {
+			GraphicalElements.showDialog(AlertType.WARNING, e.getMessage());
+		}
 	}
 	
 	@Override
-	public void getCurrentState() {
-		current.getState();		
+	public ProposalStates getCurrentState() {
+		return current.getState();		
 	}
 	
 	public Book getSourceBook() {
@@ -60,30 +67,21 @@ public class StateMachineImpl implements ProposalStateMachine {
 		current = state;
 	}
 	
-	public void exchangeBooks() {
-//		scambiare fisicamente i libri degli utenti
-	}
-	
-	public void notifyTargetToProposal() {
+	public void notifyTargetToProposal() throws PersistencyException {
 		ProposalNotification notification = new ProposalNotification(proposal, source, NotificationTypes.INITIAL_PROPOSAL);
 		notification.setDestBook(targetBook);
-		target.addNotification(notification);
+		controller.addNotification(target, notification);
 	}
 	
-	public void notifySourceToAnswer() {
+	public void notifySourceToAnswer() throws PersistencyException {
 		ProposalNotification notification = new ProposalNotification(proposal, target, NotificationTypes.INTERMEDIATE_PROPOSAL);
 		notification.setSrcBook(targetBook);
 		notification.setDestBook(sourceBook);
-		source.addNotification(notification);
+		controller.addNotification(source, notification);
 	}
 	
-	public void notifyOfSuccess() {
-		source.addNotification(new ProposalNotification(proposal, target, NotificationTypes.FINAL_PROPOSAL));
-		target.addNotification(new ProposalNotification(proposal, source, NotificationTypes.FINAL_PROPOSAL));
-	}
-	
-	public void notifyOfFailure() {
-		source.addNotification(new ProposalNotification(proposal, target, NotificationTypes.REJECTED_PROPOSAL));
-		target.addNotification(new ProposalNotification(proposal, source, NotificationTypes.REJECTED_PROPOSAL));
+	public void finalNotification(NotificationTypes type) throws PersistencyException {
+		controller.addNotification(source, new ProposalNotification(proposal, target, type));
+		controller.addNotification(target, new ProposalNotification(proposal, source, type));
 	}
 }

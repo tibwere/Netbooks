@@ -13,7 +13,6 @@ import logic.db.Query;
 import logic.exception.PersistencyException;
 import logic.model.Book;
 import logic.util.ImageDispenser;
-import logic.util.enumeration.BookGenres;
 import logic.util.enumeration.ImageSizes;
 
 /**
@@ -24,10 +23,7 @@ import logic.util.enumeration.ImageSizes;
  *
  */
 public class BookDao {
-	
-	private static Book book1 = new Book("000001", "La Divina Commedia", "Dante");
-	private static Book book2 = new Book("000002", "The Great Gatsby", "F. Fitzgerhald");
-	
+
 	private BookDao() {
 		/* non instanziabile */
 	}
@@ -135,53 +131,56 @@ public class BookDao {
 		}
 	}
 	
-	public static List<Book> findExchangeableBooks(String username) {
-		List<Book> books = new ArrayList<>();
+public static List<Book> findUserBooks(String username) throws PersistencyException {
 		
-		if (username.equals("")) {
-			for (int i = 0; i < 18; i ++) {
-				book1.setMediumImage(ImageDispenser.getImage(ImageDispenser.BOOK1));
-				book1.setLargeImage(ImageDispenser.getImage(ImageDispenser.BOOK_TEST));
-				books.add(book1);
-				book2.setMediumImage(ImageDispenser.getImage(ImageDispenser.BOOK2));
-				books.add(book2);
-			}
-		}
-		else
-			for (int i = 0; i < 3; i ++) {
-				book1.setSmallImage(ImageDispenser.getImage(ImageDispenser.BOOK_TEST_THUMBNAIL));
-				book1.setMediumImage(ImageDispenser.getImage(ImageDispenser.BOOK1));
-				book1.setLargeImage(ImageDispenser.getImage(ImageDispenser.BOOK_TEST));
-				books.add(book1);
-				book2.setSmallImage(ImageDispenser.getImage(ImageDispenser.BOOK_TEST_THUMBNAIL));
-				book2.setMediumImage(ImageDispenser.getImage(ImageDispenser.BOOK2));
-				book2.setLargeImage(ImageDispenser.getImage(ImageDispenser.BOOK_TEST));
-				books.add(book2);
-			}
+		CallableStatement stmt = null;
+		ResultSet results = null;
 		
-		return books;
-	}
-	
-	public BookGenres findBookByGenre(String genre) {
-		if (genre.equals("thr"))
-			return BookGenres.THRILLER;
-		else if (genre.equals("rom"))
-			return BookGenres.ROMANCE;
-		else return BookGenres.UNDEFINED;
-	}
-	
-//	 fare per posizione con cordinate del reader if(companyPositio<= valoreSlider)
-	public static List<Book> findBookForChart(double latitude, double longitude) {
-		ArrayList<Book> books = new ArrayList<>();
-		Book tmp1 = new Book("001122" , "La vita" , "Ale");
-		tmp1.setSmallImage(ImageDispenser.getImage(ImageDispenser.BOOK1));
-		books.add(tmp1);
+		try {
+			List<Book> books = new ArrayList<>();
 			
-		Book tmp2 = new Book("001123" , "Il miracolo" , "Fra");
-		tmp2.setSmallImage(ImageDispenser.getImage(ImageDispenser.BOOK2));
-		books.add(tmp2);
+			Connection conn = DBManager.getConnection();
+			stmt = conn.prepareCall(Query.GET_EXCHANGEABLE_BOOKS_SP);
+			results = DBOperation.bindParametersAndExec(stmt, username);
+						
+			while (results.next()) {
+				Book b = BookDao.buildBookFromResultSet(results);
+				books.add(b);	
+			} 
+			
+			return books;
+			
+		} catch (ClassNotFoundException | SQLException e) {
+			throw new PersistencyException("Unable to load exchangeable books");
+		}
+		finally {
+			DBManager.closeRs(results);
+			DBManager.closeStmt(stmt);
+		}
+	}
+	
+	public static Book getBook(String isbn) throws PersistencyException {
 		
-		return books;		
+		CallableStatement stmt = null;
+		ResultSet result = null;
+		
+		try {
+			Connection conn = DBManager.getConnection();
+			stmt = conn.prepareCall(Query.GET_BOOK_SP);
+			result = DBOperation.bindParametersAndExec(stmt, isbn);
+			
+			if (!result.first())
+				throw new IllegalStateException("Unexpected application behavior has occurred.");
+			
+			return BookDao.buildBookFromResultSet(result);
+
+		} catch (SQLException | ClassNotFoundException e) {
+			throw new PersistencyException("Unable to load book");
+		}
+		finally {
+			DBManager.closeStmt(stmt);
+			DBManager.closeRs(result);
+		}
 	}
 
 }

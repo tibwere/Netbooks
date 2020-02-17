@@ -1,11 +1,7 @@
 package logic.util;
 
-import javafx.geometry.Insets;
 import javafx.scene.Cursor;
 import javafx.scene.control.Button;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 
 /**
@@ -16,14 +12,13 @@ import javafx.scene.paint.Color;
 public class NotificationButton {
 	
 	private NotificationButton() {
-		
+		/* non istanziabile */
 	}
 	
 	public static Button chooseButton() {
 		Button btn = NotificationButton.initializeButton();
 		btn.setText("CHOOSE A BOOK");
-		btn.setTextFill(Color.WHITE);
-		btn.setBackground(new Background(new BackgroundFill(Color.BLUE, CornerRadii.EMPTY, Insets.EMPTY)));
+		btn.setStyle("-fx-font-weight: bold;"+"-fx-background-color: blue;");
 		
 		return btn;
 	}
@@ -31,8 +26,7 @@ public class NotificationButton {
 	public static Button acceptButton() {
 		Button btn = NotificationButton.initializeButton();
 		btn.setText("ACCEPT");
-		btn.setTextFill(Color.WHITE);
-		btn.setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
+		btn.setStyle("-fx-font-weight: bold;"+"-fx-background-color: green;");
 		
 		return btn;
 	}
@@ -40,8 +34,8 @@ public class NotificationButton {
 	private static Button initializeButton() {
 		Button btn = new Button();
 		btn.setPrefWidth(140);
-		btn.setStyle("-fx-font-weight: bold;");
 		btn.setCursor(Cursor.HAND);
+		btn.setTextFill(Color.WHITE);
 		
 		return btn;
 	}

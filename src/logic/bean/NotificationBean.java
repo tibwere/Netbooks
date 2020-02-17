@@ -11,13 +11,13 @@ import logic.util.enumeration.NotificationTypes;
 public class NotificationBean {
 	
 	private String sourceId;
-	private String destBook;
-	private String srcBook;
-	private String proposalId;
+	private String destBook = null;
+	private String srcBook = null;
+	private int proposalId;
 	private String message;
 	private NotificationTypes type;
 	
-	public NotificationBean(String source, String message, NotificationTypes type, String proposal) {
+	public NotificationBean(String source, String message, NotificationTypes type, int proposal) {
 		this.sourceId = source;
 		this.message = message;
 		this.type = type;
@@ -44,7 +44,7 @@ public class NotificationBean {
 		this.destBook = destBook;
 	}
 
-	public String getProposalId() {
+	public int getProposalId() {
 		return proposalId;
 	}
 

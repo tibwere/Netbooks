@@ -10,6 +10,7 @@ import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -48,17 +49,21 @@ public class ExchangeBookItemGC implements Initializable {
 	
 	private ExchangeBookGC mainGC;
 	
-	public ExchangeBookItemGC(BookBean bookBean, UserBean ownerBean, ExchangeBookGC mainGC) {
+	private String position;
+	
+	public ExchangeBookItemGC(BookBean bookBean, UserBean ownerBean, ExchangeBookGC mainGC, String position) {
 		
 		this.bookBean = bookBean;
 		this.ownerBean = ownerBean;
 		this.mainGC = mainGC;
+		this.position = position;
 		
 	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		
+		if (position == ExchangeBookGC.POS_RIGHT)
+			bookItem.setAlignment(Pos.TOP_RIGHT);
 		label.setText(bookBean.getTitle());
 		label.setTextFill(Color.WHITE);
 		imageView.setImage(new Image(bookBean.getSingleImage(ImageSizes.MEDIUM)));

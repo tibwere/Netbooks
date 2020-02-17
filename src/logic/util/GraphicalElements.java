@@ -58,6 +58,8 @@ public class GraphicalElements {
 			return new FXMLLoader(GraphicalElements.class.getResource(PATH + "make_proposal.fxml"));
 		case MANAGE_PROPOSALS:
 			return new FXMLLoader(GraphicalElements.class.getResource(PATH + "manage_proposals.fxml"));
+		case YOUR_BOOKS:
+			return new FXMLLoader(GraphicalElements.class.getResource(PATH + "your_books.fxml"));
 		case KBSAS:
 			return new FXMLLoader(GraphicalElements.class.getResource(PATH + "kbsas.fxml"));
 		case DIAGRAM:
@@ -78,6 +80,8 @@ public class GraphicalElements {
 			return new FXMLLoader(GraphicalElements.class.getResource(PATH + "notification_item.fxml"));
 		case EXCHANGE_BOOK_POPUP_ITEM:
 			return new FXMLLoader(GraphicalElements.class.getResource(PATH + "exchange_book_popup_item.fxml"));
+		case YOUR_BOOK_ITEM:
+			return new FXMLLoader(GraphicalElements.class.getResource(PATH + "your_book_item.fxml"));
 		case LOADING_MODAL:
 			return new FXMLLoader(GraphicalElements.class.getResource(PATH + "loading.fxml"));
 		case BOOK_IN_CHART:

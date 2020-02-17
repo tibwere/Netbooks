@@ -52,7 +52,7 @@
                                           <Font name="System Bold" size="13.0" />
                                        </font>
                                     </Text>
-                                    <Label fx:id="title" maxHeight="25.0" maxWidth="226.0" prefHeight="25.0" prefWidth="226.0" />
+                                    <Label fx:id="title" maxHeight="25.0" maxWidth="226.0" prefHeight="25.0" prefWidth="226.0" wrapText="true" />
                                  </children>
                               </HBox>
                               <HBox alignment="CENTER_LEFT" maxHeight="25.0" maxWidth="300.0" prefHeight="25.0" prefWidth="300.0" spacing="19.0">
@@ -62,7 +62,7 @@
                                           <Font name="System Bold" size="13.0" />
                                        </font>
                                     </Text>
-                                    <Label fx:id="author" maxHeight="25.0" maxWidth="226.0" prefHeight="25.0" prefWidth="226.0" />
+                                    <Label fx:id="author" maxHeight="25.0" maxWidth="226.0" prefHeight="25.0" prefWidth="226.0" wrapText="true" />
                                  </children>
                               </HBox>
                               <HBox alignment="CENTER_LEFT" maxHeight="25.0" maxWidth="300.0" prefHeight="25.0" prefWidth="300.0" spacing="8.0">
@@ -72,7 +72,7 @@
                                           <Font name="System Bold" size="13.0" />
                                        </font>
                                     </Text>
-                                    <Label fx:id="ownerDetail" maxHeight="25.0" maxWidth="226.0" prefHeight="25.0" prefWidth="226.0" />
+                                    <Label fx:id="ownerDetail" maxHeight="25.0" maxWidth="226.0" prefHeight="25.0" prefWidth="226.0" wrapText="true" />
                                  </children>
                               </HBox>
                            </children>
@@ -106,7 +106,7 @@
                                     <Font size="24.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="ownerLabel" prefHeight="50.0" prefWidth="270.0">
+                              <Label fx:id="ownerLabel" prefHeight="50.0" prefWidth="270.0" wrapText="true">
                                  <font>
                                     <Font name="System Italic" size="24.0" />
                                  </font>

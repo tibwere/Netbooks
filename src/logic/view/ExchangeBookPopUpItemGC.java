@@ -62,7 +62,7 @@ public class ExchangeBookPopUpItemGC implements Initializable {
 		
 		Label label = new Label("The reply has been sent.\nWait for confirmation.");
 		label.setAlignment(Pos.CENTER);
-		label.setFont(new Font("Regular", 20));
+		label.setFont(new Font("Italic", 20));
 		root.getChildren().add(label);
 		
 		Scene scene = new Scene(root, 360, 400);

@@ -8,8 +8,10 @@ package logic.view;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -18,6 +20,8 @@ import javafx.scene.layout.BorderPane;
 import logic.bean.BookBean;
 import logic.bean.UserBean;
 import logic.controller.ExchangeBookController;
+import logic.exception.PersistencyException;
+import logic.util.GraphicalElements;
 import logic.util.enumeration.ImageSizes;
 
 public class MakeProposalGC implements Initializable{
@@ -72,11 +76,23 @@ public class MakeProposalGC implements Initializable{
 	@FXML
 	private void clickOnSendProposal() {
 		ExchangeBookController controller = new ExchangeBookController();
-		if (!controller.buildProposal(bookBean, ownerBean))
-			successLabel.setText("You already have an open proposal with this user.");
-		else
-			sendBtn.setDisable(true);
+		try {
+			switch(controller.buildProposal(bookBean, ownerBean)) {
+			case 1:
+				successLabel.setText("You have no books to exchange.");
+				break;
+			case 2:
+				successLabel.setText("You already have an open proposal with this user.");
+				break;
+			default:
+				sendBtn.setDisable(true);
+				break;
+			}
+			
+		} catch (PersistencyException e) {
+			GraphicalElements.showDialog(AlertType.ERROR, e.getMessage());
+			Platform.exit();
+		}
 		successLabel.setVisible(true);
 	}
-	
 }

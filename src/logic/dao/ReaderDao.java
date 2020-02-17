@@ -4,6 +4,8 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import logic.db.DBManager;
 import logic.db.DBOperation;
@@ -89,5 +91,90 @@ public class ReaderDao {
 		}
 	}
 	
+public static List<Reader> findOwners(String currUser) throws PersistencyException {
+		
+		CallableStatement stmt = null;
+		ResultSet results = null;
+		
+		try {
+			List<Reader> owners = new ArrayList<>();
+			
+			Connection conn = DBManager.getConnection();
+			stmt = conn.prepareCall(Query.GET_OWNERS_SP);
+			results = DBOperation.bindParametersAndExec(stmt, currUser);
+						
+			while (results.next()) {
+				Reader r = new Reader(results.getString("reader"));
+				owners.add(r);
+			}
+			
+			return owners;
+			
+		} catch (SQLException | ClassNotFoundException e) {
+			throw new PersistencyException("Unable to get owners of books");
+		}
+		finally {
+			DBManager.closeRs(results);
+			DBManager.closeStmt(stmt);
+		}
+	}
+	
+	public static Reader getEmailAndGenre(String username) throws PersistencyException {
+		
+		CallableStatement stmt = null;
+		ResultSet result = null;
+		
+		try {
+			Connection conn = DBManager.getConnection();
+			stmt = conn.prepareCall(Query.GET_EMAIL_AND_GENRE_SP);
+			result = DBOperation.bindParametersAndExec(stmt, username);
+			
+			if (!result.first())
+				throw new IllegalStateException("Unexpected application behavior has occurred.");
+			
+			return new Reader(username, result.getString("email"), result.getBoolean("gender"));
+			
+		} catch (SQLException | ClassNotFoundException e) {
+			throw new PersistencyException("Unable to load the reader");
+		} finally {
+			DBManager.closeRs(result);
+			DBManager.closeStmt(stmt);
+		}
+	}
+	
+	public static Boolean checkOwnership(String user, String isbn) throws PersistencyException {
+		CallableStatement stmt = null;
+		ResultSet result = null;
+		
+		try {
+			Connection conn = DBManager.getConnection();
+			stmt = conn.prepareCall(Query.CHECK_OWNERSHIP_SP);
+			result = DBOperation.bindParametersAndExec(stmt, user, isbn);
+			
+			return result.first();
+			
+		} catch(SQLException | ClassNotFoundException e) {
+			throw new PersistencyException("Unable to check book ownership");
+		}
+		finally {
+			DBManager.closeStmt(stmt);
+			DBManager.closeRs(result);
+		}
+	}
 
+	public static void swapOwnership(String sourceId, String srcBook, String targetId, String tgtBook) throws PersistencyException {
+		CallableStatement stmt = null;
+		
+		try {
+			Connection conn = DBManager.getConnection();
+			stmt = conn.prepareCall(Query.SWAP_OWNERSHIP_SP);
+			DBOperation.bindParametersAndExec(stmt, sourceId, srcBook, targetId, tgtBook);
+			
+		} catch(SQLException | ClassNotFoundException e) {
+			throw new PersistencyException("Unable to swap books");
+		}
+		finally {
+			DBManager.closeStmt(stmt);
+		}
+	}
 }

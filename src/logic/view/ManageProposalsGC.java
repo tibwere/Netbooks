@@ -14,6 +14,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import logic.bean.NotificationBean;
 import logic.controller.ExchangeBookController;
+import logic.exception.PersistencyException;
 import logic.util.GraphicalElements;
 import logic.util.enumeration.DynamicElements;
 
@@ -29,19 +30,19 @@ public class ManageProposalsGC implements Initializable {
 			ExchangeBookController controller = new ExchangeBookController();
 			List<NotificationBean> beans = controller.getCurrUserNotifications();
 			
-			int i;
-			int len = (beans.size()) % 6;
-			
-			for (i = 0; i < len; i ++) {
-				NotificationItemGC gc = new NotificationItemGC(beans.get(i));
+			for (NotificationBean bean : beans) {
+				NotificationItemGC gc = new NotificationItemGC(bean);
 				FXMLLoader loader = GraphicalElements.loadFXML(DynamicElements.NOTIFICATION_ITEM);
 				loader.setController(gc);
 				HBox notifItem = loader.load();
 				noticeboard.getChildren().add(notifItem);
 			}
 		}
-		catch (IOException | IllegalStateException e) {
-			GraphicalElements.showDialog(AlertType.ERROR, "Unable to load exchangeable books.");
+		catch (PersistencyException e) {
+			GraphicalElements.showDialog(AlertType.ERROR, e.getMessage());
+			Platform.exit();
+		} catch (IOException | IllegalStateException e) {
+			GraphicalElements.showDialog(AlertType.ERROR, "Unable to load graphics for notifications");
 			Platform.exit();
 		}
 	}

@@ -21,7 +21,7 @@
                </VBox.margin></Label>
             <HBox fx:id="hbox" alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="895.0" spacing="30.0">
                <children>
-                  <Button fx:id="rejectBtn" disable="true" mnemonicParsing="false" onAction="#clickOnReject" prefHeight="30.0" prefWidth="140.0" style="-fx-background-color: RED;" text="REJECT" textFill="WHITE" visible="false">
+                  <Button fx:id="rejectBtn" disable="true" mnemonicParsing="false" onAction="#clickOnReject" prefWidth="140.0" style="-fx-background-color: RED;" text="REJECT" textFill="WHITE" visible="false">
                      <font>
                         <Font name="System Bold" size="13.0" />
                      </font>
