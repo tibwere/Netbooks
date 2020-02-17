@@ -36,11 +36,18 @@ public class BookInChartGC implements Initializable {
 
     @FXML
     private Label lblBookAuthor;
+    
+    @FXML
+    private Label lblNumOfCopy;
 
 	private BookBean bean;
+	private int numOfCopy = 0 ;
+	private int rank = 0;
 
-	public BookInChartGC(BookBean bean) {
+	public BookInChartGC(int rank , BookBean bean , int numOfCopy) {
+		this.rank = rank; 
 		this.bean = bean;
+		this.numOfCopy = numOfCopy;
 	}
     
     @Override
@@ -49,6 +56,8 @@ public class BookInChartGC implements Initializable {
     	image.setImage(new Image(bean.getSingleImage(ImageSizes.SMALL)));
     	lblBookAuthor.setText(bean.getAuthor());
     	lblBookName.setText(bean.getTitle());
+    	lblNumOfCopy.setText(Integer.toString(numOfCopy));
+    	position.setText("#" + Integer.toString(rank));
     	
 	}
     

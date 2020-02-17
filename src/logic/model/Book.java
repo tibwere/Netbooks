@@ -24,9 +24,13 @@ public class Book {
 	private Map<ImageSizes, String> images;
 	private Map<Vendors, String> links;
 	
-	public Book(String isbn, String title, String author) {
+	public Book() {
 		images = new HashMap<>();
 		links = new HashMap<>();
+	}
+	
+	public Book(String isbn, String title, String author) {
+		this();
 		this.isbn = isbn;
 		this.title = title;
 		this.author = author;
@@ -39,10 +43,19 @@ public class Book {
 	public String getAuthor() {
 		return author;
 	}
+	
+	public void setAuthor(String author) {
+		this.author = author;
+	}
 
 	public String getTitle() {
 		return title;
 	}
+	
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
 
 	public int getYearOfPublication() {
 		return yearOfPublication;

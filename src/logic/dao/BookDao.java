@@ -5,7 +5,9 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import logic.db.DBManager;
 import logic.db.DBOperation;
@@ -180,6 +182,36 @@ public static List<Book> findUserBooks(String username) throws PersistencyExcept
 		finally {
 			DBManager.closeStmt(stmt);
 			DBManager.closeRs(result);
+		}
+	}
+	
+	public static  Map<Book, Integer> findBookForChart(double latitude, double longitude , int radius) throws PersistencyException {
+		
+		CallableStatement stmt = null;
+		ResultSet results = null;
+		int numOfCopySold = 0 ;
+		
+		try {
+			Map<Book, Integer> bookInChart = new HashMap<>();
+			Connection conn = DBManager.getConnection();
+			stmt = conn.prepareCall(Query.GET_BOOK_FOR_CHART_SP);
+			results = DBOperation.bindParametersAndExec(stmt, latitude, longitude, radius);
+			while (results.next()) {
+				Book book = new Book();
+				book.setTitle(results.getString("title"));
+				book.setAuthor(results.getString("author"));
+				numOfCopySold = results.getInt("count(*)");
+				bookInChart.put(book, numOfCopySold);
+				book.setSmallImage(ImageDispenser.getCovers(book.getTitle(), ImageSizes.SMALL));
+			}
+			
+			return bookInChart;
+			
+		} catch (ClassNotFoundException | SQLException e) {
+			throw new PersistencyException("Unable to load chart for rank");
+		} finally {
+			DBManager.closeRs(results);
+			DBManager.closeStmt(stmt);		
 		}
 	}
 

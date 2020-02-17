@@ -5,50 +5,32 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
 <BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" styleClass="bg" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="logic.view.KbsasGC">
    <right>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="buybook-panel" BorderPane.alignment="CENTER">
+      <VBox alignment="TOP_CENTER" prefHeight="800.0" prefWidth="206.0" spacing="50.0" styleClass="buybook-panel" BorderPane.alignment="CENTER">
          <children>
-            <Label layoutX="22.0" layoutY="269.0" prefHeight="37.0" prefWidth="168.0" text="RETAILER-AREA" textFill="#fcf8f8">
-               <font>
-                  <Font name="System Bold" size="22.0" />
-               </font>
-            </Label>
-            <Button fx:id="buttonVBS" layoutX="11.0" layoutY="501.0" mnemonicParsing="false" onAction="#showBestsellers" prefHeight="34.0" prefWidth="177.0" style="-fx-background-color: #634f3a;" text="VIEW BEST-SELLERS" textFill="#f8f8f8">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor></Button>
-            <Slider fx:id="slider" layoutX="12.0" layoutY="416.0" majorTickUnit="10.0" max="50.0" minorTickCount="5" onKeyTyped="#onSliderChanged" onMouseReleased="#onSliderChanged" prefHeight="38.0" prefWidth="176.0" showTickLabels="true" showTickMarks="true" value="10.0">
-               <cursor>
-                  <Cursor fx:constant="OPEN_HAND" />
-               </cursor></Slider>
-            <ImageView fitHeight="175.0" fitWidth="175.0" layoutX="12.0" layoutY="94.0">
-               <image>
-                  <Image url="@../../../../../../../Desktop/Netbooks/trunk/src/logic/view/resources/images/icon.png" />
-               </image>
-            </ImageView>
-            <Label fx:id="km" layoutX="14.0" layoutY="464.0" prefHeight="17.0" prefWidth="173.0" text="Selected value : 10KM" textFill="WHITE" />
-            <HBox layoutX="57.0" prefHeight="40.0" prefWidth="143.0">
+            <HBox fx:id="hBoxBtn" alignment="TOP_RIGHT" prefHeight="48.0" prefWidth="208.0">
                <children>
+                  <Label fx:id="lblUser" alignment="TOP_LEFT" prefHeight="50.0" prefWidth="113.0" textFill="#070707">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
                   <Button fx:id="profileBtn" ellipsisString="" mnemonicParsing="false" prefHeight="40.0" prefWidth="41.0" styleClass="transparent" text="Button">
                      <graphic>
                         <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../../../../../../Desktop/Netbooks/trunk/src/logic/view/resources/images/profile.png" />
+                              <Image url="@../images/profile.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -60,7 +42,7 @@
                      <graphic>
                         <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" styleClass="transparent">
                            <image>
-                              <Image url="@../../../../../../../Desktop/Netbooks/trunk/src/logic/view/resources/images/logout.png" />
+                              <Image url="@../images/logout.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -70,33 +52,83 @@
                   </Button>
                </children>
             </HBox>
-            <Label layoutX="13.0" layoutY="383.0" prefHeight="17.0" prefWidth="116.0" text="Select the radius : " textFill="WHITE" />
-         </children>
-      </AnchorPane>
-   </right>
-   <center>
-      <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-         <children>
-            <Line fx:id="line" endX="261.0" layoutX="443.0" layoutY="116.0" startX="-379.0" stroke="WHITE" visible="false" />
-            <Label fx:id="labelRes" layoutX="301.0" layoutY="26.0" prefHeight="77.0" prefWidth="167.0" text="RESULTS" textFill="#fcf8f8" visible="false">
-               <font>
-                  <Font size="40.0" />
-               </font>
-            </Label>
-            <VBox fx:id="vbox" layoutX="84.0" layoutY="148.0" />
-            <MenuButton fx:id="menuButton" layoutX="566.0" layoutY="53.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="167.0" styleClass="btn" text="VIEW CHART OF TOP 5" textFill="#fffefe" visible="false">
-              <items>
-                  <MenuItem fx:id="barChart" mnemonicParsing="false" onAction="#barChartAction" text="BAR CHART" />
-                  <MenuItem fx:id="pieChart" mnemonicParsing="false" onAction="#pieChartAction" text="PIE CHART" />
-              </items>
+            <VBox prefHeight="250.0" prefWidth="208.0" spacing="10.0">
+               <children>
+                  <ImageView fitHeight="192.0" fitWidth="208.0">
+                     <image>
+                        <Image url="@../../../../../../../Desktop/Netbooks/trunk/src/logic/view/resources/images/icon.png" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="retailerAreaLbl" alignment="CENTER" prefHeight="72.0" prefWidth="208.0" text="RETAILER-AREA" textFill="WHITE">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+            <VBox prefHeight="157.0" prefWidth="208.0" spacing="10.0">
+               <children>
+                  <Label prefHeight="40.0" prefWidth="206.0" text="Select the radius : " textFill="WHITE">
+                     <font>
+                        <Font size="16.0" />
+                     </font></Label>
+                  <Slider fx:id="slider" majorTickUnit="10.0" max="50.0" minorTickCount="5" onKeyTyped="#onSliderChanged" onMouseReleased="#onSliderChanged" prefHeight="35.0" prefWidth="206.0" showTickLabels="true" showTickMarks="true" value="10.0">
+                     <cursor>
+                        <Cursor fx:constant="OPEN_HAND" />
+                     </cursor>
+                  </Slider>
+                  <Label fx:id="km" prefHeight="40.0" prefWidth="206.0" text="Selected value : 10KM" textFill="WHITE">
+                     <font>
+                        <Font size="16.0" />
+                     </font></Label>
+               </children>
+            </VBox>
+            <Button fx:id="buttonVBS" alignment="CENTER" mnemonicParsing="false" onAction="#showBestsellers" prefHeight="34.0" prefWidth="180.0" style="-fx-background-color: #634f3a;" text="VIEW BEST-SELLERS" textFill="#f8f8f8">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
-            </MenuButton>
+            </Button>
          </children>
-      </Pane>
+      </VBox>
+   </right>
+   <center>
+      <HBox alignment="TOP_CENTER" BorderPane.alignment="CENTER">
+         <children>
+            <VBox alignment="TOP_CENTER" spacing="30.0">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="77.0" prefWidth="464.0" spacing="40.0">
+                     <children>
+                        <Label fx:id="labelRes" prefHeight="76.0" prefWidth="170.0" text="RESULTS" textFill="#fcf8f8">
+                           <font>
+                              <Font size="40.0" />
+                           </font>
+                        </Label>
+                        <MenuButton fx:id="menuButton" alignment="CENTER" mnemonicParsing="false" prefHeight="39.0" prefWidth="167.0" styleClass="btn" text="VIEW CHART OF TOP 5" textFill="#fffefe">
+                           <items>
+                              <MenuItem fx:id="barChart1" mnemonicParsing="false" onAction="#barChartAction" text="BAR CHART" />
+                              <MenuItem fx:id="pieChart1" mnemonicParsing="false" onAction="#pieChartAction" text="PIE CHART" />
+                           </items>
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </MenuButton>
+                     </children>
+                  </HBox>
+                  <Line fx:id="line" endX="335.16668701171875" startX="-379.0" stroke="WHITE" />
+                  <ScrollPane fitToWidth="true" hbarPolicy="NEVER" styleClass="scrollpane-transparent">
+                     <content>
+                        <VBox fx:id="vboxMain" alignment="TOP_CENTER" />
+                     </content>
+                  </ScrollPane>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
    </center>
 </BorderPane>

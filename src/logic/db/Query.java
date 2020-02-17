@@ -36,6 +36,8 @@ public class Query {
 	public static final String SWAP_OWNERSHIP_SP = "call netbooks.swap_ownership(?, ?, ?, ?)";
 	public static final String DELETE_NOTIF_FOR_USER_SP = "call netbooks.delete_notif_for_user(?, ?, ?)";
 	public static final String FIND_UNREAD_NOTIFICATIONS_SP = "call netbooks.find_unread_notifications(?)";
+	public static final String GET_BOOK_FOR_CHART_SP = "call netbooks.get_book_for_chart(?,?,?)";
+	public static final String GET_RETAILER_POSITION = "call netbooks.get_retailer_position(?)";
 	
 	private Query() {
 		/* non instanziabile */

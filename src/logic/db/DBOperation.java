@@ -36,6 +36,14 @@ public class DBOperation {
 		
 	}
 	
+	public static ResultSet bindParametersAndExec(CallableStatement stmt, double param1, double param2, int param3) throws SQLException {
+        stmt.setDouble(1, param1);
+        stmt.setDouble(2, param2);
+        stmt.setInt(3, param3);
+       
+        return executeStmt(stmt);
+    }
+	
 	private static ResultSet executeStmt(CallableStatement stmt) throws SQLException {
 		return (stmt.execute()) ? stmt.getResultSet() : null;		
 	}
