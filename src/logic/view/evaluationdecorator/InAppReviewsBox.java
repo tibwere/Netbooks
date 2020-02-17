@@ -5,6 +5,7 @@ import java.util.Map;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
@@ -20,6 +21,8 @@ import logic.bean.ReaderBean;
 import logic.controller.BuyBookController;
 import logic.controller.ManageEvaluationsController;
 import logic.exception.PersistencyException;
+import logic.exception.WrongSyntaxException;
+import logic.util.GraphicalElements;
 
 /**
  * Classe <b>ConcreteDecorator</b> del pattern <i>Decorator</i> dei GoF.<br>
@@ -116,33 +119,38 @@ public class InAppReviewsBox extends BoxDecorator {
 		initComponents();
 		handleComponents();
 		
-		/* Poi quando aggiorno il model devo aggiungere il tipo Reviews */
 		BuyBookController controller = new BuyBookController(new ManageEvaluationsController());
-		Map<ReaderBean, BookEvaluationBean> reviews = controller.getManageEvaluationsController().getBookReviews(bean);
-		
-		if (reviews.isEmpty()) {
-			Label emptyLabel = new Label("There's no reviews for this title");
-			emptyLabel.setTextFill(Color.BLACK);
-			reviewsContainer.getChildren().add(emptyLabel);
+		Map<ReaderBean, BookEvaluationBean> reviews = null;
+		try {
+			reviews = controller.getManageEvaluationsController().getBookReviews(bean);
+		} catch (WrongSyntaxException e) {
+			GraphicalElements.showDialog(AlertType.ERROR, e.getMessage());
 		}
-		
-		boolean isFirst = true;
-		
-		for (ReaderBean reader : reviews.keySet()) {
-			if (!isFirst) {
-				Separator sep = new Separator();
-				sep.setOrientation(Orientation.HORIZONTAL);
-				reviewsContainer.getChildren().add(sep);
+
+		if (reviews != null) {
+			if (reviews.isEmpty()) {
+				Label emptyLabel = new Label("There's no reviews for this title");
+				emptyLabel.setTextFill(Color.BLACK);
+				reviewsContainer.getChildren().add(emptyLabel);
 			}
-			else 
-				isFirst = false;
 			
-			VBox box = createReviewElement(reader.getUsername(), reviews.get(reader).getTitle(), reviews.get(reader).getBody());
-			reviewsContainer.getChildren().add(box);
+			boolean isFirst = true;
+			
+			for (ReaderBean reader : reviews.keySet()) {
+				if (!isFirst) {
+					Separator sep = new Separator();
+					sep.setOrientation(Orientation.HORIZONTAL);
+					reviewsContainer.getChildren().add(sep);
+				}
+				else 
+					isFirst = false;
+				
+				VBox box = createReviewElement(reader.getUsername(), reviews.get(reader).getTitle(), reviews.get(reader).getBody());
+				reviewsContainer.getChildren().add(box);
+			}
+			
+			fromParent.getChildren().add(reviewsBox);
 		}
-		
-		fromParent.getChildren().add(reviewsBox);
-		
 		return fromParent;
 	}
 }

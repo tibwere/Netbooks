@@ -5,42 +5,75 @@
               directory with the processing instruction <?eclipse.ant.import?>
               as the first entry and export the buildfile again. --><project basedir="." default="build" name="Netbooks">
     <property environment="env"/>
-    <property name="ECLIPSE_HOME" value="../../../eclipse/java-2019-12/eclipse/"/>
+    <property name="ECLIPSE_HOME" value="../../../eclipse/jee-2019-12/eclipse/"/>
     <property name="debuglevel" value="source,lines,vars"/>
     <property name="target" value="1.8"/>
     <property name="source" value="1.8"/>
+    <path id="Apache Tomcat v8.5 [Apache Tomcat v8.5].libraryclasspath">
+        <pathelement location="../../../../../server/apache-tomcat-8.5.51/lib/annotations-api.jar"/>
+        <pathelement location="../../../../../server/apache-tomcat-8.5.51/lib/catalina-ant.jar"/>
+        <pathelement location="../../../../../server/apache-tomcat-8.5.51/lib/catalina-ha.jar"/>
+        <pathelement location="../../../../../server/apache-tomcat-8.5.51/lib/catalina-storeconfig.jar"/>
+        <pathelement location="../../../../../server/apache-tomcat-8.5.51/lib/catalina-tribes.jar"/>
+        <pathelement location="../../../../../server/apache-tomcat-8.5.51/lib/catalina.jar"/>
+        <pathelement location="../../../../../server/apache-tomcat-8.5.51/lib/ecj-4.6.3.jar"/>
+        <pathelement location="../../../../../server/apache-tomcat-8.5.51/lib/el-api.jar"/>
+        <pathelement location="../../../../../server/apache-tomcat-8.5.51/lib/jasper-el.jar"/>
+        <pathelement location="../../../../../server/apache-tomcat-8.5.51/lib/jasper.jar"/>
+        <pathelement location="../../../../../server/apache-tomcat-8.5.51/lib/jaspic-api.jar"/>
+        <pathelement location="../../../../../server/apache-tomcat-8.5.51/lib/jsp-api.jar"/>
+        <pathelement location="../../../../../server/apache-tomcat-8.5.51/lib/servlet-api.jar"/>
+        <pathelement location="../../../../../server/apache-tomcat-8.5.51/lib/tomcat-api.jar"/>
+        <pathelement location="../../../../../server/apache-tomcat-8.5.51/lib/tomcat-coyote.jar"/>
+        <pathelement location="../../../../../server/apache-tomcat-8.5.51/lib/tomcat-dbcp.jar"/>
+        <pathelement location="../../../../../server/apache-tomcat-8.5.51/lib/tomcat-i18n-de.jar"/>
+        <pathelement location="../../../../../server/apache-tomcat-8.5.51/lib/tomcat-i18n-es.jar"/>
+        <pathelement location="../../../../../server/apache-tomcat-8.5.51/lib/tomcat-i18n-fr.jar"/>
+        <pathelement location="../../../../../server/apache-tomcat-8.5.51/lib/tomcat-i18n-ja.jar"/>
+        <pathelement location="../../../../../server/apache-tomcat-8.5.51/lib/tomcat-i18n-ko.jar"/>
+        <pathelement location="../../../../../server/apache-tomcat-8.5.51/lib/tomcat-i18n-ru.jar"/>
+        <pathelement location="../../../../../server/apache-tomcat-8.5.51/lib/tomcat-i18n-zh-CN.jar"/>
+        <pathelement location="../../../../../server/apache-tomcat-8.5.51/lib/tomcat-jdbc.jar"/>
+        <pathelement location="../../../../../server/apache-tomcat-8.5.51/lib/tomcat-jni.jar"/>
+        <pathelement location="../../../../../server/apache-tomcat-8.5.51/lib/tomcat-util-scan.jar"/>
+        <pathelement location="../../../../../server/apache-tomcat-8.5.51/lib/tomcat-util.jar"/>
+        <pathelement location="../../../../../server/apache-tomcat-8.5.51/lib/tomcat-websocket.jar"/>
+        <pathelement location="../../../../../server/apache-tomcat-8.5.51/lib/websocket-api.jar"/>
+    </path>
+    <path id="Web App Libraries.libraryclasspath">
+        <pathelement location="WebContent/WEB-INF/lib/mysql-connector-java-5.1.48.jar"/>
+    </path>
+    <path id="EAR Libraries.libraryclasspath"/>
     <path id="Netbooks.classpath">
-        <pathelement location="bin"/>
+        <pathelement location="build/classes"/>
+        <path refid="Apache Tomcat v8.5 [Apache Tomcat v8.5].libraryclasspath"/>
+        <path refid="Web App Libraries.libraryclasspath"/>
+        <path refid="EAR Libraries.libraryclasspath"/>
         <pathelement location="lib/controlsfx-8.40.14.jar"/>
+        <pathelement location="lib/json-20140107.jar"/>
         <pathelement location="lib/jsoup-1.12.2.jar"/>
         <pathelement location="lib/mysql-connector-java-5.1.48.jar"/>
     </path>
     <target name="init">
-        <mkdir dir="bin"/>
-        <copy includeemptydirs="false" todir="bin">
+        <mkdir dir="build/classes"/>
+        <copy includeemptydirs="false" todir="build/classes">
             <fileset dir="src">
                 <exclude name="**/*.launch"/>
                 <exclude name="**/*.xtend"/>
                 <exclude name="**/*.java"/>
-                <exclude name="logic/boundary/fxml/"/>
-                <exclude name="resources/css/"/>
-                <exclude name="resources/"/>
             </fileset>
         </copy>
     </target>
     <target name="clean">
-        <delete dir="bin"/>
+        <delete dir="build/classes"/>
     </target>
     <target depends="clean" name="cleanall"/>
     <target depends="build-subprojects,build-project" name="build"/>
     <target name="build-subprojects"/>
     <target depends="init" name="build-project">
         <echo message="${ant.project.name}: ${ant.file}"/>
-        <javac debug="true" debuglevel="${debuglevel}" destdir="bin" includeantruntime="false" source="${source}" target="${target}">
+        <javac debug="true" debuglevel="${debuglevel}" destdir="build/classes" includeantruntime="false" source="${source}" target="${target}">
             <src path="src"/>
-            <exclude name="logic/boundary/fxml/"/>
-            <exclude name="resources/css/"/>
-            <exclude name="resources/"/>
             <classpath refid="Netbooks.classpath"/>
         </javac>
     </target>

@@ -12,6 +12,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import logic.bean.BookBean;
@@ -59,7 +60,7 @@ public class MakeProposalGC implements Initializable{
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		imv.setImage(bookBean.getSingleImage(ImageSizes.LARGE));
+		imv.setImage(new Image(bookBean.getSingleImage(ImageSizes.LARGE)));
 		isbn.setText(bookBean.getIsbn());
 		title.setText(bookBean.getTitle());
 		author.setText(bookBean.getAuthor());

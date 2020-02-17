@@ -1,0 +1,21 @@
+.bg {
+    background-image:url('../img/wallpaper.jpg');
+}
+
+.login-form {
+	padding-top: 20px;
+  	padding-bottom: 20px;
+  	padding-right: 20px;
+  	padding-left: 20px;
+  	margin-top:120px;
+  	
+  	background-color: rgb(227,181,132);
+}
+
+.login-header {
+	padding-bottom: 20px;
+}
+
+.book-list-item {
+	background-color: rgb(163,130,95, 0.8);
+}

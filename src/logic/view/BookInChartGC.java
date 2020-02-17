@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -45,7 +46,7 @@ public class BookInChartGC implements Initializable {
     @Override
 	public void initialize(URL location, ResourceBundle resources) {
     	
-    	image.setImage(bean.getSingleImage(ImageSizes.SMALL));
+    	image.setImage(new Image(bean.getSingleImage(ImageSizes.SMALL)));
     	lblBookAuthor.setText(bean.getAuthor());
     	lblBookName.setText(bean.getTitle());
     	

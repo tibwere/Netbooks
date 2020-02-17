@@ -24,7 +24,7 @@ public class ManageEvaluationsController {
 		return EvaluationDao.getInAppAverageEvaluation(bean.getIsbn());
 	}
 
-	public Map<ReaderBean, BookEvaluationBean> getBookReviews(BookBean bean) throws PersistencyException {
+	public Map<ReaderBean, BookEvaluationBean> getBookReviews(BookBean bean) throws PersistencyException, WrongSyntaxException {
 		Map<Reader, BookEvaluation> reviews = EvaluationDao.getPreviousReviews(bean.getIsbn());
 		Map<ReaderBean, BookEvaluationBean> reviewsBean = new HashMap<>();
 		

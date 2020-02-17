@@ -8,6 +8,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -45,7 +46,7 @@ public class ExchangeBookPopUpItemGC implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		
-		imv.setImage(bean.getSingleImage(ImageSizes.SMALL));
+		imv.setImage(new Image(bean.getSingleImage(ImageSizes.SMALL)));
 		isbn.setText(bean.getIsbn());
 		title.setText(bean.getTitle());
 		author.setText(bean.getAuthor());

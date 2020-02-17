@@ -11,6 +11,7 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -60,7 +61,7 @@ public class ExchangeBookItemGC implements Initializable {
 		
 		label.setText(bookBean.getTitle());
 		label.setTextFill(Color.WHITE);
-		imageView.setImage(bookBean.getSingleImage(ImageSizes.MEDIUM));
+		imageView.setImage(new Image(bookBean.getSingleImage(ImageSizes.MEDIUM)));
 		titleOfBook.setText(bookBean.getTitle());
 		titleOfBook.setTextFill(Color.BLACK);
 		ownerOfBook.setText(ownerBean.getUsername());

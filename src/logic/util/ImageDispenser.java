@@ -25,14 +25,14 @@ public class ImageDispenser {
 		
 	private ImageDispenser() {/*nothing to do here*/}
 	
-	public static Image getImage(String name) {
+	public static String getImage(String name) {
 		if (name.equals(LOADING))
-			return new Image(ImageDispenser.class.getResourceAsStream(PATH + "loading.gif"));
+			return ImageDispenser.class.getResource(PATH + "loading.gif").toExternalForm();
 		
-		return new Image(ImageDispenser.class.getResourceAsStream(PATH + name + ".png"));
+		return ImageDispenser.class.getResource(PATH + name + ".png").toExternalForm();
 	}
 	
-	public static Image getCovers(String name, ImageSizes type) {
+	public static String getCovers(String name, ImageSizes type) {
 		
 		StringBuilder path = new StringBuilder(AppProperties.getInstance().getProperty("coverspath"));
 		path.append(name.replace(' ', '_').toLowerCase());
@@ -43,7 +43,7 @@ public class ImageDispenser {
 		default: path.append("/l.jpg"); break; /* LARGE */
 		}
 		
-		return new Image(path.toString());
+		return path.toString();
 	}
 	
 }

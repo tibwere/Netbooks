@@ -3,7 +3,6 @@ package logic.model;
 import java.util.HashMap;
 import java.util.Map;
 
-import javafx.scene.image.Image;
 import logic.util.enumeration.ImageSizes;
 import logic.util.enumeration.Vendors;
 
@@ -22,7 +21,7 @@ public class Book {
 	private String publisher;
 	private String language;
 	
-	private Map<ImageSizes, Image> images;
+	private Map<ImageSizes, String> images;
 	private Map<Vendors, String> links;
 	
 	public Book(String isbn, String title, String author) {
@@ -69,27 +68,27 @@ public class Book {
 		this.language = language;
 	}
 
-	public Image getSmallImage() {
+	public String getSmallImage() {
 		return images.get(ImageSizes.SMALL);
 	}
 
-	public void setSmallImage(Image smallImage) {
+	public void setSmallImage(String smallImage) {
 		this.images.put(ImageSizes.SMALL, smallImage);
 	}
 
-	public Image getMediumImage() {
+	public String getMediumImage() {
 		return images.get(ImageSizes.MEDIUM);
 	}
 
-	public void setMediumImage(Image mediumImage) {
+	public void setMediumImage(String mediumImage) {
 		this.images.put(ImageSizes.MEDIUM, mediumImage);
 	}
 
-	public Image getLargeImage() {
+	public String getLargeImage() {
 		return images.get(ImageSizes.LARGE);
 	}
 
-	public void setLargeImage(Image largeImage) {
+	public void setLargeImage(String largeImage) {
 		this.images.put(ImageSizes.LARGE, largeImage);
 	}
 	

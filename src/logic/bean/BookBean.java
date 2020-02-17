@@ -3,7 +3,6 @@ package logic.bean;
 import java.util.HashMap;
 import java.util.Map;
 
-import javafx.scene.image.Image;
 import logic.util.enumeration.ImageSizes;
 import logic.util.enumeration.Vendors;
 
@@ -22,7 +21,7 @@ public class BookBean {
 	private String publisher;
 	private String language;
 
-	private Map<ImageSizes, Image> images;
+	private Map<ImageSizes, String> images;
 	private Map<Vendors, String> links;
 	
 	public BookBean() {
@@ -36,7 +35,7 @@ public class BookBean {
 		this.author = author;
 	}
 	
-	public BookBean(String title, String author, Image singleImage, ImageSizes size) {
+	public BookBean(String title, String author, String singleImage, ImageSizes size) {
 		this();
 		this.setTitle(title);
 		this.setAuthor(author);
@@ -91,11 +90,11 @@ public class BookBean {
 		this.publisher = publisher;
 	}
 	
-	public Map<ImageSizes, Image> getAllImages() {
+	public Map<ImageSizes, String> getAllImages() {
 		return this.images;
 	}
 	
-	public void setAllImages(Map<ImageSizes, Image> images) {
+	public void setAllImages(Map<ImageSizes, String> images) {
 		this.images = images;
 	}
 
@@ -107,11 +106,11 @@ public class BookBean {
 		this.language = language;
 	}
 
-	public Image getSingleImage(ImageSizes size) {
+	public String getSingleImage(ImageSizes size) {
 		return images.get(size);
 	}
 	
-	public void setSingleImage(Image image, ImageSizes size) {
+	public void setSingleImage(String image, ImageSizes size) {
 		this.images.put(size, image);
 	}
 }

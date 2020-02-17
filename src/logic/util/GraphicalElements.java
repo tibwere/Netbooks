@@ -11,6 +11,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -152,7 +153,7 @@ public class GraphicalElements {
 		Alert alert = new Alert(type);
 		
 		Stage alertStage = (Stage) alert.getDialogPane().getScene().getWindow();
-		alertStage.getIcons().add(ImageDispenser.getImage(ImageDispenser.ICON));
+		alertStage.getIcons().add(new Image(ImageDispenser.getImage(ImageDispenser.ICON)));
 		
 		alert.setTitle("Netbooks v1.0 ");
 		
@@ -173,7 +174,7 @@ public class GraphicalElements {
 		secondaryStage.initOwner(parent);
 		secondaryStage.initModality(Modality.APPLICATION_MODAL);
 		secondaryStage.setTitle(AppProperties.getInstance().getProperty("title"));
-		secondaryStage.getIcons().add(ImageDispenser.getImage(ImageDispenser.ICON));
+		secondaryStage.getIcons().add(new Image(ImageDispenser.getImage(ImageDispenser.ICON)));
 		secondaryStage.setScene(scene);
 		
 		return secondaryStage;

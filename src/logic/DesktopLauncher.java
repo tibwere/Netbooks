@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import logic.db.DBManager;
 import logic.util.AppProperties;
@@ -35,7 +36,7 @@ public class DesktopLauncher extends Application {
 		stage.setHeight(Integer.valueOf(AppProperties.getInstance().getProperty("height")));
 		stage.setResizable(Boolean.valueOf(AppProperties.getInstance().getProperty("resize")));		
 		stage.centerOnScreen();
-		stage.getIcons().add(ImageDispenser.getImage(ImageDispenser.ICON));
+		stage.getIcons().add(new Image(ImageDispenser.getImage(ImageDispenser.ICON)));
 		stage.setScene(scene);
 	}
 	

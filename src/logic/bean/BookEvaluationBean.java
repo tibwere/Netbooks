@@ -1,5 +1,7 @@
 package logic.bean;
 
+import logic.exception.WrongSyntaxException;
+
 /**
  * Bean per la migrazione delle info su recensioni e valutazioni
  * fra layer di controller e quello di view
@@ -21,7 +23,9 @@ public class BookEvaluationBean {
 	public String getTitle() {
 		return title;
 	}
-	public void setTitle(String title) {
+	public void setTitle(String title) throws WrongSyntaxException {
+		if (title.length() >= 32)
+			throw new WrongSyntaxException("Max length for title of review: 32 chars!");
 		this.title = title;
 	}
 	public String getBody() {

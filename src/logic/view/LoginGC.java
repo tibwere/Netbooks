@@ -14,13 +14,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -178,7 +179,7 @@ public class LoginGC implements Initializable{
 	private Alert createCustomAlert() {
 		Alert al = new Alert(AlertType.INFORMATION);
 		Stage alertStage = (Stage) al.getDialogPane().getScene().getWindow();
-		alertStage.getIcons().add(ImageDispenser.getImage(ImageDispenser.ICON));
+		alertStage.getIcons().add(new Image(ImageDispenser.getImage(ImageDispenser.ICON)));
 		al.setTitle("Netbooks v1.0");
 		al.setHeaderText("Netbooks asks ...");
 		al.setContentText("Do you want to signup as reader or retailer?");

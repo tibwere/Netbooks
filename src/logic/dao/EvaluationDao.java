@@ -12,6 +12,7 @@ import logic.db.DBManager;
 import logic.db.DBOperation;
 import logic.db.Query;
 import logic.exception.PersistencyException;
+import logic.exception.WrongSyntaxException;
 import logic.model.BookEvaluation;
 import logic.model.users.Reader;
 
@@ -63,6 +64,8 @@ public class EvaluationDao {
 
 		} catch(SQLException | ClassNotFoundException e) {
 			throw new PersistencyException("Unable to retrive old evaluation from DB");
+		} catch (WrongSyntaxException e) {
+			throw new IllegalStateException("DB must respect constraints");
 		} finally {
 			DBManager.closeRs(results);
 			DBManager.closeStmt(stmt);

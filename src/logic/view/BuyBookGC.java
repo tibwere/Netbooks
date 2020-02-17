@@ -22,6 +22,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -109,7 +110,7 @@ public class BuyBookGC implements Initializable{
 		errLbl.setTextFill(Color.RED);
 		errLbl.setFont(Font.font("System", FontWeight.BOLD, 12));
 				
-		bookImg.setImage(bookToLoad.getSingleImage(ImageSizes.LARGE));
+		bookImg.setImage(new Image(bookToLoad.getSingleImage(ImageSizes.LARGE)));
 		isbn10Lbl.setText(bookToLoad.getIsbn());
 		isbn13Lbl.setText("978-" + bookToLoad.getIsbn());
 		titleLbl.setText(bookToLoad.getTitle());

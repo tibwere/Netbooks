@@ -21,6 +21,7 @@ import logic.bean.BookEvaluationBean;
 import logic.controller.BuyBookController;
 import logic.controller.ManageEvaluationsController;
 import logic.exception.PersistencyException;
+import logic.exception.WrongSyntaxException;
 import logic.util.GraphicalElements;
 
 /**
@@ -74,17 +75,16 @@ public class RatingModal extends VBox{
 			@Override
 			public void handle(ActionEvent event) {
 				
-				BookEvaluationBean evalBean = new BookEvaluationBean();
-				evalBean.setRate((int) rate.getRating());
-				evalBean.setTitle(reviewTitleTxt.getText());
-				evalBean.setBody(reviewBodyTxt.getText());
-				
 				try {
+					BookEvaluationBean evalBean = new BookEvaluationBean();
+					evalBean.setRate((int) rate.getRating());
+					evalBean.setTitle(reviewTitleTxt.getText());
+					evalBean.setBody(reviewBodyTxt.getText());
 					controller.getManageEvaluationsController().addNewEvaluation(evalBean, bookBean);
 					GraphicalElements.showDialog(AlertType.INFORMATION, "Your evaluation has been succesfully posted!");
-				} catch (PersistencyException e) {
-					GraphicalElements.showDialog(AlertType.ERROR, "Unable to post your evaluation");
-				}
+				} catch (PersistencyException | WrongSyntaxException e) {
+					GraphicalElements.showDialog(AlertType.ERROR, e.getMessage());
+				} 
 				Stage currStage = (Stage) submitBtn.getScene().getWindow();
 				currStage.close();
 			}
