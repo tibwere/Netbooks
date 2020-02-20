@@ -98,7 +98,7 @@ public class UserBean {
 	}
 
 	public void setZip(String zip) throws WrongSyntaxException {
-		if (zip.length() != 5)
+		if (zip.length() != 5 && zip.length() != 0)
 			throw new WrongSyntaxException("ZIP code is invalid!");
 		
 		this.zip = zip;

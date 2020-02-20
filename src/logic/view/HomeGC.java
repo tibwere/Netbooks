@@ -14,9 +14,11 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
 import logic.controller.BuyBookController;
 import logic.exception.PersistencyException;
 import logic.util.GraphicalElements;
+import logic.util.enumeration.Views;
 import logic.view.bpobserver.impl.BookPreviewPanel;
 import logic.view.bpobserver.impl.ObservableBookList;
 
@@ -48,7 +50,7 @@ public class HomeGC implements Initializable {
 		try {
 			this.ctrl = new BuyBookController(null);
 			this.obs = new ObservableBookList(ctrl.getNotOwnedBooks());
-			this.bookPanel = new BookPreviewPanel(obs);
+			this.bookPanel = new BookPreviewPanel(obs, this);
 			this.obs.attach(bookPanel);
 		} catch (PersistencyException e) {
 			GraphicalElements.showDialog(AlertType.ERROR, e.getMessage());
@@ -115,6 +117,11 @@ public class HomeGC implements Initializable {
 			GraphicalElements.showDialog(AlertType.ERROR, "Unable to reload homepage and apply selected filters");
 			Platform.exit();
 		}
+	}
+	
+	public void refresh() {
+		Stage stage = (Stage) pane.getScene().getWindow();
+		stage.setScene(GraphicalElements.switchTo(Views.HOME, null));
 	}
 
 }

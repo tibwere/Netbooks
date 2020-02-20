@@ -16,6 +16,12 @@ import logic.exception.WrongSyntaxException;
 import logic.util.GraphicalElements;
 import logic.util.enumeration.Views;
 
+/**
+ * Controller grafico relativo alla schermata di signup del retailer
+ * [file fxml associato: signupretalier.fxml]
+ * @author Simone Tiberi (M. 0252795)
+ *
+ */
 public class SignupRetailerGC {
 	
     @FXML
@@ -89,7 +95,7 @@ public class SignupRetailerGC {
     			errLbl.setText(e.getMessage().toUpperCase());
     		} catch (IOException e) {
 				errLbl.setText("UNABLE TO CONNECT TO MAPS SERVICE TO GEOLOCALIZE YOU");
-			}
+			} 
     	}
 	}
 

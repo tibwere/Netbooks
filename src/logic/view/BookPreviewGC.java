@@ -44,9 +44,11 @@ public class BookPreviewGC implements Initializable{
 	private HBox pane;
 	
 	private BookBean bean;
+	private HomeGC parentCtrl;
 	
-	public BookPreviewGC(BookBean bean) {
+	public BookPreviewGC(BookBean bean, HomeGC parentCtrl) {
 		this.bean = bean;
+		this.parentCtrl = parentCtrl;
 	}
 
 	@Override
@@ -91,6 +93,7 @@ public class BookPreviewGC implements Initializable{
 				ctrl.addBookToOwnedList(bean);
 				
 				GraphicalElements.showDialog(AlertType.INFORMATION, "\"" + bean.getTitle() + "\" has succesfully added to your owned list!" );
+				parentCtrl.refresh();
 			} catch (PersistencyException e) {
 				GraphicalElements.showDialog(AlertType.ERROR, e.getMessage());
 				Platform.exit();

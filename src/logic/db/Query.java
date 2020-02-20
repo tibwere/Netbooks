@@ -4,6 +4,8 @@ package logic.db;
  * Classe che rappresenta un enumerato di possibili query che � possibile
  * chiamare sulla base di dati tramite la classe {@link DBOperation}
  * @author Simone Tiberi (M. 0252795)
+ * @author Alessandro Calomino (M. 0258841)
+ * @author Cristiano Cuffaro (M. 0258093)
  *
  */
 public class Query {
@@ -19,9 +21,9 @@ public class Query {
 	public static final String INSERT_NEW_BOOK_TO_OWNEDLIST = "call netbooks.insert_new_book_to_ownedlist(?, ?)";
 	public static final String GET_SEARCHED_BOOK_SP = "call netbooks.get_searched_book(?)";
 	public static final String GET_ALL_BOOKS_SP = "call netbooks.get_all_books()";
-	public static final String INSERT_NEW_READER = "call netbooks.insert_new_reader(?, ?, ?, ?, ?, ?, ?, ?)";
-	public static final String INSERT_NEW_RETAILER = "call netbooks.insert_new_retailer(?, ?, ?, ?, ?, ?, ?)";
-	public static final String CHECK_IF_OWNED = "call netbooks.check_if_owned(?, ?)";
+	public static final String INSERT_NEW_READER_SP = "call netbooks.insert_new_reader(?, ?, ?, ?, ?, ?, ?, ?)";
+	public static final String INSERT_NEW_RETAILER_SP = "call netbooks.insert_new_retailer(?, ?, ?, ?, ?, ?, ?)";
+	public static final String CHECK_IF_OWNED_SP = "call netbooks.check_if_owned(?, ?)";
 	public static final String GET_EXCHANGEABLE_BOOKS_SP = "call netbooks.get_exchangeable_books(?)";
 	public static final String GET_OWNERS_SP = "call netbooks.get_owners(?)";
 	public static final String FIND_OPEN_PROPOSALS_SP = "call netbooks.find_open_proposals(?, ?)";

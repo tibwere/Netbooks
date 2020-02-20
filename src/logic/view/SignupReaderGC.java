@@ -21,6 +21,12 @@ import logic.exception.WrongSyntaxException;
 import logic.util.GraphicalElements;
 import logic.util.enumeration.Views;
 
+/**
+ * Controller grafico relativo alla schermata di signup del reader
+ * [file fxml associato: signupreader.fxml]
+ * @author Simone Tiberi (M. 0252795)
+ *
+ */
 public class SignupReaderGC implements Initializable {
 
     @FXML
@@ -74,6 +80,7 @@ public class SignupReaderGC implements Initializable {
 		group = new ToggleGroup();
 		maleRadio.setToggleGroup(group);
 		femaleRadio.setToggleGroup(group);
+		maleRadio.setSelected(true);
 	}
 	
 	@FXML
@@ -114,7 +121,7 @@ public class SignupReaderGC implements Initializable {
     		} catch (UserAlreadySignedException | WrongSyntaxException | NoSuchAlgorithmException e) {
     			errLbl.setText(e.getMessage().toUpperCase());
     		} catch (IOException e) {
-				errLbl.setText("UNABLE TO CONNECT TO MAPS SERVICE TO GEOLOCALIZE YOU");
+				errLbl.setText("UNABLE TO CONNECT TO MAPS SERVICE");
 			}
     	}
     }

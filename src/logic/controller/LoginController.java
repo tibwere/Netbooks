@@ -2,6 +2,8 @@ package logic.controller;
 
 import java.io.IOException;
 
+import org.json.JSONException;
+
 import logic.bean.ReaderBean;
 import logic.bean.RetailerBean;
 import logic.bean.UserBean;
@@ -38,9 +40,14 @@ public class LoginController {
 		reader.setFirstName(bean.getFirstName());
 		reader.setSecondName(bean.getSecondName());
 		
-		Geolocalization position = Parser.getMapsLocation(formatAddress(bean.getAddress(), bean.getCity(), bean.getZip(), bean.getCountry()));
-		reader.setLatitude(position.getLatitude());
-		reader.setLongitude(position.getLongitude());
+		try {
+			Geolocalization position = Parser.getMapsLocation(formatAddress(bean.getAddress(), bean.getCity(), bean.getZip(), bean.getCountry()));
+			reader.setLatitude(position.getLatitude());
+			reader.setLongitude(position.getLongitude());
+		} catch(JSONException e) { /* RuntimeException causata dall'impossiblitaà di convertire il JSON (indirizzo malformato) */			
+			reader.setLatitude(Geolocalization.INVALID_VALUE);
+			reader.setLongitude(Geolocalization.INVALID_VALUE);
+		}
 		
 		reader.store(bean.getPassword());
 		Session.getSession().setCurrUser(bean.getUsername());
@@ -57,15 +64,20 @@ public class LoginController {
 	}
 
 	public void signup(RetailerBean bean) throws IOException, UserAlreadySignedException {
-		Retailer retailer = new Retailer(bean.getUsername(), bean.getEmail(), bean.getCompanyName());
+		Retailer retailer = new Retailer(bean.getUsername(), bean.getEmail());
+		retailer.setCompany(bean.getCompanyName());
 		retailer.setVat(bean.getVat());
 		
-		Geolocalization position = Parser.getMapsLocation(formatAddress(bean.getAddress(), bean.getCity(), bean.getZip(), bean.getCountry()));
-		retailer.setLatitude(position.getLatitude());
-		retailer.setLongitude(position.getLongitude());
+		try {
+			Geolocalization position = Parser.getMapsLocation(formatAddress(bean.getAddress(), bean.getCity(), bean.getZip(), bean.getCountry()));
+			retailer.setLatitude(position.getLatitude());
+			retailer.setLongitude(position.getLongitude());
+		} catch(JSONException e) { /* RuntimeException causata dall'impossiblita di convertire il JSON (indirizzo malformato) */			
+			retailer.setLatitude(Geolocalization.INVALID_VALUE);
+			retailer.setLongitude(Geolocalization.INVALID_VALUE);
+		} 
 		
 		retailer.store(bean.getPassword());
 		Session.getSession().setCurrUser(bean.getUsername());
 	}
-
 }

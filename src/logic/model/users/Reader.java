@@ -5,14 +5,15 @@ import java.util.List;
 
 import logic.dao.ReaderDao;
 import logic.exception.UserAlreadySignedException;
+import logic.model.Geolocalization;
 import logic.model.ProposalNotification;
 
 /**
- * 
- * @author Cristiano Cuffaro
+ * Entita'  del dominio di interesse: Lettore
+ * @author Simone Tiberi (M. 0252795)
+ * @author Cristiano Cuffaro (M. 0258093)
  *
  */
-
 public class Reader extends User {
 	
 	private String firstName;
@@ -68,7 +69,7 @@ public class Reader extends User {
 
 	@Override
 	public void store(String password) throws UserAlreadySignedException {
-		ReaderDao.saveReaderInDB(this, password);
+		ReaderDao.saveReaderInDB(this, password, !(this.getLatitude() == Geolocalization.INVALID_VALUE || this.getLongitude() == Geolocalization.INVALID_VALUE));
 	}
 }
 

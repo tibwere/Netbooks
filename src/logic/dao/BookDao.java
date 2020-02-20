@@ -27,7 +27,7 @@ import logic.util.enumeration.ImageSizes;
 public class BookDao {
 
 	private BookDao() {
-		/* non instanziabile */
+		/* non istanziabile */
 	}
 	
 	private static Book buildBookFromResultSet(ResultSet res) throws SQLException {

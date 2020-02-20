@@ -4,7 +4,6 @@ package logic.servlet;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,31 +15,25 @@ import logic.controller.LoginController;
 import logic.exception.NoUserFoundException;
 import logic.exception.PersistencyException;
 import logic.exception.WrongSyntaxException;
+import logic.util.WebUtilities;
 import logic.util.enumeration.UserTypes;
 
 /**
- * Servlet implementation class LoginServlet
+ * Servlet utilizata per gestire la fase di login dell'utente<br>
+ * 
+ * Tipo di richiesta: <b>POST</b>
+ * @author Simone Tiberi (M. 0252795)
+ * 
  */
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
        
 	private static final long serialVersionUID = 9211568140687018262L;
-	
-	private static final String INDEX_PAGE_URL = "/index.jsp";
-	private static final String RETAILER_PAGE_URL = "/retailer.jsp";
-	private static final String LOGIN_PAGE_URL = "/login.jsp";
 
-
-	/**
-     * @see HttpServlet#HttpServlet()
-     */
     public LoginServlet() {
         super();
     }
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 			String username = request.getParameter("username");
@@ -50,25 +43,22 @@ public class LoginServlet extends HttpServlet {
 
 			UserTypes type = controller.loginUser(bean);
 			request.getSession().setAttribute("currUser", username);
-			
-			RequestDispatcher rd = null;
-			if (type.equals(UserTypes.READER))
-				rd = request.getRequestDispatcher(INDEX_PAGE_URL);
+			request.getSession().setAttribute("currUserType", type);
+
+			if (type.equals(UserTypes.READER)) {
+				request.getRequestDispatcher(WebUtilities.LOAD_BOOKS_SERVLET_URL).forward(request, response);
+			}
 			else
-				rd = request.getRequestDispatcher(RETAILER_PAGE_URL);
-			
-			if (rd != null)
-				rd.forward(request, response);
+				request.getRequestDispatcher(WebUtilities.RETAILER_PAGE_URL).forward(request, response);
 			
 		} catch(NoUserFoundException | PersistencyException e) {
 			request.setAttribute("fail", e.getMessage().toUpperCase());
-			request.getRequestDispatcher(LOGIN_PAGE_URL).forward(request, response);
+			request.getRequestDispatcher(WebUtilities.LOGIN_PAGE_URL).forward(request, response);
 		} catch (NoSuchAlgorithmException e) {
-			request.setAttribute("fail", "UNABLE TO ENCRYPT YOUR PASSWORD");
-			request.getRequestDispatcher(LOGIN_PAGE_URL).forward(request, response);
+			WebUtilities.redirectToErrorPage(request, response, "UNABLE TO ENCRYPT YOUR PASSWORD");
 		} catch (WrongSyntaxException e) {
 			request.setAttribute("fail", "LOGIN FAILED");
-			request.getRequestDispatcher(LOGIN_PAGE_URL).forward(request, response);
+			request.getRequestDispatcher(WebUtilities.LOGIN_PAGE_URL).forward(request, response);
 		}
 	}
 

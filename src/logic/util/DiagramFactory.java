@@ -38,6 +38,7 @@ public class DiagramFactory{
 		
 	}
 	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public Chart createBarChart(Map<BookBean, Integer> books) {
 		
 		int index = 0;

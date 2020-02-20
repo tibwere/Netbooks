@@ -25,7 +25,7 @@ import logic.model.users.Reader;
 public class EvaluationDao {
 	
 	private EvaluationDao() {
-		/* non instanziabile */
+		/* non istanziabile */
 	}
 	
 	public static void insertNewEval(int stars, String title, String body, String reader, String book) throws PersistencyException  {

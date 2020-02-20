@@ -13,6 +13,7 @@ import logic.bean.BookBean;
 import logic.util.GraphicalElements;
 import logic.util.enumeration.DynamicElements;
 import logic.view.BookPreviewGC;
+import logic.view.HomeGC;
 import logic.view.bpobserver.abstr.Observer;
 import logic.view.bpobserver.abstr.Subject;
 
@@ -34,9 +35,11 @@ public class BookPreviewPanel extends VBox implements Observer {
 	
 	private ObservableBookList observable;
 	private Label noBooksFoundLbl;
+	private HomeGC parentCtrl;
 	
-	public BookPreviewPanel(ObservableBookList o) {
+	public BookPreviewPanel(ObservableBookList o, HomeGC parentCtrl) {
 		this.observable = o;
+		this.parentCtrl = parentCtrl;
 		
 		this.setSpacing(SPACING);
 		this.setPadding(new Insets(PADDING));
@@ -56,7 +59,7 @@ public class BookPreviewPanel extends VBox implements Observer {
 			this.getChildren().add(noBooksFoundLbl);
 		else {
 			for (BookBean b : observable.getBooks()) {
-				BookPreviewGC gc = new BookPreviewGC(b);
+				BookPreviewGC gc = new BookPreviewGC(b, parentCtrl);
 				FXMLLoader loader = GraphicalElements.loadFXML(DynamicElements.HP_BOOK_PREVIEW);
 				loader.setController(gc);
 				

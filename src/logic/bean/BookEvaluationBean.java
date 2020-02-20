@@ -1,14 +1,22 @@
 package logic.bean;
 
+import java.io.Serializable;
+
 import logic.exception.WrongSyntaxException;
 
 /**
  * Bean per la migrazione delle info su recensioni e valutazioni
- * fra layer di controller e quello di view
+ * fra layer di controller e quello di view.
+ * 
+ * La classe realizza l'interfaccia {@link Serializable} poichè
+ * nella versione WEB vengono salvate sue istanze nella sessione 
+ * o nella request.
  * @author Simone Tiberi (M. 0252795)
  *
  */
-public class BookEvaluationBean {
+public class BookEvaluationBean implements Serializable {
+
+	private static final long serialVersionUID = 6181828647524752179L;
 	
 	private String title;
 	private String body;

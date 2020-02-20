@@ -41,6 +41,8 @@
         <pathelement location="../../../../../server/apache-tomcat-8.5.51/lib/websocket-api.jar"/>
     </path>
     <path id="Web App Libraries.libraryclasspath">
+        <pathelement location="WebContent/WEB-INF/lib/json-20140107.jar"/>
+        <pathelement location="WebContent/WEB-INF/lib/jsoup-1.12.2.jar"/>
         <pathelement location="WebContent/WEB-INF/lib/mysql-connector-java-5.1.48.jar"/>
     </path>
     <path id="EAR Libraries.libraryclasspath"/>

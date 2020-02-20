@@ -22,7 +22,7 @@ import logic.util.enumeration.Views;
 import logic.view.NavbarGC;
 
 /**
- * Classe che ha la responsabilita' della creazione degli elementi grafici dell'applicazione
+ * Classe che ha la responsabilita' della creazione degli elementi grafici dell'applicazione standalone
  * @author Simone Tiberi (M. 0252795)
  *
  */
@@ -115,8 +115,7 @@ public class GraphicalElements {
 				if (!nextView.equals(Views.KBSAS) && !nextView.equals(Views.DIAGRAM)) {
 					pane.setTop(GraphicalElements.getNavbar());
 					
-					if (Session.getSession().getCurrView().equals(Views.HOME) &&
-							Session.getSession().getPrevView().equals(Views.LOGIN))
+					if (Session.getSession().getCurrView().equals(Views.HOME) && Session.getSession().getPrevView().equals(Views.LOGIN))
 						navbarCtrl.updateGenerality();
 					
 					navbarCtrl.disableBtns();

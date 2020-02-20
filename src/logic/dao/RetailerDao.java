@@ -13,17 +13,25 @@ import logic.exception.UserAlreadySignedException;
 import logic.model.Geolocalization;
 import logic.model.users.Retailer;
 
+/**
+ * DAO per l'interazione con lo strato di persistenza 
+ * dei dati realtivi all'entity {@link Retailer}
+ * @author Simone Tiberi (M. 0252795)
+ * @author Alessandro Calomino (M. 0258841)
+ *
+ */
 public class RetailerDao {
 	
 	private RetailerDao() {}
 
-	public static void saveRetailerInDB(Retailer retailer, String password) throws UserAlreadySignedException {
+	public static void saveRetailerInDB(Retailer retailer, String password, boolean hasPosition) throws UserAlreadySignedException {
 		CallableStatement stmt = null;
 		
 		try {
 			Connection conn = DBManager.getConnection();
-			stmt = conn.prepareCall(Query.INSERT_NEW_RETAILER);
-			DBOperation.execInsertReader(stmt, retailer, password);
+			stmt = conn.prepareCall(Query.INSERT_NEW_RETAILER_SP);
+			
+			DBOperation.execInsertRetailer(stmt, retailer, password, hasPosition);
 		} catch (SQLException | ClassNotFoundException e) {
 			throw new UserAlreadySignedException("The user you've inserted already exists");
 		}

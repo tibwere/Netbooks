@@ -2,6 +2,7 @@ package logic.util;
 
 import java.io.IOException;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -36,7 +37,7 @@ public class Parser {
 		return Integer.valueOf(percentageStr.substring(0, 2));
 	}
 	
-	public static Geolocalization getMapsLocation(String address) throws IOException {
+	public static Geolocalization getMapsLocation(String address) throws IOException, JSONException {
 		
 		String addressConverted = address.replace(" ", "%20");
 		

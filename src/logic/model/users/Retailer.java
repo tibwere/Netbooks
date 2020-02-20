@@ -2,9 +2,11 @@ package logic.model.users;
 
 import logic.dao.RetailerDao;
 import logic.exception.UserAlreadySignedException;
+import logic.model.Geolocalization;
 
 /**
- * 
+ * Entita'  del dominio di interesse: Rivenditore
+ * @author Simone Tiberi (M. 0252795)
  * @author Alessandro Calomino (M. 0258841)
  *
  */
@@ -29,7 +31,7 @@ public class Retailer extends User {
 		this.company = company;
 	}
 
-	public Retailer(String username, String email, String company) {
+	public Retailer(String username, String email) {
 		super(username, email);		
 	}
 	
@@ -39,6 +41,6 @@ public class Retailer extends User {
 	
 	@Override
 	public void store(String password) throws UserAlreadySignedException {
-		RetailerDao.saveRetailerInDB(this, password);
+		RetailerDao.saveRetailerInDB(this, password, !(this.getLatitude() == Geolocalization.INVALID_VALUE || this.getLongitude() == Geolocalization.INVALID_VALUE));
 	}
 }

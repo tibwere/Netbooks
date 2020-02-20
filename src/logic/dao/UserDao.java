@@ -17,7 +17,6 @@ import logic.util.enumeration.UserTypes;
  * DAO per l'interazione con lo strato di persistenza 
  * dei dati realtivi all'entity {@link User}
  * @author Simone Tiberi (M. 0252795)
- * @author Cristiano Cuffaro (M. 0252795)
  *
  */
 public class UserDao {

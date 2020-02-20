@@ -1,5 +1,6 @@
 package logic.controller;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,6 +12,7 @@ import logic.exception.PersistencyException;
 import logic.exception.WrongSyntaxException;
 import logic.model.BookEvaluation;
 import logic.model.users.Reader;
+import logic.util.Parser;
 import logic.util.Session;
 
 /**
@@ -24,7 +26,7 @@ public class ManageEvaluationsController {
 		return EvaluationDao.getInAppAverageEvaluation(bean.getIsbn());
 	}
 
-	public Map<ReaderBean, BookEvaluationBean> getBookReviews(BookBean bean) throws PersistencyException, WrongSyntaxException {
+	public Map<ReaderBean, BookEvaluationBean> getBookReviews(BookBean bean) throws PersistencyException {
 		Map<Reader, BookEvaluation> reviews = EvaluationDao.getPreviousReviews(bean.getIsbn());
 		Map<ReaderBean, BookEvaluationBean> reviewsBean = new HashMap<>();
 		
@@ -33,13 +35,13 @@ public class ManageEvaluationsController {
 			BookEvaluationBean evalbean = new BookEvaluationBean();
 			try {
 				readerBean.setUsername(reader.getUsername());
+				evalbean.setTitle(reviews.get(reader).getTitle());
+				evalbean.setBody(reviews.get(reader).getBody());
+				reviewsBean.put(readerBean, evalbean);
 			} catch (WrongSyntaxException e) {
 				throw new IllegalStateException("Username from DB must respect constraints");
 			}
-			evalbean.setTitle(reviews.get(reader).getTitle());
-			evalbean.setBody(reviews.get(reader).getBody());
-			
-			reviewsBean.put(readerBean, evalbean);
+
 		}
 		
 		return reviewsBean;
@@ -52,6 +54,10 @@ public class ManageEvaluationsController {
 	
 	public BookEvaluationBean getPreviousEvaluation(BookBean bookBean) throws PersistencyException {
 		return EvaluationDao.getOldEvaluation(Session.getSession().getCurrUser(), bookBean.getIsbn());
+	}
+
+	public int getOnlineAvgEval(BookBean bean) throws IOException {
+		return Parser.getAVGEvaluationFromGoogle(bean.getTitle());
 	}
 }
 	

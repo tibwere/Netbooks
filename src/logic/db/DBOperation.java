@@ -3,6 +3,7 @@ package logic.db;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 
 import logic.model.users.Reader;
 import logic.model.users.Retailer;
@@ -48,12 +49,20 @@ public class DBOperation {
 		return (stmt.execute()) ? stmt.getResultSet() : null;		
 	}
 
-	public static void execInsertReader(CallableStatement stmt, Reader reader, String password) throws SQLException {
+	public static void execInsertReader(CallableStatement stmt, Reader reader, String password, boolean hasPosition) throws SQLException {
 		stmt.setString(1, reader.getUsername());
 		stmt.setString(2, password);
 		stmt.setString(3, reader.getEmail());
-		stmt.setFloat(4, reader.getLatitude());
-		stmt.setFloat(5, reader.getLongitude());
+		
+		if (!hasPosition) {
+			stmt.setNull(4, Types.FLOAT);
+			stmt.setNull(5, Types.FLOAT);
+		} 
+		else {
+			stmt.setFloat(4, reader.getLatitude());
+			stmt.setFloat(5, reader.getLongitude());
+		}
+		
 		stmt.setString(6, reader.getFirstName());
 		stmt.setString(7, reader.getSecondName());
 		stmt.setBoolean(8, reader.isFemale());
@@ -61,12 +70,20 @@ public class DBOperation {
 		executeStmt(stmt);
 	}
 
-	public static void execInsertReader(CallableStatement stmt, Retailer retailer, String password) throws SQLException {
+	public static void execInsertRetailer(CallableStatement stmt, Retailer retailer, String password, boolean hasPosition) throws SQLException {
 		stmt.setString(1, retailer.getUsername());
 		stmt.setString(2, password);
 		stmt.setString(3, retailer.getEmail());
-		stmt.setFloat(4, retailer.getLatitude());
-		stmt.setFloat(5, retailer.getLongitude());
+		
+		if (!hasPosition) {
+			stmt.setNull(4, Types.FLOAT);
+			stmt.setNull(5, Types.FLOAT);
+		}
+		else {
+			stmt.setFloat(4, retailer.getLatitude());
+			stmt.setFloat(5, retailer.getLongitude());
+		}
+		
 		stmt.setString(6, retailer.getCompany());
 		stmt.setString(7, retailer.getVat());
 		

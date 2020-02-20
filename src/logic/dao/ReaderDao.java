@@ -15,6 +15,13 @@ import logic.exception.PersistencyException;
 import logic.exception.UserAlreadySignedException;
 import logic.model.users.Reader;
 
+/**
+ * DAO per l'interazione con lo strato di persistenza 
+ * dei dati realtivi all'entity {@link Reader}
+ * @author Simone Tiberi (M. 0252795)
+ * @author Cristiano Cuffaro (M. 0258093)
+ *
+ */
 public class ReaderDao {
 	
 	private ReaderDao() {
@@ -63,13 +70,14 @@ public class ReaderDao {
 		
 	}
 
-	public static void saveReaderInDB(Reader reader, String password) throws UserAlreadySignedException {
+	public static void saveReaderInDB(Reader reader, String password, boolean hasPosition) throws UserAlreadySignedException {
 		CallableStatement stmt = null;
 		
 		try {
 			Connection conn = DBManager.getConnection();
-			stmt = conn.prepareCall(Query.INSERT_NEW_READER);
-			DBOperation.execInsertReader(stmt, reader, password);
+			stmt = conn.prepareCall(Query.INSERT_NEW_READER_SP);
+			
+			DBOperation.execInsertReader(stmt, reader, password, hasPosition);
 		} catch (SQLException | ClassNotFoundException e) {
 			throw new UserAlreadySignedException("The user you've inserted already exists");
 		}
@@ -81,7 +89,7 @@ public class ReaderDao {
 		
 		try {
 			Connection conn = DBManager.getConnection();
-			stmt = conn.prepareCall(Query.CHECK_IF_OWNED);
+			stmt = conn.prepareCall(Query.CHECK_IF_OWNED_SP);
 			results = DBOperation.bindParametersAndExec(stmt, reader, book);
 			
 			return results.first();
