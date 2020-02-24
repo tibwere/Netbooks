@@ -61,3 +61,67 @@
 .star-radio + .star-img {
   cursor: pointer;
 }
+
+.book-cover {
+	color: #634f3a;
+}
+
+.ex-book-black-link {
+	color: black !important;
+}
+
+.ex-book-col-bg {
+	background-color: #f0bf8b;
+	border-radius: 20px;
+}
+
+.ex-book-btn {
+	background-color: #634f3a !important;
+	color: white !important;
+	border-radius: 5px;
+}
+
+.ex-book-shadow {
+  text-shadow: 3px 3px 1px #000000;
+}
+
+.ex-book-modal {
+	background-color: #E6E6E6;
+}
+
+.ex-book-td {
+	width: 33.33%;
+}
+
+.notification {
+	background-color: rgb(163, 130, 95, 0.75);
+	height: 90px;
+}
+
+.ex-book-accept-btn {
+	background-color: green !important;
+	color: white !important;
+	border-radius: 5px;
+}
+
+.ex-book-choose-btn {
+	background-color: blue !important;
+	color: white !important;
+	border-radius: 5px;
+}
+
+.ex-book-reject-btn {
+	background-color: red !important;
+	color: white !important;
+	border-radius: 5px;
+}
+
+
+
+
+
+
+
+
+
+

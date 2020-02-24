@@ -7,7 +7,15 @@ import logic.model.proposalstate.StateMachineImpl;
 import logic.model.users.Reader;
 import logic.util.enumeration.ProposalEvents;
 import logic.util.enumeration.ProposalStates;
-
+/**
+ * Classe <b>Client</b> del pattern <i>State</i> dei GoF.<br>
+ * Rappresenta l'entita' del dominio di interesse alla quale 
+ * si vuole associare un comportamento per mezzo di una state machine.
+ * Mantiene un riferimento a {@link StateMachineImpl} attraverso la
+ * sua interfaccia {@link ProposalStateMachine}
+ * @author Cristiano Cuffaro (M. 0258093)
+ *
+ */
 public class Proposal {
 	
 	private int proposalId;

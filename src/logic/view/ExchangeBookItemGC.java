@@ -1,10 +1,5 @@
 package logic.view;
 
-/**
- * controller grafico collegato alla grafica "exchange_book_item"
- * @author Cristiano Cuffaro (M. 0258093)
- */
-
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -18,11 +13,17 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import logic.bean.BookBean;
-import logic.bean.UserBean;
+import logic.bean.ReaderBean;
 import logic.util.GraphicalElements;
 import logic.util.enumeration.ImageSizes;
 import logic.util.enumeration.Views;
-
+/**
+ * Controller grafico relativo ad un libro scambiabile
+ * nella schermata di scambio libri 
+ * [file fxml associato: exchange_book_item.fxml] 
+ * @author Cristiano Cuffaro (M. 0258093)
+ *
+ */
 public class ExchangeBookItemGC implements Initializable {
 
 	@FXML
@@ -45,13 +46,13 @@ public class ExchangeBookItemGC implements Initializable {
 	
 	private BookBean bookBean;
 	
-	private UserBean ownerBean;
+	private ReaderBean ownerBean;
 	
 	private ExchangeBookGC mainGC;
 	
 	private String position;
 	
-	public ExchangeBookItemGC(BookBean bookBean, UserBean ownerBean, ExchangeBookGC mainGC, String position) {
+	public ExchangeBookItemGC(BookBean bookBean, ReaderBean ownerBean, ExchangeBookGC mainGC, String position) {
 		
 		this.bookBean = bookBean;
 		this.ownerBean = ownerBean;

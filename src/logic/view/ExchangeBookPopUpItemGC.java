@@ -16,7 +16,14 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import logic.bean.BookBean;
 import logic.util.enumeration.ImageSizes;
-
+/**
+ * Controller grafico relativo ad un libro che l'utente
+ * puo' scegliere tra i libri scambiabili di un altro
+ * utente durante la fase di gestione di una notifica 
+ * [file fxml associato: exchange_book_popup_item.fxml] 
+ * @author Cristiano Cuffaro (M. 0258093)
+ *
+ */
 public class ExchangeBookPopUpItemGC implements Initializable {
 	
 	@FXML

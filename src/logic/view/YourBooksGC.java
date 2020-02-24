@@ -18,7 +18,13 @@ import logic.controller.ExchangeBookController;
 import logic.exception.PersistencyException;
 import logic.util.GraphicalElements;
 import logic.util.enumeration.DynamicElements;
-
+/**
+ * Controller grafico relativo alla schermata che 
+ * mostra i libri posseduti dall'utente in sessione
+ * [file fxml associato: your_books.fxml] 
+ * @author Cristiano Cuffaro (M. 0258093)
+ *
+ */
 public class YourBooksGC implements Initializable{
 	
 	@FXML

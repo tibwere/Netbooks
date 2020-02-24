@@ -11,7 +11,7 @@ import logic.util.enumeration.Vendors;
  * Bean per la migrazione dei dati relativi ai libri
  * fra il layer di view ed il layer di controller.
  * 
- * La classe realizza l'interfaccia {@link Serializable} poichè
+ * La classe realizza l'interfaccia {@link Serializable} poiche'
  * nella versione WEB vengono salvate sue istanze nella sessione 
  * o nella request.
  * @author Simone Tiberi (M. 0252795)

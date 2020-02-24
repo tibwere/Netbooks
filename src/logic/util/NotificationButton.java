@@ -5,7 +5,9 @@ import javafx.scene.control.Button;
 import javafx.scene.paint.Color;
 
 /**
- * 
+ * Classe utilizzata per la costruzione a run time
+ * dei bottoni <i>Choose a book</i> e <i>Accept</i> 
+ * delle notifiche in stato iniziale e intermedio
  * @author Cristiano Cuffaro (M. 0258093)
  *
  */

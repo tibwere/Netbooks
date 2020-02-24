@@ -1,14 +1,22 @@
 package logic.bean;
 
+import java.io.Serializable;
+
 import logic.exception.WrongSyntaxException;
 
 /**
  * Bean per la migrazione delle info sul reader
  * fra layer di controller e quello di view.
+ * 
+ * La classe realizza l'interfaccia {@link Serializable} poiche'
+ * nella versione WEB vengono salvate sue istanze nella sessione 
+ * o nella request.
  * @author Simone Tiberi (M. 0252795)
  *
  */
-public class ReaderBean extends UserBean {
+public class ReaderBean extends UserBean implements Serializable {
+	
+	private static final long serialVersionUID = 7904187792406751070L;
 	
 	private String firstName;
 	private String secondName;

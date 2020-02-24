@@ -4,7 +4,13 @@ import logic.exception.PersistencyException;
 import logic.model.Book;
 import logic.util.enumeration.NotificationTypes;
 import logic.util.enumeration.ProposalStates;
-
+/**
+ * Classe <b>Concrete State</b> del pattern <i>State</i> dei GoF.<br>
+ * Implementa il comportamento della state machine {@link StateMachineImpl}
+ * quando si trova nello stato <i>Initial Proposal</i>
+ * @author Cristiano Cuffaro (M. 0258093)
+ *
+ */
 public class StateInitialProposal extends AbstractState {
 	
 	public StateInitialProposal(StateMachineImpl sm, ProposalStates state) throws PersistencyException {

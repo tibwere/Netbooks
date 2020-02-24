@@ -17,7 +17,13 @@ import logic.controller.ExchangeBookController;
 import logic.exception.PersistencyException;
 import logic.util.GraphicalElements;
 import logic.util.enumeration.DynamicElements;
-
+/**
+ * Controller grafico relativo alla schermata di gestione 
+ * delle notifiche
+ * [file fxml associato: manage_proposals.fxml] 
+ * @author Cristiano Cuffaro (M. 0258093)
+ *
+ */
 public class ManageProposalsGC implements Initializable {
 	
 	@FXML

@@ -14,7 +14,7 @@
     	<div class="navbar-nav">
     		<a class="nav-item nav-link active" href="<%=WebUtilities.INDEX_PAGE_URL.substring(1)%>"><i class="fas fa-home"></i> Home <span class="sr-only">(current)</span></a>
       		<a class="nav-item nav-link" href="#"><i class="far fa-comments"></i> Forum</a>
-      		<a class="nav-item nav-link" href="#"><i class="fas fa-exchange-alt"></i> Exchangable books</a>      		
+      		<a class="nav-item nav-link" href="<%=WebUtilities.LOAD_EX_BOOKS_SERVLET_URL.substring(1)%>"><i class="fas fa-exchange-alt"></i> Exchange books </a>    		    		
     	</div>
     	<div class="navbar-nav ml-auto">
     		<a class="nav-item nav-link" href="#"><i class="fas fa-user"></i> <%=session.getAttribute("currUser")%></a>

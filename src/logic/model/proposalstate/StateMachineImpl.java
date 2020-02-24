@@ -12,7 +12,14 @@ import logic.util.GraphicalElements;
 import logic.util.enumeration.NotificationTypes;
 import logic.util.enumeration.ProposalEvents;
 import logic.util.enumeration.ProposalStates;
-
+/**
+ * Classe <b>State Machine</b> del pattern <i>State</i> dei GoF.<br>
+ * Specifica la macchina a stati che modella il comportamento 
+ * dell'entity: {@link Proposal}, mantenendo un riferimento ad un 
+ * <b>Concrete State</b> attraverso la sua astrazione {@link AbstractState}
+ * @author Cristiano Cuffaro (M. 0258093)
+ *
+ */
 public class StateMachineImpl implements ProposalStateMachine {
 	
 	private Reader source;

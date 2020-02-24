@@ -9,7 +9,7 @@ import logic.model.Geolocalization;
 import logic.model.ProposalNotification;
 
 /**
- * Entita'  del dominio di interesse: Lettore
+ * Entita' del dominio di interesse: Lettore
  * @author Simone Tiberi (M. 0252795)
  * @author Cristiano Cuffaro (M. 0258093)
  *

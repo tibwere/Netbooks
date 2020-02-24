@@ -10,7 +10,13 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import logic.bean.BookBean;
 import logic.util.enumeration.ImageSizes;
-
+/**
+ * Controller grafico relativo ad un libro presente nella 
+ * schermata dei libri posseduti dall'utente in sessione
+ * [file fxml associato: your_book_item.fxml] 
+ * @author Cristiano Cuffaro (M. 0258093)
+ *
+ */
 public class YourBookItemGC implements Initializable{
 	
 	@FXML

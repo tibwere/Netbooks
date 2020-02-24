@@ -28,7 +28,13 @@ import logic.exception.PersistencyException;
 import logic.util.GraphicalElements;
 import logic.util.NotificationButton;
 import logic.util.enumeration.DynamicElements;
-
+/**
+ * Controller grafico relativo ad una notifica di scambio
+ * nella schermata di gestione delle proposte
+ * [file fxml associato: notification_item.fxml] 
+ * @author Cristiano Cuffaro (M. 0258093)
+ *
+ */
 public class NotificationItemGC implements Initializable{
 	
 	@FXML
@@ -58,78 +64,11 @@ public class NotificationItemGC implements Initializable{
 		label.setText(bean.getMessage());
 		switch (bean.getType()) {
 		case INITIAL_PROPOSAL:
-			rejectBtn.setDisable(false);
-			rejectBtn.setVisible(true);
-			dynamicBtn = NotificationButton.chooseButton();
-			NotificationItemGC me = this;
-			dynamicBtn.setOnAction(new EventHandler<ActionEvent>() {
-				
-				@Override
-				public void handle(ActionEvent event) {
-					try {
-						ExchangeBookController ctrl = new ExchangeBookController();
-						Stage parent = (Stage) mainHB.getScene().getWindow();
-						
-						ScrollPane root = new ScrollPane();
-						root.getStylesheets().add(getClass().getResource("resources/css/style.css").toExternalForm());
-						
-						VBox vbox = new VBox();
-						vbox.setSpacing(10);
-						vbox.setMinHeight(400);
-						vbox.setAlignment(Pos.TOP_CENTER);
-						
-						List<BookBean> bookBeanList = ctrl.getUserBooks(bean.getSourceId());
-										
-						for (BookBean bookBean : bookBeanList) {
-							ExchangeBookPopUpItemGC gc = new ExchangeBookPopUpItemGC(bookBean, me);
-							FXMLLoader loader = GraphicalElements.loadFXML(DynamicElements.EXCHANGE_BOOK_POPUP_ITEM);
-							loader.setController(gc);
-							HBox bookItem = loader.load();
-							vbox.getChildren().add(bookItem);						
-						}
-						vbox.getStylesheets().add(getClass().getResource("resources/css/style.css").toExternalForm());
-						vbox.getStyleClass().add("exBookPanebg");
-						root.setContent(vbox);
-						
-						Scene popupScene = new Scene(root, 360, 400);
-						Stage popupStage = GraphicalElements.createModalWindow(popupScene, parent);
-						popupStage.show();
-					}
-					catch (PersistencyException e) {
-						GraphicalElements.showDialog(AlertType.ERROR, e.getMessage());
-						Platform.exit();
-					} catch (IOException | IllegalStateException e) {
-						GraphicalElements.showDialog(AlertType.ERROR, "Unable to load graphics for notification");
-						Platform.exit();
-					}
-				}
-			});
-			
+			setChooseButton();			
 			hbox.getChildren().add(0, dynamicBtn);
 			break;
 		case INTERMEDIATE_PROPOSAL:
-			rejectBtn.setDisable(false);
-			rejectBtn.setVisible(true);
-			dynamicBtn = NotificationButton.acceptButton();
-			dynamicBtn.setOnAction(new EventHandler<ActionEvent>() {
-
-				@Override
-				public void handle(ActionEvent event) {
-					try {
-						if (!controller.acceptProposal(bean, null))
-							controller.failureNotification(bean);
-										
-						dynamicBtn.setDisable(true);
-						rejectBtn.setDisable(true);
-						rejectBtn.setVisible(false);
-						
-						controller.removeNotification(bean);
-					} catch (PersistencyException | NoStateTransitionException e) {
-						GraphicalElements.showDialog(AlertType.ERROR, e.getMessage());
-						Platform.exit();
-					}
-				}
-			});
+			setAcceptButton();
 			hbox.getChildren().add(0, dynamicBtn);
 			break;
 		default:
@@ -168,6 +107,80 @@ public class NotificationItemGC implements Initializable{
 			GraphicalElements.showDialog(AlertType.ERROR, e.getMessage());
 			Platform.exit();
 		}
+	}
+	
+	private void setChooseButton() {
+		rejectBtn.setDisable(false);
+		rejectBtn.setVisible(true);
+		dynamicBtn = NotificationButton.chooseButton();
+		NotificationItemGC me = this;
+		dynamicBtn.setOnAction(new EventHandler<ActionEvent>() {
+			
+			@Override
+			public void handle(ActionEvent event) {
+				try {
+					ExchangeBookController ctrl = new ExchangeBookController();
+					Stage parent = (Stage) mainHB.getScene().getWindow();
+					
+					ScrollPane root = new ScrollPane();
+					root.getStylesheets().add(getClass().getResource("resources/css/style.css").toExternalForm());
+					
+					VBox vbox = new VBox();
+					vbox.setSpacing(10);
+					vbox.setMinHeight(400);
+					vbox.setAlignment(Pos.TOP_CENTER);
+					
+					List<BookBean> bookBeanList = ctrl.getUserBooks(bean.getSourceId());
+									
+					for (BookBean bookBean : bookBeanList) {
+						ExchangeBookPopUpItemGC gc = new ExchangeBookPopUpItemGC(bookBean, me);
+						FXMLLoader loader = GraphicalElements.loadFXML(DynamicElements.EXCHANGE_BOOK_POPUP_ITEM);
+						loader.setController(gc);
+						HBox bookItem = loader.load();
+						vbox.getChildren().add(bookItem);						
+					}
+					vbox.getStylesheets().add(getClass().getResource("resources/css/style.css").toExternalForm());
+					vbox.getStyleClass().add("exBookPanebg");
+					root.setContent(vbox);
+					
+					Scene popupScene = new Scene(root, 360, 400);
+					Stage popupStage = GraphicalElements.createModalWindow(popupScene, parent);
+					popupStage.show();
+				}
+				catch (PersistencyException e) {
+					GraphicalElements.showDialog(AlertType.ERROR, e.getMessage());
+					Platform.exit();
+				} catch (IOException | IllegalStateException e) {
+					GraphicalElements.showDialog(AlertType.ERROR, "Unable to load graphics for notification");
+					Platform.exit();
+				}
+			}
+		});
+	}
+	
+	private void setAcceptButton() {
+		rejectBtn.setDisable(false);
+		rejectBtn.setVisible(true);
+		dynamicBtn = NotificationButton.acceptButton();
+		dynamicBtn.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				try {
+					if (!controller.acceptProposal(bean, null))
+						controller.failureNotification(bean);
+									
+					dynamicBtn.setDisable(true);
+					rejectBtn.setDisable(true);
+					rejectBtn.setVisible(false);
+					
+					controller.removeNotification(bean);
+				} catch (PersistencyException | NoStateTransitionException e) {
+					GraphicalElements.showDialog(AlertType.ERROR, e.getMessage());
+					Platform.exit();
+				}
+			}
+		});
 	}
 
 }

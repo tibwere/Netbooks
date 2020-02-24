@@ -3,7 +3,11 @@ package logic.model;
 import logic.model.users.Reader;
 import logic.model.users.User;
 import logic.util.enumeration.NotificationTypes;
-
+/**
+ * Entita' del dominio di interesse: Notifica
+ * @author Cristiano Cuffaro (M. 0258093)
+ *
+ */
 public class ProposalNotification {
 	
 	private Reader src;

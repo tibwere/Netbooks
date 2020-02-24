@@ -13,6 +13,12 @@ import logic.model.Book;
 import logic.model.Proposal;
 import logic.model.users.Reader;
 import logic.util.enumeration.ProposalStates;
+/**
+ * DAO per l'interazione con lo strato di persistenza 
+ * dei dati realtivi all'entity {@link Proposal}
+ * @author Cristiano Cuffaro (M. 0252795)
+ *
+ */
 
 public class ProposalDao {
 

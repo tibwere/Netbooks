@@ -3,7 +3,7 @@ package logic.model;
 import logic.model.users.Reader;
 
 /**
- * Entita'  del dominio di interesse: Valutazione
+ * Entita' del dominio di interesse: Valutazione
  * @author Simone Tiberi (M. 0252795)
  *
  */

@@ -4,10 +4,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import logic.bean.BookBean;
 import logic.bean.NotificationBean;
-import logic.bean.UserBean;
+import logic.bean.ReaderBean;
 import logic.dao.BookDao;
 import logic.dao.NotificationDao;
 import logic.dao.ProposalDao;
@@ -31,14 +30,14 @@ import logic.util.enumeration.ProposalStates;
 
 public class ExchangeBookController {
 
-	public Map<BookBean, UserBean> getAllExchangeableBooks() throws PersistencyException {
+	public Map<BookBean, ReaderBean> getAllExchangeableBooks() throws PersistencyException {
 		
 		List<Reader> owners = ReaderDao.findOwners(Session.getSession().getCurrUser());
-		Map<BookBean, UserBean> map = new HashMap<>();
+		Map<BookBean, ReaderBean> map = new HashMap<>();
 		
 		for (Reader owner : owners) {
 			
-			UserBean ownerBean = new UserBean();
+			ReaderBean ownerBean = new ReaderBean();
 			try {
 				ownerBean.setUsername(owner.getUsername());
 			} catch (WrongSyntaxException e) {
@@ -74,7 +73,7 @@ public class ExchangeBookController {
 		return beans;
 	}
 	
-	public int buildProposal(BookBean bookDestBean, UserBean destBean) throws PersistencyException {
+	public int buildProposal(BookBean bookDestBean, ReaderBean destBean) throws PersistencyException {
 		String sourceUsr = Session.getSession().getCurrUser();
 		if (getUserBooks(sourceUsr).isEmpty())
 			return 1;

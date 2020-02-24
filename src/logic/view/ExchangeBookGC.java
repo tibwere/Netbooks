@@ -19,7 +19,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import logic.bean.BookBean;
-import logic.bean.UserBean;
+import logic.bean.ReaderBean;
 import logic.controller.ExchangeBookController;
 import logic.exception.PersistencyException;
 import logic.util.GraphicalElements;
@@ -27,7 +27,8 @@ import logic.util.enumeration.DynamicElements;
 import logic.util.enumeration.Views;
 
 /**
- * Controller grafico collegato al file "exchange_book.fxml" 
+ * Controller grafico relativo alla schermata di scambio libri
+ * [file fxml associato: exchange_book.fxml] 
  * @author Cristiano Cuffaro (M. 0258093)
  *
  */
@@ -65,12 +66,12 @@ public class ExchangeBookGC implements Initializable {
 			ExchangeBookController controller = new ExchangeBookController();
 			notification.setVisible(controller.findNotifications());
 						
-			Map<BookBean, UserBean> beans = controller.getAllExchangeableBooks();
+			Map<BookBean, ReaderBean> beans = controller.getAllExchangeableBooks();
 			
 			int i = 0;
 			int j = 0;
 			
-			for (Map.Entry<BookBean, UserBean> entry : beans.entrySet()) {
+			for (Map.Entry<BookBean, ReaderBean> entry : beans.entrySet()) {
 				String pos = j < 3 ? POS_LEFT : POS_RIGHT;
 				ExchangeBookItemGC gc = new ExchangeBookItemGC(entry.getKey(), entry.getValue(), this, pos);
 				FXMLLoader loader = GraphicalElements.loadFXML(DynamicElements.EXCHANGE_BOOK_ITEM);

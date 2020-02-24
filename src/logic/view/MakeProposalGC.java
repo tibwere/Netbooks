@@ -1,10 +1,5 @@
 package logic.view;
 
-/**
- * controller grafico collegato alla grafica "make_proposal"
- * @author Cristiano Cuffaro (M. 0258093)
- */
-
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -18,12 +13,18 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import logic.bean.BookBean;
-import logic.bean.UserBean;
+import logic.bean.ReaderBean;
 import logic.controller.ExchangeBookController;
 import logic.exception.PersistencyException;
 import logic.util.GraphicalElements;
 import logic.util.enumeration.ImageSizes;
-
+/**
+ * Controller grafico relativo alla schermata di invio 
+ * di una proposta di scambio
+ * [file fxml associato: make_proposal.fxml] 
+ * @author Cristiano Cuffaro (M. 0258093)
+ *
+ */
 public class MakeProposalGC implements Initializable{
 	
 	@FXML
@@ -55,9 +56,9 @@ public class MakeProposalGC implements Initializable{
 	
 	private BookBean bookBean;
 	
-	private UserBean ownerBean;
+	private ReaderBean ownerBean;
 	
-	public MakeProposalGC(BookBean bookBean, UserBean ownerBean) {
+	public MakeProposalGC(BookBean bookBean, ReaderBean ownerBean) {
 		this.bookBean = bookBean;
 		this.ownerBean = ownerBean;
 	}

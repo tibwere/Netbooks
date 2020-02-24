@@ -15,6 +15,12 @@ import logic.model.Proposal;
 import logic.model.ProposalNotification;
 import logic.model.users.Reader;
 import logic.util.enumeration.NotificationTypes;
+/**
+ * DAO per l'interazione con lo strato di persistenza 
+ * dei dati realtivi all'entity {@link ProposalNotification}
+ * @author Cristiano Cuffaro (M. 0252795)
+ *
+ */
 
 public class NotificationDao {
 
