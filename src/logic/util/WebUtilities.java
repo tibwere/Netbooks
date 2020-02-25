@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletResponse;
 
 public class WebUtilities {
 	
+	private static String currentPage;
+	
 	/* SERVLETS */
 	public static final String LOAD_BOOKS_SERVLET_URL = "/LoadBooksServlet";
 	public static final String LOAD_EX_BOOKS_SERVLET_URL = "/LoadExBooksServlet";
@@ -39,6 +41,15 @@ public class WebUtilities {
 	public static void redirectToErrorPage(HttpServletRequest request, HttpServletResponse response,String message) throws ServletException, IOException {
 		request.setAttribute("errormsg", message);
 		request.getRequestDispatcher(WebUtilities.ERROR_PAGE_URL).forward(request, response);
+	}
+
+
+	public static String getCurrentPage() {
+		return currentPage;
+	}
+
+	public static void setCurrentPage(String currentPage) {
+		WebUtilities.currentPage = currentPage;
 	}
 
 }

@@ -18,6 +18,7 @@
 	} 
 
 	Session.getSession().setCurrUser((String) session.getAttribute("currUser"));
+	WebUtilities.setCurrentPage("");
 
 	if (request.getParameter("title") == null)
 		request.getRequestDispatcher(WebUtilities.INDEX_PAGE_URL).forward(request, response);
@@ -42,7 +43,7 @@
     	<title>Eval for "<%=request.getParameter("title")%>"</title>
   	</head>
 	<body class="text-center bg">
-  		<jsp:include page="navbar.jsp"/>
+  		<jsp:include page="WEB-INF/navbar.jsp"/>
 		<div class="container heading-margin">
 			<div class="row justify-content-center align-self-center">	  			
 				<div class="col col-sm-8 col-md-8 col-lg-8 col-xl-8">

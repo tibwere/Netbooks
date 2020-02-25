@@ -18,6 +18,8 @@
 	} 
 	
 	Session.getSession().setCurrUser((String) session.getAttribute("currUser"));
+	
+	WebUtilities.setCurrentPage("");
 %>
 
 <!doctype html>
@@ -42,7 +44,7 @@
     	<title>Evaluate</title>    	
   	</head>
   	<body class="text-center bg">
-  		<jsp:include page="navbar.jsp"/>
+  		<jsp:include page="WEB-INF/navbar.jsp"/>
 		<div class="container heading-margin">
 		
 			<% if ((String) (request.getAttribute("result")) == "success") {%>

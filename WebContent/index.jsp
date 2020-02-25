@@ -17,6 +17,7 @@
 	} 
 	
 	Session.getSession().setCurrUser((String) session.getAttribute("currUser"));
+	WebUtilities.setCurrentPage("index");
 %>
 
 <!doctype html>
@@ -38,7 +39,7 @@
     	<title>Welcome on Netbooks</title>
   	</head>
   	<body class="text-center bg">
-  		<jsp:include page="navbar.jsp"/>
+  		<jsp:include page="WEB-INF/navbar.jsp"/>
 		<div class="container heading-margin">
 			<div class="row justify-content-center align-self-center">	  			
 				<div class="col col-sm-11 col-md-11 col-lg-11 col-xl-11">

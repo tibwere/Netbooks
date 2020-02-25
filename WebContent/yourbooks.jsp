@@ -1,3 +1,4 @@
+<%@page import="logic.util.WebUtilities"%>
 <%@page import="logic.bean.BookBean"%>
 <%@page import="java.util.List"%>
 <%@page import="logic.util.enumeration.UserTypes"%>
@@ -12,6 +13,7 @@
 	} 
 	
 	Session.getSession().setCurrUser((String) session.getAttribute("currUser"));
+	WebUtilities.setCurrentPage("");
 %>
 
 <!DOCTYPE html>
@@ -33,7 +35,7 @@
 	   	<title>Manage Proposals Section</title>
 	</head>
 	<body class="bg text-center">
-		<jsp:include page="navbar.jsp"/>
+		<jsp:include page="WEB-INF/navbar.jsp"/>
 		<div class="container heading-margin text-center">
 			<div class="row justify-content-center align-self-center">
 				<div class="col col-sm-12 col-md-12 col-lg-12 col-xl-12">
