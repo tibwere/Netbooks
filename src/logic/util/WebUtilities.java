@@ -17,10 +17,11 @@ public class WebUtilities {
 	public static final String LOAD_OWNED_BOOKS_SERVLET_URL = "/LoadOwnedBooksServlet";
 	public static final String MANAGE_PROPOSAL_SERVLET_URL = "/ManageProposalServlet";
 	public static final String MAKE_PROPOSAL_SERVLET_URL = "/MakeProposalServlet";
+	public static final String KBSAS_SERVLET_URL = "/KbsasServlet";
+
 	
 
 	/* JSP PAGES */
-	public static final String RETAILER_PAGE_URL = "/retailer.jsp";
 	public static final String LOGIN_PAGE_URL = "/login.jsp";
 	public static final String ERROR_PAGE_URL ="/error.jsp";
 	public static final String INDEX_PAGE_URL = "/index.jsp";

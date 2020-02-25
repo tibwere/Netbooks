@@ -35,8 +35,15 @@ public class KbsasController {
 			mapBeans.put(bean, entry.getValue());	 
 		}
 		
-		return mapBeans.entrySet().stream().sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
-			       .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
+		return createRanking(mapBeans);
+		
 	}
 
+
+	public Map<BookBean, Integer> createRanking(Map<BookBean, Integer> unsorted){
+		
+		return unsorted.entrySet().stream().sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+					       .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
+	}
+	
 }

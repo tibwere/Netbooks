@@ -58,7 +58,6 @@ public class DiagramFactory{
 				index++;
 				series.getData().add(new XYChart.Data(entry.getValue(), entry.getKey().getTitle()));
 		}
-		series.setName("serie");
 		barChart.getData().add(series);
 		
 		

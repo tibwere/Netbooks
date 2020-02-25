@@ -15,7 +15,7 @@
       </HBox>
       <VBox prefHeight="65.0" prefWidth="89.0">
          <children>
-            <Label alignment="BOTTOM_CENTER" prefHeight="55.0" prefWidth="142.0" style="-fx-font-weight: bold;" text="Title: " textFill="WHITE" />
+            <Label alignment="BOTTOM_CENTER" prefHeight="55.0" prefWidth="142.0" style="-fx-font-weight: bold;" text="Title : " textFill="WHITE" />
             <Label alignment="CENTER" prefHeight="55.0" prefWidth="142.0" style="-fx-font-weight: bold;" text="Author : " textAlignment="CENTER" textFill="WHITE" />
          </children>
       </VBox>

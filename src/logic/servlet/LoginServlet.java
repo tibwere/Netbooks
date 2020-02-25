@@ -49,7 +49,7 @@ public class LoginServlet extends HttpServlet {
 				request.getRequestDispatcher(WebUtilities.LOAD_BOOKS_SERVLET_URL).forward(request, response);
 			}
 			else
-				request.getRequestDispatcher(WebUtilities.RETAILER_PAGE_URL).forward(request, response);
+				request.getRequestDispatcher(WebUtilities.KBSAS_SERVLET_URL).forward(request, response);
 			
 		} catch(NoUserFoundException | PersistencyException e) {
 			request.setAttribute("fail", e.getMessage().toUpperCase());
