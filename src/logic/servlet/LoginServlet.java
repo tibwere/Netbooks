@@ -10,7 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import logic.bean.ReaderBean;
 import logic.bean.UserBean;
+import logic.controller.BuyBookController;
 import logic.controller.LoginController;
 import logic.exception.NoUserFoundException;
 import logic.exception.PersistencyException;
@@ -34,7 +36,8 @@ public class LoginServlet extends HttpServlet {
         super();
     }
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {			
+		
 		try {
 			String username = request.getParameter("username");
 			String password = request.getParameter("password");
@@ -46,6 +49,8 @@ public class LoginServlet extends HttpServlet {
 			request.getSession().setAttribute("currUserType", type);
 
 			if (type.equals(UserTypes.READER)) {
+				ReaderBean curr = new BuyBookController(null).getUserGenerality(new ReaderBean(username));
+				request.getSession().setAttribute("navbar-generality", curr.getFirstName() + " " + curr.getSecondName());
 				request.getRequestDispatcher(WebUtilities.LOAD_BOOKS_SERVLET_URL).forward(request, response);
 			}
 			else

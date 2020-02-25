@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -12,75 +13,79 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" styleClass="bg" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="logic.view.KbsasGC">
+<BorderPane fx:id="borderPane" prefHeight="800.0" prefWidth="1000.0" styleClass="bg" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="logic.view.KbsasGC">
    <right>
-      <VBox alignment="TOP_CENTER" spacing="50.0" styleClass="buybook-panel" BorderPane.alignment="CENTER">
+      <VBox alignment="TOP_CENTER" spacing="60.0" styleClass="buybook-panel">
          <children>
-            <HBox fx:id="hBoxBtn" alignment="TOP_RIGHT" prefHeight="48.0" prefWidth="208.0">
+            <VBox alignment="CENTER" spacing="45.0">
                <children>
-                  <Label fx:id="lblUser" alignment="TOP_LEFT" prefHeight="50.0" prefWidth="113.0" textFill="#070707">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
-                  <Button fx:id="profileBtn" ellipsisString="" mnemonicParsing="false" prefHeight="40.0" prefWidth="41.0" styleClass="transparent" text="Button">
-                     <graphic>
-                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../images/profile.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Button>
-                  <Button fx:id="logoutBtn" ellipsisString="" mnemonicParsing="false" onAction="#logout" prefHeight="38.0" prefWidth="29.0" styleClass="transparent" text="Button">
-                     <graphic>
-                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" styleClass="transparent">
-                           <image>
-                              <Image url="@../images/logout.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Button>
-               </children>
-            </HBox>
-            <VBox prefHeight="250.0" prefWidth="208.0" spacing="10.0">
-               <children>
-                  <ImageView fitHeight="192.0" fitWidth="208.0">
-                     <image>
-                        <Image url="@../images/icon.png" />
-                     </image>
-                  </ImageView>
-                  <Label fx:id="retailerAreaLbl" alignment="CENTER" prefHeight="72.0" prefWidth="208.0" text="RETAILER-AREA" textFill="WHITE">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                  </Label>
-               </children>
-            </VBox>
-            <VBox prefHeight="157.0" prefWidth="208.0" spacing="10.0">
-               <children>
-                  <Label prefHeight="40.0" prefWidth="206.0" text="Select the radius : " textFill="WHITE">
-                     <font>
-                        <Font size="16.0" />
-                     </font></Label>
-                  <Slider fx:id="slider" majorTickUnit="10.0" max="50.0" minorTickCount="5" onKeyTyped="#onSliderChanged" onMouseReleased="#onSliderChanged" prefHeight="35.0" prefWidth="206.0" showTickLabels="true" showTickMarks="true" value="10.0">
-                     <cursor>
-                        <Cursor fx:constant="OPEN_HAND" />
-                     </cursor>
-                  </Slider>
-                  <Label fx:id="km" prefHeight="40.0" prefWidth="206.0" text="Selected value : 10KM" textFill="WHITE">
-                     <font>
-                        <Font size="16.0" />
-                     </font></Label>
+                  <VBox alignment="CENTER" spacing="30.0">
+                     <children>
+                        <HBox fx:id="hBoxBtn" alignment="CENTER">
+                           <children>
+                              <Button fx:id="profileBtn" ellipsisString="" mnemonicParsing="false" styleClass="transparent">
+                                 <graphic>
+                                    <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/profile.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
+                              <Button fx:id="logoutBtn" ellipsisString="" mnemonicParsing="false" onAction="#logout" styleClass="transparent">
+                                 <graphic>
+                                    <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" styleClass="transparent">
+                                       <image>
+                                          <Image url="@../images/logout.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
+                           </children>
+                        </HBox>
+                        <VBox alignment="CENTER" prefHeight="250.0" prefWidth="208.0" spacing="10.0">
+                           <children>
+                              <ImageView>
+                                 <image>
+                                    <Image url="@../images/icon.png" />
+                                 </image>
+                              </ImageView>
+                              <Label fx:id="retailerAreaLbl" alignment="CENTER" text="RETAILER-AREA" textFill="WHITE">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" prefHeight="157.0" prefWidth="208.0" spacing="10.0">
+                     <children>
+                        <Label text="Select the radius " textFill="WHITE">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                        <Slider fx:id="slider" majorTickUnit="10.0" max="50.0" minorTickCount="5" onKeyTyped="#onSliderChanged" onMouseReleased="#onSliderChanged" showTickLabels="true" showTickMarks="true" value="10.0">
+                           <cursor>
+                              <Cursor fx:constant="OPEN_HAND" />
+                           </cursor>
+                        </Slider>
+                        <Label fx:id="km" text="Selected value : 10KM" textFill="WHITE">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
                </children>
             </VBox>
             <Button fx:id="buttonVBS" alignment="CENTER" mnemonicParsing="false" onAction="#showBestsellers" prefHeight="34.0" prefWidth="180.0" style="-fx-background-color: #634f3a;" text="VIEW BEST-SELLERS" textFill="#f8f8f8">
@@ -92,12 +97,15 @@
                </cursor>
             </Button>
          </children>
+         <padding>
+            <Insets left="20.0" right="20.0" top="20.0" />
+         </padding>
       </VBox>
    </right>
    <center>
-      <HBox alignment="TOP_CENTER" BorderPane.alignment="CENTER">
+      <VBox alignment="TOP_CENTER" spacing="30.0" BorderPane.alignment="CENTER">
          <children>
-            <VBox alignment="TOP_CENTER" spacing="30.0">
+            <VBox alignment="CENTER">
                <children>
                   <HBox alignment="CENTER" prefHeight="77.0" prefWidth="464.0" spacing="40.0">
                      <children>
@@ -120,15 +128,18 @@
                         </MenuButton>
                      </children>
                   </HBox>
-                  <Line fx:id="line" endX="335.16668701171875" startX="-379.0" stroke="WHITE" />
-                  <ScrollPane fitToWidth="true" hbarPolicy="NEVER" styleClass="scrollpane-transparent">
-                     <content>
-                        <VBox fx:id="vboxMain" alignment="TOP_CENTER" />
-                     </content>
-                  </ScrollPane>
                </children>
             </VBox>
+            <ScrollPane fitToWidth="true" hbarPolicy="NEVER" styleClass="scrollpane-transparent">
+               <content>
+                  <VBox fx:id="vboxMain" alignment="CENTER" spacing="5.0">
+                     <padding>
+                        <Insets left="45.0" right="45.0" />
+                     </padding>
+                  </VBox>
+               </content>
+            </ScrollPane>
          </children>
-      </HBox>
+      </VBox>
    </center>
 </BorderPane>

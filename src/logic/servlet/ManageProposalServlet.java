@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import logic.bean.BookBean;
 import logic.bean.NotificationBean;
+import logic.bean.ReaderBean;
 import logic.controller.ExchangeBookController;
 import logic.exception.NoStateTransitionException;
 import logic.exception.PersistencyException;
@@ -42,10 +43,17 @@ public class ManageProposalServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-			NotificationBean notif = new NotificationBean(request.getParameter("notifSource"), 
+		
+		if (request.getSession().getAttribute("currUser") == null) {
+			response.sendRedirect(WebUtilities.LOGIN_PAGE_URL.substring(1));
+			return;
+		}		
+		
+		NotificationBean notif = new NotificationBean(request.getParameter("notifSource"), 
 														NotificationTypes.valueOf(request.getParameter("notifType")), 
 									 					Integer.parseInt(request.getParameter("notifProposal")));
 		try {
+			ReaderBean currReader = new ReaderBean(WebUtilities.getUsernameFromSession(request));
 			ExchangeBookController controller = new ExchangeBookController();
 			switch (request.getParameter(DECISION)) {
 			case CHOOSED_BOOK:
@@ -53,20 +61,20 @@ public class ManageProposalServlet extends HttpServlet {
 				BookBean book = new BookBean();
 				book.setIsbn(request.getParameter("acquiredBook"));
 				
-				controller.acceptProposal(notif, book);
+				controller.acceptProposal(notif, book, currReader);
 				request.setAttribute(PROPOSAL_RESPONSE, "show_alert");
 				break;
 			case ACCEPTED_PROPOSAL:
 				notif.setDestBook(request.getParameter("notifDestBook"));
 				notif.setSrcBook(request.getParameter("notifSrcBook"));
 				
-				controller.acceptProposal(notif, null);
+				controller.acceptProposal(notif, null, currReader);
 				break;
 			default:
 				controller.failureNotification(notif);
 				break;
 			}
-			controller.removeNotification(notif);
+			controller.removeNotification(notif, currReader);
 			
 			response.sendRedirect(WebUtilities.LOAD_NOTIFICATIONS_SERVLET_URL.substring(1));
 			

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import logic.bean.BookBean;
+import logic.bean.ReaderBean;
 import logic.controller.BuyBookController;
 import logic.controller.ManageEvaluationsController;
 import logic.exception.PersistencyException;
@@ -32,7 +33,6 @@ public class LoadBooksServlet extends HttpServlet {
     }
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		BuyBookController ctrl = new BuyBookController(new ManageEvaluationsController());
 		
 		try {
@@ -43,10 +43,10 @@ public class LoadBooksServlet extends HttpServlet {
 			else if ("all".equals(request.getParameter("load")))
 				beans = ctrl.getAllBooks();
 			else 
-				beans = ctrl.getNotOwnedBooks();
+				beans = ctrl.getNotOwnedBooks(new ReaderBean(WebUtilities.getUsernameFromSession(request)));
 			
 			request.getSession().setAttribute("books", beans);
-			request.getRequestDispatcher(WebUtilities.INDEX_PAGE_URL).forward(request, response);
+			response.sendRedirect(WebUtilities.INDEX_PAGE_URL.substring(1));
 		} catch (PersistencyException e) {
 			WebUtilities.redirectToErrorPage(request, response, e.getMessage());
 		}

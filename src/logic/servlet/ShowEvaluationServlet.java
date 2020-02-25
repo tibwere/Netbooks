@@ -35,6 +35,11 @@ public class ShowEvaluationServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		if (request.getSession().getAttribute("currUser") == null) {
+			response.sendRedirect(WebUtilities.LOGIN_PAGE_URL.substring(1));
+			return;
+		}		
+		
 		if (request.getParameter("eval") == null) {
 			request.setAttribute("nosel", true);
 			request.getRequestDispatcher(WebUtilities.INDEX_PAGE_URL).forward(request, response);

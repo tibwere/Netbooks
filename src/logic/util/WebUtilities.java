@@ -33,7 +33,8 @@ public class WebUtilities {
 	public static final String EXCHANGE_BOOK_PAGE_URL = "/exchangebook.jsp";
 	public static final String MANAGE_PROPOSALS_PAGE_URL = "/manageproposals.jsp";
 	public static final String YOUR_BOOKS_PAGE_URL = "/yourbooks.jsp";
-
+	public static final String RETAILER_PAGE_URL = "/kbsas.jsp";
+	
 	private WebUtilities() {
 		/* non istanziabile */
 	}
@@ -51,6 +52,10 @@ public class WebUtilities {
 
 	public static void setCurrentPage(String currentPage) {
 		WebUtilities.currentPage = currentPage;
+	}
+	
+	public static String getUsernameFromSession(HttpServletRequest request) {
+		return (String) request.getSession().getAttribute("currUser");
 	}
 
 }

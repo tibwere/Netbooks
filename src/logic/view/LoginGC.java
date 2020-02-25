@@ -36,6 +36,7 @@ import logic.exception.PersistencyException;
 import logic.exception.WrongSyntaxException;
 import logic.util.GraphicalElements;
 import logic.util.ImageDispenser;
+import logic.util.Session;
 import logic.util.enumeration.DynamicElements;
 import logic.util.enumeration.UserTypes;
 import logic.util.enumeration.Views;
@@ -119,6 +120,7 @@ public class LoginGC implements Initializable{
 			UserBean bean = new UserBean(username, password);
 
 			UserTypes type = controller.loginUser(bean);
+			Session.getSession().setCurrUser(username);
 			
 			Stage stage = (Stage) pane.getScene().getWindow();
 			if (type.equals(UserTypes.READER))

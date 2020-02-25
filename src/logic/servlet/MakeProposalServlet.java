@@ -39,6 +39,12 @@ public class MakeProposalServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		if (request.getSession().getAttribute("currUser") == null) {
+			response.sendRedirect(WebUtilities.LOGIN_PAGE_URL.substring(1));
+			return;
+		}
+		
 		try {
 			BookBean bookBean = new BookBean();
 			bookBean.setIsbn(request.getParameter("isbn"));
@@ -48,7 +54,7 @@ public class MakeProposalServlet extends HttpServlet {
 			ownerBean.setUsername(request.getParameter("owner"));
 			
 			ExchangeBookController controller = new ExchangeBookController();
-			int res = controller.buildProposal(bookBean, ownerBean);
+			int res = controller.buildProposal(bookBean, ownerBean, new ReaderBean(WebUtilities.getUsernameFromSession(request)));
 			switch (res) {
 			case 1:
 				request.setAttribute(PROPOSAL_RESPONSE, "You have no books to exchange");

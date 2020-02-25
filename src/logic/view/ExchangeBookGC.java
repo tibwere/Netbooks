@@ -23,6 +23,7 @@ import logic.bean.ReaderBean;
 import logic.controller.ExchangeBookController;
 import logic.exception.PersistencyException;
 import logic.util.GraphicalElements;
+import logic.util.Session;
 import logic.util.enumeration.DynamicElements;
 import logic.util.enumeration.Views;
 
@@ -63,10 +64,11 @@ public class ExchangeBookGC implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		
 		try {
+			ReaderBean currReader = new ReaderBean(Session.getSession().getCurrUser());
 			ExchangeBookController controller = new ExchangeBookController();
-			notification.setVisible(controller.findNotifications());
+			notification.setVisible(controller.findNotifications(currReader));
 						
-			Map<BookBean, ReaderBean> beans = controller.getAllExchangeableBooks();
+			Map<BookBean, ReaderBean> beans = controller.getAllExchangeableBooks(currReader);
 			
 			int i = 0;
 			int j = 0;

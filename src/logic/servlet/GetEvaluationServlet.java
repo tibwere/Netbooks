@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import logic.bean.BookBean;
 import logic.bean.BookEvaluationBean;
+import logic.bean.ReaderBean;
 import logic.controller.BuyBookController;
 import logic.controller.ManageEvaluationsController;
 import logic.exception.PersistencyException;
@@ -33,6 +34,12 @@ public class GetEvaluationServlet extends HttpServlet {
     }
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		if (request.getSession().getAttribute("currUser") == null) {
+			response.sendRedirect(WebUtilities.LOGIN_PAGE_URL.substring(1));
+			return;
+		}
+		
 		BuyBookController ctrl = new BuyBookController(new ManageEvaluationsController());
 		BookBean bean = new BookBean();
 		
@@ -40,9 +47,9 @@ public class GetEvaluationServlet extends HttpServlet {
 		
 		bean.setIsbn(request.getParameter("isbn"));
 		try {
-			
-			if (ctrl.bookIsOwned(bean)) {
-				BookEvaluationBean oldEval = ctrl.getManageEvaluationsController().getPreviousEvaluation(bean);
+			ReaderBean readerBean = new ReaderBean(WebUtilities.getUsernameFromSession(request));
+			if (ctrl.bookIsOwned(bean, readerBean)) {
+				BookEvaluationBean oldEval = ctrl.getManageEvaluationsController().getPreviousEvaluation(bean, readerBean);
 				request.getSession().setAttribute("eval", oldEval);
 				request.getRequestDispatcher(WebUtilities.EVALUATE_BOOK_PAGE_URL).forward(request, response);
 			} 

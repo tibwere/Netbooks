@@ -4,6 +4,7 @@ import java.util.Map;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Side;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.Chart;
@@ -34,8 +35,11 @@ public class DiagramFactory{
 			pieChartData.add(new PieChart.Data(entry.getKey().getTitle(), entry.getValue()));
 		}
 		
-		return new PieChart(pieChartData);
+		PieChart chart = new PieChart();
+		chart.setLegendSide(Side.BOTTOM);
+		chart.setData(pieChartData);
 		
+		return chart;
 	}
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
@@ -46,7 +50,6 @@ public class DiagramFactory{
 		NumberAxis xAxis = new NumberAxis();
 		CategoryAxis yAxis = new CategoryAxis();
 		BarChart barChart = new BarChart(xAxis,yAxis);
-		barChart.setTitle("Top 5 books");
 		xAxis.setLabel("Numero copie vendute");
 		xAxis.setTickLabelRotation(90);
 		yAxis.setLabel("Book title");		
@@ -54,9 +57,9 @@ public class DiagramFactory{
 		XYChart.Series series = new XYChart.Series();
 		
 		for (Map.Entry<BookBean, Integer> entry : books.entrySet()) {
-				if(index == 5) break;
-				index++;
-				series.getData().add(new XYChart.Data(entry.getValue(), entry.getKey().getTitle()));
+			if(index == 5) break;
+			index++;
+			series.getData().add(new XYChart.Data(entry.getValue(), entry.getKey().getTitle()));
 		}
 		barChart.getData().add(series);
 		

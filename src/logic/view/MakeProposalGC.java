@@ -17,6 +17,7 @@ import logic.bean.ReaderBean;
 import logic.controller.ExchangeBookController;
 import logic.exception.PersistencyException;
 import logic.util.GraphicalElements;
+import logic.util.Session;
 import logic.util.enumeration.ImageSizes;
 /**
  * Controller grafico relativo alla schermata di invio 
@@ -78,7 +79,7 @@ public class MakeProposalGC implements Initializable{
 	private void clickOnSendProposal() {
 		ExchangeBookController controller = new ExchangeBookController();
 		try {
-			switch(controller.buildProposal(bookBean, ownerBean)) {
+			switch(controller.buildProposal(bookBean, ownerBean, new ReaderBean(Session.getSession().getCurrUser()))) {
 			case 1:
 				successLabel.setText("You have no books to exchange.");
 				break;

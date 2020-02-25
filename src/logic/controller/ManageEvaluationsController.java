@@ -13,7 +13,6 @@ import logic.exception.WrongSyntaxException;
 import logic.model.BookEvaluation;
 import logic.model.users.Reader;
 import logic.util.Parser;
-import logic.util.Session;
 
 /**
  * Controller del caso d'uso "Manage Evaluations"
@@ -47,13 +46,13 @@ public class ManageEvaluationsController {
 		return reviewsBean;
 	}
 	
-	public void addNewEvaluation(BookEvaluationBean evaluationBean, BookBean bookBean) throws PersistencyException {
+	public void addNewEvaluation(BookEvaluationBean evaluationBean, BookBean bookBean, ReaderBean currUser) throws PersistencyException {
 		EvaluationDao.insertNewEval(evaluationBean.getRate(), evaluationBean.getTitle(), evaluationBean.getBody(), 
-				Session.getSession().getCurrUser(), bookBean.getIsbn());
+				currUser.getUsername(), bookBean.getIsbn());
 	}
 	
-	public BookEvaluationBean getPreviousEvaluation(BookBean bookBean) throws PersistencyException {
-		return EvaluationDao.getOldEvaluation(Session.getSession().getCurrUser(), bookBean.getIsbn());
+	public BookEvaluationBean getPreviousEvaluation(BookBean bookBean, ReaderBean currUser) throws PersistencyException {
+		return EvaluationDao.getOldEvaluation(currUser.getUsername(), bookBean.getIsbn());
 	}
 
 	public int getOnlineAvgEval(BookBean bean) throws IOException {

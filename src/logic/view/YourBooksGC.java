@@ -14,9 +14,11 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import logic.bean.BookBean;
+import logic.bean.ReaderBean;
 import logic.controller.ExchangeBookController;
 import logic.exception.PersistencyException;
 import logic.util.GraphicalElements;
+import logic.util.Session;
 import logic.util.enumeration.DynamicElements;
 /**
  * Controller grafico relativo alla schermata che 
@@ -38,7 +40,7 @@ public class YourBooksGC implements Initializable{
 	
 		try {
 			ExchangeBookController controller = new ExchangeBookController();	
-			List<BookBean> beans = controller.getUserBooks("");
+			List<BookBean> beans = controller.getUserBooks(new ReaderBean(Session.getSession().getCurrUser()));
 			
 			for (BookBean bean : beans) {
 				YourBookItemGC gc = new YourBookItemGC(bean);

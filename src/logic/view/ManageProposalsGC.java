@@ -13,9 +13,11 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import logic.bean.NotificationBean;
+import logic.bean.ReaderBean;
 import logic.controller.ExchangeBookController;
 import logic.exception.PersistencyException;
 import logic.util.GraphicalElements;
+import logic.util.Session;
 import logic.util.enumeration.DynamicElements;
 /**
  * Controller grafico relativo alla schermata di gestione 
@@ -34,7 +36,7 @@ public class ManageProposalsGC implements Initializable {
 		
 		try {
 			ExchangeBookController controller = new ExchangeBookController();
-			List<NotificationBean> beans = controller.getCurrUserNotifications();
+			List<NotificationBean> beans = controller.getCurrUserNotifications(new ReaderBean(Session.getSession().getCurrUser()));
 			
 			for (NotificationBean bean : beans) {
 				NotificationItemGC gc = new NotificationItemGC(bean);

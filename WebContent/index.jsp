@@ -1,3 +1,4 @@
+<%@page import="java.util.Enumeration"%>
 <%@page import="logic.util.enumeration.UserTypes"%>
 <%@page import="logic.util.WebUtilities"%>
 <%@page import="logic.util.enumeration.Vendors"%>
@@ -11,12 +12,16 @@
     pageEncoding="ISO-8859-1"%>
     
 <%
-	if (session.getAttribute("currUser") == null || session.getAttribute("currUserType") != UserTypes.READER) {
+	response.setHeader("Cache-Control","no-cache");
+	response.setHeader("Cache-Control","no-store");
+	response.setHeader("Pragma","no-cache");
+	response.setDateHeader ("Expires", 0);
+	
+	if(session.getAttribute("currUser")==null) {
 		response.sendRedirect("login.jsp");
 		return;
-	} 
-	
-	Session.getSession().setCurrUser((String) session.getAttribute("currUser"));
+	}
+
 	WebUtilities.setCurrentPage("index");
 %>
 

@@ -19,6 +19,7 @@ import logic.controller.LoginController;
 import logic.exception.UserAlreadySignedException;
 import logic.exception.WrongSyntaxException;
 import logic.util.GraphicalElements;
+import logic.util.Session;
 import logic.util.enumeration.Views;
 
 /**
@@ -111,6 +112,7 @@ public class SignupReaderGC implements Initializable {
     			
     			LoginController ctrl = new LoginController();
     			ctrl.signup(reader);
+    			Session.getSession().setCurrUser(reader.getUsername());
     			
     			GraphicalElements.showDialog(AlertType.INFORMATION, "Reader succesfully signed up!");
     			parentStage.setScene(GraphicalElements.switchTo(Views.HOME, null));

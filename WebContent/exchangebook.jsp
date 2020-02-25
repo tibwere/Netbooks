@@ -10,12 +10,16 @@
     pageEncoding="UTF-8"%>
     
 <%
+	response.setHeader("Cache-Control","no-cache");
+	response.setHeader("Cache-Control","no-store");
+	response.setHeader("Pragma","no-cache");
+	response.setDateHeader ("Expires", 0);
+
 	if (session.getAttribute("currUser") == null || session.getAttribute("currUserType") != UserTypes.READER) {
 		response.sendRedirect("login.jsp");
 		return;
 	} 
 	
-	Session.getSession().setCurrUser((String) session.getAttribute("currUser"));
 	WebUtilities.setCurrentPage("exchange");
 %>
 
@@ -171,7 +175,7 @@
 							<div class="row justify-content-center align-self-center mt-md-5">
 								<div class="col-auto align-self-center">
 								<%
-									if (request.getAttribute("notifyUser") != null && request.getAttribute("notifyUser").toString().equals("show")) {
+									if (session.getAttribute("notifyUser") != null && session.getAttribute("notifyUser").toString().equals("show")) {
 								%>
 									<img alt="" class="img-fluid" src="img/notification.png" width="32" height="32">
 								<%	}%>

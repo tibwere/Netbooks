@@ -16,10 +16,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import logic.bean.BookBean;
+import logic.bean.ReaderBean;
 import logic.controller.BuyBookController;
 import logic.exception.AlreadyOwnedBookException;
 import logic.exception.PersistencyException;
 import logic.util.GraphicalElements;
+import logic.util.Session;
 import logic.util.enumeration.ImageSizes;
 import logic.util.enumeration.Views;
 
@@ -70,7 +72,7 @@ public class BookPreviewGC implements Initializable{
 
 		try {
 			BuyBookController ctrl = new BuyBookController(null);
-			if (ctrl.bookIsOwned(bean)) {
+			if (ctrl.bookIsOwned(bean, new ReaderBean(Session.getSession().getCurrUser()))) {
 				Stage parent = (Stage) thumbnail.getScene().getWindow();
 				Stage modal = GraphicalElements.createModalWindow(new Scene(new RatingModal(bean)), parent);
 				modal.show();
@@ -90,7 +92,7 @@ public class BookPreviewGC implements Initializable{
 		if (result.get().equals(ButtonType.OK)) {
 			try {
 				BuyBookController ctrl = new BuyBookController(null);
-				ctrl.addBookToOwnedList(bean);
+				ctrl.addBookToOwnedList(bean, new ReaderBean(Session.getSession().getCurrUser()));
 				
 				GraphicalElements.showDialog(AlertType.INFORMATION, "\"" + bean.getTitle() + "\" has succesfully added to your owned list!" );
 				parentCtrl.refresh();

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import logic.bean.NotificationBean;
+import logic.bean.ReaderBean;
 import logic.controller.ExchangeBookController;
 import logic.exception.PersistencyException;
 import logic.util.WebUtilities;
@@ -37,9 +38,15 @@ public class LoadNotificationsServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		if (request.getSession().getAttribute("currUser") == null) {
+			response.sendRedirect(WebUtilities.LOGIN_PAGE_URL.substring(1));
+			return;
+		}
+		
 		try {
 			ExchangeBookController controller = new ExchangeBookController();
-			List<NotificationBean> notifications = controller.getCurrUserNotifications();
+			List<NotificationBean> notifications = controller.getCurrUserNotifications(new ReaderBean(WebUtilities.getUsernameFromSession(request)));
 			if (notifications.size() > 0) {
 				request.getSession().setAttribute("notifications", notifications);
 				request.getSession().setAttribute("notifResponse", "not_empty");

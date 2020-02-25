@@ -12,7 +12,6 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.chart.Chart;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -23,13 +22,11 @@ import javafx.scene.control.Slider;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 import logic.bean.BookBean;
+import logic.bean.RetailerBean;
 import logic.controller.KbsasController;
 import logic.exception.PersistencyException;
-import logic.util.DiagramFactory;
 import logic.util.GraphicalElements;
 import logic.util.Session;
 import logic.util.enumeration.DiagramTypes;
@@ -54,9 +51,6 @@ public class KbsasGC implements Initializable{
     private MenuButton menuButton;
 
     @FXML
-    private Line line;
-
-    @FXML
     private Label km;
     
     @FXML
@@ -78,22 +72,18 @@ public class KbsasGC implements Initializable{
     private MenuItem pieChart;
     
     @FXML
-    private Label lblUser; 
-    
-    private Chart chart;
+    private Button profileBtn;
+        
     private Map<BookBean , Integer> bookInChart;
-
-	
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		
 		try {
-			lblUser.setText("user : " + Session.getSession().getCurrUser());
-			lblUser.setTextFill(Color.WHITE);
+			profileBtn.setText(Session.getSession().getCurrUser());
 			KbsasController controller;
 			controller = new KbsasController();
-			bookInChart = controller.getBooksForRetailer((int)Math.round(slider.getValue()));
+			bookInChart = controller.getBooksForRetailer((int)Math.round(slider.getValue()), new RetailerBean(Session.getSession().getCurrUser()));
 			appendBooksOnPane(bookInChart);
 		} catch (PersistencyException e) {
 			GraphicalElements.showDialog(AlertType.ERROR, e.getMessage());
@@ -112,7 +102,7 @@ public class KbsasGC implements Initializable{
 		try {
 			KbsasController controller;
 			controller = new KbsasController();
-			bookInChart = controller.getBooksForRetailer((int)Math.round(slider.getValue()));
+			bookInChart = controller.getBooksForRetailer((int)Math.round(slider.getValue()), new RetailerBean(Session.getSession().getCurrUser()));
 			appendBooksOnPane(bookInChart);
 		} catch (IOException e) {
 			GraphicalElements.showDialog(AlertType.ERROR, "Unable to load chart");
@@ -126,6 +116,7 @@ public class KbsasGC implements Initializable{
 		int rank = 1;
 
 		for (Map.Entry<BookBean, Integer> entry : books.entrySet()) {
+
 			BookInChartGC gc = new BookInChartGC( rank , entry.getKey(), entry.getValue() );
 			rank++;
 			FXMLLoader loader = GraphicalElements.loadFXML(DynamicElements.BOOK_IN_CHART);
@@ -141,31 +132,25 @@ public class KbsasGC implements Initializable{
 	
 	@FXML
 	public void onSliderChanged() {
-	    int sliderValue = (int)Math.round(slider.getValue());
+		int sliderValue = (int)Math.round(slider.getValue());
 	    km.setText("Selected value : "+ sliderValue +"KM");
 	}
 	
 
 	 @FXML
-	 public void barChartAction()  {
-		 DiagramFactory factory  = new DiagramFactory();
-		 chart = factory.createChart(DiagramTypes.BAR_CHART, bookInChart);
-		 chart.setTitle("Top 5 book (radius selected = " + (int)Math.round(slider.getValue()) +"KM)");
-		 
+	 public void barChartAction()  {		 
 		 Stage stage = (Stage)borderPane.getScene().getWindow();
-		 DiagramGC gc = new DiagramGC(chart);
+		 DiagramGC gc = new DiagramGC((int)Math.round(slider.getValue()), DiagramTypes.BAR_CHART, bookInChart);
 		 stage.setScene(GraphicalElements.switchTo(Views.DIAGRAM, gc));
 	 }
 	    
 	 @FXML
 	 public void pieChartAction() {
-	    DiagramFactory factory  = new DiagramFactory();
-		chart = factory.createChart(DiagramTypes.PIE_CHART, bookInChart);
-		chart.setTitle("Top 5 book (radius selected = " + (int)Math.round(slider.getValue()) +"KM)");
+		 
+		 Stage stage = (Stage)borderPane.getScene().getWindow();
+		 DiagramGC gc = new DiagramGC((int)Math.round(slider.getValue()), DiagramTypes.PIE_CHART, bookInChart);
+		 stage.setScene(GraphicalElements.switchTo(Views.DIAGRAM, gc));
 
-		Stage stage = (Stage)borderPane.getScene().getWindow();
-		DiagramGC gc = new DiagramGC(chart);
-		stage.setScene(GraphicalElements.switchTo(Views.DIAGRAM, gc));
 	 }
 	 
 	 @FXML

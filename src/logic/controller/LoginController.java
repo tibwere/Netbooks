@@ -11,11 +11,11 @@ import logic.dao.UserDao;
 import logic.exception.NoUserFoundException;
 import logic.exception.PersistencyException;
 import logic.exception.UserAlreadySignedException;
+import logic.exception.WrongSyntaxException;
 import logic.model.Geolocalization;
 import logic.model.users.Reader;
 import logic.model.users.Retailer;
 import logic.util.Parser;
-import logic.util.Session;
 import logic.util.enumeration.UserTypes;
 
 /**
@@ -30,8 +30,6 @@ public class LoginController {
 		String passwd = bean.getPassword();
 		
 		UserTypes type = UserDao.findUserByUsernameAndPassword(user, passwd);
-		Session.getSession().setCurrUser(user);
-
 		return type;
 	}
 
@@ -50,7 +48,6 @@ public class LoginController {
 		}
 		
 		reader.store(bean.getPassword());
-		Session.getSession().setCurrUser(bean.getUsername());
 	}
 
 	private String formatAddress(String address, String city, String zip, String country) {
@@ -63,7 +60,7 @@ public class LoginController {
 		return builder.toString();
 	}
 
-	public void signup(RetailerBean bean) throws IOException, UserAlreadySignedException {
+	public void signup(RetailerBean bean) throws IOException, UserAlreadySignedException, WrongSyntaxException {
 		Retailer retailer = new Retailer(bean.getUsername(), bean.getEmail());
 		retailer.setCompany(bean.getCompanyName());
 		retailer.setVat(bean.getVat());
@@ -73,11 +70,9 @@ public class LoginController {
 			retailer.setLatitude(position.getLatitude());
 			retailer.setLongitude(position.getLongitude());
 		} catch(JSONException e) { /* RuntimeException causata dall'impossiblita di convertire il JSON (indirizzo malformato) */			
-			retailer.setLatitude(Geolocalization.INVALID_VALUE);
-			retailer.setLongitude(Geolocalization.INVALID_VALUE);
+			throw new WrongSyntaxException("Please, give us a valid address");
 		} 
 		
 		retailer.store(bean.getPassword());
-		Session.getSession().setCurrUser(bean.getUsername());
 	}
 }

@@ -5,6 +5,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 import logic.exception.WrongSyntaxException;
+import logic.model.users.User;
 
 
 /**
@@ -29,7 +30,7 @@ public class UserBean {
 		this.setUsername(username);
 		this.setPassword(password);
 	}
-
+	
 	public UserBean() {}
 
 	public String getUsername() {
@@ -38,12 +39,14 @@ public class UserBean {
 
 	public void setUsername(String username) throws WrongSyntaxException {
 		
-		if (username.equals(""))
+		if ("".equals(username))
 			throw new WrongSyntaxException("Username must be not empty!");
 		else if (username.length() >= 32)
 			throw new WrongSyntaxException("Max length for username: 32 chars");
 		else if (username.contains(" "))
 			throw new WrongSyntaxException("Username must not contains spaces!");
+		else if (username.equals(User.DENIED_USERNAME))
+			throw new WrongSyntaxException("This is a reserved username");
 		else
 			this.username = username;
 	}

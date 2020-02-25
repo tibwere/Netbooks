@@ -14,7 +14,6 @@ import logic.exception.PersistencyException;
 import logic.exception.WrongSyntaxException;
 import logic.model.Book;
 import logic.model.users.Reader;
-import logic.util.Session;
 import logic.util.enumeration.ImageSizes;
 import logic.util.enumeration.Vendors;
 
@@ -65,13 +64,13 @@ public class BuyBookController {
 		return beans;
 	}
 
-	public List<BookBean> getNotOwnedBooks() throws PersistencyException {
-		List<Book> books = BookDao.findNotOwnedBooks(Session.getSession().getCurrUser());
+	public List<BookBean> getNotOwnedBooks(ReaderBean currUser) throws PersistencyException {
+		List<Book> books = BookDao.findNotOwnedBooks(currUser.getUsername());
 		return getListOfBeans(books);
 	}
 
-	public ReaderBean getUserGenerality() throws PersistencyException {
-		Reader reader = ReaderDao.getNameAndSurname(Session.getSession().getCurrUser());
+	public ReaderBean getUserGenerality(ReaderBean currUser) throws PersistencyException {
+		Reader reader = ReaderDao.getNameAndSurname(currUser.getUsername());
 		ReaderBean bean = new ReaderBean();
 		try {
 			bean.setFirstName(reader.getFirstName());
@@ -84,8 +83,8 @@ public class BuyBookController {
 		return bean;
 	}
 
-	public void addBookToOwnedList(BookBean bean) throws AlreadyOwnedBookException, PersistencyException {
-		ReaderDao.insertNewBookInOwnedList(bean.getIsbn(), Session.getSession().getCurrUser());
+	public void addBookToOwnedList(BookBean bean, ReaderBean currUser) throws AlreadyOwnedBookException, PersistencyException {
+		ReaderDao.insertNewBookInOwnedList(bean.getIsbn(), currUser.getUsername());
 	}
 
 	public List<BookBean> getSearchedBook(String text) throws PersistencyException {
@@ -98,7 +97,7 @@ public class BuyBookController {
 		return getListOfBeans(selectedBooks);
 	}
 
-	public boolean bookIsOwned(BookBean bean) throws PersistencyException {
-		return ReaderDao.checkIfCurrReaderOwnBook(Session.getSession().getCurrUser(), bean.getIsbn());
+	public boolean bookIsOwned(BookBean bean, ReaderBean currUser) throws PersistencyException {
+		return ReaderDao.checkIfCurrReaderOwnBook(currUser.getUsername(), bean.getIsbn());
 	}
 }

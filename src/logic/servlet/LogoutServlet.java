@@ -1,13 +1,13 @@
 package logic.servlet;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import logic.util.Session;
 import logic.util.WebUtilities;
 
 /**
@@ -25,11 +25,9 @@ public class LogoutServlet extends HttpServlet {
         super();
     }
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Session.getSession().setCurrUser(null);
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.getSession().invalidate();
-		
-		request.getRequestDispatcher(WebUtilities.LOGIN_PAGE_URL).forward(request, response);
+		response.sendRedirect(WebUtilities.LOGIN_PAGE_URL.substring(1));
 	}
 
 }

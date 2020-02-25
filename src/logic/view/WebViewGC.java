@@ -14,10 +14,12 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import logic.bean.BookBean;
+import logic.bean.ReaderBean;
 import logic.controller.BuyBookController;
 import logic.exception.AlreadyOwnedBookException;
 import logic.exception.PersistencyException;
 import logic.util.GraphicalElements;
+import logic.util.Session;
 import logic.util.enumeration.Vendors;
 
 /**
@@ -58,7 +60,7 @@ public class WebViewGC implements Initializable {
 			Optional<ButtonType> results = GraphicalElements.showDialog(AlertType.CONFIRMATION, "Do you wanna confim purchase?");
 			if (results.get().equals(ButtonType.OK)) {
 				BuyBookController ctrl = new BuyBookController(null);
-				ctrl.addBookToOwnedList(bean);
+				ctrl.addBookToOwnedList(bean, new ReaderBean(Session.getSession().getCurrUser()));
 				GraphicalElements.showDialog(AlertType.INFORMATION, 
 						"Congratulations!\n\"" + bean.getTitle() + "\" has benn added to your list!");
 				

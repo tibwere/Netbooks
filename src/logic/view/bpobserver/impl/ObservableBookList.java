@@ -32,6 +32,10 @@ public class ObservableBookList extends Subject {
 	public void remove(BookBean book) {
 		books.remove(book);
 	}
+	
+	public int size() {
+		return books.size();
+	}
 
 	public List<BookBean> getBooks() {
 		return books;

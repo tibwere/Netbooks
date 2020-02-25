@@ -22,6 +22,18 @@ public class ReaderBean extends UserBean implements Serializable {
 	private String secondName;
 	private boolean gender;
 	
+	public ReaderBean() {
+		super();
+	}
+	
+	public ReaderBean(String username) {
+		try {
+			this.setUsername(username);
+		} catch (WrongSyntaxException e) {
+			throw new IllegalStateException("Already logged user must have correct username");
+		}
+	}
+	
     public String getFirstName() {
 		return firstName;
 	}

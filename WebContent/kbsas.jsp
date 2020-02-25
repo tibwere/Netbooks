@@ -1,7 +1,23 @@
+<%@page import="logic.util.Session"%>
+<%@page import="logic.util.enumeration.UserTypes"%>
 <%@page import="logic.bean.BookBean"%>
 <%@page import="java.util.Map"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+
+
+<%
+	response.setHeader("Cache-Control","no-cache");
+	response.setHeader("Cache-Control","no-store");
+	response.setHeader("Pragma","no-cache");
+	response.setDateHeader ("Expires", 0);
+
+	if (session.getAttribute("currUser") == null || session.getAttribute("currUserType") != UserTypes.RETAILER) {
+		response.sendRedirect("login.jsp");
+		return;
+	} 
+	
+%>
 
 <!doctype html>
 <html lang="en">
@@ -21,7 +37,7 @@
   	</head>
   	<body class = "bg">
 	  	<div class="container heading-margin-kbsas">
-  			<form action="login.jsp">
+  			<form action="LogoutServlet">
   				<div class = "row justify-content-center">
   					<img alt="" class="img-fluid" src="img/icon.png" width="64" height="64">
   				</div>
@@ -40,8 +56,8 @@
 	  			<div class="row mb-sm-4 justify-content-center align-self-center pb-4 list-item-body-bg">
 				    
 					<div class="col col-lg-4 pt-2 pb-1">
-						       <input name="slider" type="range" min="0" max="50" value="10" id="myRange" style="vertical-align: middle !important">
-	  						   <label >Selected value: <span id="value"></span></label>	  						 
+						       <input name="slider" type="range" min="0" max="50" value="<%=session.getAttribute("slider") != null ?  session.getAttribute("slider") : 10%>" id="myRange" style="vertical-align: middle !important">
+	  						   <label >Selected value: <span id="value"><%=request.getParameter("slider") != null ?  request.getParameter("slider") : 10%></span></label>	  						 
 		  			</div>
 		    		<div class="col col-lg-3 pt-1 pb-1">
 			    	  <button type="submit" class="btn btn-dark">VIEW BEST SELLERS</button>

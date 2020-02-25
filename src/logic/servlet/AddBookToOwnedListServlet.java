@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import logic.bean.BookBean;
+import logic.bean.ReaderBean;
 import logic.controller.BuyBookController;
 import logic.exception.AlreadyOwnedBookException;
 import logic.exception.PersistencyException;
@@ -31,11 +32,17 @@ public class AddBookToOwnedListServlet extends HttpServlet {
     }
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		if (request.getSession().getAttribute("currUser") == null) {
+			response.sendRedirect(WebUtilities.LOGIN_PAGE_URL.substring(1));
+			return;
+		}
+		
 		BuyBookController ctrl = new BuyBookController(null);
 		BookBean bean = new BookBean();
 		bean.setIsbn(request.getParameter("isbn"));
 		try {
-			ctrl.addBookToOwnedList(bean);
+			ctrl.addBookToOwnedList(bean, new ReaderBean(WebUtilities.getUsernameFromSession(request)));
 			request.setAttribute("result", "success");
 			request.getRequestDispatcher(WebUtilities.INDEX_PAGE_URL).forward(request, response);
 		} catch (AlreadyOwnedBookException e) {

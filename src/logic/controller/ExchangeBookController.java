@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import logic.bean.BookBean;
 import logic.bean.NotificationBean;
 import logic.bean.ReaderBean;
@@ -18,7 +19,6 @@ import logic.model.Book;
 import logic.model.Proposal;
 import logic.model.ProposalNotification;
 import logic.model.users.Reader;
-import logic.util.Session;
 import logic.util.enumeration.ImageSizes;
 import logic.util.enumeration.ProposalStates;
 
@@ -30,9 +30,9 @@ import logic.util.enumeration.ProposalStates;
 
 public class ExchangeBookController {
 
-	public Map<BookBean, ReaderBean> getAllExchangeableBooks() throws PersistencyException {
+	public Map<BookBean, ReaderBean> getAllExchangeableBooks(ReaderBean currUser) throws PersistencyException {
 		
-		List<Reader> owners = ReaderDao.findOwners(Session.getSession().getCurrUser());
+		List<Reader> owners = ReaderDao.findOwners(currUser.getUsername());
 		Map<BookBean, ReaderBean> map = new HashMap<>();
 		
 		for (Reader owner : owners) {
@@ -43,7 +43,7 @@ public class ExchangeBookController {
 			} catch (WrongSyntaxException e) {
 				throw new IllegalStateException("Unexpected application behavior has occurred.");
 			}
-			List<BookBean> bookBeans = getUserBooks(owner.getUsername());
+			List<BookBean> bookBeans = getUserBooks(ownerBean);
 			for (BookBean bookBean : bookBeans) {	
 				map.put(bookBean, ownerBean);
 			}
@@ -52,10 +52,9 @@ public class ExchangeBookController {
 		return map;
 	}
 	
-	public List<BookBean> getUserBooks(String username) throws PersistencyException {
-		if (username.equals(""))
-			username = Session.getSession().getCurrUser();
-		List<Book> books = BookDao.findUserBooks(username);
+	public List<BookBean> getUserBooks(ReaderBean user) throws PersistencyException {
+
+		List<Book> books = BookDao.findUserBooks(user.getUsername());
 		List<BookBean> beans = new ArrayList<>();
 		
 		for (Book b : books) {
@@ -73,17 +72,16 @@ public class ExchangeBookController {
 		return beans;
 	}
 	
-	public int buildProposal(BookBean bookDestBean, ReaderBean destBean) throws PersistencyException {
-		String sourceUsr = Session.getSession().getCurrUser();
+	public int buildProposal(BookBean bookDestBean, ReaderBean destBean, ReaderBean sourceUsr) throws PersistencyException {
 		if (getUserBooks(sourceUsr).isEmpty())
 			return 1;
-		if (ProposalDao.findOpenProposals(sourceUsr, destBean.getUsername()))
+		if (ProposalDao.findOpenProposals(sourceUsr.getUsername(), destBean.getUsername()))
 			return 2;
 		
-		int proposalId = ProposalDao.insertNewProposal(sourceUsr, destBean.getUsername(), ProposalStates.DEFAULT.toString());
+		int proposalId = ProposalDao.insertNewProposal(sourceUsr.getUsername(), destBean.getUsername(), ProposalStates.DEFAULT.toString());
 		
 		Book tgtBook = new Book(bookDestBean.getIsbn(), bookDestBean.getTitle(), bookDestBean.getAuthor());
-		Reader source = ReaderDao.getEmailAndGenre(sourceUsr);
+		Reader source = ReaderDao.getEmailAndGenre(sourceUsr.getUsername());
 		Reader target = ReaderDao.getEmailAndGenre(destBean.getUsername());
 		Proposal proposal = new Proposal(source, target, tgtBook, null, proposalId, ProposalStates.DEFAULT);
 		
@@ -92,11 +90,10 @@ public class ExchangeBookController {
 		return 0;
 	}
 	
-	public List<NotificationBean> getCurrUserNotifications() throws PersistencyException {
+	public List<NotificationBean> getCurrUserNotifications(ReaderBean currUser) throws PersistencyException {
 		
 		List<NotificationBean> beans = new ArrayList<>();
-		String currUser = Session.getSession().getCurrUser();
-		List<ProposalNotification> notifications = NotificationDao.getUserNotifications(currUser);
+		List<ProposalNotification> notifications = NotificationDao.getUserNotifications(currUser.getUsername());
 		
 		for (ProposalNotification n : notifications) {
 			NotificationBean bean = new NotificationBean(n.getSrc().getUsername(), n.getMessage(), n.getType(), n.getProposal().getProposalId());
@@ -113,16 +110,15 @@ public class ExchangeBookController {
 		NotificationDao.insertNewNotifForUser(target.getUsername(), notification);
 	}
 	
-	public Boolean acceptProposal(NotificationBean notifBean, BookBean bookBean) throws PersistencyException, NoStateTransitionException {
+	public Boolean acceptProposal(NotificationBean notifBean, BookBean bookBean, ReaderBean currUser) throws PersistencyException, NoStateTransitionException {
 		Proposal proposal = ProposalDao.getProposal(notifBean.getProposalId(), notifBean.getDestBook(), notifBean.getSrcBook());
 		if (bookBean == null) {	
-			String currUser = Session.getSession().getCurrUser();
 			if (!(ReaderDao.checkOwnership(notifBean.getSourceId(), notifBean.getSrcBook())
-					&& ReaderDao.checkOwnership(currUser, notifBean.getDestBook())))
+					&& ReaderDao.checkOwnership(currUser.getUsername(), notifBean.getDestBook())))
 					return false;
 			proposal.acceptProposal();
 			ProposalDao.updateProposalStatus(proposal, proposal.getCurrState());
-			ReaderDao.swapOwnership(notifBean.getSourceId(), notifBean.getSrcBook(), currUser, notifBean.getDestBook());
+			ReaderDao.swapOwnership(notifBean.getSourceId(), notifBean.getSrcBook(), currUser.getUsername(), notifBean.getDestBook());
 		}
 		else {
 			Book bookTarget = BookDao.getBook(bookBean.getIsbn());
@@ -138,11 +134,11 @@ public class ExchangeBookController {
 		ProposalDao.updateProposalStatus(proposal, proposal.getCurrState());
 	}
 	
-	public void removeNotification(NotificationBean notifBean) throws PersistencyException {
-		NotificationDao.deleteNotificationForUser(notifBean.getProposalId(), notifBean.getType(), Session.getSession().getCurrUser());
+	public void removeNotification(NotificationBean notifBean, ReaderBean currUser) throws PersistencyException {
+		NotificationDao.deleteNotificationForUser(notifBean.getProposalId(), notifBean.getType(), currUser.getUsername());
 	}
 
-	public boolean findNotifications() throws PersistencyException {
-		return NotificationDao.findUnreadNotifications(Session.getSession().getCurrUser());
+	public boolean findNotifications(ReaderBean currUser) throws PersistencyException {
+		return NotificationDao.findUnreadNotifications(currUser.getUsername());
 	}
 }

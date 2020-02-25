@@ -22,11 +22,13 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import logic.bean.BookBean;
 import logic.bean.NotificationBean;
+import logic.bean.ReaderBean;
 import logic.controller.ExchangeBookController;
 import logic.exception.NoStateTransitionException;
 import logic.exception.PersistencyException;
 import logic.util.GraphicalElements;
 import logic.util.NotificationButton;
+import logic.util.Session;
 import logic.util.enumeration.DynamicElements;
 /**
  * Controller grafico relativo ad una notifica di scambio
@@ -53,10 +55,13 @@ public class NotificationItemGC implements Initializable{
 	
 	private NotificationBean bean;
 	
+	private ReaderBean currReader;
+	
 	private ExchangeBookController controller = new ExchangeBookController();
 	
 	public NotificationItemGC(NotificationBean bean) {
 		this.bean = bean;
+		this.currReader = new ReaderBean(Session.getSession().getCurrUser());
 	}
 
 	@Override
@@ -78,13 +83,13 @@ public class NotificationItemGC implements Initializable{
 	
 	public void chooseBook (BookBean b) {
 		try {
-			controller.acceptProposal(bean, b);
+			controller.acceptProposal(bean, b, currReader);
 		
 			dynamicBtn.setDisable(true);
 			rejectBtn.setDisable(true);
 			rejectBtn.setVisible(false);
 		
-			controller.removeNotification(bean);
+			controller.removeNotification(bean, currReader);
 		} catch (PersistencyException | NoStateTransitionException e) {
 			GraphicalElements.showDialog(AlertType.ERROR, e.getMessage());
 			Platform.exit();
@@ -102,7 +107,7 @@ public class NotificationItemGC implements Initializable{
 			dynamicBtn.setDisable(true);
 			dynamicBtn.setVisible(false);
 			
-			controller.removeNotification(bean);
+			controller.removeNotification(bean, currReader);
 		} catch (PersistencyException | NoStateTransitionException e) {
 			GraphicalElements.showDialog(AlertType.ERROR, e.getMessage());
 			Platform.exit();
@@ -130,7 +135,7 @@ public class NotificationItemGC implements Initializable{
 					vbox.setMinHeight(400);
 					vbox.setAlignment(Pos.TOP_CENTER);
 					
-					List<BookBean> bookBeanList = ctrl.getUserBooks(bean.getSourceId());
+					List<BookBean> bookBeanList = ctrl.getUserBooks(new ReaderBean(bean.getSourceId()));
 									
 					for (BookBean bookBean : bookBeanList) {
 						ExchangeBookPopUpItemGC gc = new ExchangeBookPopUpItemGC(bookBean, me);
@@ -167,14 +172,14 @@ public class NotificationItemGC implements Initializable{
 			@Override
 			public void handle(ActionEvent event) {
 				try {
-					if (!controller.acceptProposal(bean, null))
+					if (!controller.acceptProposal(bean, null, currReader))
 						controller.failureNotification(bean);
 									
 					dynamicBtn.setDisable(true);
 					rejectBtn.setDisable(true);
 					rejectBtn.setVisible(false);
 					
-					controller.removeNotification(bean);
+					controller.removeNotification(bean, currReader);
 				} catch (PersistencyException | NoStateTransitionException e) {
 					GraphicalElements.showDialog(AlertType.ERROR, e.getMessage());
 					Platform.exit();

@@ -41,6 +41,9 @@ public class Query {
 	public static final String GET_BOOK_FOR_CHART_SP = "call netbooks.get_book_for_chart(?,?,?)";
 	public static final String GET_RETAILER_POSITION = "call netbooks.get_retailer_position(?)";
 	
+	/* used for tests */
+	public static final String DELETE_READER_TEST_SP = "call netbooks.delete_reader(?)";
+	
 	private Query() {
 		/* non instanziabile */
 	}

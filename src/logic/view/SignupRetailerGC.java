@@ -14,6 +14,7 @@ import logic.controller.LoginController;
 import logic.exception.UserAlreadySignedException;
 import logic.exception.WrongSyntaxException;
 import logic.util.GraphicalElements;
+import logic.util.Session;
 import logic.util.enumeration.Views;
 
 /**
@@ -71,19 +72,20 @@ public class SignupRetailerGC {
     	
     	else {
     		try {
-    			RetailerBean reader = new RetailerBean();
-    			reader.setCompanyName(companyTxt.getText());
-    			reader.setVat(vatTxt.getText());
-    			reader.setUsername(usernameTxt.getText());
-    			reader.setEmail(emailTxt.getText());
-    			reader.setPassword(passwordTxt.getText());
-    			reader.setAddress(addressTxt.getText());
-    			reader.setCity(cityTxt.getText());
-    			reader.setCountry(countryTxt.getText());
-    			reader.setZip(zipTxt.getText());
+    			RetailerBean retailer = new RetailerBean();
+    			retailer.setCompanyName(companyTxt.getText());
+    			retailer.setVat(vatTxt.getText());
+    			retailer.setUsername(usernameTxt.getText());
+    			retailer.setEmail(emailTxt.getText());
+    			retailer.setPassword(passwordTxt.getText());
+    			retailer.setAddress(addressTxt.getText());
+    			retailer.setCity(cityTxt.getText());
+    			retailer.setCountry(countryTxt.getText());
+    			retailer.setZip(zipTxt.getText());
     			
     			LoginController ctrl = new LoginController();
-    			ctrl.signup(reader);
+    			ctrl.signup(retailer);
+    			Session.getSession().setCurrUser(retailer.getUsername());
     			
     			GraphicalElements.showDialog(AlertType.INFORMATION, "Retailer succesfully signed up!");
     			parentStage.setScene(GraphicalElements.switchTo(Views.KBSAS, null));

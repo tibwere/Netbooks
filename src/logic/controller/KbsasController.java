@@ -7,12 +7,12 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import logic.bean.BookBean;
+import logic.bean.RetailerBean;
 import logic.dao.BookDao;
 import logic.dao.RetailerDao;
 import logic.exception.PersistencyException;
 import logic.model.Book;
 import logic.model.Geolocalization;
-import logic.util.Session;
 import logic.util.enumeration.ImageSizes;
 
 /**
@@ -23,9 +23,9 @@ import logic.util.enumeration.ImageSizes;
 
 public class KbsasController {
 	
-	public Map<BookBean , Integer> getBooksForRetailer(int radius) throws PersistencyException {
+	public Map<BookBean , Integer> getBooksForRetailer(int radius, RetailerBean currUser) throws PersistencyException {
 		
-		Geolocalization position = RetailerDao.getCurrentRetailerPosition(Session.getSession().getCurrUser());
+		Geolocalization position = RetailerDao.getCurrentRetailerPosition(currUser.getUsername());
 		Map<Book , Integer> books = BookDao.findBookForChart(position.getLatitude(), position.getLongitude(), radius);
 		Map<BookBean , Integer> mapBeans = new HashMap<>();	
 

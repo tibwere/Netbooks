@@ -37,7 +37,7 @@ public class Parser {
 		return Integer.valueOf(percentageStr.substring(0, 2));
 	}
 	
-	public static Geolocalization getMapsLocation(String address) throws IOException, JSONException {
+	public static Geolocalization getMapsLocation(String address) throws JSONException, IOException {
 		
 		String addressConverted = address.replace(" ", "%20");
 		

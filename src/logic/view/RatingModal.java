@@ -18,11 +18,13 @@ import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import logic.bean.BookBean;
 import logic.bean.BookEvaluationBean;
+import logic.bean.ReaderBean;
 import logic.controller.BuyBookController;
 import logic.controller.ManageEvaluationsController;
 import logic.exception.PersistencyException;
 import logic.exception.WrongSyntaxException;
 import logic.util.GraphicalElements;
+import logic.util.Session;
 
 /**
  * Interfaccia grafica del caso d'uso "Manage evaluations"
@@ -66,7 +68,7 @@ public class RatingModal extends VBox{
 		initComponents();
 		handleComponents();
 		
-		oldEvaluationBean = controller.getManageEvaluationsController().getPreviousEvaluation(bookBean);
+		oldEvaluationBean = controller.getManageEvaluationsController().getPreviousEvaluation(bookBean, new ReaderBean(Session.getSession().getCurrUser()));
 		if (oldEvaluationBean != null)
 			fillForm();
 		
@@ -80,7 +82,7 @@ public class RatingModal extends VBox{
 					evalBean.setRate((int) rate.getRating());
 					evalBean.setTitle(reviewTitleTxt.getText());
 					evalBean.setBody(reviewBodyTxt.getText());
-					controller.getManageEvaluationsController().addNewEvaluation(evalBean, bookBean);
+					controller.getManageEvaluationsController().addNewEvaluation(evalBean, bookBean, new ReaderBean(Session.getSession().getCurrUser()));
 					GraphicalElements.showDialog(AlertType.INFORMATION, "Your evaluation has been succesfully posted!");
 				} catch (PersistencyException | WrongSyntaxException e) {
 					GraphicalElements.showDialog(AlertType.ERROR, e.getMessage());

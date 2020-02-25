@@ -13,6 +13,18 @@ public class RetailerBean extends UserBean {
 	private String companyName;
 	private String vat;
 	
+	public RetailerBean() {
+		super();
+	}
+	
+	public RetailerBean(String username) {
+		try {
+			this.setUsername(username);
+		} catch (WrongSyntaxException e) {
+			throw new IllegalStateException("Already logged user must have correct username");
+		}
+	}	
+	
 	public String getCompanyName() {
 		return companyName;
 	}

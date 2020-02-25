@@ -15,9 +15,11 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import logic.bean.ReaderBean;
 import logic.controller.BuyBookController;
 import logic.exception.PersistencyException;
 import logic.util.GraphicalElements;
+import logic.util.Session;
 import logic.util.enumeration.Views;
 import logic.view.bpobserver.impl.BookPreviewPanel;
 import logic.view.bpobserver.impl.ObservableBookList;
@@ -49,7 +51,7 @@ public class HomeGC implements Initializable {
 	public HomeGC() {
 		try {
 			this.ctrl = new BuyBookController(null);
-			this.obs = new ObservableBookList(ctrl.getNotOwnedBooks());
+			this.obs = new ObservableBookList(ctrl.getNotOwnedBooks(new ReaderBean(Session.getSession().getCurrUser())));
 			this.bookPanel = new BookPreviewPanel(obs, this);
 			this.obs.attach(bookPanel);
 		} catch (PersistencyException e) {
@@ -79,7 +81,7 @@ public class HomeGC implements Initializable {
 			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
 				try {
 					if (Boolean.TRUE.equals(newValue)) {
-							obs.setBooks(ctrl.getNotOwnedBooks());
+							obs.setBooks(ctrl.getNotOwnedBooks(new ReaderBean(Session.getSession().getCurrUser())));
 					} 
 					else {
 						obs.setBooks(ctrl.getAllBooks());
