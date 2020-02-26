@@ -15,6 +15,14 @@ public class Retailer extends User {
 	private String vat;
 	private String company;
 	
+	public Retailer(String username, String email) {
+		super(username, email);		
+	}
+	
+	public Retailer(String username) {
+		super(username);
+	}
+	
 	public String getVat() {
 		return vat;
 	}
@@ -29,14 +37,6 @@ public class Retailer extends User {
 
 	public void setCompany(String company) {
 		this.company = company;
-	}
-
-	public Retailer(String username, String email) {
-		super(username, email);		
-	}
-	
-	public Retailer(String username) {
-		super(username);
 	}
 	
 	@Override

@@ -1,7 +1,5 @@
 package logic.bean;
 
-import java.math.BigInteger;
-import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 import com.google.re2j.Matcher;
@@ -64,7 +62,7 @@ public class UserBean {
 		else if (!containsDigit(password))
 			throw new WrongSyntaxException("Password must contain a digit!");
 		else
-			this.password = md5hash(password);
+			this.password = password;
 	}
 
 	public String getEmail() {
@@ -113,32 +111,18 @@ public class UserBean {
 		return city;
 	}
 
+	
 	public void setCity(String city) {
 		this.city = city;
 	}
 	
-	private boolean containsDigit(String s) {
-	    boolean containsDigit = false;
+	private boolean containsDigit(String notHashedPsw) {
 
-	    if (s != null && !s.isEmpty()) 
-	        for (char c : s.toCharArray()) 
-	            if (containsDigit = Character.isDigit(c)) 
-	                break;
-
-	    return containsDigit;
-	}
-
-	private String md5hash(String input) throws NoSuchAlgorithmException { 
-		MessageDigest md = MessageDigest.getInstance("MD5");  
-        byte[] messageDigest = md.digest(input.getBytes());  
-        BigInteger no = new BigInteger(1, messageDigest);
+        for (char c : notHashedPsw.toCharArray()) {
+        	if (Character.isDigit(c))
+        		return true;
+        }
         
-        StringBuilder hashtext = new StringBuilder(no.toString(16)); 
-        while (hashtext.length() < 32) 
-        	hashtext.insert(0, '0');
-       
-        return hashtext.toString(); 
-    } 
-	
-	
+	    return false;
+	}	
 }

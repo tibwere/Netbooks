@@ -16,6 +16,11 @@ import logic.model.ProposalNotification;
  */
 public class Reader extends User {
 	
+	/**
+	 * Username dell'account di test [READER] dell'applicazione
+	 */
+	public static final String TESTER_USERNAME = "tester-reader";
+	
 	private String firstName;
 	private String secondName;
 

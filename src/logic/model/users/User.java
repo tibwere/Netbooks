@@ -11,8 +11,6 @@ import logic.model.Storable;
  */
 public abstract class User implements Storable{
 	
-	public static final String TESTER_USERNAME = "tester-account";
-	
 	protected String username;
 	protected String email;
 	protected Geolocalization position;

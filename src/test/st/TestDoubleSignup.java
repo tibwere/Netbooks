@@ -9,7 +9,6 @@ import logic.bean.UserBean;
 import logic.exception.PersistencyException;
 import logic.exception.UserAlreadySignedException;
 import logic.model.users.Reader;
-import logic.model.users.User;
 import test.TestUtilities;
 
 /**
@@ -40,7 +39,7 @@ public class TestDoubleSignup {
 	
 	private Reader getTesterReader() {
 		
-		Reader reader = new Reader(User.TESTER_USERNAME, "test@reader.it", false);
+		Reader reader = new Reader(Reader.TESTER_USERNAME, "test@reader.it", false);
 		reader.setFirstName("Test");
 		reader.setSecondName("Reader");
 		

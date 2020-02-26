@@ -11,7 +11,6 @@ import logic.exception.NotAccesibleConfigurationException;
 import logic.model.Geolocalization;
 import logic.model.Storable;
 import logic.model.users.Reader;
-import logic.model.users.User;
 import logic.util.Parser;
 
 /**
@@ -31,7 +30,7 @@ public class TestPosition {
 	@Test
 	public void testInvalidCoordOnEmptyInput() throws IOException, NotAccesibleConfigurationException {
 		
-		Reader reader = new Reader(User.TESTER_USERNAME);		
+		Reader reader = new Reader(Reader.TESTER_USERNAME);		
 		
 		try {
 			Geolocalization position = Parser.getMapsLocation("");
