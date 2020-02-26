@@ -129,7 +129,7 @@ public class LoginGC implements Initializable{
 				stage.setScene(GraphicalElements.switchTo(Views.HOME, null));
 			else
 				stage.setScene(GraphicalElements.switchTo(Views.KBSAS, null));
-		} catch(NoUserFoundException | PersistencyException | NotAccesibleConfigurationException e) {
+		} catch(NoUserFoundException | PersistencyException e) {
 			resultLbl.setText(e.getMessage().toUpperCase());
 		} catch (NoSuchAlgorithmException e) {
 			resultLbl.setText("UNABLE TO ENCRYPT YOUR PASSWORD");

@@ -17,7 +17,6 @@ import logic.bean.BookBean;
 import logic.bean.ReaderBean;
 import logic.controller.buybooksystem.BuyBookSystem;
 import logic.exception.AlreadyOwnedBookException;
-import logic.exception.NotAccesibleConfigurationException;
 import logic.exception.PersistencyException;
 import logic.util.GraphicalElements;
 import logic.util.Session;
@@ -68,7 +67,7 @@ public class WebViewGC implements Initializable {
 				currStage.close();
 				buyBookGC.getBackToHome();
 			}
-		} catch (PersistencyException | NotAccesibleConfigurationException e) {
+		} catch (PersistencyException e) {
 			GraphicalElements.showDialog(AlertType.ERROR, e.getMessage());
 			Platform.exit();
 		} catch (AlreadyOwnedBookException e) {

@@ -4,10 +4,10 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-import logic.exception.NotAccesibleConfigurationException;
+import com.google.re2j.Matcher;
+import com.google.re2j.Pattern;
+
 import logic.exception.WrongSyntaxException;
-import logic.model.users.User;
-import logic.util.AppProperties;
 
 
 /**
@@ -28,7 +28,7 @@ public class UserBean {
 	private String zip;
 	private String city;
 	
-	public UserBean(String username, String password) throws WrongSyntaxException, NoSuchAlgorithmException, NotAccesibleConfigurationException {
+	public UserBean(String username, String password) throws WrongSyntaxException, NoSuchAlgorithmException {
 		this.setUsername(username);
 		this.setPassword(password);
 	}
@@ -39,7 +39,7 @@ public class UserBean {
 		return username;
 	}
 
-	public void setUsername(String username) throws WrongSyntaxException, NotAccesibleConfigurationException {
+	public void setUsername(String username) throws WrongSyntaxException {
 				
 		if ("".equals(username))
 			throw new WrongSyntaxException("Username must be not empty!");
@@ -47,8 +47,6 @@ public class UserBean {
 			throw new WrongSyntaxException("Max length for username: 32 chars");
 		else if (username.contains(" "))
 			throw new WrongSyntaxException("Username must not contains spaces!");
-		else if (username.equals(User.DENIED_USERNAME) && !Boolean.valueOf(AppProperties.getInstance().getProperty("testmodality")))
-			throw new WrongSyntaxException("This is a reserved username");
 		else
 			this.username = username;
 	}
@@ -63,7 +61,7 @@ public class UserBean {
 			throw new WrongSyntaxException("Password must be not empty !");
 		if (password.length() < 8)
 			throw new WrongSyntaxException("Min length for password: 8 chars");
-		else if (password.matches(".*\\[0-9].*"))
+		else if (!containsDigit(password))
 			throw new WrongSyntaxException("Password must contain a digit!");
 		else
 			this.password = md5hash(password);
@@ -74,7 +72,11 @@ public class UserBean {
 	}
 
 	public void setEmail(String email) throws WrongSyntaxException {
-		if (email.matches(EMAIL_REGEX) && email.length() < 256)
+		
+		Pattern pattern = Pattern.compile(EMAIL_REGEX);
+		Matcher matcher = pattern.matcher(email);
+		
+		if (matcher.matches() && email.length() < 256)
 			this.email = email;
 		else
 			throw new WrongSyntaxException("Email address is not valid!");
@@ -113,6 +115,17 @@ public class UserBean {
 
 	public void setCity(String city) {
 		this.city = city;
+	}
+	
+	private boolean containsDigit(String s) {
+	    boolean containsDigit = false;
+
+	    if (s != null && !s.isEmpty()) 
+	        for (char c : s.toCharArray()) 
+	            if (containsDigit = Character.isDigit(c)) 
+	                break;
+
+	    return containsDigit;
 	}
 
 	private String md5hash(String input) throws NoSuchAlgorithmException { 

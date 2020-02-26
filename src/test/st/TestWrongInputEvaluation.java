@@ -7,7 +7,6 @@ import org.junit.jupiter.api.function.Executable;
 
 import logic.bean.BookEvaluationBean;
 import logic.exception.WrongSyntaxException;
-import test.TestUtilities;
 
 /**
  * <b>JUnit</b> test utilizzato per verificare la robustezza
@@ -18,6 +17,8 @@ import test.TestUtilities;
  */
 public class TestWrongInputEvaluation {
 	
+	private static final String TOO_MUCH_LONG_TITLE = "too-much-long-title-too-much-long-title-too-much-long-title-too-much-long-title";
+	
 	@Test
 	public void testWrongTitle() {
 		
@@ -26,7 +27,7 @@ public class TestWrongInputEvaluation {
 			@Override
 			public void execute() throws Throwable {
 				BookEvaluationBean bean = new BookEvaluationBean();
-				bean.setTitle(TestUtilities.getWrongTitle());
+				bean.setTitle(TOO_MUCH_LONG_TITLE);
 			}
 			
 		});

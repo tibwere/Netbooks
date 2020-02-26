@@ -17,7 +17,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import logic.bean.ReaderBean;
 import logic.controller.buybooksystem.BuyBookSystem;
-import logic.exception.NotAccesibleConfigurationException;
 import logic.exception.PersistencyException;
 import logic.util.GraphicalElements;
 import logic.util.Session;
@@ -55,7 +54,7 @@ public class HomeGC implements Initializable {
 			this.obs = new ObservableBookList(system.getNotOwnedBooks(new ReaderBean(Session.getSession().getCurrUser())));
 			this.bookPanel = new BookPreviewPanel(obs, this);
 			this.obs.attach(bookPanel);
-		} catch (PersistencyException | NotAccesibleConfigurationException e) {
+		} catch (PersistencyException e) {
 			GraphicalElements.showDialog(AlertType.ERROR, e.getMessage());
 			Platform.exit();
 		} 
@@ -87,7 +86,7 @@ public class HomeGC implements Initializable {
 					else {
 						obs.setBooks(system.getAllBooks());
 					}
-				}catch (PersistencyException | NotAccesibleConfigurationException e) {
+				}catch (PersistencyException e) {
 					GraphicalElements.showDialog(AlertType.ERROR, e.getMessage());
 					Platform.exit();
 				}

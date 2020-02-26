@@ -31,7 +31,7 @@ public class Parser {
 		
 		String titleConverted = title.replace(" ", "%20");
 	
-		Document doc = Jsoup.connect(RATING_GOOGLE_PREFIX + titleConverted).get();
+		Document doc = Jsoup.connect(RATING_GOOGLE_PREFIX + titleConverted + "%20libro").get();
 		Element elem = doc.getElementsByClass(RATING_SELECTOR).first();
 		
 		String percentageStr = elem.text().split(" ")[RATING_PERC_INDEX];

@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import logic.bean.BookBean;
 import logic.bean.ReaderBean;
 import logic.controller.buybooksystem.BuyBookSystem;
-import logic.exception.NotAccesibleConfigurationException;
 import logic.exception.PersistencyException;
 import logic.util.WebUtilities;
 
@@ -32,7 +31,7 @@ public class LoadBooksServlet extends HttpServlet {
         super();
     }
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		BuyBookSystem system = new BuyBookSystem();
 		
 		try {
@@ -46,8 +45,14 @@ public class LoadBooksServlet extends HttpServlet {
 				beans = system.getNotOwnedBooks(new ReaderBean(WebUtilities.getUsernameFromSession(request)));
 			
 			request.getSession().setAttribute("books", beans);
+			if (request.getParameter("load") == null) {
+				request.getSession().setAttribute("type", "notowned");
+			} else {
+				request.getSession().setAttribute("type", request.getParameter("load"));
+			}
+			
 			response.sendRedirect(WebUtilities.INDEX_PAGE_URL.substring(1));
-		} catch (PersistencyException | NotAccesibleConfigurationException e) {
+		} catch (PersistencyException e) {
 			WebUtilities.redirectToErrorPage(request, response, e.getMessage());
 		}
 	}

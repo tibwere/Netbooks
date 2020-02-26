@@ -16,7 +16,6 @@ import javafx.scene.layout.VBox;
 import logic.bean.BookBean;
 import logic.bean.ReaderBean;
 import logic.controller.ExchangeBookController;
-import logic.exception.NotAccesibleConfigurationException;
 import logic.exception.PersistencyException;
 import logic.util.GraphicalElements;
 import logic.util.Session;
@@ -51,7 +50,7 @@ public class YourBooksGC implements Initializable{
 				vbox.getChildren().add(item);
 			}
 		}			
-		catch (PersistencyException | NotAccesibleConfigurationException e) {
+		catch (PersistencyException e) {
 			GraphicalElements.showDialog(AlertType.ERROR, e.getMessage());
 			Platform.exit();
 		} catch (IOException | IllegalStateException e) {

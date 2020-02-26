@@ -7,10 +7,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-import logic.dao.ReaderDao;
 import logic.exception.PersistencyException;
 import logic.exception.UserAlreadySignedException;
-import logic.model.users.Reader;
+import logic.model.users.User;
 import test.TestUtilities;
 
 /**
@@ -20,30 +19,27 @@ import test.TestUtilities;
  */
 public class TestNavbarSelenium {
 	
-	private final static String ROOT_WEB_URL = "http://localhost:8080/Netbooks/";
+	private static final String ROOT_WEB_URL = "http://localhost:8080/Netbooks/";
 	
 	@Test
 	public void testShowProperlyUsername() throws UserAlreadySignedException, PersistencyException {
-		
-		Reader tester = TestUtilities.getTesterReader();
-		tester.store(TestUtilities.getTesterPasswd(true));
-		
-		System.setProperty("webdriver.chrome.driver", "drivers/chromedriver.exe");
+				
+		System.setProperty("webdriver.chrome.driver", "drivers/chromedriver_ST.exe");
 		WebDriver driver = new ChromeDriver();
 		driver.manage().deleteAllCookies();
 		
 		driver.get(ROOT_WEB_URL + "login.jsp");	
-		driver.findElement(By.xpath("//*[@id=\"usernameTxt\"]")).sendKeys(tester.getUsername());
+		driver.findElement(By.xpath("//*[@id=\"usernameTxt\"]")).sendKeys(User.TESTER_USERNAME);
 		driver.findElement(By.xpath("//*[@id=\"passwordTxt\"]")).sendKeys(TestUtilities.getTesterPasswd(false));
 		driver.findElement(By.xpath("//*[@id=\"loginBtn\"]")).click();
+		//driver.close();
 		String generality = driver.findElement(By.xpath("//*[@id=\"generality\"]")).getText();
 		
-		String words [] = generality.split(" "); 
+		String [] words = generality.split(" "); 
 		String usernameInBrackets = words[words.length - 1];
 		String username = usernameInBrackets.substring(1, usernameInBrackets.length() - 1);
 				
-		assertEquals(tester.getUsername(), username);
-		
-		ReaderDao.deleteReaderForTest();
-	}
+		assertEquals(User.TESTER_USERNAME, username);
+		driver.close();
+	}	
 }

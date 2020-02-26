@@ -84,7 +84,7 @@ public class RatingModal extends VBox{
 					evalBean.setBody(reviewBodyTxt.getText());
 					system.addNewEvaluation(evalBean, bookBean, new ReaderBean(Session.getSession().getCurrUser()));
 					GraphicalElements.showDialog(AlertType.INFORMATION, "Your evaluation has been succesfully posted!");
-				} catch (PersistencyException | WrongSyntaxException | NotAccesibleConfigurationException e) {
+				} catch (PersistencyException | WrongSyntaxException e) {
 					GraphicalElements.showDialog(AlertType.ERROR, e.getMessage());
 				} 
 				Stage currStage = (Stage) submitBtn.getScene().getWindow();

@@ -67,7 +67,7 @@ public class LoadExBooksServlet extends HttpServlet {
 			else
 				request.getSession().setAttribute("exBookResponse", "empty");
 			
-			request.getRequestDispatcher(WebUtilities.EXCHANGE_BOOK_PAGE_URL).forward(request, response);;
+			request.getRequestDispatcher(WebUtilities.EXCHANGE_BOOK_PAGE_URL).forward(request, response);
 			
 		} catch(PersistencyException | NotAccesibleConfigurationException e) {
 			WebUtilities.redirectToErrorPage(request, response, e.getMessage());

@@ -79,7 +79,7 @@
 							<li class="list-group-item list-item-bg mb-2">
 								<span class="font-weight-bold">
 									<i class="fab fa-google google-color"></i> Google average evaluation for this title: 
-									<span class="google-color"><%=request.getAttribute("onl")%>%</span>
+									<span class="google-color" id="google"><%=request.getAttribute("onl")%>%</span>
 								</span>
 							</li>
 						<%}%>

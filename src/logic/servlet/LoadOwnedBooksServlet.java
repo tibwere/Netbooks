@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 import logic.bean.BookBean;
 import logic.bean.ReaderBean;
 import logic.controller.ExchangeBookController;
-import logic.exception.NotAccesibleConfigurationException;
 import logic.exception.PersistencyException;
 import logic.util.WebUtilities;
 /**
@@ -62,7 +61,7 @@ public class LoadOwnedBooksServlet extends HttpServlet {
 			request.setAttribute("bookList", bookList);
 			view.forward(request, response);
 			
-		} catch (PersistencyException | NotAccesibleConfigurationException e) {
+		} catch (PersistencyException e) {
 			WebUtilities.redirectToErrorPage(request, response, e.getMessage());
 		}
 	}

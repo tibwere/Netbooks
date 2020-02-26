@@ -31,7 +31,7 @@ public class TestPosition {
 	@Test
 	public void testInvalidCoordOnEmptyInput() throws IOException, NotAccesibleConfigurationException {
 		
-		Reader reader = new Reader(User.DENIED_USERNAME);		
+		Reader reader = new Reader(User.TESTER_USERNAME);		
 		
 		try {
 			Geolocalization position = Parser.getMapsLocation("");

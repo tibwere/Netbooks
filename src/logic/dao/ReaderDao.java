@@ -15,7 +15,6 @@ import logic.exception.NotAccesibleConfigurationException;
 import logic.exception.PersistencyException;
 import logic.exception.UserAlreadySignedException;
 import logic.model.users.Reader;
-import logic.model.users.User;
 
 /**
  * DAO per l'interazione con lo strato di persistenza 
@@ -28,20 +27,6 @@ public class ReaderDao {
 	
 	private ReaderDao() {
 		/* non istanziabile */
-	}
-	
-	public static void deleteReaderForTest() throws PersistencyException {
-		CallableStatement stmt = null;
-		
-		try {
-			Connection conn = DBManager.getConnection();
-			stmt = conn.prepareCall(Query.DELETE_READER_TEST_SP);
-			DBOperation.bindParametersAndExec(stmt, User.DENIED_USERNAME);
-		} catch (SQLException | ClassNotFoundException | NotAccesibleConfigurationException e) {
-			throw new PersistencyException("Comunication with DB has failed");
-		} finally {
-			DBManager.closeStmt(stmt);
-		}		
 	}
 	
 	public static Reader getNameAndSurname(String user) throws PersistencyException {

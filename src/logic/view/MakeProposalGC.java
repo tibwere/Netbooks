@@ -15,7 +15,6 @@ import javafx.scene.layout.BorderPane;
 import logic.bean.BookBean;
 import logic.bean.ReaderBean;
 import logic.controller.ExchangeBookController;
-import logic.exception.NotAccesibleConfigurationException;
 import logic.exception.PersistencyException;
 import logic.util.GraphicalElements;
 import logic.util.Session;
@@ -92,7 +91,7 @@ public class MakeProposalGC implements Initializable{
 				break;
 			}
 			
-		} catch (PersistencyException | NotAccesibleConfigurationException e) {
+		} catch (PersistencyException e) {
 			GraphicalElements.showDialog(AlertType.ERROR, e.getMessage());
 			Platform.exit();
 		}

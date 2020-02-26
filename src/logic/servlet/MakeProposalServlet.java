@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import logic.bean.BookBean;
 import logic.bean.ReaderBean;
 import logic.controller.ExchangeBookController;
-import logic.exception.NotAccesibleConfigurationException;
 import logic.exception.PersistencyException;
 import logic.exception.WrongSyntaxException;
 import logic.util.WebUtilities;
@@ -76,7 +75,7 @@ public class MakeProposalServlet extends HttpServlet {
 			if (view != null)
 				view.forward(request, response);
 			
-		} catch(WrongSyntaxException | PersistencyException | NotAccesibleConfigurationException e) {
+		} catch(WrongSyntaxException | PersistencyException e) {
 			WebUtilities.redirectToErrorPage(request, response, e.getMessage());
 		}
 	}

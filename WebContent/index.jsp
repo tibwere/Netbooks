@@ -57,24 +57,36 @@
 					
 					<div class="row justify-content-center align-self-center pb-4 list-item-body-bg">
 						<div class="col col-sm-4 col-md-4 col-lg-4 col-xl-4 pt-1 pb-1">
-							<form action="LoadBooksServlet" method="POST">
+							<form action="LoadBooksServlet" method="GET">
 								<div class="input-group">
- 									<input type="text" class="form-control" name="titleSearch" placeholder="Search for title ..." aria-label="Search for title ..." aria-describedby="Search for title ...">
+ 									<input type="text" class="form-control" id="searchTxt" name="titleSearch" placeholder="Search for title ..." aria-label="Search for title ..." aria-describedby="Search for title ...">
  									<input type="hidden" value="search" name="load">
  									<div class="input-group-append">
-   										<button class="btn btn-secondary" type="submit"><i class="fas fa-search"></i></button>
+   										<button class="btn btn-secondary" type="submit" id="searchBtn"><i class="fas fa-search"></i></button>
  									</div>
 								</div>
 							</form>
 						</div>
 						<div class="col col-sm-4 col-md-4 col-lg-4 col-xl-4 list-item-bg pt-1 pb-1">
-							<form action="LoadBooksServlet" method="POST">
+							<form action="LoadBooksServlet" method="GET">
 								<div class="form-check form-check-inline">
-  									<input class="form-check-input" type="radio" name="load" id="ownedRadio" value="owned" checked>
-  									<label class="form-check-label" for="ownedRadio">No owned books</label>
+									<% 									
+										if ("notowned".equals(session.getAttribute("type"))) {
+											out.print("<input class=\"form-check-input\" type=\"radio\" name=\"load\" id=\"ownedRadio\" value=\"owned\" checked>");	
+										} else {
+											out.print("<input class=\"form-check-input\" type=\"radio\" name=\"load\" id=\"ownedRadio\" value=\"owned\">");
+										}
+									%>
+  									<label class="form-check-label" for="ownedRadio">Not owned books</label>
 								</div>
 								<div class="form-check form-check-inline">
-  									<input class="form-check-input" type="radio" name="load" id="allRadio" value="all">
+									<%  											
+										if ("all".equals(session.getAttribute("type"))) {
+											out.print("<input class=\"form-check-input\" type=\"radio\" name=\"load\" id=\"allRadio\" value=\"all\" checked>");	
+										} else {
+											out.print("<input class=\"form-check-input\" type=\"radio\" name=\"load\" id=\"allRadio\" value=\"all\">");
+										}
+									%>
   									<label class="form-check-label" for="allRadio">All books</label>
 								</div>
 								<button type="submit" class="btn btn-secondary"><i class="fa fa-refresh"></i></button>
@@ -99,7 +111,7 @@
 						<div class="col col-sm-6 col-md-6 col-lg-6 col-xl-6">
 							<div class="alert alert-success" role="alert">
   								The book has added to your owned list!
-  								<form action="LoadBooksServlet" method="POST">
+  								<form action="LoadBooksServlet" method="GET">
   									<input type="hidden" name="load" value="notowned">
   									<button type="submit" class="btn btn-link"><i class="fa fa-refresh"></i> Refresh</button>
   								</form>
@@ -121,7 +133,7 @@
 					<% if (request.getAttribute("notowned") != null) {%>
 					<div class="row justify-content-center align-self-center mt-4">	  			
 						<div class="col col-sm-6 col-md-6 col-lg-6 col-xl-6">
-							<div class="alert alert-warning" role="alert">
+							<div class="alert alert-warning" role="alert" id="not-owned-book-alert">
   								You cannot evaluate this book, you don't own it!
 							</div>
 						</div>
@@ -129,6 +141,12 @@
 					<%}%>
 					
 					<!-- END ALERTS -->
+					
+					<% 
+						if ("search".equals(session.getAttribute("type"))) {
+							out.println("<p class=\"font-weight-bold mt-4\">SEARCH RESULTS </p>");
+						} 
+					%>
 					
 					<div id="accordion" class="mt-4">
 					 	
@@ -187,7 +205,7 @@
 												</div>
 												<input type="hidden" value="<%=currentBook.getTitle()%>" name="title">
 												<input type="hidden" value="<%=currentBook.getIsbn()%>" name="isbn">
-												<button type="submit" class="btn btn-light mt-3">Show Me</button>
+												<button type="submit" class="btn btn-light mt-3" id="showMeBtn">Show Me</button>
 											</form>
 											<div class="row justify-content-center align-self-center pt-3">	  			
 													<div class="col col-sm-6 col-md-6 col-lg-6 col-xl-6">

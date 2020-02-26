@@ -94,7 +94,7 @@ public class BookPreviewGC implements Initializable{
 				new BuyBookSystem().addBookToOwnedList(bean, new ReaderBean(Session.getSession().getCurrUser()));
 				GraphicalElements.showDialog(AlertType.INFORMATION, "\"" + bean.getTitle() + "\" has succesfully added to your owned list!" );
 				parentCtrl.refresh();
-			} catch (PersistencyException | NotAccesibleConfigurationException e) {
+			} catch (PersistencyException e) {
 				GraphicalElements.showDialog(AlertType.ERROR, e.getMessage());
 				Platform.exit();
 			} catch (AlreadyOwnedBookException e) {

@@ -10,7 +10,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import logic.bean.ReaderBean;
 import logic.controller.buybooksystem.BuyBookSystem;
-import logic.exception.NotAccesibleConfigurationException;
 import logic.exception.PersistencyException;
 import logic.util.GraphicalElements;
 import logic.util.Session;
@@ -50,7 +49,7 @@ public class NavbarGC {
 				profileBtn.setText(bean.getFirstName() + " " + bean.getSecondName());
 			else
 				profileBtn.setText(bean.getFirstName().charAt(0) + ". " + bean.getSecondName());
-		} catch (PersistencyException | NotAccesibleConfigurationException e) {
+		} catch (PersistencyException e) {
 			profileBtn.setText("");
 		}
 	}
