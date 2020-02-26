@@ -17,8 +17,7 @@ import javafx.scene.text.TextAlignment;
 import logic.bean.BookBean;
 import logic.bean.BookEvaluationBean;
 import logic.bean.ReaderBean;
-import logic.controller.BuyBookController;
-import logic.controller.ManageEvaluationsController;
+import logic.controller.buybooksystem.BuyBookSystem;
 import logic.exception.PersistencyException;
 
 /**
@@ -116,9 +115,8 @@ public class InAppReviewsBox extends BoxDecorator {
 		initComponents();
 		handleComponents();
 		
-		BuyBookController controller = new BuyBookController(new ManageEvaluationsController());
 		Map<ReaderBean, BookEvaluationBean> reviews = null;
-		reviews = controller.getManageEvaluationsController().getBookReviews(bean);
+		reviews = new BuyBookSystem().getBookReviews(bean);
 
 
 		if (reviews != null) {

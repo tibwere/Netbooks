@@ -12,8 +12,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import logic.bean.BookBean;
-import logic.controller.BuyBookController;
-import logic.controller.ManageEvaluationsController;
+import logic.controller.buybooksystem.BuyBookSystem;
 import logic.exception.PersistencyException;
 import logic.util.ImageDispenser;
 
@@ -37,7 +36,6 @@ public class OnlineRatingsBox extends BoxDecorator {
 	
 	private VBox prepareBox(BookBean bean) {
 		VBox box = new VBox(GAP);
-		BuyBookController ctrl = new BuyBookController(new ManageEvaluationsController());
 		
 		box.getStyleClass().add("moreinfopanel");
 		box.setPadding(new Insets(GAP));
@@ -47,7 +45,7 @@ public class OnlineRatingsBox extends BoxDecorator {
 			preEvalLbl.setText("GOOGLE USERS AVERAGE EVALUATION FOR THIS TITLE: ");			
 			evalLbl.setFont(Font.font("System", FontWeight.BOLD, 18));
 			glyph.setImage(new Image(ImageDispenser.getImage(ImageDispenser.LIKE)));
-			int percentage = ctrl.getManageEvaluationsController().getOnlineAvgEval(bean);
+			int percentage = new BuyBookSystem().getOnlineAVGEval(bean);
 			evalLbl.setText(percentage + "%");
 			
 			if (percentage < 50)

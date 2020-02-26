@@ -10,8 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import logic.bean.BookBean;
-import logic.controller.BuyBookController;
-import logic.controller.ManageEvaluationsController;
+import logic.controller.buybooksystem.BuyBookSystem;
 import logic.exception.PersistencyException;
 import logic.util.WebUtilities;
 
@@ -50,15 +49,15 @@ public class ShowEvaluationServlet extends HttpServlet {
 			BookBean bean = new BookBean();
 			bean.setIsbn(request.getParameter("isbn"));
 			bean.setTitle(request.getParameter("title"));
-			BuyBookController ctrl = new BuyBookController(new ManageEvaluationsController());
-				
+			BuyBookSystem system = new BuyBookSystem();
+			
 			try {
 				if (Arrays.asList(checkBoxesValues).contains("rat"))
-					request.setAttribute("rat", ctrl.getManageEvaluationsController().getAVGRate(bean));
+					request.setAttribute("rat", system.getAVGRate(bean));
 				if (Arrays.asList(checkBoxesValues).contains("rev"))
-					request.setAttribute("rev", ctrl.getManageEvaluationsController().getBookReviews(bean));
+					request.setAttribute("rev", system.getBookReviews(bean));
 				if (Arrays.asList(checkBoxesValues).contains("onl")) {
-					request.setAttribute("onl", ctrl.getManageEvaluationsController().getOnlineAvgEval(bean));
+					request.setAttribute("onl", system.getOnlineAVGEval(bean));
 				}
 				request.getRequestDispatcher(WebUtilities.SHOW_EVALUATION_PAGE_URL).forward(request, response);
 	

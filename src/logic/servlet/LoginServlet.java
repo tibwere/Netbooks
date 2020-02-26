@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import logic.bean.ReaderBean;
 import logic.bean.UserBean;
-import logic.controller.BuyBookController;
 import logic.controller.LoginController;
+import logic.controller.buybooksystem.BuyBookSystem;
 import logic.exception.NoUserFoundException;
 import logic.exception.PersistencyException;
 import logic.exception.WrongSyntaxException;
@@ -49,7 +49,7 @@ public class LoginServlet extends HttpServlet {
 			request.getSession().setAttribute("currUserType", type);
 
 			if (type.equals(UserTypes.READER)) {
-				ReaderBean curr = new BuyBookController(null).getUserGenerality(new ReaderBean(username));
+				ReaderBean curr = new BuyBookSystem().getReaderGenerality(new ReaderBean(username));
 				request.getSession().setAttribute("navbar-generality", curr.getFirstName() + " " + curr.getSecondName());
 				request.getRequestDispatcher(WebUtilities.LOAD_BOOKS_SERVLET_URL).forward(request, response);
 			}

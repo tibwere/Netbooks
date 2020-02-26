@@ -3,6 +3,12 @@ package test;
 import logic.model.users.Reader;
 import logic.model.users.User;
 
+/**
+ * Classe di utility per quanto riguarda la stesura dei test
+ * Fornisce una serie di operazioni utili in vari test effettuati.
+ * @author Simone Tiberi (M. 0252795)
+ *
+ */
 public class TestUtilities {
 	
 	private TestUtilities() {}

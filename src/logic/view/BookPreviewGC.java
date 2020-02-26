@@ -17,7 +17,7 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import logic.bean.BookBean;
 import logic.bean.ReaderBean;
-import logic.controller.BuyBookController;
+import logic.controller.buybooksystem.BuyBookSystem;
 import logic.exception.AlreadyOwnedBookException;
 import logic.exception.PersistencyException;
 import logic.util.GraphicalElements;
@@ -71,8 +71,7 @@ public class BookPreviewGC implements Initializable{
 	public void rateBook() {
 
 		try {
-			BuyBookController ctrl = new BuyBookController(null);
-			if (ctrl.bookIsOwned(bean, new ReaderBean(Session.getSession().getCurrUser()))) {
+			if (new BuyBookSystem().checkOwnership(bean, new ReaderBean(Session.getSession().getCurrUser()))) {
 				Stage parent = (Stage) thumbnail.getScene().getWindow();
 				Stage modal = GraphicalElements.createModalWindow(new Scene(new RatingModal(bean)), parent);
 				modal.show();
@@ -91,9 +90,7 @@ public class BookPreviewGC implements Initializable{
 		
 		if (result.get().equals(ButtonType.OK)) {
 			try {
-				BuyBookController ctrl = new BuyBookController(null);
-				ctrl.addBookToOwnedList(bean, new ReaderBean(Session.getSession().getCurrUser()));
-				
+				new BuyBookSystem().addBookToOwnedList(bean, new ReaderBean(Session.getSession().getCurrUser()));
 				GraphicalElements.showDialog(AlertType.INFORMATION, "\"" + bean.getTitle() + "\" has succesfully added to your owned list!" );
 				parentCtrl.refresh();
 			} catch (PersistencyException e) {

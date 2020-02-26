@@ -16,7 +16,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import logic.bean.ReaderBean;
-import logic.controller.BuyBookController;
+import logic.controller.buybooksystem.BuyBookSystem;
 import logic.exception.PersistencyException;
 import logic.util.GraphicalElements;
 import logic.util.Session;
@@ -46,12 +46,12 @@ public class HomeGC implements Initializable {
 	
 	private BookPreviewPanel bookPanel;
 	private ObservableBookList obs;
-	private BuyBookController ctrl;
+	private BuyBookSystem system;
 	
 	public HomeGC() {
 		try {
-			this.ctrl = new BuyBookController(null);
-			this.obs = new ObservableBookList(ctrl.getNotOwnedBooks(new ReaderBean(Session.getSession().getCurrUser())));
+			this.system = new BuyBookSystem();
+			this.obs = new ObservableBookList(system.getNotOwnedBooks(new ReaderBean(Session.getSession().getCurrUser())));
 			this.bookPanel = new BookPreviewPanel(obs, this);
 			this.obs.attach(bookPanel);
 		} catch (PersistencyException e) {
@@ -81,10 +81,10 @@ public class HomeGC implements Initializable {
 			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
 				try {
 					if (Boolean.TRUE.equals(newValue)) {
-							obs.setBooks(ctrl.getNotOwnedBooks(new ReaderBean(Session.getSession().getCurrUser())));
+							obs.setBooks(system.getNotOwnedBooks(new ReaderBean(Session.getSession().getCurrUser())));
 					} 
 					else {
-						obs.setBooks(ctrl.getAllBooks());
+						obs.setBooks(system.getAllBooks());
 					}
 				}catch (PersistencyException e) {
 					GraphicalElements.showDialog(AlertType.ERROR, e.getMessage());
@@ -99,7 +99,7 @@ public class HomeGC implements Initializable {
 	public void searchBook() {
 		try {
 			if (!searchTxt.getText().equals("")) {
-				this.obs.setBooks(ctrl.getSearchedBook(searchTxt.getText()));
+				this.obs.setBooks(system.getSearchedBooks(searchTxt.getText()));
 				this.obs.notifyObservers();
 			}	
 		} catch (PersistencyException e) {
@@ -124,6 +124,12 @@ public class HomeGC implements Initializable {
 	public void refresh() {
 		Stage stage = (Stage) pane.getScene().getWindow();
 		stage.setScene(GraphicalElements.switchTo(Views.HOME, null));
+	}
+	
+	
+	@FXML
+	public void notImplementedFunctions() {
+		GraphicalElements.showDialog(AlertType.INFORMATION, "Disabled element will be implemented in future releases");
 	}
 
 }

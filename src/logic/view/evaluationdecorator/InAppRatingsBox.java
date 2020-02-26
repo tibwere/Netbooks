@@ -13,8 +13,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import logic.bean.BookBean;
-import logic.controller.BuyBookController;
-import logic.controller.ManageEvaluationsController;
+import logic.controller.buybooksystem.BuyBookSystem;
 import logic.exception.PersistencyException;
 
 /**
@@ -74,8 +73,7 @@ public class InAppRatingsBox extends BoxDecorator {
 		initComponents();
 		handleComponents();
 		
-		BuyBookController controller = new BuyBookController(new ManageEvaluationsController());
-		double avg = controller.getManageEvaluationsController().getAVGRate(bean);
+		double avg = new BuyBookSystem().getAVGRate(bean);
 		DecimalFormat fmt = new DecimalFormat("#.##");
 		ratingStars.setRating(avg);
 		rateLbl.setText(fmt.format(avg) + "/5");

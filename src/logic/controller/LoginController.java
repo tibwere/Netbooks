@@ -29,8 +29,7 @@ public class LoginController {
 		String user = bean.getUsername();
 		String passwd = bean.getPassword();
 		
-		UserTypes type = UserDao.findUserByUsernameAndPassword(user, passwd);
-		return type;
+		return UserDao.findUserByUsernameAndPassword(user, passwd);
 	}
 
 	public void signup(ReaderBean bean) throws IOException, UserAlreadySignedException {

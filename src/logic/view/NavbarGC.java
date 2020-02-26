@@ -9,7 +9,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import logic.bean.ReaderBean;
-import logic.controller.BuyBookController;
+import logic.controller.buybooksystem.BuyBookSystem;
 import logic.exception.PersistencyException;
 import logic.util.GraphicalElements;
 import logic.util.Session;
@@ -43,8 +43,7 @@ public class NavbarGC {
 	
 	public void updateGenerality() {
 		try {
-			BuyBookController ctrl = new BuyBookController(null);
-			ReaderBean bean = ctrl.getUserGenerality(new ReaderBean(Session.getSession().getCurrUser()));
+			ReaderBean bean = new BuyBookSystem().getReaderGenerality(new ReaderBean(Session.getSession().getCurrUser()));
 	
 			if (bean.getFirstName().length() + bean.getSecondName().length() < 20)
 				profileBtn.setText(bean.getFirstName() + " " + bean.getSecondName());

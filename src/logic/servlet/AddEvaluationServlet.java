@@ -11,8 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import logic.bean.BookBean;
 import logic.bean.BookEvaluationBean;
 import logic.bean.ReaderBean;
-import logic.controller.BuyBookController;
-import logic.controller.ManageEvaluationsController;
+import logic.controller.buybooksystem.BuyBookSystem;
 import logic.exception.PersistencyException;
 import logic.exception.WrongSyntaxException;
 import logic.util.WebUtilities;
@@ -44,12 +43,11 @@ public class AddEvaluationServlet extends HttpServlet {
 			BookEvaluationBean evalBean = new BookEvaluationBean();
 			BookBean bookBean = new BookBean();
 			
-			BuyBookController ctrl = new BuyBookController(new ManageEvaluationsController());
 			evalBean.setRate(Integer.valueOf(request.getParameter("rate"))); 
 			evalBean.setTitle(request.getParameter("revTitle"));
 			evalBean.setBody(request.getParameter("revBody"));
 			bookBean.setIsbn(request.getParameter("isbn"));		
-			ctrl.getManageEvaluationsController().addNewEvaluation(evalBean, bookBean, new ReaderBean((String) request.getSession().getAttribute("currUser")));
+			new BuyBookSystem().addNewEvaluation(evalBean, bookBean, new ReaderBean((String) request.getSession().getAttribute("currUser")));
 			
 			request.setAttribute("result", "success");
 			request.getRequestDispatcher(WebUtilities.EVALUATE_BOOK_PAGE_URL).forward(request, response);

@@ -11,8 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import logic.bean.BookBean;
 import logic.bean.ReaderBean;
-import logic.controller.BuyBookController;
-import logic.controller.ManageEvaluationsController;
+import logic.controller.buybooksystem.BuyBookSystem;
 import logic.exception.PersistencyException;
 import logic.util.WebUtilities;
 
@@ -33,17 +32,17 @@ public class LoadBooksServlet extends HttpServlet {
     }
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		BuyBookController ctrl = new BuyBookController(new ManageEvaluationsController());
+		BuyBookSystem system = new BuyBookSystem();
 		
 		try {
 			List<BookBean> beans = null;
 			
 			if ("search".equals(request.getParameter("load"))) 
-				beans = ctrl.getSearchedBook(request.getParameter("titleSearch"));
+				beans = system.getSearchedBooks(request.getParameter("titleSearch"));
 			else if ("all".equals(request.getParameter("load")))
-				beans = ctrl.getAllBooks();
+				beans = system.getAllBooks();
 			else 
-				beans = ctrl.getNotOwnedBooks(new ReaderBean(WebUtilities.getUsernameFromSession(request)));
+				beans = system.getNotOwnedBooks(new ReaderBean(WebUtilities.getUsernameFromSession(request)));
 			
 			request.getSession().setAttribute("books", beans);
 			response.sendRedirect(WebUtilities.INDEX_PAGE_URL.substring(1));

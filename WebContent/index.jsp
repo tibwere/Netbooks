@@ -5,8 +5,8 @@
 <%@page import="java.util.Map"%>
 <%@page import="logic.bean.BookBean"%>
 <%@page import="java.util.List"%>
-<%@page import="logic.controller.ManageEvaluationsController"%>
-<%@page import="logic.controller.BuyBookController"%>
+<%@page import="logic.controller.buybooksystem.ManageEvaluationsController"%>
+<%@page import="logic.controller.buybooksystem.BuyBookController"%>
 <%@page import="logic.util.Session"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>

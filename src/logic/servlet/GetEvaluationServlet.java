@@ -11,8 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import logic.bean.BookBean;
 import logic.bean.BookEvaluationBean;
 import logic.bean.ReaderBean;
-import logic.controller.BuyBookController;
-import logic.controller.ManageEvaluationsController;
+import logic.controller.buybooksystem.BuyBookSystem;
 import logic.exception.PersistencyException;
 import logic.util.WebUtilities;
 
@@ -40,7 +39,7 @@ public class GetEvaluationServlet extends HttpServlet {
 			return;
 		}
 		
-		BuyBookController ctrl = new BuyBookController(new ManageEvaluationsController());
+		BuyBookSystem system = new BuyBookSystem();
 		BookBean bean = new BookBean();
 		
 		request.getSession().setAttribute("title", request.getParameter("title"));
@@ -48,8 +47,8 @@ public class GetEvaluationServlet extends HttpServlet {
 		bean.setIsbn(request.getParameter("isbn"));
 		try {
 			ReaderBean readerBean = new ReaderBean(WebUtilities.getUsernameFromSession(request));
-			if (ctrl.bookIsOwned(bean, readerBean)) {
-				BookEvaluationBean oldEval = ctrl.getManageEvaluationsController().getPreviousEvaluation(bean, readerBean);
+			if (system.checkOwnership(bean, readerBean)) {
+				BookEvaluationBean oldEval = system.getPreviousEvaluation(bean, readerBean);
 				request.getSession().setAttribute("eval", oldEval);
 				request.getRequestDispatcher(WebUtilities.EVALUATE_BOOK_PAGE_URL).forward(request, response);
 			} 

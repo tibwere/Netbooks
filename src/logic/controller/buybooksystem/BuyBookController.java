@@ -1,4 +1,4 @@
-package logic.controller;
+package logic.controller.buybooksystem;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,16 +23,6 @@ import logic.util.enumeration.Vendors;
  *
  */
 public class BuyBookController {
-	
-	private ManageEvaluationsController manageEvaluationsController;
-
-	public BuyBookController(ManageEvaluationsController secondaryController) {
-		this.manageEvaluationsController = secondaryController;
-	}
-	
-	public ManageEvaluationsController getManageEvaluationsController() {
-		return manageEvaluationsController;
-	}
 	
 	private BookBean fillBeanFromEntity(Book book) {
 		BookBean bean = new BookBean(book.getTitle(), book.getAuthor());

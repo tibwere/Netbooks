@@ -19,8 +19,7 @@ import javafx.stage.Stage;
 import logic.bean.BookBean;
 import logic.bean.BookEvaluationBean;
 import logic.bean.ReaderBean;
-import logic.controller.BuyBookController;
-import logic.controller.ManageEvaluationsController;
+import logic.controller.buybooksystem.BuyBookSystem;
 import logic.exception.PersistencyException;
 import logic.exception.WrongSyntaxException;
 import logic.util.GraphicalElements;
@@ -53,11 +52,11 @@ public class RatingModal extends VBox{
 	private BookBean bookBean;
 	private BookEvaluationBean oldEvaluationBean; 
 	
-	private BuyBookController controller;
+	private BuyBookSystem system;
 	
 	public RatingModal (BookBean bean) throws PersistencyException {
 		this.bookBean = bean;
-		this.controller = new BuyBookController(new ManageEvaluationsController());
+		this.system = new BuyBookSystem();
 		
 		this.getStylesheets().add(RatingModal.class.getResource("resources/css/style.css").toExternalForm());
 		this.getStyleClass().add("bg-secondary");
@@ -68,7 +67,7 @@ public class RatingModal extends VBox{
 		initComponents();
 		handleComponents();
 		
-		oldEvaluationBean = controller.getManageEvaluationsController().getPreviousEvaluation(bookBean, new ReaderBean(Session.getSession().getCurrUser()));
+		oldEvaluationBean = system.getPreviousEvaluation(bookBean, new ReaderBean(Session.getSession().getCurrUser()));
 		if (oldEvaluationBean != null)
 			fillForm();
 		
@@ -82,7 +81,7 @@ public class RatingModal extends VBox{
 					evalBean.setRate((int) rate.getRating());
 					evalBean.setTitle(reviewTitleTxt.getText());
 					evalBean.setBody(reviewBodyTxt.getText());
-					controller.getManageEvaluationsController().addNewEvaluation(evalBean, bookBean, new ReaderBean(Session.getSession().getCurrUser()));
+					system.addNewEvaluation(evalBean, bookBean, new ReaderBean(Session.getSession().getCurrUser()));
 					GraphicalElements.showDialog(AlertType.INFORMATION, "Your evaluation has been succesfully posted!");
 				} catch (PersistencyException | WrongSyntaxException e) {
 					GraphicalElements.showDialog(AlertType.ERROR, e.getMessage());
