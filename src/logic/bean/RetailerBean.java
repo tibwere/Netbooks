@@ -1,5 +1,6 @@
 package logic.bean;
 
+import logic.exception.NotAccesibleConfigurationException;
 import logic.exception.WrongSyntaxException;
 
 /**
@@ -17,7 +18,7 @@ public class RetailerBean extends UserBean {
 		super();
 	}
 	
-	public RetailerBean(String username) {
+	public RetailerBean(String username) throws NotAccesibleConfigurationException {
 		try {
 			this.setUsername(username);
 		} catch (WrongSyntaxException e) {

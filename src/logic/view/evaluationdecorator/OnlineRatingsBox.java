@@ -13,6 +13,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import logic.bean.BookBean;
 import logic.controller.buybooksystem.BuyBookSystem;
+import logic.exception.NotAccesibleConfigurationException;
 import logic.exception.PersistencyException;
 import logic.util.ImageDispenser;
 
@@ -66,7 +67,7 @@ public class OnlineRatingsBox extends BoxDecorator {
 	
 	
 	@Override
-	public VBox show(BookBean bean) throws PersistencyException {
+	public VBox show(BookBean bean) throws PersistencyException, NotAccesibleConfigurationException {
 		VBox fromParent = super.show(bean);	
 		
 		initComponents();

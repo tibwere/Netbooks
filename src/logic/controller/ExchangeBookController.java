@@ -13,6 +13,7 @@ import logic.dao.NotificationDao;
 import logic.dao.ProposalDao;
 import logic.dao.ReaderDao;
 import logic.exception.NoStateTransitionException;
+import logic.exception.NotAccesibleConfigurationException;
 import logic.exception.PersistencyException;
 import logic.exception.WrongSyntaxException;
 import logic.model.Book;
@@ -30,7 +31,7 @@ import logic.util.enumeration.ProposalStates;
 
 public class ExchangeBookController {
 
-	public Map<BookBean, ReaderBean> getAllExchangeableBooks(ReaderBean currUser) throws PersistencyException {
+	public Map<BookBean, ReaderBean> getAllExchangeableBooks(ReaderBean currUser) throws PersistencyException, NotAccesibleConfigurationException {
 		
 		List<Reader> owners = ReaderDao.findOwners(currUser.getUsername());
 		Map<BookBean, ReaderBean> map = new HashMap<>();

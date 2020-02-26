@@ -12,6 +12,7 @@ import logic.bean.BookBean;
 import logic.bean.BookEvaluationBean;
 import logic.bean.ReaderBean;
 import logic.controller.buybooksystem.BuyBookSystem;
+import logic.exception.NotAccesibleConfigurationException;
 import logic.exception.PersistencyException;
 import logic.exception.WrongSyntaxException;
 import logic.util.WebUtilities;
@@ -51,7 +52,7 @@ public class AddEvaluationServlet extends HttpServlet {
 			
 			request.setAttribute("result", "success");
 			request.getRequestDispatcher(WebUtilities.EVALUATE_BOOK_PAGE_URL).forward(request, response);
-		} catch (PersistencyException e) {
+		} catch (PersistencyException | NotAccesibleConfigurationException e) {
 			WebUtilities.redirectToErrorPage(request, response, e.getMessage());
 		} catch (WrongSyntaxException e) {
 			request.setAttribute("wrongsyntax", e.getMessage());

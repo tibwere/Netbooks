@@ -11,6 +11,7 @@ import logic.bean.BookEvaluationBean;
 import logic.db.DBManager;
 import logic.db.DBOperation;
 import logic.db.Query;
+import logic.exception.NotAccesibleConfigurationException;
 import logic.exception.PersistencyException;
 import logic.exception.WrongSyntaxException;
 import logic.model.BookEvaluation;
@@ -35,7 +36,7 @@ public class EvaluationDao {
 			Connection conn = DBManager.getConnection();		
 			stmt = conn.prepareCall(Query.EVAL_BOOK_SP);
 			DBOperation.bindParametersAndExec(stmt, stars, title, body, reader, book);
-		} catch (SQLException | ClassNotFoundException e) {
+		} catch (SQLException | ClassNotFoundException | NotAccesibleConfigurationException e) {
 			throw new PersistencyException("Unable to save evaluation on DB");
 		} finally {
 			DBManager.closeStmt(stmt);		
@@ -62,7 +63,7 @@ public class EvaluationDao {
 			bean.setBody(results.getString("body"));
 			return bean;
 
-		} catch(SQLException | ClassNotFoundException e) {
+		} catch(SQLException | ClassNotFoundException | NotAccesibleConfigurationException e) {
 			throw new PersistencyException("Unable to retrive old evaluation from DB");
 		} catch (WrongSyntaxException e) {
 			throw new IllegalStateException("DB must respect constraints");
@@ -91,7 +92,7 @@ public class EvaluationDao {
 			stmt.close();
 			
 			return avg;
-		} catch(SQLException | ClassNotFoundException e) {
+		} catch(SQLException | ClassNotFoundException | NotAccesibleConfigurationException e) {
 			throw new PersistencyException("Unable to retrive old evaluation from DB");
 		} finally {
 			DBManager.closeRs(results);
@@ -120,7 +121,7 @@ public class EvaluationDao {
 			
 			return reviews;
 			
-		} catch (ClassNotFoundException | SQLException e) {
+		} catch (ClassNotFoundException | SQLException | NotAccesibleConfigurationException e) {
 			throw new PersistencyException("Unable to retrive already inserted reviews from DB");
 		} finally {
 			DBManager.closeRs(results);

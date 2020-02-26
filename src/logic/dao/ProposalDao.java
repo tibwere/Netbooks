@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import logic.db.DBManager;
 import logic.db.DBOperation;
 import logic.db.Query;
+import logic.exception.NotAccesibleConfigurationException;
 import logic.exception.PersistencyException;
 import logic.model.Book;
 import logic.model.Proposal;
@@ -62,7 +63,7 @@ public class ProposalDao {
 			
 			return results.first();
 			
-		} catch (SQLException | ClassNotFoundException e) {
+		} catch (SQLException | ClassNotFoundException | NotAccesibleConfigurationException e) {
 			throw new PersistencyException("Unable to find exchange proposals");
 		}
 		finally {
@@ -85,7 +86,7 @@ public class ProposalDao {
 			
 			return result.getInt("number");
 			
-		} catch (SQLException | ClassNotFoundException e) {
+		} catch (SQLException | ClassNotFoundException | NotAccesibleConfigurationException e) {
 			throw new PersistencyException("Unable to build the exchange proposal");
 		}
 		finally {
@@ -102,7 +103,7 @@ public class ProposalDao {
 			stmt = conn.prepareCall(Query.UPDATE_PROPOSAL_STATUS_SP);
 			DBOperation.bindParametersAndExec(stmt, proposal.getProposalId(), newStatus.toString());
 			
-		} catch(SQLException | ClassNotFoundException e) {
+		} catch(SQLException | ClassNotFoundException | NotAccesibleConfigurationException e) {
 			throw new PersistencyException("Unable to update the state of exchange proposal");
 		}
 		finally {
@@ -134,7 +135,7 @@ public class ProposalDao {
 			
 			return new Proposal(src, tgt, targetBook, sourceBook, proposalId, initialState);
 						
-		} catch(SQLException | ClassNotFoundException e) {
+		} catch(SQLException | ClassNotFoundException | NotAccesibleConfigurationException e) {
 			throw new PersistencyException("Unable to load the exchange proposal");
 		}
 		finally {

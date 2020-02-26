@@ -10,6 +10,7 @@ import java.util.List;
 import logic.db.DBManager;
 import logic.db.DBOperation;
 import logic.db.Query;
+import logic.exception.NotAccesibleConfigurationException;
 import logic.exception.PersistencyException;
 import logic.model.Proposal;
 import logic.model.ProposalNotification;
@@ -42,7 +43,7 @@ public class NotificationDao {
 			DBOperation.bindParametersAndExec(stmt, notif.getProposal().getProposalId(), userDest, 
 					notif.getType().toString(), bookSrc, bookDest);
 			
-		} catch(SQLException | ClassNotFoundException e) {
+		} catch(SQLException | ClassNotFoundException | NotAccesibleConfigurationException e) {
 			throw new PersistencyException("Unable to send notification");
 		}
 		finally {
@@ -77,7 +78,7 @@ public class NotificationDao {
 			}
 			return notifications;
 			
-		} catch(SQLException | ClassNotFoundException e) {
+		} catch(SQLException | ClassNotFoundException | NotAccesibleConfigurationException e) {
 			throw new PersistencyException("Unable to load notifications");
 		}
 	}
@@ -90,7 +91,7 @@ public class NotificationDao {
 			stmt = conn.prepareCall(Query.DELETE_NOTIF_FOR_USER_SP);
 			DBOperation.bindParametersAndExec(stmt, proposalId, type.toString(), user);
 			
-		} catch(SQLException | ClassNotFoundException e) {
+		} catch(SQLException | ClassNotFoundException | NotAccesibleConfigurationException e) {
 			throw new PersistencyException("Unable to delete notification");
 		}
 		finally {
@@ -109,7 +110,7 @@ public class NotificationDao {
 			
 			return results.first();
 			
-		} catch(SQLException | ClassNotFoundException e) {
+		} catch(SQLException | ClassNotFoundException | NotAccesibleConfigurationException e) {
 			throw new PersistencyException("Unable to find unread notifications");
 		}
 		finally {

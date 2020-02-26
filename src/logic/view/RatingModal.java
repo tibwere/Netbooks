@@ -20,6 +20,7 @@ import logic.bean.BookBean;
 import logic.bean.BookEvaluationBean;
 import logic.bean.ReaderBean;
 import logic.controller.buybooksystem.BuyBookSystem;
+import logic.exception.NotAccesibleConfigurationException;
 import logic.exception.PersistencyException;
 import logic.exception.WrongSyntaxException;
 import logic.util.GraphicalElements;
@@ -54,7 +55,7 @@ public class RatingModal extends VBox{
 	
 	private BuyBookSystem system;
 	
-	public RatingModal (BookBean bean) throws PersistencyException {
+	public RatingModal (BookBean bean) throws PersistencyException, NotAccesibleConfigurationException {
 		this.bookBean = bean;
 		this.system = new BuyBookSystem();
 		
@@ -83,7 +84,7 @@ public class RatingModal extends VBox{
 					evalBean.setBody(reviewBodyTxt.getText());
 					system.addNewEvaluation(evalBean, bookBean, new ReaderBean(Session.getSession().getCurrUser()));
 					GraphicalElements.showDialog(AlertType.INFORMATION, "Your evaluation has been succesfully posted!");
-				} catch (PersistencyException | WrongSyntaxException e) {
+				} catch (PersistencyException | WrongSyntaxException | NotAccesibleConfigurationException e) {
 					GraphicalElements.showDialog(AlertType.ERROR, e.getMessage());
 				} 
 				Stage currStage = (Stage) submitBtn.getScene().getWindow();

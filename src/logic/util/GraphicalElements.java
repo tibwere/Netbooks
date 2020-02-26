@@ -17,6 +17,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import logic.exception.NotAccesibleConfigurationException;
 import logic.util.enumeration.DynamicElements;
 import logic.util.enumeration.Views;
 import logic.view.NavbarGC;
@@ -172,7 +173,7 @@ public class GraphicalElements {
 		return alert.showAndWait();
 	}
 	
-	public static Stage createModalWindow(Scene scene, Stage parent) {
+	public static Stage createModalWindow(Scene scene, Stage parent) throws NotAccesibleConfigurationException {
 		Stage secondaryStage = new Stage();
 		secondaryStage.initOwner(parent);
 		secondaryStage.initModality(Modality.APPLICATION_MODAL);

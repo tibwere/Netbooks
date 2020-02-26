@@ -7,6 +7,7 @@ import java.io.IOException;
 import org.json.JSONException;
 import org.junit.Test;
 
+import logic.exception.NotAccesibleConfigurationException;
 import logic.model.Geolocalization;
 import logic.model.Storable;
 import logic.model.users.Reader;
@@ -28,7 +29,7 @@ import logic.util.Parser;
 public class TestPosition {
 	
 	@Test
-	public void testInvalidCoordOnEmptyInput() throws IOException {
+	public void testInvalidCoordOnEmptyInput() throws IOException, NotAccesibleConfigurationException {
 		
 		Reader reader = new Reader(User.DENIED_USERNAME);		
 		

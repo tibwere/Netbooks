@@ -12,6 +12,7 @@ import java.util.Map;
 import logic.db.DBManager;
 import logic.db.DBOperation;
 import logic.db.Query;
+import logic.exception.NotAccesibleConfigurationException;
 import logic.exception.PersistencyException;
 import logic.model.Book;
 import logic.util.ImageDispenser;
@@ -30,7 +31,7 @@ public class BookDao {
 		/* non istanziabile */
 	}
 	
-	private static Book buildBookFromResultSet(ResultSet res) throws SQLException {
+	private static Book buildBookFromResultSet(ResultSet res) throws SQLException, NotAccesibleConfigurationException {
 		String isbn = res.getString("isbn");
 		String title = res.getString("title");
 		String author = res.getString("author");
@@ -68,7 +69,7 @@ public class BookDao {
 			 
 			return books;
 			
-		} catch(ClassNotFoundException | SQLException e) {
+		} catch(ClassNotFoundException | SQLException | NotAccesibleConfigurationException e) {
 			throw new PersistencyException("Unable to load books for homepage");
 		}
 		finally {
@@ -97,7 +98,7 @@ public class BookDao {
 			 
 			return books;
 			
-		} catch(ClassNotFoundException | SQLException e) {
+		} catch(ClassNotFoundException | SQLException | NotAccesibleConfigurationException e) {
 			throw new PersistencyException("Unable to search selected book");
 		}
 		finally {
@@ -124,7 +125,7 @@ public class BookDao {
 			 
 			return books;
 			
-		} catch(ClassNotFoundException | SQLException e) {
+		} catch(ClassNotFoundException | SQLException | NotAccesibleConfigurationException e) {
 			throw new PersistencyException("Unable to retrive all books from DB.");
 		}
 		finally {
@@ -152,7 +153,7 @@ public static List<Book> findUserBooks(String username) throws PersistencyExcept
 			
 			return books;
 			
-		} catch (ClassNotFoundException | SQLException e) {
+		} catch (ClassNotFoundException | SQLException | NotAccesibleConfigurationException e) {
 			throw new PersistencyException("Unable to load exchangeable books");
 		}
 		finally {
@@ -176,7 +177,7 @@ public static List<Book> findUserBooks(String username) throws PersistencyExcept
 			
 			return BookDao.buildBookFromResultSet(result);
 
-		} catch (SQLException | ClassNotFoundException e) {
+		} catch (SQLException | ClassNotFoundException | NotAccesibleConfigurationException e) {
 			throw new PersistencyException("Unable to load book");
 		}
 		finally {
@@ -207,7 +208,7 @@ public static List<Book> findUserBooks(String username) throws PersistencyExcept
 			
 			return bookInChart;
 			
-		} catch (ClassNotFoundException | SQLException e) {
+		} catch (ClassNotFoundException | SQLException | NotAccesibleConfigurationException e) {
 			throw new PersistencyException("Unable to load chart for rank");
 		} finally {
 			DBManager.closeRs(results);

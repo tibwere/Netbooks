@@ -1,6 +1,7 @@
 package logic.util;
 
 import javafx.scene.image.Image;
+import logic.exception.NotAccesibleConfigurationException;
 import logic.util.enumeration.ImageSizes;
 
 /**
@@ -15,10 +16,6 @@ public class ImageDispenser {
 	
 	private static final String PATH = "../view/resources/images/";
 	
-	public static final String BOOK1 = "dante";
-	public static final String BOOK2 = "gatsby";
-	public static final String BOOK_TEST_THUMBNAIL = "book_test_thumbnail";
-	public static final String BOOK_TEST = "book_test";
 	public static final String ICON = "icon";
 	public static final String LIKE = "like";
 	public static final String LOADING = "loading";
@@ -32,7 +29,7 @@ public class ImageDispenser {
 		return ImageDispenser.class.getResource(PATH + name + ".png").toExternalForm();
 	}
 	
-	public static String getCovers(String name, ImageSizes type) {
+	public static String getCovers(String name, ImageSizes type) throws NotAccesibleConfigurationException {
 		
 		StringBuilder path = new StringBuilder(AppProperties.getInstance().getProperty("coverspath"));
 		path.append(name.replace(' ', '_').toLowerCase());

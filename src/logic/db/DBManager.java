@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import logic.exception.NotAccesibleConfigurationException;
 import logic.exception.PersistencyException;
 import logic.util.AppProperties;
 
@@ -23,7 +24,7 @@ public class DBManager {
 		/* non instanziabile */
 	}
 	
-	public static Connection getConnection() throws ClassNotFoundException, SQLException {
+	public static Connection getConnection() throws ClassNotFoundException, SQLException, NotAccesibleConfigurationException {
 		
 		if (connection == null) {
 			Class.forName(AppProperties.getInstance().getProperty("dbdriver"));

@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import logic.bean.BookBean;
 import logic.bean.RetailerBean;
 import logic.controller.KbsasController;
+import logic.exception.NotAccesibleConfigurationException;
 import logic.exception.PersistencyException;
 import logic.util.WebUtilities;
 
@@ -47,7 +48,7 @@ public class KbsasServlet extends HttpServlet {
 			request.getSession().setAttribute( "currBooks" , books);
 			response.sendRedirect(WebUtilities.RETAILER_PAGE_URL.substring(1));
 
-		}catch(PersistencyException e) {
+		}catch(PersistencyException | NotAccesibleConfigurationException e) {
 			WebUtilities.redirectToErrorPage(request, response, e.getMessage());
 		}
 	}

@@ -26,6 +26,7 @@ import javafx.stage.Stage;
 import logic.bean.BookBean;
 import logic.bean.RetailerBean;
 import logic.controller.KbsasController;
+import logic.exception.NotAccesibleConfigurationException;
 import logic.exception.PersistencyException;
 import logic.util.GraphicalElements;
 import logic.util.Session;
@@ -85,7 +86,7 @@ public class KbsasGC implements Initializable{
 			controller = new KbsasController();
 			bookInChart = controller.getBooksForRetailer((int)Math.round(slider.getValue()), new RetailerBean(Session.getSession().getCurrUser()));
 			appendBooksOnPane(bookInChart);
-		} catch (PersistencyException e) {
+		} catch (PersistencyException | NotAccesibleConfigurationException e) {
 			GraphicalElements.showDialog(AlertType.ERROR, e.getMessage());
 			Platform.exit();
 		} catch (IOException e) {
@@ -106,6 +107,9 @@ public class KbsasGC implements Initializable{
 			appendBooksOnPane(bookInChart);
 		} catch (IOException e) {
 			GraphicalElements.showDialog(AlertType.ERROR, "Unable to load chart");
+			Platform.exit();
+		} catch (NotAccesibleConfigurationException e) {
+			GraphicalElements.showDialog(AlertType.ERROR, e.getMessage());
 			Platform.exit();
 		}
 	}

@@ -8,6 +8,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
+import logic.exception.NotAccesibleConfigurationException;
 import logic.model.Geolocalization;
 
 /**
@@ -37,7 +38,7 @@ public class Parser {
 		return Integer.valueOf(percentageStr.substring(0, 2));
 	}
 	
-	public static Geolocalization getMapsLocation(String address) throws JSONException, IOException {
+	public static Geolocalization getMapsLocation(String address) throws JSONException, IOException, NotAccesibleConfigurationException {
 		
 		String addressConverted = address.replace(" ", "%20");
 		

@@ -13,6 +13,7 @@ import logic.bean.NotificationBean;
 import logic.bean.ReaderBean;
 import logic.controller.ExchangeBookController;
 import logic.exception.NoStateTransitionException;
+import logic.exception.NotAccesibleConfigurationException;
 import logic.exception.PersistencyException;
 import logic.util.WebUtilities;
 import logic.util.enumeration.NotificationTypes;
@@ -78,7 +79,7 @@ public class ManageProposalServlet extends HttpServlet {
 			
 			response.sendRedirect(WebUtilities.LOAD_NOTIFICATIONS_SERVLET_URL.substring(1));
 			
-		} catch (PersistencyException | NoStateTransitionException e) {
+		} catch (PersistencyException | NoStateTransitionException | NotAccesibleConfigurationException e) {
 			WebUtilities.redirectToErrorPage(request, response, e.getMessage());
 		}
 	}

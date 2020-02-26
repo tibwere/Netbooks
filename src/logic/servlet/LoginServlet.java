@@ -15,6 +15,7 @@ import logic.bean.UserBean;
 import logic.controller.LoginController;
 import logic.controller.buybooksystem.BuyBookSystem;
 import logic.exception.NoUserFoundException;
+import logic.exception.NotAccesibleConfigurationException;
 import logic.exception.PersistencyException;
 import logic.exception.WrongSyntaxException;
 import logic.util.WebUtilities;
@@ -50,18 +51,19 @@ public class LoginServlet extends HttpServlet {
 
 			if (type.equals(UserTypes.READER)) {
 				ReaderBean curr = new BuyBookSystem().getReaderGenerality(new ReaderBean(username));
-				request.getSession().setAttribute("navbar-generality", curr.getFirstName() + " " + curr.getSecondName());
+				request.getSession().setAttribute("navbar-generality", curr.getFirstName() + " " + curr.getSecondName() + " (" + username + ")");
 				request.getRequestDispatcher(WebUtilities.LOAD_BOOKS_SERVLET_URL).forward(request, response);
 			}
 			else
 				request.getRequestDispatcher(WebUtilities.KBSAS_SERVLET_URL).forward(request, response);
 			
-		} catch(NoUserFoundException | PersistencyException e) {
+		} catch(NoUserFoundException | PersistencyException | NotAccesibleConfigurationException e) {
 			request.setAttribute("fail", e.getMessage().toUpperCase());
 			request.getRequestDispatcher(WebUtilities.LOGIN_PAGE_URL).forward(request, response);
 		} catch (NoSuchAlgorithmException e) {
 			WebUtilities.redirectToErrorPage(request, response, "UNABLE TO ENCRYPT YOUR PASSWORD");
 		} catch (WrongSyntaxException e) {
+			e.printStackTrace();
 			request.setAttribute("fail", "LOGIN FAILED");
 			request.getRequestDispatcher(WebUtilities.LOGIN_PAGE_URL).forward(request, response);
 		}

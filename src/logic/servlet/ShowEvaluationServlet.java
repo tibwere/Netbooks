@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import logic.bean.BookBean;
 import logic.controller.buybooksystem.BuyBookSystem;
+import logic.exception.NotAccesibleConfigurationException;
 import logic.exception.PersistencyException;
 import logic.util.WebUtilities;
 
@@ -61,7 +62,7 @@ public class ShowEvaluationServlet extends HttpServlet {
 				}
 				request.getRequestDispatcher(WebUtilities.SHOW_EVALUATION_PAGE_URL).forward(request, response);
 	
-			} catch (PersistencyException e) {
+			} catch (PersistencyException | NotAccesibleConfigurationException e) {
 				WebUtilities.redirectToErrorPage(request, response, e.getMessage());
 			} 
 		}

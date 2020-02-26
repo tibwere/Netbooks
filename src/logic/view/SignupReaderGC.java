@@ -16,6 +16,7 @@ import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 import logic.bean.ReaderBean;
 import logic.controller.LoginController;
+import logic.exception.NotAccesibleConfigurationException;
 import logic.exception.UserAlreadySignedException;
 import logic.exception.WrongSyntaxException;
 import logic.util.GraphicalElements;
@@ -120,7 +121,7 @@ public class SignupReaderGC implements Initializable {
     			Stage curr = (Stage) addressTxt.getScene().getWindow();
     			curr.hide();
    				
-    		} catch (UserAlreadySignedException | WrongSyntaxException | NoSuchAlgorithmException e) {
+    		} catch (UserAlreadySignedException | WrongSyntaxException | NoSuchAlgorithmException | NotAccesibleConfigurationException e) {
     			errLbl.setText(e.getMessage().toUpperCase());
     		} catch (IOException e) {
 				errLbl.setText("UNABLE TO CONNECT TO MAPS SERVICE");

@@ -4,8 +4,10 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import logic.exception.NotAccesibleConfigurationException;
 import logic.exception.WrongSyntaxException;
 import logic.model.users.User;
+import logic.util.AppProperties;
 
 
 /**
@@ -26,7 +28,7 @@ public class UserBean {
 	private String zip;
 	private String city;
 	
-	public UserBean(String username, String password) throws WrongSyntaxException, NoSuchAlgorithmException {
+	public UserBean(String username, String password) throws WrongSyntaxException, NoSuchAlgorithmException, NotAccesibleConfigurationException {
 		this.setUsername(username);
 		this.setPassword(password);
 	}
@@ -37,15 +39,15 @@ public class UserBean {
 		return username;
 	}
 
-	public void setUsername(String username) throws WrongSyntaxException {
-		
+	public void setUsername(String username) throws WrongSyntaxException, NotAccesibleConfigurationException {
+				
 		if ("".equals(username))
 			throw new WrongSyntaxException("Username must be not empty!");
 		else if (username.length() >= 32)
 			throw new WrongSyntaxException("Max length for username: 32 chars");
 		else if (username.contains(" "))
 			throw new WrongSyntaxException("Username must not contains spaces!");
-		else if (username.equals(User.DENIED_USERNAME))
+		else if (username.equals(User.DENIED_USERNAME) && !Boolean.valueOf(AppProperties.getInstance().getProperty("testmodality")))
 			throw new WrongSyntaxException("This is a reserved username");
 		else
 			this.username = username;
@@ -56,11 +58,9 @@ public class UserBean {
 	}
 
 	public void setPassword(String password) throws WrongSyntaxException, NoSuchAlgorithmException {
-		
+				
 		if (password.equals(""))
 			throw new WrongSyntaxException("Password must be not empty !");
-		if (password.length() >= 32)
-			throw new WrongSyntaxException("Max length for password: 32 chars");
 		if (password.length() < 8)
 			throw new WrongSyntaxException("Min length for password: 8 chars");
 		else if (password.matches(".*\\[0-9].*"))

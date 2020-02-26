@@ -11,6 +11,9 @@ import logic.model.users.User;
  */
 public class TestUtilities {
 	
+	private static String TESTER_PASSWD_NOT_HASHED = "testtesttesttesttesttesttesttest";
+	private static String TESTER_PASSWD_HASHED = "25fb34f99389a5c7d0cd8d0c1ef1a0ad";
+	
 	private TestUtilities() {}
 	
 	public static Reader getTesterReader() {
@@ -22,15 +25,8 @@ public class TestUtilities {
 		return reader;
 	}
 	
-	public static String getTesterPasswd() {
-		StringBuilder psw = new StringBuilder();
-		
-		/* create a 32 digits passwd */
-		for (int i = 0; i < 8; ++i) {
-			psw.append("test");
-		}
-		
-		return psw.toString();
+	public static String getTesterPasswd(boolean isHashed) {
+		return (isHashed) ? TESTER_PASSWD_HASHED : TESTER_PASSWD_NOT_HASHED;
 	}
 	
 	public static String getWrongTitle() {

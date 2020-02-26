@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import logic.db.DBManager;
 import logic.db.DBOperation;
 import logic.db.Query;
+import logic.exception.NotAccesibleConfigurationException;
 import logic.exception.PersistencyException;
 import logic.exception.UserAlreadySignedException;
 import logic.model.Geolocalization;
@@ -32,7 +33,7 @@ public class RetailerDao {
 			stmt = conn.prepareCall(Query.INSERT_NEW_RETAILER_SP);
 			
 			DBOperation.execInsertRetailer(stmt, retailer, password, hasPosition);
-		} catch (SQLException | ClassNotFoundException e) {
+		} catch (SQLException | ClassNotFoundException | NotAccesibleConfigurationException e) {
 			throw new UserAlreadySignedException("The user you've inserted already exists");
 		}
 		
@@ -53,7 +54,7 @@ public class RetailerDao {
 			position.setLongitude(results.getFloat("longitude"));
 			
 			return position;
-		} catch (SQLException | ClassNotFoundException e) {
+		} catch (SQLException | ClassNotFoundException | NotAccesibleConfigurationException e) {
 			throw new PersistencyException("Unable to retrive localization of current retailer");
 		}	
 	}

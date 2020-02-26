@@ -47,7 +47,7 @@
 				    			<span id="showLbl">Show </span>password
 				    		</label>
 				  		</div>
-				  		<button type="submit" class="btn btn-light">Login</button>
+				  		<button type="submit" class="btn btn-light" id="loginBtn">Login</button>
 				  		<div class="row justify-content-center align-self-center mt-4">
 			  				<small>Not signed yet?</small>
 			  			</div>

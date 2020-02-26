@@ -25,6 +25,7 @@ import logic.bean.NotificationBean;
 import logic.bean.ReaderBean;
 import logic.controller.ExchangeBookController;
 import logic.exception.NoStateTransitionException;
+import logic.exception.NotAccesibleConfigurationException;
 import logic.exception.PersistencyException;
 import logic.util.GraphicalElements;
 import logic.util.NotificationButton;
@@ -59,7 +60,7 @@ public class NotificationItemGC implements Initializable{
 	
 	private ExchangeBookController controller = new ExchangeBookController();
 	
-	public NotificationItemGC(NotificationBean bean) {
+	public NotificationItemGC(NotificationBean bean) throws NotAccesibleConfigurationException {
 		this.bean = bean;
 		this.currReader = new ReaderBean(Session.getSession().getCurrUser());
 	}
@@ -152,7 +153,7 @@ public class NotificationItemGC implements Initializable{
 					Stage popupStage = GraphicalElements.createModalWindow(popupScene, parent);
 					popupStage.show();
 				}
-				catch (PersistencyException e) {
+				catch (PersistencyException | NotAccesibleConfigurationException e) {
 					GraphicalElements.showDialog(AlertType.ERROR, e.getMessage());
 					Platform.exit();
 				} catch (IOException | IllegalStateException e) {

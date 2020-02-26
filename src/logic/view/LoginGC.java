@@ -6,6 +6,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
@@ -32,6 +33,7 @@ import javafx.stage.StageStyle;
 import logic.bean.UserBean;
 import logic.controller.LoginController;
 import logic.exception.NoUserFoundException;
+import logic.exception.NotAccesibleConfigurationException;
 import logic.exception.PersistencyException;
 import logic.exception.WrongSyntaxException;
 import logic.util.GraphicalElements;
@@ -127,7 +129,7 @@ public class LoginGC implements Initializable{
 				stage.setScene(GraphicalElements.switchTo(Views.HOME, null));
 			else
 				stage.setScene(GraphicalElements.switchTo(Views.KBSAS, null));
-		} catch(NoUserFoundException | PersistencyException e) {
+		} catch(NoUserFoundException | PersistencyException | NotAccesibleConfigurationException e) {
 			resultLbl.setText(e.getMessage().toUpperCase());
 		} catch (NoSuchAlgorithmException e) {
 			resultLbl.setText("UNABLE TO ENCRYPT YOUR PASSWORD");
@@ -156,12 +158,15 @@ public class LoginGC implements Initializable{
 				
 			} catch (IOException e) {
 				GraphicalElements.showDialog(AlertType.ERROR, "Unable to load signup modal");
-				Thread.currentThread().interrupt();
+				Platform.exit();
+			} catch (NotAccesibleConfigurationException e) {
+				GraphicalElements.showDialog(AlertType.ERROR, e.getMessage());
+				Platform.exit();
 			}
 		}
 	}
 	
-	private Stage createTransparentModalStage(DynamicElements elem) throws IOException {
+	private Stage createTransparentModalStage(DynamicElements elem) throws IOException, NotAccesibleConfigurationException {
 		Stage parentStage = (Stage) loginBtn.getScene().getWindow();
 		FXMLLoader loader = GraphicalElements.loadFXML(elem);
 		

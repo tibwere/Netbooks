@@ -11,6 +11,7 @@ import logic.db.DBManager;
 import logic.db.DBOperation;
 import logic.db.Query;
 import logic.exception.AlreadyOwnedBookException;
+import logic.exception.NotAccesibleConfigurationException;
 import logic.exception.PersistencyException;
 import logic.exception.UserAlreadySignedException;
 import logic.model.users.Reader;
@@ -36,7 +37,7 @@ public class ReaderDao {
 			Connection conn = DBManager.getConnection();
 			stmt = conn.prepareCall(Query.DELETE_READER_TEST_SP);
 			DBOperation.bindParametersAndExec(stmt, User.DENIED_USERNAME);
-		} catch (SQLException | ClassNotFoundException e) {
+		} catch (SQLException | ClassNotFoundException | NotAccesibleConfigurationException e) {
 			throw new PersistencyException("Comunication with DB has failed");
 		} finally {
 			DBManager.closeStmt(stmt);
@@ -61,7 +62,7 @@ public class ReaderDao {
 			
 			return reader;
 			
-		} catch (SQLException | ClassNotFoundException e) {
+		} catch (SQLException | ClassNotFoundException | NotAccesibleConfigurationException e) {
 			throw new PersistencyException("Comunication with DB has failed");
 		} finally {
 			DBManager.closeRs(results);
@@ -77,7 +78,7 @@ public class ReaderDao {
 			stmt = conn.prepareCall(Query.INSERT_NEW_BOOK_TO_OWNEDLIST);
 			DBOperation.bindParametersAndExec(stmt, user, isbn);
 			
-		} catch (SQLException | ClassNotFoundException e) {
+		} catch (SQLException | ClassNotFoundException | NotAccesibleConfigurationException e) {
 			throw new AlreadyOwnedBookException("You already own this book. Nothing has changed");
 		} finally {
 			DBManager.closeStmt(stmt);
@@ -93,7 +94,7 @@ public class ReaderDao {
 			stmt = conn.prepareCall(Query.INSERT_NEW_READER_SP);
 			
 			DBOperation.execInsertReader(stmt, reader, password, hasPosition);
-		} catch (SQLException | ClassNotFoundException e) {
+		} catch (SQLException | ClassNotFoundException | NotAccesibleConfigurationException e) {
 			throw new UserAlreadySignedException("The user you've inserted already exists");
 		}
 	}
@@ -109,7 +110,7 @@ public class ReaderDao {
 			
 			return results.first();
 			
-		} catch (SQLException | ClassNotFoundException e) {
+		} catch (SQLException | ClassNotFoundException | NotAccesibleConfigurationException e) {
 			throw new PersistencyException("Unable to connect to DB");
 		}
 	}
@@ -133,7 +134,7 @@ public class ReaderDao {
 			
 			return owners;
 			
-		} catch (SQLException | ClassNotFoundException e) {
+		} catch (SQLException | ClassNotFoundException | NotAccesibleConfigurationException e) {
 			throw new PersistencyException("Unable to get owners of books");
 		}
 		finally {
@@ -157,7 +158,7 @@ public class ReaderDao {
 			
 			return new Reader(username, result.getString("email"), result.getBoolean("gender"));
 			
-		} catch (SQLException | ClassNotFoundException e) {
+		} catch (SQLException | ClassNotFoundException | NotAccesibleConfigurationException e) {
 			throw new PersistencyException("Unable to load the reader");
 		} finally {
 			DBManager.closeRs(result);
@@ -176,7 +177,7 @@ public class ReaderDao {
 			
 			return result.first();
 			
-		} catch(SQLException | ClassNotFoundException e) {
+		} catch(SQLException | ClassNotFoundException | NotAccesibleConfigurationException e) {
 			throw new PersistencyException("Unable to check book ownership");
 		}
 		finally {
@@ -193,7 +194,7 @@ public class ReaderDao {
 			stmt = conn.prepareCall(Query.SWAP_OWNERSHIP_SP);
 			DBOperation.bindParametersAndExec(stmt, sourceId, srcBook, targetId, tgtBook);
 			
-		} catch(SQLException | ClassNotFoundException e) {
+		} catch(SQLException | ClassNotFoundException | NotAccesibleConfigurationException e) {
 			throw new PersistencyException("Unable to swap books");
 		}
 		finally {

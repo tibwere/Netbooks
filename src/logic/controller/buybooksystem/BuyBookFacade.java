@@ -8,6 +8,7 @@ import logic.bean.BookBean;
 import logic.bean.BookEvaluationBean;
 import logic.bean.ReaderBean;
 import logic.exception.AlreadyOwnedBookException;
+import logic.exception.NotAccesibleConfigurationException;
 import logic.exception.PersistencyException;
 
 public interface BuyBookFacade {
@@ -28,7 +29,7 @@ public interface BuyBookFacade {
 	
 	public double getAVGRate(BookBean book) throws PersistencyException;
 	
-	public Map<ReaderBean, BookEvaluationBean> getBookReviews(BookBean book) throws PersistencyException;
+	public Map<ReaderBean, BookEvaluationBean> getBookReviews(BookBean book) throws PersistencyException, NotAccesibleConfigurationException;
 	
 	public int getOnlineAVGEval(BookBean book) throws IOException;
 	

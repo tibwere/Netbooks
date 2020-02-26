@@ -9,6 +9,7 @@ import logic.db.DBManager;
 import logic.db.DBOperation;
 import logic.db.Query;
 import logic.exception.NoUserFoundException;
+import logic.exception.NotAccesibleConfigurationException;
 import logic.exception.PersistencyException;
 import logic.model.users.User;
 import logic.util.enumeration.UserTypes;
@@ -46,7 +47,7 @@ public class UserDao {
 			
 			return UserTypes.READER;
 			
-		} catch (SQLException | ClassNotFoundException e) {
+		} catch (SQLException | ClassNotFoundException | NotAccesibleConfigurationException e) {
 			throw new PersistencyException("Comunication with DB has failed");
 		} finally {
 			DBManager.closeRs(readerResults);

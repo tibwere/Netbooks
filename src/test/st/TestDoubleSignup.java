@@ -32,8 +32,8 @@ public class TestDoubleSignup {
 			
 			@Override
 			public void execute() throws Throwable {
-				reader.store(TestUtilities.getTesterPasswd());
-				reader.store(TestUtilities.getTesterPasswd());
+				reader.store(TestUtilities.getTesterPasswd(true));
+				reader.store(TestUtilities.getTesterPasswd(true));
 			}
 		});
 		

@@ -8,6 +8,7 @@ import logic.bean.BookBean;
 import logic.bean.BookEvaluationBean;
 import logic.bean.ReaderBean;
 import logic.exception.AlreadyOwnedBookException;
+import logic.exception.NotAccesibleConfigurationException;
 import logic.exception.PersistencyException;
 
 public class BuyBookSystem implements BuyBookFacade {
@@ -53,7 +54,7 @@ public class BuyBookSystem implements BuyBookFacade {
 	}
 
 	@Override
-	public Map<ReaderBean, BookEvaluationBean> getBookReviews(BookBean book) throws PersistencyException {
+	public Map<ReaderBean, BookEvaluationBean> getBookReviews(BookBean book) throws PersistencyException, NotAccesibleConfigurationException {
 		return new ManageEvaluationsController().getBookReviews(book);
 	}
 

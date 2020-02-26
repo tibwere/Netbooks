@@ -2,6 +2,7 @@ package logic.view.evaluationdecorator;
 
 import javafx.scene.layout.VBox;
 import logic.bean.BookBean;
+import logic.exception.NotAccesibleConfigurationException;
 import logic.exception.PersistencyException;
 /**
  * Classe <b>Decorator</b> del pattern <i>Decorator</i> dei GoF.<br>
@@ -19,7 +20,7 @@ public abstract class BoxDecorator implements Showable {
 	}
 	
 	@Override
-	public VBox show(BookBean bean) throws PersistencyException {
+	public VBox show(BookBean bean) throws PersistencyException, NotAccesibleConfigurationException {
 		return box.show(bean);
 	}
 }

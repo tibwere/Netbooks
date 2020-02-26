@@ -12,6 +12,7 @@ import logic.bean.BookBean;
 import logic.bean.ReaderBean;
 import logic.controller.buybooksystem.BuyBookSystem;
 import logic.exception.AlreadyOwnedBookException;
+import logic.exception.NotAccesibleConfigurationException;
 import logic.exception.PersistencyException;
 import logic.util.WebUtilities;
 
@@ -48,7 +49,7 @@ public class AddBookToOwnedListServlet extends HttpServlet {
 		} catch (AlreadyOwnedBookException e) {
 			request.setAttribute("result", "fail");
 			request.getRequestDispatcher(WebUtilities.INDEX_PAGE_URL).forward(request, response);
-		} catch (PersistencyException e) {
+		} catch (PersistencyException | NotAccesibleConfigurationException e) {
 			WebUtilities.redirectToErrorPage(request, response, e.getMessage());
 		}
 	}

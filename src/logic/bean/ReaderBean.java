@@ -2,6 +2,7 @@ package logic.bean;
 
 import java.io.Serializable;
 
+import logic.exception.NotAccesibleConfigurationException;
 import logic.exception.WrongSyntaxException;
 
 /**
@@ -26,7 +27,7 @@ public class ReaderBean extends UserBean implements Serializable {
 		super();
 	}
 	
-	public ReaderBean(String username) {
+	public ReaderBean(String username) throws NotAccesibleConfigurationException {
 		try {
 			this.setUsername(username);
 		} catch (WrongSyntaxException e) {

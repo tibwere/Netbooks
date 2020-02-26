@@ -8,6 +8,7 @@ import logic.bean.BookBean;
 import logic.bean.BookEvaluationBean;
 import logic.bean.ReaderBean;
 import logic.dao.EvaluationDao;
+import logic.exception.NotAccesibleConfigurationException;
 import logic.exception.PersistencyException;
 import logic.exception.WrongSyntaxException;
 import logic.model.BookEvaluation;
@@ -25,7 +26,7 @@ public class ManageEvaluationsController {
 		return EvaluationDao.getInAppAverageEvaluation(bean.getIsbn());
 	}
 
-	public Map<ReaderBean, BookEvaluationBean> getBookReviews(BookBean bean) throws PersistencyException {
+	public Map<ReaderBean, BookEvaluationBean> getBookReviews(BookBean bean) throws PersistencyException, NotAccesibleConfigurationException {
 		Map<Reader, BookEvaluation> reviews = EvaluationDao.getPreviousReviews(bean.getIsbn());
 		Map<ReaderBean, BookEvaluationBean> reviewsBean = new HashMap<>();
 		

@@ -2,6 +2,7 @@ package logic.view.evaluationdecorator;
 
 import javafx.scene.layout.VBox;
 import logic.bean.BookBean;
+import logic.exception.NotAccesibleConfigurationException;
 import logic.exception.PersistencyException;
 
 /**
@@ -14,6 +15,6 @@ import logic.exception.PersistencyException;
  */
 public interface Showable {
 
-	public VBox show(BookBean bean) throws PersistencyException;
+	public VBox show(BookBean bean) throws PersistencyException, NotAccesibleConfigurationException;
 
 }

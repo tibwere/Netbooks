@@ -17,7 +17,7 @@
       		<a class="nav-item nav-link <%=("exchange".equals(WebUtilities.getCurrentPage())) ? "active" : "" %>" href="<%=WebUtilities.LOAD_EX_BOOKS_SERVLET_URL.substring(1)%>"><i class="fas fa-exchange-alt"></i> Exchange books </a>    		    		
     	</div>
     	<div class="navbar-nav ml-auto">
-    		<a class="nav-item nav-link" href="#"><i class="fas fa-user"></i> <%=session.getAttribute("navbar-generality")%></a>
+    		<a class="nav-item nav-link" href="#"><i class="fas fa-user"></i><span id="generality"><%=session.getAttribute("navbar-generality")%></span></a>
     		<a class="nav-item nav-link" href="LogoutServlet"><i class="fas fa-sign-out-alt"></i> logout</a>
     	</div>
   	</div>

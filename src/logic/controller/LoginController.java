@@ -9,6 +9,7 @@ import logic.bean.RetailerBean;
 import logic.bean.UserBean;
 import logic.dao.UserDao;
 import logic.exception.NoUserFoundException;
+import logic.exception.NotAccesibleConfigurationException;
 import logic.exception.PersistencyException;
 import logic.exception.UserAlreadySignedException;
 import logic.exception.WrongSyntaxException;
@@ -41,7 +42,7 @@ public class LoginController {
 			Geolocalization position = Parser.getMapsLocation(formatAddress(bean.getAddress(), bean.getCity(), bean.getZip(), bean.getCountry()));
 			reader.setLatitude(position.getLatitude());
 			reader.setLongitude(position.getLongitude());
-		} catch(JSONException e) { /* RuntimeException causata dall'impossiblitaà di convertire il JSON (indirizzo malformato) */			
+		} catch(JSONException | NotAccesibleConfigurationException e) { 			
 			reader.setLatitude(Geolocalization.INVALID_VALUE);
 			reader.setLongitude(Geolocalization.INVALID_VALUE);
 		}
@@ -68,7 +69,7 @@ public class LoginController {
 			Geolocalization position = Parser.getMapsLocation(formatAddress(bean.getAddress(), bean.getCity(), bean.getZip(), bean.getCountry()));
 			retailer.setLatitude(position.getLatitude());
 			retailer.setLongitude(position.getLongitude());
-		} catch(JSONException e) { /* RuntimeException causata dall'impossiblita di convertire il JSON (indirizzo malformato) */			
+		} catch(JSONException | NotAccesibleConfigurationException e) { 			
 			throw new WrongSyntaxException("Please, give us a valid address");
 		} 
 		

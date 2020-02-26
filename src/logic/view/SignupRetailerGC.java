@@ -11,6 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import logic.bean.RetailerBean;
 import logic.controller.LoginController;
+import logic.exception.NotAccesibleConfigurationException;
 import logic.exception.UserAlreadySignedException;
 import logic.exception.WrongSyntaxException;
 import logic.util.GraphicalElements;
@@ -93,7 +94,7 @@ public class SignupRetailerGC {
     			Stage curr = (Stage) addressTxt.getScene().getWindow();
     			curr.hide();
    				
-    		} catch (UserAlreadySignedException | WrongSyntaxException | NoSuchAlgorithmException e) {
+    		} catch (UserAlreadySignedException | WrongSyntaxException | NoSuchAlgorithmException | NotAccesibleConfigurationException e) {
     			errLbl.setText(e.getMessage().toUpperCase());
     		} catch (IOException e) {
 				errLbl.setText("UNABLE TO CONNECT TO MAPS SERVICE TO GEOLOCALIZE YOU");

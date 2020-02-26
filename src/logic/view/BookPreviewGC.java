@@ -19,6 +19,7 @@ import logic.bean.BookBean;
 import logic.bean.ReaderBean;
 import logic.controller.buybooksystem.BuyBookSystem;
 import logic.exception.AlreadyOwnedBookException;
+import logic.exception.NotAccesibleConfigurationException;
 import logic.exception.PersistencyException;
 import logic.util.GraphicalElements;
 import logic.util.Session;
@@ -79,7 +80,7 @@ public class BookPreviewGC implements Initializable{
 			else {
 				GraphicalElements.showDialog(AlertType.WARNING, "You cannot leave a review for a book that you don't own yet");
 			}
-		} catch (PersistencyException e) {
+		} catch (PersistencyException | NotAccesibleConfigurationException e) {
 			GraphicalElements.showDialog(AlertType.ERROR, e.getMessage());
 		}
 	}
@@ -93,7 +94,7 @@ public class BookPreviewGC implements Initializable{
 				new BuyBookSystem().addBookToOwnedList(bean, new ReaderBean(Session.getSession().getCurrUser()));
 				GraphicalElements.showDialog(AlertType.INFORMATION, "\"" + bean.getTitle() + "\" has succesfully added to your owned list!" );
 				parentCtrl.refresh();
-			} catch (PersistencyException e) {
+			} catch (PersistencyException | NotAccesibleConfigurationException e) {
 				GraphicalElements.showDialog(AlertType.ERROR, e.getMessage());
 				Platform.exit();
 			} catch (AlreadyOwnedBookException e) {

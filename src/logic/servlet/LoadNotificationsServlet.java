@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import logic.bean.NotificationBean;
 import logic.bean.ReaderBean;
 import logic.controller.ExchangeBookController;
+import logic.exception.NotAccesibleConfigurationException;
 import logic.exception.PersistencyException;
 import logic.util.WebUtilities;
 /**
@@ -59,7 +60,7 @@ public class LoadNotificationsServlet extends HttpServlet {
 			if (view != null)
 				view.forward(request, response);
 			
-		} catch (PersistencyException e) {
+		} catch (PersistencyException | NotAccesibleConfigurationException e) {
 			WebUtilities.redirectToErrorPage(request, response, e.getMessage());
 		}		
 	}

@@ -13,6 +13,7 @@ import logic.bean.ReaderBean;
 import logic.bean.RetailerBean;
 import logic.bean.UserBean;
 import logic.controller.LoginController;
+import logic.exception.NotAccesibleConfigurationException;
 import logic.exception.UserAlreadySignedException;
 import logic.exception.WrongSyntaxException;
 import logic.util.WebUtilities;
@@ -45,7 +46,7 @@ public class SignupServlet extends HttpServlet {
 			signupRetailer(request, response);
 	}
 	
-	private void signupGenericUser(UserBean bean, HttpServletRequest request) throws WrongSyntaxException, NoSuchAlgorithmException {
+	private void signupGenericUser(UserBean bean, HttpServletRequest request) throws WrongSyntaxException, NoSuchAlgorithmException, NotAccesibleConfigurationException {
 		bean.setUsername(request.getParameter(USERNAME_REF));
 		bean.setEmail(request.getParameter("email"));
 		bean.setPassword(request.getParameter("passwd"));
@@ -72,7 +73,7 @@ public class SignupServlet extends HttpServlet {
 			request.setAttribute(RESULT_REF, "success");
 			request.getRequestDispatcher(WebUtilities.SIGUNP_RETAILER_PAGE_URL).forward(request, response);
 				
-		} catch (UserAlreadySignedException | WrongSyntaxException | NoSuchAlgorithmException e) {
+		} catch (UserAlreadySignedException | WrongSyntaxException | NoSuchAlgorithmException | NotAccesibleConfigurationException e) {
 			request.setAttribute(RESULT_REF, e.getMessage().toUpperCase());
 			request.getRequestDispatcher(WebUtilities.SIGUNP_RETAILER_PAGE_URL).forward(request, response);
 		} catch (IOException e) {
@@ -99,7 +100,7 @@ public class SignupServlet extends HttpServlet {
 			request.setAttribute(RESULT_REF, "success");
 			request.getRequestDispatcher(WebUtilities.SIGUNP_READER_PAGE_URL).forward(request, response);
 				
-		} catch (UserAlreadySignedException | WrongSyntaxException | NoSuchAlgorithmException	 e) {
+		} catch (UserAlreadySignedException | WrongSyntaxException | NoSuchAlgorithmException | NotAccesibleConfigurationException e) {
 			request.setAttribute(RESULT_REF, e.getMessage().toUpperCase());
 			request.getRequestDispatcher(WebUtilities.SIGUNP_READER_PAGE_URL).forward(request, response);
 		} catch (IOException e) {

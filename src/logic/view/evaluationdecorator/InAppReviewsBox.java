@@ -18,6 +18,7 @@ import logic.bean.BookBean;
 import logic.bean.BookEvaluationBean;
 import logic.bean.ReaderBean;
 import logic.controller.buybooksystem.BuyBookSystem;
+import logic.exception.NotAccesibleConfigurationException;
 import logic.exception.PersistencyException;
 
 /**
@@ -109,7 +110,7 @@ public class InAppReviewsBox extends BoxDecorator {
 	}
 
 	@Override
-	public VBox show(BookBean bean) throws PersistencyException {
+	public VBox show(BookBean bean) throws PersistencyException, NotAccesibleConfigurationException {
 		VBox fromParent = super.show(bean);
 		
 		initComponents();

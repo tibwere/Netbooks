@@ -8,6 +8,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import logic.db.DBManager;
+import logic.exception.NotAccesibleConfigurationException;
 import logic.util.AppProperties;
 import logic.util.GraphicalElements;
 import logic.util.ImageDispenser;
@@ -25,11 +26,15 @@ public class DesktopLauncher extends Application {
 			
 		Scene scene = GraphicalElements.switchTo(Views.LOGIN, null);
 		
- 		initStage(stage, scene);
+ 		try {
+			initStage(stage, scene);
+		} catch (NotAccesibleConfigurationException e) {
+			GraphicalElements.showDialog(AlertType.ERROR, e.getMessage());
+		}
 		stage.show();	
 	}
 	
-	private void initStage(Stage stage, Scene scene) {
+	private void initStage(Stage stage, Scene scene) throws NotAccesibleConfigurationException {
 		stage.setTitle(AppProperties.getInstance().getProperty("title"));
 		
 		stage.setWidth(Integer.valueOf(AppProperties.getInstance().getProperty("width")));

@@ -32,6 +32,7 @@ import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import logic.bean.BookBean;
+import logic.exception.NotAccesibleConfigurationException;
 import logic.util.GraphicalElements;
 import logic.util.ShowPanelTask;
 import logic.util.enumeration.DynamicElements;
@@ -144,6 +145,9 @@ public class BuyBookGC implements Initializable{
 		} catch (IOException e) {
 			GraphicalElements.showDialog(AlertType.ERROR, "Unable to load modal window");
 			Platform.exit();
+		} catch (NotAccesibleConfigurationException e) {
+			GraphicalElements.showDialog(AlertType.ERROR, e.getMessage());
+			Platform.exit();
 		}
 	}
 	
@@ -184,11 +188,14 @@ public class BuyBookGC implements Initializable{
 			} catch (IllegalStateException | IOException e) {	
 				GraphicalElements.showDialog(AlertType.ERROR, "Unable to load modal window");
 				Platform.exit();
+			} catch (NotAccesibleConfigurationException e) {
+				GraphicalElements.showDialog(AlertType.ERROR, e.getMessage());
+				Platform.exit();
 			}			
 		}
 	}
 	
-	private void showPopupFrame(Showable element) throws IOException {
+	private void showPopupFrame(Showable element) throws IOException, NotAccesibleConfigurationException {
 		ShowPanelTask task = new ShowPanelTask(element, bookToLoad);
 		Stage parent = (Stage) showBtn.getScene().getWindow();
 		Stage loadingStage = createStage(parent);
@@ -205,6 +212,9 @@ public class BuyBookGC implements Initializable{
 				} catch (InterruptedException | ExecutionException e) {
 					GraphicalElements.showDialog(AlertType.ERROR, "Unable to load google reviews ...");
 					Thread.currentThread().interrupt();
+				} catch (NotAccesibleConfigurationException e) {
+					GraphicalElements.showDialog(AlertType.ERROR, e.getMessage());
+					Thread.currentThread().interrupt();
 				}					
 			}
 		});
@@ -213,7 +223,7 @@ public class BuyBookGC implements Initializable{
 		loadingStage.show();		
 	}
 	
-	private Stage createStage(Stage parent) throws IOException {
+	private Stage createStage(Stage parent) throws IOException, NotAccesibleConfigurationException {
 		Scene loadingScene = new Scene(GraphicalElements.loadFXML(DynamicElements.LOADING_MODAL).load());
 		Stage loadingStage = GraphicalElements.createModalWindow(loadingScene, parent);
 		loadingStage.initStyle(StageStyle.TRANSPARENT);
