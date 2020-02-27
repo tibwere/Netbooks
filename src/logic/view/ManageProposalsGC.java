@@ -15,7 +15,6 @@ import javafx.scene.layout.VBox;
 import logic.bean.NotificationBean;
 import logic.bean.ReaderBean;
 import logic.controller.ExchangeBookController;
-import logic.exception.NotAccesibleConfigurationException;
 import logic.exception.PersistencyException;
 import logic.util.GraphicalElements;
 import logic.util.Session;
@@ -47,7 +46,7 @@ public class ManageProposalsGC implements Initializable {
 				noticeboard.getChildren().add(notifItem);
 			}
 		}
-		catch (PersistencyException | NotAccesibleConfigurationException e) {
+		catch (PersistencyException e) {
 			GraphicalElements.showDialog(AlertType.ERROR, e.getMessage());
 			Platform.exit();
 		} catch (IOException | IllegalStateException e) {

@@ -51,12 +51,12 @@
 					<%
 					if (request.getAttribute(ManageProposalServlet.PROPOSAL_RESPONSE) != null) {
 						String res = request.getAttribute(ManageProposalServlet.PROPOSAL_RESPONSE).toString();
-						if (res.equals("show_alert")) {
+						if (res.equals("show_failure_alert")) {
 					%>
 						<div class="row justify-content-center align-self-center mt-4">	  			
 							<div class="col col-sm-6 col-md-6 col-lg-6 col-xl-6">
-								<div class="alert alert-success" role="alert">
-									Success! The answer has been sent
+								<div class="alert alert-warning" role="alert">
+									You already own this book
 								</div>
 							</div>
 						</div>
@@ -70,8 +70,8 @@
 						for (NotificationBean notif : beans) { 
 							switch (notif.getType()) {
 							case INITIAL_PROPOSAL: %>
-								<div class="row justify-content-center self-align-center">
-									<div class="col col-sm-8 col-md-8 col-lg-8 col-xl-8 notification mb-md-3 mt-md-3 shadow">
+								<div class="row justify-content-center self-align-center mb-md-3 mb-sm-3 mb-xs-3 mb-lg-3 ">
+									<div class="col col-sm-8 col-md-8 col-lg-8 col-xl-8 notification mb-md-3 mt-md-3 mb-sm-3 mt-sm-3 mb-xs-3 mt-xs-3 shadow">
 										<div class="row text-left">
 											<span class="ml-1 mt-1 mr-1"><%=notif.getMessage()%></span>
 										</div>
@@ -82,7 +82,7 @@
 														<input type="hidden" name="user" value="<%=notif.getSourceId()%>">
 														<input type="hidden" name="notifIndex" value="<%=String.valueOf(index)%>">
 														<button type="submit" 
-															class="btn ex-book-choose-btn font-weight-bold mr-2 btn-sm text-nowrap"
+															class="btn ex-book-choose-btn font-weight-bold mr-2 btn-sm text-nowrap mb-md-1 mb-sm-1 mb-xs-1"
 															>Choose a book
 														</button>
 													</form>
@@ -92,7 +92,7 @@
 														<input type="hidden" name="notifSource" value="<%=notif.getSourceId()%>">
 														<input type="hidden" name="notifType" value="<%=notif.getType().toString()%>">
 														<button type="submit"
-															class="btn ex-book-reject-btn font-weight-bold mr-2 ml-2 btn-sm pl-3 pr-3 text-nowrap"
+															class="btn ex-book-reject-btn font-weight-bold mr-2 ml-2 btn-sm pl-3 pr-3 text-nowrap mb-md-1 mb-sm-1 mb-xs-1"
 															>Reject
 														</button>
 													</form>
@@ -103,7 +103,7 @@
 								</div>
 							<%	break;
 							case INTERMEDIATE_PROPOSAL: %>
-								<div class="row justify-content-center">
+								<div class="row justify-content-center  mb-md-3 mb-sm-3 mb-xs-3 mb-lg-3 ">
 									<div class="col col-sm-8 col-md-8 col-lg-8 col-xl-8 notification mb-md-3 mt-md-3 shadow">
 										<div class="row text-left">
 											<span class="ml-1 mt-1 mr-1"><%=notif.getMessage() %></span>
@@ -119,7 +119,7 @@
 														<input type="hidden" name="notifType" value="<%=notif.getType().toString()%>">
 														<input type="hidden" name="notifSrcBook" value="<%=notif.getSrcBook()%>">
 														<button type="submit"
-															class="btn ex-book-accept-btn font-weight-bold mr-2 btn-sm text-nowrap"
+															class="btn ex-book-accept-btn font-weight-bold mr-2 btn-sm text-nowrap mb-md-1 mb-sm-1 mb-xs-1"
 															>Accept
 														</button>
 													</form>
@@ -129,7 +129,7 @@
 														<input type="hidden" name="notifSource" value="<%=notif.getSourceId()%>">
 														<input type="hidden" name="notifType" value="<%=notif.getType().toString()%>">
 														<button type="submit"
-															class="btn ex-book-reject-btn font-weight-bold mr-2 ml-2 btn-sm pl-3 pr-3 text-nowrap"
+															class="btn ex-book-reject-btn font-weight-bold mr-2 ml-2 btn-sm pl-3 pr-3 text-nowrap mb-md-1 mb-sm-1 mb-xs-1"
 															>Reject
 														</button>
 													</form>
@@ -140,7 +140,7 @@
 								</div>
 							<%	break;
 							default: %>
-								<div class="row justify-content-center align-self-center">
+								<div class="row justify-content-center align-self-center  mb-md-3 mb-sm-3 mb-xs-3 mb-lg-3 ">
 									<div class="col col-sm-8 col-md-8 col-lg-8 col-xl-8 notification mb-md-3 mt-md-3 shadow">
 										<%=notif.getMessage() %>
 									</div>

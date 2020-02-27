@@ -61,14 +61,18 @@ public class ManageProposalServlet extends HttpServlet {
 				BookBean book = new BookBean();
 				book.setIsbn(request.getParameter("acquiredBook"));
 				
-				controller.acceptProposal(notif, book, currReader);
-				request.setAttribute(PROPOSAL_RESPONSE, "show_alert");
+				if (!controller.acceptProposal(notif, book, currReader)) {
+					request.setAttribute(PROPOSAL_RESPONSE, "show_failure_alert");
+					request.getRequestDispatcher(WebUtilities.MANAGE_PROPOSALS_PAGE_URL).forward(request, response);
+					return;
+				}
 				break;
 			case ACCEPTED_PROPOSAL:
 				notif.setDestBook(request.getParameter("notifDestBook"));
 				notif.setSrcBook(request.getParameter("notifSrcBook"));
 				
-				controller.acceptProposal(notif, null, currReader);
+				if (!controller.acceptProposal(notif, null, currReader))
+					controller.failureNotification(notif);
 				break;
 			default:
 				controller.failureNotification(notif);

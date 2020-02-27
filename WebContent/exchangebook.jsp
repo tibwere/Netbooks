@@ -49,7 +49,7 @@
 					<img alt="" class="img-fluid" src="img/icon.png" width="64" height="64">
 					<h1 class="font-weight-bold mb-sm-4">EXCHANGEABLE BOOKS</h1>
 					<%if (request.getAttribute(MakeProposalServlet.PROPOSAL_RESPONSE) != null) { 
-						if (request.getAttribute(MakeProposalServlet.ALERT_RESPONSE).equals("failure")) { %>
+						if (request.getAttribute(MakeProposalServlet.ALERT_RESPONSE).equals(MakeProposalServlet.FAILURE)) { %>
 							<!-- ALERTS -->
 							<div class="row justify-content-center align-self-center mt-4">	  			
 								<div class="col col-sm-6 col-md-6 col-lg-6 col-xl-6">
@@ -170,24 +170,24 @@
 							  	</div>
 							</div>
 						</div>
-						<div class="col-2 min-vw- text-center shadow ex-book-col-bg">
-							<img alt="" src="img/icon.png" width="120" height="120">
+						<div class="col-2 min-vw text-center shadow ex-book-col-bg">
+							<img alt="" src="img/icon.png" width="70%">
 							<div class="row justify-content-center align-self-center mt-md-5">
 								<div class="col-auto align-self-center">
 								<%
 									if (session.getAttribute("notifyUser") != null && session.getAttribute("notifyUser").toString().equals("show")) {
 								%>
-									<img alt="" class="img-fluid" src="img/notification.png" width="32" height="32">
+									<img alt="" class="img-fluid" src="img/notification.png" id="notification_image" width="32" height="32">
 								<%	}%>
 									<form action="<%=WebUtilities.LOAD_NOTIFICATIONS_SERVLET_URL.substring(1)%>" method="get">
 										<button type="submit"
-												class="btn ex-book-btn font-weight-bold mb-md-5 btn-sm text-nowrap"
+												class="btn ex-book-btn font-weight-bold mb-md-5 mb-sm-5 mb-xs-5 btn-sm"
 												>Manage Proposals
 										</button>
 									</form>
 									<form action="<%=WebUtilities.LOAD_OWNED_BOOKS_SERVLET_URL.substring(1)%>" method="post">
 										<button type="submit" 
-												class="btn ex-book-btn mb-md-5 font-weight-bold btn-sm text-nowrap pl-3 pr-3"
+												class="btn ex-book-btn font-weight-bold btn-sm mb-md-5 mb-sm-5 mb-xs-5"
 												>See Your Books
 										</button>
 									</form>

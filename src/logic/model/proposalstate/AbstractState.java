@@ -15,9 +15,14 @@ public abstract class AbstractState {
 	protected static final String NO_ACTION_EXCEPTION = "This operation does not cause effects in this state";
 
 	public static AbstractState getInitialState(StateMachineImpl sm, ProposalStates initialState) throws PersistencyException {
-		if (initialState == ProposalStates.INTERMEDIATE_STATE)
+		switch (initialState) {
+		case INTERMEDIATE_STATE:
 			return new StateIntermediateProposal(sm, initialState);
-		return new StateInitialProposal(sm, initialState);
+		case CLOSED_STATE:
+			return new StateClosedProposal();
+		default:
+			return new StateInitialProposal(sm, initialState);
+		}
 	}
 
 	protected abstract void toAccept(StateMachineImpl sm) throws PersistencyException, NoStateTransitionException;

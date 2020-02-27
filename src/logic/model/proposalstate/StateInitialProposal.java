@@ -1,5 +1,6 @@
 package logic.model.proposalstate;
 
+import logic.exception.NoStateTransitionException;
 import logic.exception.PersistencyException;
 import logic.model.Book;
 import logic.util.enumeration.NotificationTypes;
@@ -19,9 +20,11 @@ public class StateInitialProposal extends AbstractState {
 	}
 
 	@Override
-	protected void toAccept(StateMachineImpl sm) throws PersistencyException {
+	protected void toAccept(StateMachineImpl sm) throws PersistencyException, NoStateTransitionException {
 		if (sm.getSourceBook() != null)
 			sm.changeToState(new StateIntermediateProposal(sm, getState()));
+		else
+			throw new NoStateTransitionException("This operation does not cause state transition in this state.");
 	}
 
 	@Override
@@ -31,9 +34,11 @@ public class StateInitialProposal extends AbstractState {
 	}
 
 	@Override
-	protected void acquire(StateMachineImpl sm, Book book) {
-		sm.setSourceBook(book);
-		
+	protected void acquire(StateMachineImpl sm, Book book) throws NoStateTransitionException {
+		if (sm.getSourceBook() == null)
+			sm.setSourceBook(book);
+		else
+			throw new NoStateTransitionException("This operation does not cause state transition in this state.");
 	}
 
 	@Override

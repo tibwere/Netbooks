@@ -14,6 +14,6 @@ import logic.util.enumeration.ProposalStates;
 public interface ProposalStateMachine {
 	
 	public void manageProposal(ProposalEvents e) throws PersistencyException, NoStateTransitionException;
-	public void acquireBook(Book book);
+	public void acquireBook(Book book) throws NoStateTransitionException;
 	public ProposalStates getCurrentState();
 }

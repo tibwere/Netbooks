@@ -11,6 +11,7 @@ import logic.db.DBManager;
 import logic.db.DBOperation;
 import logic.db.Query;
 import logic.exception.AlreadyOwnedBookException;
+import logic.exception.BookNotOwnedException;
 import logic.exception.NotAccesibleConfigurationException;
 import logic.exception.PersistencyException;
 import logic.exception.UserAlreadySignedException;
@@ -151,7 +152,7 @@ public class ReaderDao {
 		}
 	}
 	
-	public static Boolean checkOwnership(String user, String isbn) throws PersistencyException {
+	public static boolean checkOwnership(String user, String isbn) throws PersistencyException {
 		CallableStatement stmt = null;
 		ResultSet result = null;
 		
@@ -171,19 +172,39 @@ public class ReaderDao {
 		}
 	}
 
-	public static void swapOwnership(String sourceId, String srcBook, String targetId, String tgtBook) throws PersistencyException {
+	public static boolean swapOwnership(String sourceId, String srcBook, String targetId, String tgtBook) throws PersistencyException {
 		CallableStatement stmt = null;
 		
 		try {
+			if (checkOwnership(sourceId, tgtBook) || checkOwnership(targetId, srcBook) 
+					|| !checkOwnership(sourceId, srcBook) || !checkOwnership(targetId, tgtBook))
+				return false;
 			Connection conn = DBManager.getConnection();
 			stmt = conn.prepareCall(Query.SWAP_OWNERSHIP_SP);
 			DBOperation.bindParametersAndExec(stmt, sourceId, srcBook, targetId, tgtBook);
 			
+			return true;
 		} catch(SQLException | ClassNotFoundException | NotAccesibleConfigurationException e) {
 			throw new PersistencyException("Unable to swap books");
 		}
 		finally {
 			DBManager.closeStmt(stmt);
 		}
+	}
+	
+	public static void removeBookFromOwnedList(String isbn, String user) throws BookNotOwnedException, PersistencyException {
+		CallableStatement stmt = null;
+		
+		try {
+			Connection conn = DBManager.getConnection();
+			stmt = conn.prepareCall(Query.DELETE_BOOK_FROM_OWNEDLIST_SP);
+			DBOperation.bindParametersAndExec(stmt, user, isbn);
+			
+		} catch (SQLException | ClassNotFoundException | NotAccesibleConfigurationException e) {
+			throw new BookNotOwnedException("Unable to remove the owned book, it is not present");
+		} finally {
+			DBManager.closeStmt(stmt);
+		}
+		
 	}
 }

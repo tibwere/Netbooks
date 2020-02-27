@@ -86,6 +86,9 @@ public class MakeProposalGC implements Initializable{
 			case 2:
 				successLabel.setText("You already have an open proposal with this user.");
 				break;
+			case 3:
+				successLabel.setText("You already own this book.");
+				break;
 			default:
 				sendBtn.setDisable(true);
 				break;

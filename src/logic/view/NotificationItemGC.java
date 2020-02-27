@@ -60,7 +60,7 @@ public class NotificationItemGC implements Initializable{
 	
 	private ExchangeBookController controller = new ExchangeBookController();
 	
-	public NotificationItemGC(NotificationBean bean) throws NotAccesibleConfigurationException {
+	public NotificationItemGC(NotificationBean bean) {
 		this.bean = bean;
 		this.currReader = new ReaderBean(Session.getSession().getCurrUser());
 	}
@@ -82,16 +82,14 @@ public class NotificationItemGC implements Initializable{
 		}
 	}
 	
-	public void chooseBook (BookBean b) {
-		try {
-			controller.acceptProposal(bean, b, currReader);
-		
+	public void choosedBook () {
+		try {		
 			dynamicBtn.setDisable(true);
 			rejectBtn.setDisable(true);
 			rejectBtn.setVisible(false);
 		
 			controller.removeNotification(bean, currReader);
-		} catch (PersistencyException | NoStateTransitionException e) {
+		} catch (PersistencyException e) {
 			GraphicalElements.showDialog(AlertType.ERROR, e.getMessage());
 			Platform.exit();
 		}
@@ -139,7 +137,7 @@ public class NotificationItemGC implements Initializable{
 					List<BookBean> bookBeanList = ctrl.getUserBooks(new ReaderBean(bean.getSourceId()));
 									
 					for (BookBean bookBean : bookBeanList) {
-						ExchangeBookPopUpItemGC gc = new ExchangeBookPopUpItemGC(bookBean, me);
+						ExchangeBookPopUpItemGC gc = new ExchangeBookPopUpItemGC(bookBean, bean, me);
 						FXMLLoader loader = GraphicalElements.loadFXML(DynamicElements.EXCHANGE_BOOK_POPUP_ITEM);
 						loader.setController(gc);
 						HBox bookItem = loader.load();

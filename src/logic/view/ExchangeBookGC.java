@@ -21,7 +21,6 @@ import javafx.stage.Stage;
 import logic.bean.BookBean;
 import logic.bean.ReaderBean;
 import logic.controller.ExchangeBookController;
-import logic.exception.NotAccesibleConfigurationException;
 import logic.exception.PersistencyException;
 import logic.util.GraphicalElements;
 import logic.util.Session;
@@ -90,7 +89,7 @@ public class ExchangeBookGC implements Initializable {
 		catch (IOException | IllegalStateException e) {
 			GraphicalElements.showDialog(AlertType.ERROR, "Unable to load exchangeable books.");
 			Platform.exit();
-		} catch (PersistencyException | NotAccesibleConfigurationException e) {
+		} catch (PersistencyException e) {
 			GraphicalElements.showDialog(AlertType.ERROR, e.getMessage());
 		}		
 	}

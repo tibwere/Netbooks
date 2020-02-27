@@ -51,10 +51,13 @@
 						@SuppressWarnings("unchecked")
 						List<BookBean> books = (List<BookBean>) request.getAttribute("bookList");
 						int index = 0;
+					%>
+						<div class="col col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+								<div class="col mx-auto col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 ex-book-modal rounded">
+					<%
 						for (BookBean book : books) {
 					%>
-							<div class="col col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-								<div class="col mx-auto col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 ex-book-modal rounded">
+							
 									<i class="display-1 fas fa-book ex-book-shadow book-cover mb-sm-2 mt-3"></i>
 									<br>
 									<a class="btn btn-link ex-book-black-link font-weight-bold" data-toggle="collapse" href="#collapse<%=index%>" aria-expanded="false" aria-controls="collapse<%=index%>">
@@ -84,11 +87,13 @@
 							       			</table>
 	  									</div>
 									</div>
-								</div>
-								<hr>
-							</div> 
-				<% 			index++;
+									<hr>
+				 	<%	index++;
 						}
+						%>
+						</div>
+						</div>
+						<%
 					}%>
 					</div>
 				</div>

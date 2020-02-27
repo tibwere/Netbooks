@@ -1,6 +1,5 @@
 package logic.model.proposalstate;
 
-import javafx.scene.control.Alert.AlertType;
 import logic.controller.ExchangeBookController;
 import logic.exception.NoStateTransitionException;
 import logic.exception.PersistencyException;
@@ -8,7 +7,6 @@ import logic.model.Book;
 import logic.model.Proposal;
 import logic.model.ProposalNotification;
 import logic.model.users.Reader;
-import logic.util.GraphicalElements;
 import logic.util.enumeration.NotificationTypes;
 import logic.util.enumeration.ProposalEvents;
 import logic.util.enumeration.ProposalStates;
@@ -49,12 +47,8 @@ public class StateMachineImpl implements ProposalStateMachine {
 	}
 	
 	@Override
-	public void acquireBook(Book book) {
-		try {
-			current.acquire(this, book);
-		} catch (NoStateTransitionException e) {
-			GraphicalElements.showDialog(AlertType.WARNING, e.getMessage());
-		}
+	public void acquireBook(Book book) throws NoStateTransitionException {
+		current.acquire(this, book);
 	}
 	
 	@Override

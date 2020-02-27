@@ -56,8 +56,7 @@ public class LoadNotificationsServlet extends HttpServlet {
 			
 			RequestDispatcher view = null;
 			view = request.getRequestDispatcher(WebUtilities.MANAGE_PROPOSALS_PAGE_URL);
-			if (view != null)
-				view.forward(request, response);
+			view.forward(request, response);
 			
 		} catch (PersistencyException e) {
 			WebUtilities.redirectToErrorPage(request, response, e.getMessage());

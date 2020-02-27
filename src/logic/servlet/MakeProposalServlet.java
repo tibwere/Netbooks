@@ -27,6 +27,8 @@ public class MakeProposalServlet extends HttpServlet {
 	
 	public static final String ALERT_RESPONSE = "alertResponse";
 	public static final String PROPOSAL_RESPONSE = "proposalResponse";
+	public static final String SUCCESS = "success";
+	public static final String FAILURE = "failure";
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -58,15 +60,19 @@ public class MakeProposalServlet extends HttpServlet {
 			switch (res) {
 			case 1:
 				request.setAttribute(PROPOSAL_RESPONSE, "You have no books to exchange");
-				request.setAttribute(ALERT_RESPONSE, "failure");
+				request.setAttribute(ALERT_RESPONSE, FAILURE);
 				break;
 			case 2:	
 				request.setAttribute(PROPOSAL_RESPONSE, "You already have an open proposal with this user");
-				request.setAttribute(ALERT_RESPONSE, "failure");
+				request.setAttribute(ALERT_RESPONSE, FAILURE);
+				break;
+			case 3:
+				request.setAttribute(PROPOSAL_RESPONSE, "You already own this book");
+				request.setAttribute(ALERT_RESPONSE, FAILURE);
 				break;
 			default:
 				request.setAttribute(PROPOSAL_RESPONSE, "Success! The proposal has been sent");
-				request.setAttribute(ALERT_RESPONSE, "success");
+				request.setAttribute(ALERT_RESPONSE, SUCCESS);
 				break;
 			}
 

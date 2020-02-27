@@ -13,7 +13,6 @@ import logic.dao.NotificationDao;
 import logic.dao.ProposalDao;
 import logic.dao.ReaderDao;
 import logic.exception.NoStateTransitionException;
-import logic.exception.NotAccesibleConfigurationException;
 import logic.exception.PersistencyException;
 import logic.exception.WrongSyntaxException;
 import logic.model.Book;
@@ -31,7 +30,7 @@ import logic.util.enumeration.ProposalStates;
 
 public class ExchangeBookController {
 
-	public Map<BookBean, ReaderBean> getAllExchangeableBooks(ReaderBean currUser) throws PersistencyException, NotAccesibleConfigurationException {
+	public Map<BookBean, ReaderBean> getAllExchangeableBooks(ReaderBean currUser) throws PersistencyException {
 		
 		List<Reader> owners = ReaderDao.findOwners(currUser.getUsername());
 		Map<BookBean, ReaderBean> map = new HashMap<>();
@@ -78,6 +77,8 @@ public class ExchangeBookController {
 			return 1;
 		if (ProposalDao.findOpenProposals(sourceUsr.getUsername(), destBean.getUsername()))
 			return 2;
+		if (ReaderDao.checkOwnership(sourceUsr.getUsername(), bookDestBean.getIsbn()))
+			return 3;
 		
 		int proposalId = ProposalDao.insertNewProposal(sourceUsr.getUsername(), destBean.getUsername(), ProposalStates.DEFAULT.toString());
 		
@@ -111,17 +112,16 @@ public class ExchangeBookController {
 		NotificationDao.insertNewNotifForUser(target.getUsername(), notification);
 	}
 	
-	public Boolean acceptProposal(NotificationBean notifBean, BookBean bookBean, ReaderBean currUser) throws PersistencyException, NoStateTransitionException {
+	public boolean acceptProposal(NotificationBean notifBean, BookBean bookBean, ReaderBean currUser) throws PersistencyException, NoStateTransitionException {
 		Proposal proposal = ProposalDao.getProposal(notifBean.getProposalId(), notifBean.getDestBook(), notifBean.getSrcBook());
-		if (bookBean == null) {	
-			if (!(ReaderDao.checkOwnership(notifBean.getSourceId(), notifBean.getSrcBook())
-					&& ReaderDao.checkOwnership(currUser.getUsername(), notifBean.getDestBook())))
-					return false;
+		if (bookBean == null) {			
+			if (!ReaderDao.swapOwnership(notifBean.getSourceId(), notifBean.getSrcBook(), currUser.getUsername(), notifBean.getDestBook()))
+				return false;
 			proposal.acceptProposal();
-			ProposalDao.updateProposalStatus(proposal, proposal.getCurrState());
-			ReaderDao.swapOwnership(notifBean.getSourceId(), notifBean.getSrcBook(), currUser.getUsername(), notifBean.getDestBook());
 		}
 		else {
+			if (ReaderDao.checkOwnership(currUser.getUsername(), bookBean.getIsbn()))
+				return false;
 			Book bookTarget = BookDao.getBook(bookBean.getIsbn());
 			proposal.selectBook(bookTarget);
 		}
