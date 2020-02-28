@@ -43,7 +43,7 @@ public class NavbarGC {
 	
 	public void updateGenerality() {
 		try {
-			ReaderBean bean = new BuyBookSystem().getReaderGenerality(new ReaderBean(Session.getSession().getCurrUser()));
+			ReaderBean bean = BuyBookSystem.getInstance().getReaderGenerality(new ReaderBean(Session.getSession().getCurrUser()));
 	
 			if (bean.getFirstName().length() + bean.getSecondName().length() < 20)
 				profileBtn.setText(bean.getFirstName() + " " + bean.getSecondName());

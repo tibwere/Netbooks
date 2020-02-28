@@ -39,7 +39,7 @@ public class GetEvaluationServlet extends HttpServlet {
 			return;
 		}
 		
-		BuyBookSystem system = new BuyBookSystem();
+		BuyBookSystem system = BuyBookSystem.getInstance();
 		BookBean bean = new BookBean();
 		
 		request.getSession().setAttribute("title", request.getParameter("title"));

@@ -13,7 +13,8 @@ import logic.model.users.Reader;
 import test.TestUtilities;
 
 /**
- * <b>JUnit</b> test che utilizza Selenium Web Driver necessario per il corretto funzionamento 
+ * <b>JUnit</b> test che utilizza Selenium Web Driver per verificare il corretto 
+ * funzionamento della navbar (deve mostrare l'username dell'utente loggato) 
  * @author Simone Tiberi (M. 0252795)
  *
  */

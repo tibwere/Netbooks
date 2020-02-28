@@ -72,7 +72,7 @@ public class BookPreviewGC implements Initializable{
 	public void rateBook() {
 
 		try {
-			if (new BuyBookSystem().checkOwnership(bean, new ReaderBean(Session.getSession().getCurrUser()))) {
+			if (BuyBookSystem.getInstance().checkOwnership(bean, new ReaderBean(Session.getSession().getCurrUser()))) {
 				Stage parent = (Stage) thumbnail.getScene().getWindow();
 				Stage modal = GraphicalElements.createModalWindow(new Scene(new RatingModal(bean)), parent);
 				modal.show();
@@ -91,7 +91,7 @@ public class BookPreviewGC implements Initializable{
 		
 		if (result.get().equals(ButtonType.OK)) {
 			try {
-				new BuyBookSystem().addBookToOwnedList(bean, new ReaderBean(Session.getSession().getCurrUser()));
+				BuyBookSystem.getInstance().addBookToOwnedList(bean, new ReaderBean(Session.getSession().getCurrUser()));
 				GraphicalElements.showDialog(AlertType.INFORMATION, "\"" + bean.getTitle() + "\" has succesfully added to your owned list!" );
 				parentCtrl.refresh();
 			} catch (PersistencyException e) {

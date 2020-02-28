@@ -12,60 +12,74 @@ import logic.exception.NotAccesibleConfigurationException;
 import logic.exception.PersistencyException;
 
 public class BuyBookSystem implements BuyBookFacade {
+	
+	private BuyBookController ctrl;
+	private static BuyBookSystem instance = null;
+	
+	private BuyBookSystem() {
+		ctrl = new BuyBookController(new ManageEvaluationsController());
+	}
+	
+	public static BuyBookSystem getInstance() {
+		if (instance == null)
+			instance = new BuyBookSystem();
+		
+		return instance;
+	}
 
 	@Override
 	public void addBookToOwnedList(BookBean book, ReaderBean reader) throws AlreadyOwnedBookException, PersistencyException {
-		new BuyBookController().addBookToOwnedList(book, reader);		
+		ctrl.addBookToOwnedList(book, reader);		
 	}
 
 	@Override
 	public boolean checkOwnership(BookBean book, ReaderBean reader) throws PersistencyException {
-		return new BuyBookController().bookIsOwned(book, reader);
+		return ctrl.bookIsOwned(book, reader);
 	}
 
 	@Override
 	public List<BookBean> getNotOwnedBooks(ReaderBean reader) throws PersistencyException {
-		return new BuyBookController().getNotOwnedBooks(reader);	
+		return ctrl.getNotOwnedBooks(reader);	
 	}
 
 	@Override
 	public List<BookBean> getAllBooks() throws PersistencyException {
-		return new BuyBookController().getAllBooks();
+		return ctrl.getAllBooks();
 	}
 
 	@Override
 	public List<BookBean> getSearchedBooks(String pattern) throws PersistencyException {
-		return new BuyBookController().getSearchedBook(pattern);
+		return ctrl.getSearchedBook(pattern);
 	}
 
 	@Override
 	public ReaderBean getReaderGenerality(ReaderBean notFilledReaderBean) throws PersistencyException {
-		return new BuyBookController().getUserGenerality(notFilledReaderBean);
+		return ctrl.getUserGenerality(notFilledReaderBean);
 	}
 
 	@Override
 	public void addNewEvaluation(BookEvaluationBean evaluation, BookBean book, ReaderBean author) throws PersistencyException {
-		new ManageEvaluationsController().addNewEvaluation(evaluation, book, author);
+		ctrl.getManageCtrl().addNewEvaluation(evaluation, book, author);
 	}
 
 	@Override
 	public double getAVGRate(BookBean book) throws PersistencyException {
-		return new ManageEvaluationsController().getAVGRate(book);
+		return ctrl.getManageCtrl().getAVGRate(book);
 	}
 
 	@Override
 	public Map<ReaderBean, BookEvaluationBean> getBookReviews(BookBean book) throws PersistencyException, NotAccesibleConfigurationException {
-		return new ManageEvaluationsController().getBookReviews(book);
+		return ctrl.getManageCtrl().getBookReviews(book);
 	}
 
 	@Override
 	public int getOnlineAVGEval(BookBean book) throws IOException {
-		return new ManageEvaluationsController().getOnlineAvgEval(book);
+		return ctrl.getManageCtrl().getOnlineAvgEval(book);
 	}
 
 	@Override
 	public BookEvaluationBean getPreviousEvaluation(BookBean book, ReaderBean reader) throws PersistencyException {
-		return new ManageEvaluationsController().getPreviousEvaluation(book, reader);
+		return ctrl.getManageCtrl().getPreviousEvaluation(book, reader);
 	}
 
 }

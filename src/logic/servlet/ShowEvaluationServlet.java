@@ -50,7 +50,7 @@ public class ShowEvaluationServlet extends HttpServlet {
 			BookBean bean = new BookBean();
 			bean.setIsbn(request.getParameter("isbn"));
 			bean.setTitle(request.getParameter("title"));
-			BuyBookSystem system = new BuyBookSystem();
+			BuyBookSystem system = BuyBookSystem.getInstance();
 			
 			try {
 				if (Arrays.asList(checkBoxesValues).contains("rat"))

@@ -59,7 +59,7 @@ public class WebViewGC implements Initializable {
 		try {
 			Optional<ButtonType> results = GraphicalElements.showDialog(AlertType.CONFIRMATION, "Do you wanna confim purchase?");
 			if (results.get().equals(ButtonType.OK)) {
-				new BuyBookSystem().addBookToOwnedList(bean, new ReaderBean(Session.getSession().getCurrUser()));
+				BuyBookSystem.getInstance().addBookToOwnedList(bean, new ReaderBean(Session.getSession().getCurrUser()));
 				GraphicalElements.showDialog(AlertType.INFORMATION, 
 						"Congratulations!\n\"" + bean.getTitle() + "\" has benn added to your list!");
 				

@@ -46,7 +46,7 @@ public class OnlineRatingsBox extends BoxDecorator {
 			preEvalLbl.setText("GOOGLE USERS AVERAGE EVALUATION FOR THIS TITLE: ");			
 			evalLbl.setFont(Font.font("System", FontWeight.BOLD, 18));
 			glyph.setImage(new Image(ImageDispenser.getImage(ImageDispenser.LIKE)));
-			int percentage = new BuyBookSystem().getOnlineAVGEval(bean);
+			int percentage = BuyBookSystem.getInstance().getOnlineAVGEval(bean);
 			evalLbl.setText(percentage + "%");
 			
 			if (percentage < 50)

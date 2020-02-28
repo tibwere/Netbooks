@@ -49,7 +49,7 @@ public class LoginServlet extends HttpServlet {
 			request.getSession().setAttribute("currUserType", type);
 
 			if (type.equals(UserTypes.READER)) {
-				ReaderBean curr = new BuyBookSystem().getReaderGenerality(new ReaderBean(username));
+				ReaderBean curr = BuyBookSystem.getInstance().getReaderGenerality(new ReaderBean(username));
 				request.getSession().setAttribute("navbar-generality", curr.getFirstName() + " " + curr.getSecondName() + " (" + username + ")");
 				response.sendRedirect(WebUtilities.LOAD_BOOKS_SERVLET_URL.substring(1));
 			}

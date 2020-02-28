@@ -24,6 +24,12 @@ import logic.util.enumeration.Vendors;
  */
 public class BuyBookController {
 	
+	private ManageEvaluationsController manageCtrl;
+	
+	public BuyBookController(ManageEvaluationsController c) {
+		this.manageCtrl = c;
+	}
+	
 	private BookBean fillBeanFromEntity(Book book) {
 		BookBean bean = new BookBean(book.getTitle(), book.getAuthor());
 		bean.setSingleImage(book.getSmallImage(), ImageSizes.SMALL);
@@ -90,4 +96,9 @@ public class BuyBookController {
 	public boolean bookIsOwned(BookBean bean, ReaderBean currUser) throws PersistencyException {
 		return ReaderDao.checkIfCurrReaderOwnBook(currUser.getUsername(), bean.getIsbn());
 	}
+
+	public ManageEvaluationsController getManageCtrl() {
+		return manageCtrl;
+	}
+	
 }

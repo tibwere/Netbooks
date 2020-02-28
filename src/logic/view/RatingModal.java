@@ -57,7 +57,7 @@ public class RatingModal extends VBox{
 	
 	public RatingModal (BookBean bean) throws PersistencyException, NotAccesibleConfigurationException {
 		this.bookBean = bean;
-		this.system = new BuyBookSystem();
+		this.system = BuyBookSystem.getInstance();
 		
 		this.getStylesheets().add(RatingModal.class.getResource("resources/css/style.css").toExternalForm());
 		this.getStyleClass().add("bg-secondary");

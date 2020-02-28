@@ -32,7 +32,7 @@ public class LoadBooksServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		BuyBookSystem system = new BuyBookSystem();
+		BuyBookSystem system = BuyBookSystem.getInstance();
 		
 		try {
 			List<BookBean> beans = null;

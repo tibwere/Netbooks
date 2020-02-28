@@ -47,7 +47,7 @@ public class AddEvaluationServlet extends HttpServlet {
 			evalBean.setTitle(request.getParameter("revTitle"));
 			evalBean.setBody(request.getParameter("revBody"));
 			bookBean.setIsbn(request.getParameter("isbn"));		
-			new BuyBookSystem().addNewEvaluation(evalBean, bookBean, new ReaderBean((String) request.getSession().getAttribute("currUser")));
+			BuyBookSystem.getInstance().addNewEvaluation(evalBean, bookBean, new ReaderBean((String) request.getSession().getAttribute("currUser")));
 			
 			request.setAttribute("result", "success");
 			request.getRequestDispatcher(WebUtilities.EVALUATE_BOOK_PAGE_URL).forward(request, response);

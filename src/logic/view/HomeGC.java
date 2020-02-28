@@ -50,7 +50,7 @@ public class HomeGC implements Initializable {
 	
 	public HomeGC() {
 		try {
-			this.system = new BuyBookSystem();
+			this.system = BuyBookSystem.getInstance();
 			this.obs = new ObservableBookList(system.getNotOwnedBooks(new ReaderBean(Session.getSession().getCurrUser())));
 			this.bookPanel = new BookPreviewPanel(obs, this);
 			this.obs.attach(bookPanel);

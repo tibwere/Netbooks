@@ -117,7 +117,7 @@ public class InAppReviewsBox extends BoxDecorator {
 		handleComponents();
 		
 		Map<ReaderBean, BookEvaluationBean> reviews = null;
-		reviews = new BuyBookSystem().getBookReviews(bean);
+		reviews = BuyBookSystem.getInstance().getBookReviews(bean);
 
 
 		if (reviews != null) {

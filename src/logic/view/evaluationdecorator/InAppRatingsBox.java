@@ -74,7 +74,7 @@ public class InAppRatingsBox extends BoxDecorator {
 		initComponents();
 		handleComponents();
 		
-		double avg = new BuyBookSystem().getAVGRate(bean);
+		double avg = BuyBookSystem.getInstance().getAVGRate(bean);
 		DecimalFormat fmt = new DecimalFormat("#.##");
 		ratingStars.setRating(avg);
 		rateLbl.setText(fmt.format(avg) + "/5");

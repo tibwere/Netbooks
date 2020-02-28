@@ -42,7 +42,7 @@ public class AddBookToOwnedListServlet extends HttpServlet {
 		BookBean bean = new BookBean();
 		bean.setIsbn(request.getParameter("isbn"));
 		try {
-			new BuyBookSystem().addBookToOwnedList(bean, new ReaderBean(WebUtilities.getUsernameFromSession(request)));
+			BuyBookSystem.getInstance().addBookToOwnedList(bean, new ReaderBean(WebUtilities.getUsernameFromSession(request)));
 			request.setAttribute("result", "success");
 			request.getRequestDispatcher(WebUtilities.INDEX_PAGE_URL).forward(request, response);
 		} catch (AlreadyOwnedBookException e) {
