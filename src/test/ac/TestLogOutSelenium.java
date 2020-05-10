@@ -18,7 +18,7 @@ public class TestLogOutSelenium {
 	@Test
 	public void testLogOut() {
 
-		System.setProperty("webdriver.chrome.driver", "drivers/chromedriver_ST.exe");
+		System.setProperty("webdriver.chrome.driver", "drivers/chromedriver.exe");
 		WebDriver driver = new ChromeDriver();
 		driver.get("http://localhost:8080/Netbooks/login.jsp");
 

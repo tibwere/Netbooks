@@ -5,7 +5,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 
 import logic.dao.ReaderDao;
 import logic.exception.AlreadyOwnedBookException;
@@ -26,8 +26,11 @@ public class TestSeeYourBooksSelenium {
 		Reader testerReader = ReaderDao.getEmailAndGenre(Reader.TESTER_USERNAME);
 		ReaderDao.insertNewBookInOwnedList(TEST_ISBN, testerReader.getUsername());
 		
-		System.setProperty("webdriver.gecko.driver","drivers/./geckodriver");
-		WebDriver driver = new FirefoxDriver();
+		// System.setProperty("webdriver.gecko.driver","drivers/./geckodriver");
+		// WebDriver driver = new FirefoxDriver();
+
+		System.setProperty("webdriver.chrome.driver", "drivers/chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
 		driver.get(NETBOOKS_URL + "login.jsp");
 		driver.findElement(By.xpath("//*[@id=\"usernameTxt\"]")).sendKeys(Reader.TESTER_USERNAME);
 		driver.findElement(By.xpath("//*[@id=\"passwordTxt\"]")).sendKeys(TestUtilities.getTesterPasswd(false));

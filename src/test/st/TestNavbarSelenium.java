@@ -25,7 +25,7 @@ public class TestNavbarSelenium {
 	@Test
 	public void testShowProperlyUsername() throws UserAlreadySignedException, PersistencyException {
 				
-		System.setProperty("webdriver.chrome.driver", "drivers/chromedriver_ST.exe");
+		System.setProperty("webdriver.chrome.driver", "drivers/chromedriver.exe");
 		WebDriver driver = new ChromeDriver();
 		driver.manage().deleteAllCookies();
 		
