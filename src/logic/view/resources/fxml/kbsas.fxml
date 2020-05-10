@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="borderPane" prefHeight="800.0" prefWidth="1000.0" styleClass="bg" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="logic.view.KbsasGC">
+   <right>
+      <VBox alignment="TOP_CENTER" spacing="60.0" styleClass="buybook-panel">
+         <children>
+            <VBox alignment="CENTER" spacing="45.0">
+               <children>
+                  <VBox alignment="CENTER" spacing="30.0">
+                     <children>
+                        <HBox fx:id="hBoxBtn" alignment="CENTER">
+                           <children>
+                              <Button fx:id="profileBtn" ellipsisString="" mnemonicParsing="false" styleClass="transparent">
+                                 <graphic>
+                                    <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/profile.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
+                              <Button fx:id="logoutBtn" ellipsisString="" mnemonicParsing="false" onAction="#logout" styleClass="transparent">
+                                 <graphic>
+                                    <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" styleClass="transparent">
+                                       <image>
+                                          <Image url="@../images/logout.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
+                           </children>
+                        </HBox>
+                        <VBox alignment="CENTER" prefHeight="250.0" prefWidth="208.0" spacing="10.0">
+                           <children>
+                              <ImageView>
+                                 <image>
+                                    <Image url="@../images/icon.png" />
+                                 </image>
+                              </ImageView>
+                              <Label fx:id="retailerAreaLbl" alignment="CENTER" text="RETAILER-AREA" textFill="WHITE">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" prefHeight="157.0" prefWidth="208.0" spacing="10.0">
+                     <children>
+                        <Label text="Select the radius " textFill="WHITE">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                        <Slider fx:id="slider" majorTickUnit="10.0" max="50.0" minorTickCount="5" onKeyTyped="#onSliderChanged" onMouseReleased="#onSliderChanged" showTickLabels="true" showTickMarks="true" value="10.0">
+                           <cursor>
+                              <Cursor fx:constant="OPEN_HAND" />
+                           </cursor>
+                        </Slider>
+                        <Label fx:id="km" text="Selected value : 10KM" textFill="WHITE">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+            <Button fx:id="buttonVBS" alignment="CENTER" mnemonicParsing="false" onAction="#showBestsellers" prefHeight="34.0" prefWidth="180.0" style="-fx-background-color: #634f3a;" text="VIEW BEST-SELLERS" textFill="#f8f8f8">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+         </children>
+         <padding>
+            <Insets left="20.0" right="20.0" top="20.0" />
+         </padding>
+      </VBox>
+   </right>
+   <center>
+      <VBox alignment="TOP_CENTER" spacing="30.0" BorderPane.alignment="CENTER">
+         <children>
+            <VBox alignment="CENTER">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="77.0" prefWidth="464.0" spacing="40.0">
+                     <children>
+                        <Label fx:id="labelRes" prefHeight="76.0" prefWidth="170.0" text="RESULTS" textFill="#fcf8f8">
+                           <font>
+                              <Font size="40.0" />
+                           </font>
+                        </Label>
+                        <MenuButton fx:id="menuButton" alignment="CENTER" mnemonicParsing="false" prefHeight="39.0" prefWidth="167.0" styleClass="btn" text="VIEW CHART OF TOP 5" textFill="#fffefe">
+                           <items>
+                              <MenuItem fx:id="barChart1" mnemonicParsing="false" onAction="#barChartAction" text="BAR CHART" />
+                              <MenuItem fx:id="pieChart1" mnemonicParsing="false" onAction="#pieChartAction" text="PIE CHART" />
+                           </items>
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </MenuButton>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <ScrollPane fitToWidth="true" hbarPolicy="NEVER" styleClass="scrollpane-transparent">
+               <content>
+                  <VBox fx:id="vboxMain" alignment="CENTER" spacing="5.0">
+                     <padding>
+                        <Insets left="45.0" right="45.0" />
+                     </padding>
+                  </VBox>
+               </content>
+            </ScrollPane>
+         </children>
+      </VBox>
+   </center>
+</BorderPane>

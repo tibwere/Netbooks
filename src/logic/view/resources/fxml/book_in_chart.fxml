@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<HBox fx:id="hBoxExternal" alignment="CENTER" styleClass="buybook-panel" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <HBox alignment="CENTER" HBox.hgrow="ALWAYS">
+         <children>
+            <HBox fx:id="hBoxInteral" alignment="CENTER" spacing="10.0">
+               <children>
+                  <Label fx:id="position" alignment="CENTER" style="-fx-font-weight: bold;" textFill="WHITE" />
+                  <ImageView fx:id="image" fitHeight="60.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </HBox>
+            <VBox alignment="CENTER_LEFT">
+               <children>
+                  <Label alignment="BOTTOM_CENTER" style="-fx-font-weight: bold;" text="Title : " textFill="WHITE" />
+                  <Label alignment="CENTER" style="-fx-font-weight: bold;" text="Author : " textAlignment="CENTER" textFill="WHITE" />
+               </children>
+               <padding>
+                  <Insets right="5.0" />
+               </padding>
+            </VBox>
+            <VBox fx:id="vBox" alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+               <children>
+                  <Label fx:id="lblBookName" alignment="BOTTOM_LEFT" textFill="WHITE" />
+                  <Label fx:id="lblBookAuthor" textFill="WHITE" />
+               </children>
+               <padding>
+                  <Insets right="10.0" />
+               </padding>
+            </VBox>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER">
+         <children>
+            <Label alignment="CENTER" style="-fx-font-weight: bold;" text="NUMBER OF COPIES SOLD:" textFill="WHITE" />
+            <Label fx:id="lblNumOfCopy" alignment="CENTER" textFill="WHITE" />
+         </children>
+         <padding>
+            <Insets right="10.0" />
+         </padding>
+      </HBox>
+   </children>
+</HBox>

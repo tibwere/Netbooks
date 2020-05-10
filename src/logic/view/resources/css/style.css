@@ -1,0 +1,195 @@
+.bg {
+    -fx-background-image:url('../images/wallpaper.jpg');
+    -fx-background-position: center;
+}
+
+.bg-secondary {
+	-fx-background-color: rgb(99,79,58, 0.8);
+}
+
+.loginpanel {
+	-fx-background-color: rgb(227,181,132, 0.8);
+	-fx-background-radius: 50px;
+}
+
+.moreinfopanel {
+	-fx-background-color: rgb(227,181,132);
+	-fx-background-radius: 20px;	
+}
+
+.scrollpanebg {
+	-fx-background-color: #f0b884;
+}
+
+.checkboxes-panel {
+	-fx-background-color: rgb(227,181,132, 0.8);
+	-fx-background-radius: 25px;
+}
+
+.success {
+	-fx-text-font-size: 24px;
+	-fx-text-fill: #228B22;
+}
+
+.errorLbl {
+	-fx-text-font-size: 24px;
+	-fx-text-fill: #dc143c;
+}
+
+.buybook-panel {
+	-fx-background-color: rgba(201,161,117, 0.7);
+}
+
+.buy-home-btn {
+	-fx-background-color: #00ff00; 
+}
+
+.rate-home-btn {
+	-fx-background-color: #ffff00;
+}
+
+.add-home-btn {
+	-fx-background-color: #00FFFF
+}
+
+.list-item {
+	-fx-background-color: rgba(163,130,95, 0.8);
+}
+
+.btn {
+	-fx-background-color: #634f3a;
+}
+
+.exBookPanebg {
+	-fx-background-color: rgb(163, 130, 95, 0.75);
+}
+
+.transparent {
+	-fx-background-color: transparent;
+}
+
+.exBookVerticalP {
+	-fx-background-color: #c9a175;
+}
+
+.main-color {
+	-fx-background-color: #e3b584;
+}
+
+.book-details-label {
+	-fx-text-fill: white;
+}
+
+.exBookVBoxInfo {
+	-fx-background-color: rgb(240, 191, 139, 1.0);
+    -fx-border-color: black;
+    -fx-border-width: 1.5;
+}
+
+.exchangeableBookDetails {
+	-fx-background-color: rgb(227,181,132, 0.8);
+	-fx-background-radius: 20px;
+	-fx-border-color: black;
+	-fx-border-radius: 20px;
+    -fx-border-width: 0.9;
+}
+
+.exchangeBookActivities {
+	-fx-background-color: #f0bf8b;
+}
+
+.proposalItem {
+	-fx-background-color: rgb(99,79,58,0.8);
+	-fx-border-color: black;
+	-fx-border-width: 0.9;
+}
+
+.rating :disabled {
+    -fx-opacity: 1;
+}
+
+.scrollpane-transparent {
+	-fx-background: transparent;
+	-fx-background-color: transparent;
+}
+ 
+ .review-txt-area {
+ 	-fx-hbar-policy: never;
+    -fx-vbar-policy: asneeded;
+ }
+ 
+ /* CSS per la scrollbar */
+ 
+.scroll-bar .track{
+    -fx-background-color :transparent;
+    -fx-border-color :transparent;
+    -fx-background-radius : 2.0em;
+}
+
+.scroll-bar .decrement-button {
+    -fx-background-color :transparent;
+    -fx-background-radius : 0.0em;
+    -fx-padding :0.0 0.0 10.0 0.0;
+
+}
+
+.scroll-bar .track-background {
+   -fx-background-color: transparent;
+   -fx-background-insets: 0;
+   -fx-background-radius: 2em;
+}
+
+.scroll-bar .increment-arrow{
+    -fx-shape : " ";
+    -fx-padding :0.15em 0.0;
+}
+
+.scroll-bar .decrement-arrow{
+    -fx-shape : " ";
+    -fx-padding :0.0 0.15em;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color : #c9a175;
+    -fx-background-insets : 2.0, 0.0, 0.0;
+    -fx-background-radius : 2.0em;
+}
+
+.scroll-bar{
+   -fx-background-color: transparent;
+   -fx-background-radius: 2em;
+   -fx-focus-color: transparent;
+   -fx-faint-focus-color: transparent;
+}
+
+/* CSS per la scrollbar */
+
+.search-txt {
+	-fx-border-color: black;
+	-fx-border-radius: 20px;
+	-fx-background-color: #757575;
+	-fx-background-radius: 20px;	
+}
+
+.filter-box {
+	-fx-background-color: rgb(99, 79, 58, 0.8);
+	-fx-background-radius: 5px;
+	-fx-border-color: black;
+	-fx-border-radius: 5px;
+}
+
+.checkboxes-filter-vbox {
+	-fx-background-color: rgb(227,181,132);
+	-fx-background-radius: 2px;
+	-fx-border-color: black;
+	-fx-border-radius: 2px;	
+}
+
+.signuppanel {
+	-fx-background-color: rgb(227,181,132);
+	-fx-border-width: 3px;
+	-fx-border-color: black;
+	-fx-border-radius: 50px;
+	-fx-background-radius: 50px;
+}
+
