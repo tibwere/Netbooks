@@ -25,10 +25,11 @@ public class TestSeeYourBooksSelenium {
 	public void testShowOwnedBook() throws PersistencyException, AlreadyOwnedBookException, BookNotOwnedException {
 		Reader testerReader = ReaderDao.getEmailAndGenre(Reader.TESTER_USERNAME);
 		ReaderDao.insertNewBookInOwnedList(TEST_ISBN, testerReader.getUsername());
-		
-		// System.setProperty("webdriver.gecko.driver","drivers/./geckodriver");
-		// WebDriver driver = new FirefoxDriver();
 
+		/* 
+		 * Driver per linux: "webdriver.gecko.driver" -> "drivers/./geckodriver"
+		 * Classe oer linux: FirefoxDriver()
+		 */
 		System.setProperty("webdriver.chrome.driver", "drivers/chromedriver.exe");
 		WebDriver driver = new ChromeDriver();
 		driver.get(NETBOOKS_URL + "login.jsp");
