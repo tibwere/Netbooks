@@ -37,10 +37,10 @@ public class DBOperation {
 		
 	}
 	
-	public static ResultSet bindParametersAndExec(CallableStatement stmt, double param1, double param2, int param3) throws SQLException {
-        stmt.setDouble(1, param1);
-        stmt.setDouble(2, param2);
-        stmt.setInt(3, param3);
+	public static ResultSet bindParametersAndExec(CallableStatement stmt, double latitude, double longitude, int radius) throws SQLException {
+        stmt.setDouble(1, latitude);
+        stmt.setDouble(2, longitude);
+        stmt.setInt(3, radius);
        
         return executeStmt(stmt);
     }

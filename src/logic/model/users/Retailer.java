@@ -12,6 +12,8 @@ import logic.model.Geolocalization;
  */
 public class Retailer extends User {
 	
+	public static final String TESTER_USERNAME = "tester-retailer";
+
 	private String vat;
 	private String company;
 	

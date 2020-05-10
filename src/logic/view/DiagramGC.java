@@ -51,6 +51,7 @@ public class DiagramGC implements Initializable {
     	titleLbl.setText("Top 5 book (radius selected = " + radius +"km)");
     	DiagramFactory factory  = new DiagramFactory();
 		Chart chart = factory.createChart(typeOfDiagram, books);
+		chart.setTitle("Top 5 book");
 		
 		this.chartPanel.getChildren().add(chart);
    	}
