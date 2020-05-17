@@ -14,7 +14,6 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
@@ -144,7 +143,7 @@ public class RatingModal extends VBox{
 		
 		submitBtn.setText("SUBMIT");
 		submitBtn.getStyleClass().add("btn");
-		submitBtn.setFont(Font.font("System", FontWeight.BOLD, 15));
+		submitBtn.setFont(Font.font(DEF_FONT_STYLE, FontWeight.BOLD, 15));
 		submitBtn.setTextFill(Color.WHITE);
 		
 		this.getChildren().addAll(titleBox, ratingBox, revTitleBox, revBodyBox, submitBtn);
