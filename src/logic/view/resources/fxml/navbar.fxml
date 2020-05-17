@@ -6,6 +6,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
 
 <BorderPane fx:id="main" prefHeight="40.0" prefWidth="200.0" styleClass="main-color" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <left>
@@ -22,6 +23,9 @@
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
             </Button>
             <Button fx:id="forumBtn" mnemonicParsing="false" onAction="#goToForum" styleClass="transparent" text="FORUM">
                <graphic>
@@ -34,6 +38,9 @@
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
             </Button>
             <Button fx:id="exchangeBtn" mnemonicParsing="false" onAction="#goToExchangeBook" styleClass="transparent" text="EXCHANGE BOOKS">
                <graphic>
@@ -46,6 +53,9 @@
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
             </Button>
          </children>
       </HBox>
@@ -64,6 +74,9 @@
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
             </Button>
             <Button fx:id="logoutBtn" mnemonicParsing="false" onAction="#doLogout" styleClass="transparent">
                <graphic>

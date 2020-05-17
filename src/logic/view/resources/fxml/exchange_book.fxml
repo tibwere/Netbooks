@@ -39,9 +39,9 @@
                                     <Image url="@../images/mail.png" />
                                  </image>
                               </ImageView>
-                              <Button id="manageProposalsBtn" fx:id="manageProposals" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#clickOnManageProposals" prefWidth="165.0" styleClass="btn" text="MANAGE PROPOSALS" textAlignment="CENTER" textFill="WHITE">
+                              <Button id="manageProposalsBtn" fx:id="manageProposals" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#clickOnManageProposals" prefWidth="172.0" styleClass="btn" text="MANAGE PROPOSALS" textAlignment="CENTER" textFill="WHITE">
                                  <font>
-                                    <Font name="System Bold" size="12.0" />
+                                    <Font name="System Bold" size="15.0" />
                                  </font>
                                  <opaqueInsets>
                                     <Insets />
@@ -55,9 +55,9 @@
                               </Button>
                            </children>
                         </VBox>
-                        <Button id="exchangeableListBtn" fx:id="yourBooks" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#clickOnYourBooks" prefWidth="165.0" styleClass="btn" text="YOUR BOOKS" textAlignment="CENTER" textFill="WHITE">
+                        <Button id="exchangeableListBtn" fx:id="yourBooks" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#clickOnYourBooks" prefWidth="172.0" styleClass="btn" text="YOUR BOOKS" textAlignment="CENTER" textFill="WHITE">
                            <font>
-                              <Font name="System Bold" size="12.0" />
+                              <Font name="System Bold" size="15.0" />
                            </font>
                            <opaqueInsets>
                               <Insets />
@@ -74,7 +74,7 @@
                   <VBox alignment="TOP_CENTER" prefHeight="450.0" prefWidth="200.0" spacing="50.0">
                      <children>
                         <Separator prefWidth="180.0" style="-fx-background-color: #000000;" />
-                        <MenuButton alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="26.0" prefWidth="165.0" styleClass="btn" text="SELECT CATEGORY" textAlignment="CENTER" textFill="WHITE">
+                        <MenuButton alignment="CENTER" contentDisplay="CENTER" disable="true" mnemonicParsing="false" styleClass="btn" text="SELECT CATEGORY" textAlignment="CENTER" textFill="WHITE">
                           <items>
                             <MenuItem mnemonicParsing="false" text="THRILLER" />
                             <MenuItem mnemonicParsing="false" text="ACTION" />
@@ -90,7 +90,7 @@
                               <MenuItem mnemonicParsing="false" text="ADULT" />
                           </items>
                            <font>
-                              <Font name="System Bold" size="12.0" />
+                              <Font name="System Bold" size="15.0" />
                            </font>
                            <cursor>
                               <Cursor fx:constant="HAND" />
@@ -108,7 +108,7 @@
          <children>
             <VBox alignment="TOP_CENTER" spacing="10.0" HBox.hgrow="ALWAYS">
                <children>
-                  <Label alignment="CENTER" maxHeight="30.0" text="EXCHANGEABLE BOOKS" textAlignment="JUSTIFY" textFill="#f0bf8b">
+                  <Label alignment="CENTER" maxHeight="30.0" text="EXCHANGEABLE BOOKS" textAlignment="JUSTIFY" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="28.0" />
                      </font>

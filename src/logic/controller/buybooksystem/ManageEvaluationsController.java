@@ -56,7 +56,10 @@ public class ManageEvaluationsController {
 		BookEvaluationBean bean = new BookEvaluationBean();
 		BookEvaluation eval = EvaluationDao.getOldEvaluation(currUser.getUsername(), bookBean.getIsbn());
 		
-		try {
+		if (eval == null)
+			return null;
+		
+		try {			
 			bean.setTitle(eval.getTitle());
 			bean.setBody(eval.getBody());
 			bean.setRate(eval.getRating());

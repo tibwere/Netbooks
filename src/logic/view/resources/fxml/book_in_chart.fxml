@@ -5,6 +5,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <HBox fx:id="hBoxExternal" alignment="CENTER" styleClass="buybook-panel" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
@@ -12,23 +13,32 @@
          <children>
             <HBox fx:id="hBoxInteral" alignment="CENTER" spacing="10.0">
                <children>
-                  <Label fx:id="position" alignment="CENTER" style="-fx-font-weight: bold;" textFill="WHITE" />
+                  <Label fx:id="position" alignment="CENTER" style="-fx-text-fill: black;">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font></Label>
                   <ImageView fx:id="image" fitHeight="60.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" />
                </children>
             </HBox>
             <VBox alignment="CENTER_LEFT">
                <children>
-                  <Label alignment="BOTTOM_CENTER" style="-fx-font-weight: bold;" text="Title : " textFill="WHITE" />
-                  <Label alignment="CENTER" style="-fx-font-weight: bold;" text="Author : " textAlignment="CENTER" textFill="WHITE" />
+                  <Label alignment="BOTTOM_CENTER" style="-fx-text-fill: black;" text="TITLE:">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font></Label>
+                  <Label alignment="CENTER" style="-fx-text-fill: black;" text="AUTHOR:" textAlignment="CENTER">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font></Label>
                </children>
                <padding>
-                  <Insets right="5.0" />
+                  <Insets left="5.0" right="5.0" />
                </padding>
             </VBox>
             <VBox fx:id="vBox" alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
                <children>
-                  <Label fx:id="lblBookName" alignment="BOTTOM_LEFT" textFill="WHITE" />
-                  <Label fx:id="lblBookAuthor" textFill="WHITE" />
+                  <Label fx:id="lblBookName" alignment="BOTTOM_LEFT" style="-fx-text-fill: black;" />
+                  <Label fx:id="lblBookAuthor" style="-fx-text-fill: black;" />
                </children>
                <padding>
                   <Insets right="10.0" />
@@ -38,12 +48,18 @@
       </HBox>
       <HBox alignment="CENTER">
          <children>
-            <Label alignment="CENTER" style="-fx-font-weight: bold;" text="NUMBER OF COPIES SOLD:" textFill="WHITE" />
-            <Label fx:id="lblNumOfCopy" alignment="CENTER" textFill="WHITE" />
+            <Label alignment="CENTER" style="-fx-text-fill: black;" text="NUMBER OF COPIES SOLD: ">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font></Label>
+            <Label fx:id="lblNumOfCopy" alignment="CENTER" style="-fx-text-fill: black;" />
          </children>
          <padding>
             <Insets right="10.0" />
          </padding>
       </HBox>
    </children>
+   <padding>
+      <Insets bottom="2.0" left="2.0" top="2.0" />
+   </padding>
 </HBox>

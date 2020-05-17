@@ -62,7 +62,6 @@ public class LoginServlet extends HttpServlet {
 		} catch (NoSuchAlgorithmException e) {
 			WebUtilities.redirectToErrorPage(request, response, "UNABLE TO ENCRYPT YOUR PASSWORD");
 		} catch (WrongSyntaxException e) {
-			e.printStackTrace();
 			request.setAttribute("fail", "LOGIN FAILED");
 			request.getRequestDispatcher(WebUtilities.LOGIN_PAGE_URL).forward(request, response);
 		}

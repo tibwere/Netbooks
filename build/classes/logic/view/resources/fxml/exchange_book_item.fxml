@@ -8,7 +8,6 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
 <VBox fx:id="bookItem" maxHeight="205.0" maxWidth="100.0" minHeight="205.0" minWidth="100.0" prefHeight="205.0" prefWidth="100.0" spacing="5.0" styleClass="transparent" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
@@ -19,34 +18,36 @@
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></ImageView>
-      <Label fx:id="label" maxHeight="25.0" maxWidth="100.0" minHeight="25.0" minWidth="100.0" onMouseEntered="#extendLabel" onMouseExited="#hideLabel" prefHeight="25.0" prefWidth="100.0" textFill="WHITE">
-         <font>
-            <Font name="System Bold" size="10.0" />
-         </font>
-      </Label>
+      <Label fx:id="label" maxHeight="25.0" maxWidth="100.0" minHeight="25.0" minWidth="100.0" onMouseEntered="#extendLabel" onMouseExited="#hideLabel" prefHeight="25.0" prefWidth="100.0" style="-fx-text-fill: black;" />
       <VBox fx:id="vBoxInfo" styleClass="exBookVBoxInfo" stylesheets="@../css/style.css" visible="false">
          <children>
             <VBox>
                <children>
-                  <HBox alignment="CENTER_LEFT" minHeight="25.0" minWidth="300.0" spacing="18.0">
+                  <HBox alignment="CENTER_LEFT" minHeight="25.0" minWidth="300.0">
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text=" Title: " wrappingWidth="47.0615234375">
+                        <Label prefWidth="80.0" style="-fx-text-fill: black;" text="TITLE:">
                            <font>
-                              <Font name="System Bold" size="13.0" />
+                              <Font name="System Bold" size="15.0" />
                            </font>
-                        </Text>
-                        <Label fx:id="titleOfBook" minHeight="25.0" minWidth="231.0" text="Label" wrapText="true" HBox.hgrow="SOMETIMES" />
+                        </Label>
+                        <Label fx:id="titleOfBook" text="Label" wrapText="true" HBox.hgrow="SOMETIMES" />
                      </children>
+                     <padding>
+                        <Insets left="4.0" />
+                     </padding>
                   </HBox>
-                  <HBox alignment="CENTER_LEFT" minHeight="25.0" minWidth="300.0" spacing="8.0">
+                  <HBox alignment="CENTER_LEFT" minHeight="25.0" minWidth="300.0">
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text=" Owner:">
+                        <Label prefWidth="80.0" style="-fx-text-fill: black;" text="OWNER:">
                            <font>
-                              <Font name="System Bold" size="13.0" />
+                              <Font name="System Bold" size="15.0" />
                            </font>
-                        </Text>
-                        <Label fx:id="ownerOfBook" maxHeight="25.0" maxWidth="232.0" minHeight="25.0" minWidth="231.0" prefHeight="25.0" prefWidth="231.0" text="Label" wrapText="true" HBox.hgrow="SOMETIMES" />
+                        </Label>
+                        <Label fx:id="ownerOfBook" text="Label" wrapText="true" HBox.hgrow="SOMETIMES" />
                      </children>
+                     <padding>
+                        <Insets left="4.0" />
+                     </padding>
                   </HBox>
                </children>
             </VBox>

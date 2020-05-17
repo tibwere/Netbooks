@@ -16,6 +16,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import logic.bean.BookBean;
 import logic.bean.NotificationBean;
@@ -84,13 +85,15 @@ public class ExchangeBookPopUpItemGC implements Initializable {
 			
 			Label label = new Label();
 			if (controller.acceptProposal(notif, book, new ReaderBean(Session.getSession().getCurrUser()))) {
+				label.setStyle("-fx-text-fill: black;");
 				label.setText("The reply has been sent.\nWait for confirmation.");
 				mainGC.choosedBook();
 			}
 			else
 				label.setText("You already own this book.");
 			label.setAlignment(Pos.CENTER);
-			label.setFont(Font.font("Regular", FontWeight.BOLD, 20));
+			label.setTextAlignment(TextAlignment.CENTER);
+			label.setFont(Font.font("System", FontWeight.NORMAL, 18));
 			root.getChildren().add(label);
 			
 			Scene scene = new Scene(root, 360, 400);

@@ -17,19 +17,18 @@
             <ImageView fx:id="thumbnail" fitHeight="60.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" />
             <VBox fx:id="S" styleClass="transparent">
                <children>
-                  <Label fx:id="titleLbl">
+                  <Label fx:id="titleLbl" style="-fx-text-fill: black;">
                      <font>
-                        <Font size="24.0" />
+                        <Font name="System Bold" size="18.0" />
                      </font>
                   </Label>
-                  <Label fx:id="authorLbl">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
+                  <Label fx:id="authorLbl" style="-fx-text-fill: black;" />
                </children>
             </VBox>
          </children>
+         <padding>
+            <Insets top="2.0" />
+         </padding>
       </HBox>
       <HBox alignment="CENTER" prefWidth="105.0">
          <children>

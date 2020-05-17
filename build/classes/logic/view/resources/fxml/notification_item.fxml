@@ -8,18 +8,18 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox fx:id="mainHB" alignment="CENTER" maxWidth="900.0" prefHeight="100.0" prefWidth="900.0" styleClass="proposalItem" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<HBox fx:id="mainHB" alignment="CENTER" maxWidth="900.0" styleClass="proposalItem" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <VBox alignment="CENTER" prefHeight="100.0" prefWidth="900.0" HBox.hgrow="SOMETIMES">
+      <VBox alignment="CENTER" maxWidth="900.0" spacing="10.0" HBox.hgrow="SOMETIMES">
          <children>
-            <Label fx:id="label" prefHeight="50.0" prefWidth="890.0" textAlignment="JUSTIFY" textFill="WHITE" wrapText="true">
+            <Label fx:id="label" maxWidth="880.0" textAlignment="JUSTIFY" textFill="WHITE" wrapText="true">
                <font>
                   <Font size="18.0" />
                </font>
                <VBox.margin>
                   <Insets left="5.0" right="5.0" />
                </VBox.margin></Label>
-            <HBox fx:id="hbox" alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="895.0" spacing="30.0">
+            <HBox fx:id="hbox" alignment="CENTER_RIGHT" spacing="30.0">
                <children>
                   <Button fx:id="rejectBtn" disable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#clickOnReject" prefWidth="200.0" style="-fx-background-color: RED;" text="REJECT" textFill="WHITE" visible="false">
                      <font>
@@ -34,6 +34,9 @@
                   <Insets right="5.0" />
                </padding></HBox>
          </children>
+         <padding>
+            <Insets bottom="5.0" top="5.0" />
+         </padding>
       </VBox>
    </children>
 </HBox>

@@ -148,10 +148,13 @@
             </VBox>
             <VBox alignment="CENTER" spacing="5.0">
                <children>
-                  <Button mnemonicParsing="false" onAction="#trySignupReader" text="SIGNUP">
+                  <Button mnemonicParsing="false" onAction="#trySignupReader" styleClass="btn" text="SIGNUP" textFill="WHITE">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
                   </Button>
                   <Label onMouseClicked="#closeModal" text="Dismiss" textFill="#1d10d0" underline="true">
                      <cursor>

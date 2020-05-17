@@ -14,7 +14,7 @@
          <children>
             <VBox alignment="TOP_CENTER" prefHeight="740.0" prefWidth="1000.0" HBox.hgrow="SOMETIMES">
                <children>
-                  <Label alignment="CENTER" prefHeight="45.0" text="NOTICE-BOARD" textAlignment="JUSTIFY" textFill="#f0bf8b">
+                  <Label alignment="CENTER" prefHeight="45.0" text="NOTICE-BOARD" textAlignment="JUSTIFY" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="28.0" />
                      </font>

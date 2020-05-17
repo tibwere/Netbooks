@@ -25,7 +25,7 @@
                      <children>
                         <HBox fx:id="hBoxBtn" alignment="CENTER">
                            <children>
-                              <Button fx:id="profileBtn" ellipsisString="" mnemonicParsing="false" styleClass="transparent">
+                              <Button fx:id="profileBtn" ellipsisString="" mnemonicParsing="false" style="-fx-text-fill: black;" styleClass="transparent">
                                  <graphic>
                                     <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -36,6 +36,9 @@
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
+                                 <font>
+                                    <Font name="System Bold" size="15.0" />
+                                 </font>
                               </Button>
                               <Button fx:id="logoutBtn" ellipsisString="" mnemonicParsing="false" onAction="#logout" styleClass="transparent">
                                  <graphic>
@@ -60,7 +63,7 @@
                               </ImageView>
                               <Label fx:id="retailerAreaLbl" alignment="CENTER" text="RETAILER-AREA" textFill="WHITE">
                                  <font>
-                                    <Font size="24.0" />
+                                    <Font name="System Bold" size="24.0" />
                                  </font>
                               </Label>
                            </children>
@@ -69,9 +72,9 @@
                   </VBox>
                   <VBox alignment="CENTER" prefHeight="157.0" prefWidth="208.0" spacing="10.0">
                      <children>
-                        <Label text="Select the radius " textFill="WHITE">
+                        <Label style="-fx-text-fill: black;" text="SELECT THE RADIUS" textFill="WHITE">
                            <font>
-                              <Font size="16.0" />
+                              <Font name="System Bold" size="15.0" />
                            </font>
                         </Label>
                         <Slider fx:id="slider" majorTickUnit="10.0" max="50.0" minorTickCount="5" onKeyTyped="#onSliderChanged" onMouseReleased="#onSliderChanged" showTickLabels="true" showTickMarks="true" value="10.0">
@@ -79,9 +82,9 @@
                               <Cursor fx:constant="OPEN_HAND" />
                            </cursor>
                         </Slider>
-                        <Label fx:id="km" text="Selected value : 10KM" textFill="WHITE">
+                        <Label fx:id="km" style="-fx-text-fill: black;" text="SELECTED VALUE: 10KM" textFill="WHITE">
                            <font>
-                              <Font size="16.0" />
+                              <Font name="System Bold" size="15.0" />
                            </font>
                         </Label>
                      </children>
@@ -90,7 +93,7 @@
             </VBox>
             <Button fx:id="buttonVBS" alignment="CENTER" mnemonicParsing="false" onAction="#showBestsellers" prefHeight="34.0" prefWidth="180.0" style="-fx-background-color: #634f3a;" text="VIEW BEST-SELLERS" textFill="#f8f8f8">
                <font>
-                  <Font name="System Bold" size="12.0" />
+                  <Font name="System Bold" size="15.0" />
                </font>
                <cursor>
                   <Cursor fx:constant="HAND" />
@@ -111,16 +114,16 @@
                      <children>
                         <Label fx:id="labelRes" prefHeight="76.0" prefWidth="170.0" text="RESULTS" textFill="#fcf8f8">
                            <font>
-                              <Font size="40.0" />
+                              <Font name="System Bold" size="28.0" />
                            </font>
                         </Label>
-                        <MenuButton fx:id="menuButton" alignment="CENTER" mnemonicParsing="false" prefHeight="39.0" prefWidth="167.0" styleClass="btn" text="VIEW CHART OF TOP 5" textFill="#fffefe">
+                        <MenuButton fx:id="menuButton" alignment="CENTER" mnemonicParsing="false" styleClass="btn" text="VIEW CHART OF TOP 5" textFill="#fffefe">
                            <items>
                               <MenuItem fx:id="barChart1" mnemonicParsing="false" onAction="#barChartAction" text="BAR CHART" />
                               <MenuItem fx:id="pieChart1" mnemonicParsing="false" onAction="#pieChartAction" text="PIE CHART" />
                            </items>
                            <font>
-                              <Font name="System Bold" size="12.0" />
+                              <Font name="System Bold" size="15.0" />
                            </font>
                            <cursor>
                               <Cursor fx:constant="HAND" />
