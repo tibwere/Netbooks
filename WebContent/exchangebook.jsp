@@ -187,7 +187,7 @@
 									</form>
 									<form action="<%=WebUtilities.LOAD_OWNED_BOOKS_SERVLET_URL.substring(1)%>" method="post">
 										<button type="submit" 
-												class="btn ex-book-btn font-weight-bold btn-sm mb-md-5 mb-sm-5 mb-xs-5"
+												class="btn ex-book-btn font-weight-bold btn-sm mb-md-5 mb-sm-5 mb-xs-5" id="seeYourBooksBtn"
 												>See Your Books
 										</button>
 									</form>

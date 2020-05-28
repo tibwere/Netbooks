@@ -78,6 +78,7 @@ public class BookPreviewGC implements Initializable{
 			if (system.checkOwnership(bean, new ReaderBean(Session.getSession().getCurrUser()))) {
 				Stage parent = (Stage) thumbnail.getScene().getWindow();
 				Stage modal = GraphicalElements.createModalWindow(new Scene(new RatingModal(bean)), parent);
+				modal.setResizable(false);
 				modal.show();
 			} 
 			else {

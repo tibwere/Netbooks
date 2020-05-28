@@ -61,7 +61,7 @@
 									<i class="display-1 fas fa-book ex-book-shadow book-cover mb-sm-2 mt-3"></i>
 									<br>
 									<a class="btn btn-link ex-book-black-link font-weight-bold" data-toggle="collapse" href="#collapse<%=index%>" aria-expanded="false" aria-controls="collapse<%=index%>">
-	   									<%=book.getTitle()%>
+	   									<span id="title-<%=index%>-id"><%=book.getTitle()%></span>
 	  								</a>
 	  								<div class="collapse mb-3" id="collapse<%=index%>">
 	  									<div class="card card-body">
@@ -69,7 +69,7 @@
 							       				<tbody>
 							       					<tr>
 							       						<th scope="row">ISBN:</th>
-							       						<td><%=book.getIsbn()%></td>
+							       						<td><span id="isbn-<%=index%>-id"><%=book.getIsbn()%></span></td>
 							       					</tr>
 							       					<tr>
 							       						<th scope="row">Author:</th>

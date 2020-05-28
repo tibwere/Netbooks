@@ -55,7 +55,7 @@
                                     </VBox>
                                     <VBox>
                                        <children>
-                                          <Label text="Second name *" />
+                                          <Label text="Last name *" />
                                           <TextField fx:id="surnametxt" onMouseClicked="#resetLbl" />
                                        </children>
                                     </VBox>

@@ -18,7 +18,7 @@ public class TestReaderDao {
 		
 		Reader testerReader = ReaderDao.getEmailAndGenre(Reader.TESTER_USERNAME);
 		
-		Boolean output = ReaderDao.checkOwnership(testerReader.getUsername(), TEST_ISBN);
+		boolean output = ReaderDao.checkOwnership(testerReader.getUsername(), TEST_ISBN);
 		
 		assertEquals(false, output);
 	}

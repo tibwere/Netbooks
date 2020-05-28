@@ -14,7 +14,7 @@
          <children>
             <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="40.0" minHeight="20.0" minWidth="300.0">
                <children>
-                  <Label prefWidth="80.0" style="-fx-text-fill: black;" text="ISBN:">
+                  <Label minWidth="80.0" prefWidth="80.0" style="-fx-text-fill: black;" text="ISBN:">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>
@@ -24,22 +24,22 @@
             </HBox>
             <HBox alignment="CENTER_LEFT" minHeight="20.0" minWidth="300.0">
                <children>
-                  <Label prefWidth="80.0" style="-fx-text-fill: black;" text="TITLE:">
+                  <Label minWidth="80.0" prefWidth="80.0" style="-fx-text-fill: black;" text="TITLE:">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>
                   </Label>
-                  <Label fx:id="title" minHeight="20.0" minWidth="231.0" style="-fx-text-fill: black;" wrapText="true" HBox.hgrow="SOMETIMES" />
+                  <Label fx:id="title" style="-fx-text-fill: black;" wrapText="true" HBox.hgrow="SOMETIMES" />
                </children>
             </HBox>
             <HBox alignment="CENTER_LEFT" minHeight="20.0" minWidth="300.0">
                <children>
-                  <Label prefWidth="80.0" style="-fx-text-fill: black;" text="AUTHOR:">
+                  <Label minWidth="80.0" prefWidth="80.0" style="-fx-text-fill: black;" text="AUTHOR:">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>
                   </Label>
-                  <Label fx:id="author" minHeight="20.0" minWidth="231.0" style="-fx-text-fill: black;" wrapText="true" HBox.hgrow="SOMETIMES" />
+                  <Label fx:id="author" style="-fx-text-fill: black;" wrapText="true" HBox.hgrow="SOMETIMES" />
                </children>
             </HBox>
          </children>

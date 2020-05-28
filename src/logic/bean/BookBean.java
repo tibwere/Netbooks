@@ -27,6 +27,7 @@ public class BookBean implements Serializable{
 	private int yearOfPublication;
 	private String publisher;
 	private String language;
+	private String genre;
 
 	private Map<ImageSizes, String> images;
 	private Map<Vendors, String> links;
@@ -111,6 +112,14 @@ public class BookBean implements Serializable{
 
 	public void setLanguage(String language) {
 		this.language = language;
+	}
+
+	public String getGenre() {
+		return genre;
+	}
+
+	public void setGenre(String genre) {
+		this.genre = genre;
 	}
 
 	public String getSingleImage(ImageSizes size) {

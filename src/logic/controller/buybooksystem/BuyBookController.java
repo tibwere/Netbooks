@@ -38,6 +38,7 @@ public class BuyBookController {
 		bean.setYearOfPublication(book.getYearOfPublication());
 		bean.setPublisher(book.getPublisher());
 		bean.setLanguage(book.getLanguage());
+		bean.setGenre(book.getGenre());
 		
 		Map<Vendors, String> links = new HashMap<>();
 		links.put(Vendors.AMAZON, book.getAmazonLink());

@@ -14,6 +14,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -128,10 +129,12 @@ public class NotificationItemGC implements Initializable{
 					
 					ScrollPane root = new ScrollPane();
 					root.getStylesheets().add(getClass().getResource("resources/css/style.css").toExternalForm());
+					root.setFitToWidth(true);
+					root.setHbarPolicy(ScrollBarPolicy.NEVER);
 					
 					VBox vbox = new VBox();
 					vbox.setSpacing(10);
-					vbox.setMinHeight(400);
+					vbox.setMinHeight(500);
 					vbox.setAlignment(Pos.TOP_CENTER);
 					
 					List<BookBean> bookBeanList = ctrl.getUserBooks(new ReaderBean(bean.getSourceId()));
@@ -149,6 +152,7 @@ public class NotificationItemGC implements Initializable{
 					
 					Scene popupScene = new Scene(root, 360, 400);
 					Stage popupStage = GraphicalElements.createModalWindow(popupScene, parent);
+					popupStage.setResizable(false);
 					popupStage.show();
 				}
 				catch (PersistencyException | NotAccesibleConfigurationException e) {

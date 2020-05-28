@@ -37,15 +37,13 @@ public class TestSeeYourBooksSelenium {
 		driver.findElement(By.xpath("//*[@id=\"passwordTxt\"]")).sendKeys(TestUtilities.getTesterPasswd(false));
 		driver.findElement(By.xpath("//*[@id=\"loginBtn\"]")).click();
 		/* Click on "Exchange Books" */
-		driver.findElement(By.xpath("/html/body/nav/div/div[1]/a[3]")).click();
+		driver.findElement(By.xpath("//*[@id=\"exchangeBookId\"]")).click();
 		/* Click on "See Your Books" */
-		driver.findElement(By.xpath("/html/body/div/div/div/div/div[2]/div/div/form[2]/button")).click();
-		/* Click on book title for expand collapse */
-		driver.findElement(By.xpath("/html/body/div/div/div/div/div[1]/div/a")).click();
-		/* Acquire the ISBN of book */
-		String output = driver.findElement(By.xpath("/html/body/div/div/div/div/div[1]/div/div/div/table/tbody/tr[1]/td")).getText();
+		driver.findElement(By.xpath("//*[@id=\"seeYourBooksBtn\"]")).click();
+		/* Get book name (expected: "Il grande Gatsby" */
+		String output = driver.findElement(By.xpath("//*[@id=\"title-0-id\"]")).getText();
 		
-		assertEquals(TEST_ISBN, output);
+		assertEquals("Il grande Gatsby", output);
 
 		driver.close();
 		

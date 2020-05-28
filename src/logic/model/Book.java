@@ -20,6 +20,7 @@ public class Book {
 	private int yearOfPublication;
 	private String publisher;
 	private String language;
+	private String genre;
 	
 	private Map<ImageSizes, String> images;
 	private Map<Vendors, String> links;
@@ -127,5 +128,13 @@ public class Book {
 	
 	public void setPlayLink(String link) {
 		links.put(Vendors.PLAY_BOOKS, link);
+	}
+
+	public String getGenre() {
+		return genre;
+	}
+
+	public void setGenre(String genre) {
+		this.genre = genre;
 	}
 }

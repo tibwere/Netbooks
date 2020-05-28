@@ -46,6 +46,7 @@ public class BookDao {
 		book.setPublisher(res.getString("publisher"));
 		book.setSmallImage(ImageDispenser.getCovers(book.getTitle(), ImageSizes.SMALL));
 		book.setYearOfPublication(res.getInt("year"));
+		book.setGenre(res.getString("genre"));
 		
 		return book;
 		

@@ -61,7 +61,7 @@ public class WebViewGC implements Initializable {
 			if (results.get().equals(ButtonType.OK)) {
 				BuyBookSystem.getInstance().addBookToOwnedList(bean, new ReaderBean(Session.getSession().getCurrUser()));
 				GraphicalElements.showDialog(AlertType.INFORMATION, 
-						"Congratulations!\n\"" + bean.getTitle() + "\" has benn added to your list!");
+						"Congratulations!\n\"" + bean.getTitle() + "\" has been added to your list!");
 				
 				Stage currStage = (Stage) webView.getScene().getWindow();
 				currStage.close();

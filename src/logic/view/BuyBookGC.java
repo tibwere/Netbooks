@@ -78,7 +78,7 @@ public class BuyBookGC implements Initializable{
     private Label publisherLbl;
 
     @FXML
-    private Label languageLbl;
+    private Label genreLbl;
 
     @FXML
     private CheckBox inAppRatingsChk;
@@ -117,7 +117,7 @@ public class BuyBookGC implements Initializable{
 		authorLbl.setText(bookToLoad.getAuthor());
 		yearLbl.setText(String.valueOf(bookToLoad.getYearOfPublication()));
 		publisherLbl.setText(bookToLoad.getPublisher());
-		languageLbl.setText(bookToLoad.getLanguage());
+		genreLbl.setText(bookToLoad.getGenre());
 		
 		ChangeListener<Boolean> hideErr = new ChangeListener<Boolean>() {
 
@@ -140,6 +140,7 @@ public class BuyBookGC implements Initializable{
 			loader.setController(new WebViewGC(bookToLoad, vendor, this));
 			Scene scene = new Scene(loader.load());
 			Stage secondStage = GraphicalElements.createModalWindow(scene, (Stage) inAppRatingsChk.getScene().getWindow());
+			secondStage.setResizable(false);
 			secondStage.show();
 		} catch (IOException e) {
 			GraphicalElements.showDialog(AlertType.ERROR, "Unable to load modal window");
@@ -206,6 +207,7 @@ public class BuyBookGC implements Initializable{
 				try { 
 					VBox box = task.get();
 					Stage secondaryStage = GraphicalElements.createModalWindow(new Scene(box), parent);
+					secondaryStage.setResizable(false);
 					loadingStage.hide();
 					secondaryStage.show();
 				} catch (InterruptedException | ExecutionException e) {
